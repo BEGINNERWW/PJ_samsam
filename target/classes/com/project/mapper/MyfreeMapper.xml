@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.project.mapper.MyfreeMapper">
+	
+	
+	<!-- 프로필, 닉네임 조회 -->
+	<select id="selectMember" parameterType="String" resultType="Member_listVO">
+		SELECT * FROM member_list WHERE email=#{email}
+	</select>
+	
+	<!-- 나의 책임분양 조회  피분양자 아이디로 검색 -->
+	<select id="selectConfirm" parameterType="String" resultType="Myfree_doc_confirmVO">
+		SELECT * FROM free_doc_confirm WHERE confirm_fdoc_r_email=#{email}
+	</select>
+	
+	<!-- 책임 분양 인증 게시글 내역. 확정번호로 검색   --> 
+	<select id="selectAuth" parameterType="String" resultType="Myfree_authVO">
+		SELECT * FROM free_auth where fadoc_r_email=#{email} order by fadoc_date desc
+	</select>
+	
+	<!-- 작성한 책임분양글 목록 조회  -->
+	<select id="selectDoc" parameterType="String" resultType="Myfree_docVO">
+		SELECT * FROM free_doc WHERE fdoc_email=#{email} order by fdoc_date desc
+	</select>
+	
+	<!-- 환급계좌 입력 -->
+	<insert id="insertAccount" parameterType="Myfree_doc_confirmVO">
+		INSERT INTO free_doc_confirm VALUES(#{confirm_account}) WHERE confirm_no = #{confirm_no}
+	</insert>
+	
+	<!-- 책임분양 인증글 작성창 띄우기 - 책임분양 인증현황 테이블 조회 -->
+	<select id="selectConfirm_write" parameterType="String" resultType="Myfree_doc_confirmVO">
+		SELECT * FROM free_doc_confirm WHERE confirm_no=#{confirm_no}
+	</select>
+	
+	
+	<!-- 책임분양 인증글 작성 -->
+	<insert id="insertFree_auth" parameterType="Myfree_authVO">
+		<selectKey keyProperty="fadoc_no" order="BEFORE" resultType="int">
+			SELECT nvl(max(fadoc_no), 0)+1 FROM free_auth
+		</selectKey>
+			INSERT INTO free_auth VALUES (#{fadoc_no}, #{fadoc_r_email}, #{fadoc_confirm_no}, #{fadoc_s_email}, #{fadoc_subject}, 
+							#{fadoc_content}, sysdate, #{fadoc_readcount}, #{fadoc_check})
+	</insert>
+	
+	
+	
+	<!-- 책임분양 인증글 조회 -->
+	<select id="selectAuth_view" parameterType="int" resultType="Myfree_authVO">
+		SELECT * FROM free_auth WHERE fadoc_no=#{fadoc_no}
+	</select>
+	
+	<select id="selectConfirm_view" parameterType="String" resultType="Myfree_doc_confirmVO">
+		SELECT * FROM free_doc_confirm WHERE confirm_no=#{confirm_no}
+	</select>
+	
+	<update id="setReadCountUpdate" parameterType="int">
+		update free_auth set fadoc_readcount=fadoc_readcount+1 where fadoc_no=#{fadoc_no}
+	</update>
+	
+	
+	<!-- 책임분양 이미지 업로드 -->
+	<update id="update_fdoc_img" parameterType="Myfree_doc_confirmVO">
+		UPDATE free_doc_confirm SET confirm_fdoc_img=#{confirm_fdoc_img} WHERE confirm_no=#{confirm_no}
+	</update>
+	
+</mapper>
+
+
+

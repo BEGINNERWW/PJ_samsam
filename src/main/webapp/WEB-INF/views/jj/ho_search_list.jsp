@@ -4,7 +4,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="com.project.samsam.board.*" %>
-<%@ page import="com.project.samsam.board.BoardVO"%>
+<%@ page import="com.project.samsam.board.JJBoardVO"%>
 <%
 	List<JJBoardVO> free_doc =(List<JJBoardVO>)request.getAttribute("free_doc");
 	List<JJBoardVO> community =(List<JJBoardVO>)request.getAttribute("community");

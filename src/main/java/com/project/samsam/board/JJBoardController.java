@@ -63,7 +63,7 @@ public class JJBoardController {
 			System.out.println("검색 에러(책임분양) : " + e.getMessage());
 		}
 		
-           return "board/ho_search_list";
+           return "jj/ho_search_list";
         
 	}
 	
@@ -77,7 +77,7 @@ public class JJBoardController {
 		}catch(Exception e) {
 			e.getMessage();
 		}
-		return "board/ho_search_view";
+		return "jj/ho_search_view";
 	}
 	//홈페이지 원본 글이동   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>a href 이동을 위한 메소드 수정필요
 	
@@ -86,7 +86,7 @@ public class JJBoardController {
 	
 	@RequestMapping("/adminboard.do")
 	public String adminboard() throws Exception {
-		return "admin/admin_board";
+		return "jj/admin_board";
 	}
 	
 

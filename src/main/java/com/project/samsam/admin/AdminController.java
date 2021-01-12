@@ -92,7 +92,7 @@ public class AdminController {
 	@RequestMapping(value = "/admin_main.me")
 	public String admin_main() {
 		
-		return "admin_member";
+		return "YM/admin_member";
 	}
 	
 	@RequestMapping(value = "/search_member.do" , produces="application/json; charset=UTF-8")
@@ -165,6 +165,6 @@ public class AdminController {
 		
 		model.addAttribute("Pay_list", plist);
 		
-		return "admin_pay";
+		return "YM/admin_pay";
 	}
 }

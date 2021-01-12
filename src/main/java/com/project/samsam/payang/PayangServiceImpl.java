@@ -2,18 +2,25 @@ package com.project.samsam.payang;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.project.mapper.PayangMapper;
 
 
 @Service
 public class PayangServiceImpl implements PayangService {
 
-	@Autowired
-	private PayangMapper mapper;
+	PayangMapper mapper = null;
 	
+	@Autowired
+	public PayangServiceImpl(SqlSession sqlSession) {
+	     this.mapper = sqlSession.getMapper(PayangMapper.class);
+	}
 	@Override
 	public List<PayangVO> list() throws Exception {
+		
 		return mapper.list();
 	}
 

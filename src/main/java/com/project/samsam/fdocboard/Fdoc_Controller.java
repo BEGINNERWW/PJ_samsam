@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.project.samsam.myfree.Myfree_doc_confirmVO;
+
 
 
 
@@ -46,12 +48,12 @@ public class Fdoc_Controller {
 	public String home() {
 		return "boardpage";
 		//return "fdoc_list";
-		//return "redirect:/fdoclist.bo";
+		//return "redirect:/fdoclisst.bo";
 	}
 	@RequestMapping(value = "/fdocform.bo", method = RequestMethod.GET)
 	public String fdoc_Form() {
 		
-		return "fdoc_form";
+		return "js/fdoc_form";
 	}
 	
 	@RequestMapping("/fdoclist.bo")
@@ -87,7 +89,7 @@ public class Fdoc_Controller {
 		session.removeAttribute("default_option");
 		session.removeAttribute("detail_option");
 		
-		return "fdoc_list";
+		return "js/fdoc_list";
 	}
 	
 	@RequestMapping("/fdoc_write.bo")
@@ -191,7 +193,7 @@ public class Fdoc_Controller {
 		FdocVO vo = FdocService.getView(fdoc_no);
 		model.addAttribute("vo",vo);
 		model.addAttribute("page",page);
-		return "fdoc_view";
+		return "js/fdoc_view";
 	}
 	
 	@ResponseBody
@@ -283,7 +285,7 @@ public class Fdoc_Controller {
 		model.addAttribute("vo",vo);
 		
 		
-		return "fdoc_list";
+		return "js/fdoc_list";
 	}
 	/*
 	@ResponseBody

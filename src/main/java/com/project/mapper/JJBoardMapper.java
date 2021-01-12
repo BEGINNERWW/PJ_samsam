@@ -2,7 +2,7 @@
 
 import java.util.List;
 
-import com.project.samsam.board.BoardVO;
+import com.project.samsam.board.JJBoardVO;
 
 public interface JJBoardMapper {
 	

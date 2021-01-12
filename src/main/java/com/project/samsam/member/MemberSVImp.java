@@ -1,6 +1,7 @@
 package com.project.samsam.member;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,20 +18,39 @@ public class MemberSVImp implements MemberSV {
 	public MemberSVImp(SqlSession sqlSession) {
 	     this.mapper = sqlSession.getMapper(MemberMapper.class);
 	}
-	//È¸¿ø°¡ÀÔ
+	//join member
 	@Override
 	public int joinMember(MemberVO mvo) {
 		int res = mapper.joinMember(mvo);
 		
 		return res;
 	}
-	
+	@Override
+	public int k_joinMember(MemberVO mvo) {
+		int res =mapper.k_joinMember(mvo);
+		
+		return res;
+		//ì¹´ì¹´ì˜¤ íšŒì›ê°€ì…
+	}
+	@Override
+	public int userCheck(MemberVO memberVO) {
+		int res = mapper.userCheck(memberVO);
+		return res;
+	}
+	@Override
+	public void updateAuthkey ( Map<String, String> map){
+		mapper.updateAuthkey(map);
+	}
+	@Override
+	public void updateAuthStatus ( Map<String, Integer> map){
+		mapper.updateAuthStatus(map);
+	}
 	@Override
 	public MemberVO selectMember(String email) {
 		System.out.println(email);
 		MemberVO bo = mapper.selectMember(email);
 		if(bo != null) {
-		System.out.println("¼¿·º¸â¹ö : " + bo.getPhone());
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : " + bo.getPhone());
 		StringBuffer str = new StringBuffer(bo.getPhone());
 		str.insert(0, "0");
 				
@@ -40,7 +60,7 @@ public class MemberSVImp implements MemberSV {
 		}
 		bo.setPhone(phone);
 		
-		System.out.println("¼¼ÆÃ Æù : " + bo.getPhone());
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ : " + bo.getPhone());
 		}
 		System.out.println(bo);
 		return bo;
@@ -111,7 +131,7 @@ public class MemberSVImp implements MemberSV {
 	@Override
 	public int selectBiz_no(String biz_no) {
 		int res = mapper.selectBiz_no(biz_no);
-		System.out.println("selectBiz_no : ¼º°ø" + res);
+		System.out.println("selectBiz_no : ï¿½ï¿½ï¿½ï¿½" + res);
 		
 		return res;
 	}
@@ -132,7 +152,7 @@ public class MemberSVImp implements MemberSV {
 	public ArrayList<BoardlistVO> getWriteList(String email) {
 		ArrayList<BoardlistVO> list = mapper.getWriteList(email);
 		if(list!=null) {
-		System.out.println("Á¶È¸ ³¡ °Ô½Ã±Û");
+		System.out.println("ï¿½ï¿½È¸ ï¿½ï¿½ ï¿½Ô½Ã±ï¿½");
 		}
 		return list;
 	}
@@ -140,7 +160,7 @@ public class MemberSVImp implements MemberSV {
 	public ArrayList<CommentListVO> getWriteComment(String email) {
 		ArrayList<CommentListVO> list = mapper.getWriteComment(email);
 		if(list!=null) {
-			System.out.println("Á¶È¸ ³¡ ´ñ±Û");
+			System.out.println("ï¿½ï¿½È¸ ï¿½ï¿½ ï¿½ï¿½ï¿½");
 			}
 		return list;
 	}

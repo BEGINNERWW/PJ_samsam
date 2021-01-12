@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원관리 시스템 로그인 페이지</title>
-	<link href="resources/css/login_form2.css"rel="stylesheet">
+	<link href="resources/css/login_form.css"rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 	<script src="resources/js/login_form.js"></script>
 	<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script> <!-- 카카오톡 자바스크립트 라이브러리 -->

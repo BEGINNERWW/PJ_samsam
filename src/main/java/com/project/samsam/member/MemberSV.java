@@ -1,6 +1,7 @@
 package com.project.samsam.member;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public interface MemberSV {
 
@@ -20,6 +21,13 @@ public interface MemberSV {
 	public ArrayList<BoardlistVO> getWriteList(String email);
 	public ArrayList<CommentListVO> getWriteComment(String email);
 	
-	//회원가입
+	//join member
 	public int joinMember(MemberVO mvo);
+	public int k_joinMember (MemberVO mvo);
+
+	public void updateAuthkey(Map<String, String> map);
+	public void updateAuthStatus (Map<String, Integer> map);
+	
+	public int userCheck(MemberVO memberVO);
+
 }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	 <mapper namespace="com.project.mapper.DocMapper">
+	
+	 
+	 <insert id="DocInsert" parameterType="DocVO">
+	
+	 	<selectKey keyProperty="doc_no" order="BEFORE" resultType="int">
+	 	
+	 	select nvl(max(doc_no),0) +1 from community
+	 	</selectKey>
+		insert into community values (#{doc_no},#{doc_email},#{doc_nick},#{doc_subject},#{doc_content},sysdate,#{doc_readcount},#{doc_comment})
+	 
+	 </insert>
+	 
+	 <select id="getListCount" resultType="int">
+			 
+	 select count(*) from community
+	 
+	 </select> 
+	 
+	  <select id="getDocList" parameterType="DocVO" resultType="DocVO">
+	
+	 <![CDATA[
+	 select * from (select rownum rnum,doc_no,doc_nick,doc_subject,doc_content,doc_date,doc_readcount,doc_comment 
+	 from (select * from community order by doc_no desc)) where rnum>=#{startrow} and rnum<=#{endrow}
+	 ]]>
+	 
+	 </select>
+	 
+	 <update id="setReadCountUpdate" parameterType="int">
+	 
+	 update community set doc_readcount=doc_readcount+1 where doc_no=#{doc_no}
+	 
+	 </update>
+	 
+	 <select id="getView" parameterType="int" resultType="DocVO">
+	 
+	 select * from community where doc_no =#{doc_no}
+	 
+	 </select>
+
+	 
+	 
+	 </mapper>

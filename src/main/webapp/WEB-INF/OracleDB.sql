@@ -28,12 +28,6 @@ alter table member_list add signdate date;
 alter table member_list add wcount number;
 alter table member_list modify grade varchar2(20) default '일반' not null;
 
-ALTER TABLE biz_member
-ADD CONSTRAINT biz_email FOREIGN KEY (biz_email)
-REFERENCES MEMBER_list(email)ON DELETE CASCADE;
-
-alter table biz_member drop constraint biz_email;
-
 /* insert 예제 insert into countries values ('KR', 'Korea', 3); */
 insert into member_list(email,pw,name,nick,phone,local) 
 values('ivedot@naver.com', 'han1004', '한스', 'ManD', 01043140000, '서울');

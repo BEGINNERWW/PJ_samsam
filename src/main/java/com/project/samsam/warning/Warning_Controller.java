@@ -26,8 +26,8 @@ public class Warning_Controller {
 			vo.setW_reason(etc_reason);
 		}
 		vo.setW_nick("2");
-		vo.setW_status("´ë±âÁß");
-		vo.setW_category("Ã¥ÀÓ");
+		vo.setW_status("ëŒ€ê¸°ì¤‘");
+		vo.setW_category("ì±…ìž„");
 		return WarningService.warningInsertService(vo);
 	}
 	
@@ -39,8 +39,8 @@ public class Warning_Controller {
 			vo.setW_reason(etc_reason);
 		}
 		vo.setW_nick("2");
-		vo.setW_status("´ë±âÁß");
-		vo.setW_category("Ä¿¹Â´ÏÆ¼");
+		vo.setW_status("ëŒ€ê¸°ì¤‘");
+		vo.setW_category("ì»¤ë®¤ë‹ˆí‹°");
 		return WarningService.warningInsertService(vo);
 	}
 

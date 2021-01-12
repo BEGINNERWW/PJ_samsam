@@ -24,8 +24,8 @@ public class Doc_Controller {
 	
 	@RequestMapping("/doc_write.bo")
 	public String DocInsert(DocVO vo) throws Exception {
-		vo.setDoc_nick("2");//¼¼¼Ç ¾ÆÀÌµð ÀúÀå
-		vo.setDoc_email("gmail.com");//¼¼¼Ç ÀÌ¸ÞÀÏ ÀúÀå
+		vo.setDoc_nick("2");//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
+		vo.setDoc_email("gmail.com");//ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		DocService.boardInsert(vo);
 		
 		return "redirect:/doclist.bo";
@@ -34,7 +34,7 @@ public class Doc_Controller {
 	@RequestMapping(value = "/docform.bo", method = RequestMethod.GET)
 	public String doc_Form() {
 		
-		return "doc_form";
+		return "js/doc_form";
 	}
 	
 	@RequestMapping("/doclist.bo")
@@ -53,11 +53,11 @@ public class Doc_Controller {
 		vo.setStartrow(startrow);
 		vo.setEndrow(endrow);
 		List<DocVO> doclist = DocService.getDocList(vo);
-		//ÃÑ ÆäÀÌÁö ¼ö
-   		int maxpage=(int)((double)listcount/limit+0.95); //0.95¸¦ ´õÇØ¼­ ¿Ã¸² Ã³¸®
-   		//ÇöÀç ÆäÀÌÁö¿¡ º¸¿©ÁÙ ½ÃÀÛ ÆäÀÌÁö ¼ö(1, 11, 21 µî...)
+		//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+   		int maxpage=(int)((double)listcount/limit+0.95); //0.95ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½Ã¸ï¿½ Ã³ï¿½ï¿½
+   		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½(1, 11, 21 ï¿½ï¿½...)
    		int startpage = (((int) ((double)page / 10 + 0.9)) - 1) * 10 + 1;
-   		//ÇöÀç ÆäÀÌÁö¿¡ º¸¿©ÁÙ ¸¶Áö¸· ÆäÀÌÁö ¼ö(10, 20, 30 µî...)
+   		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½(10, 20, 30 ï¿½ï¿½...)
    		int endpage = maxpage;
    		
    		if (endpage>startpage+10-1) endpage=startpage+10-1;
@@ -70,14 +70,14 @@ public class Doc_Controller {
 		model.addAttribute("endpage", endpage);
 		
 	
-		return "doc_list";
+		return "js/doc_list";
 	}
 	@RequestMapping("/docdetail.bo")
 	public String fdocView(@RequestParam(value="doc_no", required=true) int doc_no,@RequestParam(value="page", required=false,defaultValue="1")int page, Model model) {
 		DocVO vo = DocService.getView(doc_no);
 		model.addAttribute("vo",vo);
 		model.addAttribute("page",page);
-		return "doc_view";
+		return "js/doc_view";
 	}
 	
 

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	 <mapper namespace="com.project.mapper.WarningMapper">
+	
+	 
+ <insert id="warningInsert" parameterType="WarningVO">
+	 
+	 	<selectKey keyProperty="w_no" order="BEFORE" resultType="int">
+	 	
+	 	select nvl(max(w_no),0) +1 from warning
+	 	
+	 	</selectKey>
+	 
+	 
+	 	INSERT INTO warning VALUES(#{w_no},#{w_email},#{w_co_no},#{w_doc_no},#{w_nick},sysdate,#{w_status},#{w_reason},#{w_category})
+	 
+	 </insert>
+	 
+	 </mapper>

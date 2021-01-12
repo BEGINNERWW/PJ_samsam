@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.mapper.FdocMapper;
+import com.project.samsam.myfree.Myfree_doc_confirmVO;
 
 
 @Service
@@ -76,7 +77,7 @@ public class Fdoc_ServiceImple implements Fdoc_Service {
 		comment.setFdoc_seq(1);
 		fdocMapper.commentCount(comment);
 		//String fdoc_ccontent = comment.getFdoc_ccontent();
-		//fdoc_ccontent = fdoc_ccontent.replace("\r\n","<br>");//�ٹٲ� ġȯ
+		//fdoc_ccontent = fdoc_ccontent.replace("\r\n","<br>");//�ٹٲ� ġȯ
 		//comment.setFdoc_ccontent(fdoc_ccontent);
 		
 		return fdocMapper.commentInsert(comment);
@@ -92,7 +93,7 @@ public class Fdoc_ServiceImple implements Fdoc_Service {
 	public int commentUpdateService(FdocReflyVO comment) throws Exception {
 		FdocMapper fdocMapper = sqlSession.getMapper(FdocMapper.class);
 		String fdoc_ccontent = comment.getFdoc_ccontent();
-		fdoc_ccontent = fdoc_ccontent.replace("\r\n","<br>");//�ٹٲ� ġȯ
+		fdoc_ccontent = fdoc_ccontent.replace("\r\n","<br>");//�ٹٲ� ġȯ
 		comment.setFdoc_ccontent(fdoc_ccontent);
 		return fdocMapper.commentUpdate(comment);
 	}

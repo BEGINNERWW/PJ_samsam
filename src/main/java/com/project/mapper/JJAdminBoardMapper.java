@@ -2,11 +2,11 @@ package com.project.mapper;
 
 import java.util.List;
 
-import com.project.samsam.board.ABoardVO;
-import com.project.samsam.board.ABoardVOto;
-import com.project.samsam.board.ADModalVO;
-import com.project.samsam.board.CommentVO;
-import com.project.samsam.board.WarningVO;
+import com.project.samsam.board.JJABoardVO;
+import com.project.samsam.board.JJABoardVOto;
+import com.project.samsam.board.JJADModalVO;
+import com.project.samsam.board.JJCommentVO;
+import com.project.samsam.board.JJWarningVO;
 import com.project.samsam.member.MemberVO;
 
 public interface JJAdminBoardMapper {

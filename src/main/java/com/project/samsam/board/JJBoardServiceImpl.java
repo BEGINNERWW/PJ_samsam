@@ -1,15 +1,14 @@
 package com.project.samsam.board;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.mapper.AdminBoardMapper;
-import com.project.mapper.BoardMapper;
+import com.project.mapper.JJAdminBoardMapper;
+import com.project.mapper.JJBoardMapper;
 import com.project.samsam.member.MemberVO;
 
 @Service("boardService")

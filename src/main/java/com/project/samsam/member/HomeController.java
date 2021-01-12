@@ -38,7 +38,7 @@ public class HomeController {
 	@RequestMapping(value = "/pw_find.me", method = RequestMethod.GET)
 	public String pw_find() {
 
-		return "pw_find";
+		return "YM/pw_find";
 	}
 
 	@RequestMapping(value = "/pw_auth.me")
@@ -104,10 +104,10 @@ public class HomeController {
 			@RequestParam(value = "num") String num) throws IOException{
 		
 		if(email_injeung.equals(num)) {
-			return "pw_new";
+			return "YM/pw_new";
 		}
 		else {
-			return "pw_find";
+			return "YM/pw_find";
 		}
 	}
 	
@@ -117,96 +117,18 @@ public class HomeController {
 		System.out.println("pw : " + vo.getPw());
 		int result = memberSV.pwUpdate_M(vo);
 		if(result == 1) {
-			return "loginForm";
+			return "jj/loginForm";
 		}
 		else {
 			System.out.println("pw_update"+ result);
-			return "pw_new";
+			return "YM/pw_new";
 		}
 	}
-	
-	@RequestMapping(value = "/loginForm.me")
-	public String login_Form() {
-
-		return "loginForm";
-	}
-	
-	//카카오로그인
-	@RequestMapping(value = "/kkoLogin.me")
-	public String kko_Join(MemberVO mvo, Model model, RedirectAttributes redi_attr) {
-		System.out.println("k email: " + mvo.getEmail() + "k nick : " + mvo.getNick());
 		
-		if(memberSV.selectMember(mvo.getEmail()) == null) {
-			mvo.setGrade("카카오");
-			model.addAttribute("MemberVO", mvo);
-			return "joinForm";
-		}
-		else {
-			redi_attr.addAttribute("email", mvo.getEmail());
-			System.out.println("k email :"+ redi_attr.getAttribute("email"));
-			return "redirect:/login.me";
-			}
-	}
-	
-	//카카오 회원가입
-	@RequestMapping(value = "/kkoJoin.me")
-	public String kko_joinProcess(MemberVO mvo) {
-		System.out.println("회원분류" + mvo.getGrade());
-		int res = memberSV.joinMember(mvo);
-		if(res == 1) {
-			return "loginForm";
-		}
-		else {
-			return "joinForm";
-		}
-	}
-	
-	@RequestMapping(value = "/login.me")
-	public String userCheck(@RequestParam("email") String email, MemberVO vo, HttpSession session) throws Exception {
-		System.out.println("로그인 아이디 "+vo.getEmail());
-		System.out.println("로그인 비번"+vo.getPw());
-		
-		if(vo.getEmail().equals("admin")) {
-			session.setAttribute("id", vo.getEmail());
-			session.setAttribute("email", vo.getEmail());
-			
-			return "redirect:/admin_main.me";
-		}
-		
-		MemberVO res = memberSV.selectMember(vo.getEmail());
-		if(res.getGrade().equals("카카오")) {
-			session.setAttribute("email", res.getEmail());
-			Biz_memberVO bo = memberSV.selectBizMember(vo.getEmail());
-			if(bo != null) {
-				if(bo.getStatus() == 0) {
-					return "redirect:/cominfo_main.do";
-				}
-			}
-			return "redirect:/myinfo_check.me";
-		}
-		
-		if(res.getPw().equals(vo.getPw())) {
-			session.setAttribute("id", res.getEmail());
-			session.setAttribute("email", res.getEmail());
-			System.out.println("session id :" +session.getAttribute("id"));
-			System.out.println("session email :" +session.getAttribute("email"));
-			
-			//사업자회원확인
-			Biz_memberVO bo = memberSV.selectBizMember(vo.getEmail());
-			if(bo != null) {
-				if(bo.getStatus() == 0) {
-					return "redirect:/cominfo_main.do";
-				}
-			}
-			return "redirect:/myinfo_check.me";
-		}else {
-			return "redirect:/loginForm.me";
-		}
-	}
 	@RequestMapping(value = "/myinfo_check.me")
 	public String myinfo_check() {
 
-		return "myinfo_check";
+		return "YM/myinfo_check";
 	}
 
 	@RequestMapping(value = "/myinfo_member.me")
@@ -221,9 +143,9 @@ public class HomeController {
 			System.out.println("res.getPhone :" + res.getPhone());
 
 			model.addAttribute("MemberVO", res);
-			return "myinfo_member";
+			return "YM/myinfo_member";
 		}else {
-			return "loginForm";
+			return "jj/loginForm";
 		}
 	}	
 	
@@ -249,9 +171,9 @@ public class HomeController {
 			
 			if(memberSV.selectBizMember(biz_email) == null) {
 				System.out.println("bizcheck selectBizmemeber : " + null);
-				return "myinfo_auth";
+				return "YM/myinfo_auth";
 			}else {
-				return "myinfo_already";
+				return "YM/myinfo_already";
 			}
 	}
 	@RequestMapping(value = "/biz_check.do", produces="application/json; charset=UTF-8")
@@ -313,19 +235,19 @@ public class HomeController {
         	int res = memberSV.pre_updateBiz(biz.getBiz_email());
     		
         	if(result == 1) {
-        		return "myinfo_already";
+        		return "YM/myinfo_already";
         	}else {
-        		return "myinfo_auth";
+        		return "YM/myinfo_auth";
         	}
 		}else { 
 			System.out.println("pre_auth error");  
 			
-        	return "myinfo_auth";
+        	return "YM/myinfo_auth";
 		}
 		
 		}catch(Exception e) {
 			System.out.println("pre_auth error:" + e.getMessage());
-			return "myinfo_auth";
+			return "YM/myinfo_auth";
 		}
 	} 
 	@RequestMapping(value = "/cominfo_main.do")
@@ -350,7 +272,7 @@ public class HomeController {
 		model.addAttribute("Adopt_list", new_bvo);
 		model.addAttribute("map_count", map);
 
-		return "cominfo_pay";
+		return "YM/cominfo_pay";
 	}
 	
 	@RequestMapping(value = "/cominfo_list.me")
@@ -366,7 +288,7 @@ public class HomeController {
 		model.addAttribute("b_list", b_list);
 		model.addAttribute("c_list", c_list);
 		
-		return "cominfo_write";
+		return "YM/cominfo_write";
 	}
 	
 	@RequestMapping(value = "/cominfo_member.me")
@@ -379,7 +301,7 @@ public class HomeController {
 		model.addAttribute("MemberVO", vo);
 		model.addAttribute("Biz_memberVO", bvo);
 		
-		return "cominfo_member";
+		return "YM/cominfo_member";
 	}
 	
 }

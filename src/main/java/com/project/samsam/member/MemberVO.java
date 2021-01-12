@@ -1,7 +1,5 @@
 package com.project.samsam.member;
 
-import java.sql.Date;
-
 public class MemberVO {
 	private String email;
 	private String pw;
@@ -9,13 +7,25 @@ public class MemberVO {
 	private String nick;
 	private String phone;
 	private String local;
-	private String img;
 	private String grade;
+	private String authkey;  
+	private String status;	
 	private String signdate;
 	private int wcount;
+	
+	public String getAuthkey() {
+		return authkey;
+	}
+	public void setAuthkey(String authkey) {
+		this.authkey = authkey;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
-	
-	
 	public String getSigndate() {
 		return signdate;
 	}
@@ -64,12 +74,7 @@ public class MemberVO {
 	public void setLocal(String local) {
 		this.local = local;
 	}
-	public String getImg() {
-		return img;
-	}
-	public void setImg(String img) {
-		this.img = img;
-	}
+	
 	public String getGrade() {
 		return grade;
 	}
