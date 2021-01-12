@@ -29,7 +29,7 @@ public class JJMemberController {
 	
 	@RequestMapping("/home.me")
 	public String mainPage() throws Exception {
-		return "member/home";
+		return "/main";
 	}
 	
 	@RequestMapping(value = "/loginForm.me")

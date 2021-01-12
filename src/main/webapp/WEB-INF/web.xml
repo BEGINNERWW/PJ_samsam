@@ -33,7 +33,7 @@
 	</servlet-mapping>
 	
 	<welcome-file-list>
-		<welcome-file> loginForm.me</welcome-file>
+		<welcome-file> home.me</welcome-file>
 	</welcome-file-list>
 
 	<!-- Korean Filter -->
