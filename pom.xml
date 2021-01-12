@@ -236,6 +236,12 @@
 			<version>4.5.2</version>
 		</dependency>
 		<!-- 아임포트 결제를 위해 필요한 설정 끝 -->
+		<!-- https://mvnrepository.com/artifact/net.coobird/thumbnailator 썸네일 -->
+		<dependency>
+			<groupId>net.coobird</groupId>
+			<artifactId>thumbnailator</artifactId>
+			<version>0.4.8</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
