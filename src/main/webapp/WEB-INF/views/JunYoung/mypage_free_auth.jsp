@@ -345,7 +345,7 @@ html,body {
 										<p class="card-text">책임시작일 : <%=confirm_list.getConfirm_s_date() %></p>
 										
 										<form id="fdoc_img_form" action="fileUpload.me#location" method="post" enctype="multipart/form-data">
-											<input type="hidden" name="confirm_no" value=<%=confirm_list.getConfirm_fdoc_no() %>>
+											<input type="hidden" name="confirm_no" value=<%=confirm_list.getConfirm_no() %>>
 											<input type="file" id="fdoc_img" name="file" multiple="multiple"/>
 										
 										<div class="inputArea">
@@ -597,7 +597,7 @@ $(document).ready(function() {
 	$('#insertAccount').click(function(event) {
 		var params = $("#account_form").serialize();
 		alert(params);
-		jQuery.ajax({
+		$.ajax({
 			url: '/samsam/insertAccount.me',
 			type: 'POST',
 			data : params,
