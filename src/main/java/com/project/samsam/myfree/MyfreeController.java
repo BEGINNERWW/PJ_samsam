@@ -55,7 +55,7 @@ public class MyfreeController {
 		model.addAttribute("myfree_authVO", myfree_authVO);
 		model.addAttribute("myfree_docVO", myfree_docVO);
 		
-		return "Junyoung/mypage_free_auth";
+		return "JunYoung/mypage_free_auth";
 	}
 	
 	//환급계좌 입력
@@ -90,7 +90,7 @@ public class MyfreeController {
 		model.addAttribute("member_listVO", member_listVO);
 		model.addAttribute("myfree_doc_confirm_write", myfree_doc_confirm_write);
 		
-		return "Junyoung/write_free_auth_form";
+		return "JunYoung/write_free_auth_form";
 	}
 	
 	//책임분양 인증글 작성
@@ -114,7 +114,7 @@ public class MyfreeController {
 		model.addAttribute("auth_view", auth_view);
 		model.addAttribute("confirm_view", confirm_view);
 		
-		return "Junyoung/free_auth_view";
+		return "JunYoung/free_auth_view";
 	}
 	
 	//고객센터

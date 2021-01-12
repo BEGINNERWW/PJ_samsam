@@ -53,7 +53,7 @@ public class AdminfreeController {
 	model.addAttribute("startpage", startpage);
 	model.addAttribute("endpage", endpage);
 
-	return "Junyoung/admin_free_auth";
+	return "JunYoung/admin_free_auth";
 	}
 	
 	
@@ -74,7 +74,7 @@ public class AdminfreeController {
 		model.addAttribute("myfree_doc_confirm_detail", myfree_doc_confirm_detail);
 		model.addAttribute("myfree_auth_detail", myfree_auth_detail);
 		
-		return "Junyoung/admin_free_auth_detail";
+		return "JunYoung/admin_free_auth_detail";
 	}
 	
 	//책임글 인증 완료
