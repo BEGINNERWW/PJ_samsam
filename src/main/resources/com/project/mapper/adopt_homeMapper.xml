@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.project.mapper.adopt_homeMapper">
+  <select id="getListCount" resultType="int">
+      select count(*) from adopt_home
+   </select>
+  
+  <insert id = "adoptInsert" parameterType = "adopt_homeVO">
+  	<selectKey keyProperty="home_no" order="BEFORE" resultType="int"><!-- select에서 구한 값을 num에 저장한다. keyProperty에 들어갈 값의 타입을 resultType에 적는다. -->
+         select nvl(max(home_no), 0)+1 from adopt_home
+    </selectKey>
+ 	insert into adopt_home values (#{home_no},#{home_email},#{home_nick},#{loc},sysdate,#{home_readcount},#{home_img},#{home_phone},#{home_subject},#{home_price},#{home_content},#{big_name},#{kindof},#{home_thumbnail})
+ </insert>
+ 
+ <select id = "getHomeList" parameterType = "HashMap" resultType="adopt_homeVO">
+	<![CDATA[
+      select home_no,home_nick,home_email,loc,home_date,home_readcount, home_img, home_phone, home_subject, home_price, home_content, big_name, kindof,Home_thumbnail
+      from (select rownum rnum,home_no,home_nick,home_email,loc,home_date, home_readcount, home_img, home_phone, home_subject, home_price, home_content, big_name, kindof ,Home_thumbnail
+         from (select * from adopt_home))
+      where rnum>=#{startrow} and rnum<=#{endrow}
+      ]]>
+ </select>
+ 
+ <update id="setReadCountUpdate" parameterType="int">
+ 		update adopt_home set home_readcount=home_readcount+1 where home_no=#{num}
+ </update>
+ 
+ <select id = "adopt_homeinfo" parameterType = "int" resultType="adopt_homeVO">
+ 	select * from adopt_home where home_no = #{num}
+ </select>
+ 
+ 
+ 
+ 
+ 
+ 
+ <!-- 댓글 기능  시작-->
+ <select id = "adoptreplyCount" resultType = "int">
+ 	SELECT COUNT (*) FROM adopt_home_reply
+ </select>
+ 
+ <select id = "adopthomereplyList" parameterType = "int" resultType = "adopt_homereplyVO">
+ 	SELECT * FROM adopt_home_reply WHERE home_no = #{home_no} order by home_ref asc,home_seq asc
+ </select>
+ 
+ <insert id = "adoptreplyInsert" parameterType ="adopt_homereplyVO">
+ 	<selectKey keyProperty="home_cno" order="BEFORE" resultType = "int">
+ 		select nvl(max(home_cno),0) +1 from adopt_home_reply
+ 	</selectKey>
+ 	INSERT INTO adopt_home_reply (HOME_CNO,HOME_NO,HOME_CEMAIL,HOME_CDATE,HOME_CCONTENT,HOME_REF,HOME_LEV,HOME_SEQ)
+ 	VALUES(#{home_cno},#{home_no},#{home_cemail},sysdate,#{home_ccontent},#{home_cno},#{home_lev},#{home_seq})
+ </insert>
+ 
+ <!-- 필터 검색 -->
+ 
+  <select id="getSearchList" parameterType="adopt_homeVO" resultType="adopt_homeVO">
+	
+	 select * from (select rownum rnum,home_no,home_nick,home_subject,home_content,home_date,home_readcount,home_price,big_name,kindof,home_thumbnail,loc 
+	 from (
+	 select * from adopt_home where kindof in
+	 <foreach collection="kind_search" item="kind_search" open="(" close=")" separator=",">
+	 #{kind_search}
+	 </foreach>
+	 or loc in
+	 <foreach collection="kind_loc" item="kind_loc" open="(" close=")" separator=",">
+	 #{kind_loc}
+	 </foreach>
+	 or big_name in
+	 <foreach collection="home_search" item="home_search" open="(" close=")" separator=",">
+	 #{home_search}
+	 </foreach>
+	 or kindof in
+	<foreach collection="home_search" item="home_search" open="(" close=")" separator=",">
+	#{home_search}
+	</foreach>
+	or loc in
+	<foreach collection="home_search" item="home_search" open="(" close=")" separator=",">
+	#{home_search}
+	</foreach>
+	 order by home_no desc)) where rnum>=#{startrow} <![CDATA[and rnum<=#{endrow}]]>
+	
+	 
+	 
+	 </select>
+ 
+ <!-- 대댓글 -->
+ <update id ="adopthomereplyspace" parameterType = "adopt_homereplyVO">
+ 	update adopt_home_reply set home_seq=home_seq+1
+ 	where home_ref = #{home_ref} and home_seq > #{home_seq}
+ </update>
+ 
+ 
+ <insert id = "adopthomereply_re" parameterType ="adopt_homereplyVO">
+ 	<selectKey keyProperty="home_cno" order="BEFORE" resultType = "int">
+ 		select nvl(max(home_cno),0) +1 from adopt_home_reply
+ 	</selectKey>
+ 	INSERT INTO adopt_home_reply (HOME_CNO,HOME_NO,HOME_CEMAIL,HOME_CDATE,HOME_CCONTENT,HOME_REF,HOME_LEV,HOME_SEQ)
+ 	VALUES(#{home_cno},#{home_no},#{home_cemail},sysdate,#{home_ccontent},#{home_ref},#{home_lev},#{home_seq})
+ </insert>
+ 
+ <delete id="replyDelete"  parameterType="int">
+	DELETE FROM adopt_home_reply WHERE home_cno = #{home_cno}	
+</delete>
+
+ 
+</mapper>
