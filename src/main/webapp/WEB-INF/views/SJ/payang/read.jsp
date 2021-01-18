@@ -1115,6 +1115,12 @@ ol, ul {
     margin-bottom: 30px;
 }
 
+/*  */
+.btn-box {
+	text-align : center;
+	padding: 20px;
+}
+
 </style>
 </head>
 <body>
@@ -1140,7 +1146,7 @@ ol, ul {
 						</ul></li>
 					<li class="dropdown"><a href="/SJ/pet_list">보호소</a>
 						<ul class="dropdown-menu">
-							<li><a href="samsam/SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
+							<li><a href="/SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
 							<li><a href="/SJ/payang">파양</a></li>
 							<li><a href="/SJ/missing">실종</a></li>
 						</ul></li>
@@ -1179,44 +1185,59 @@ ol, ul {
 			
 			<!-- 오른쪽. 내용이 들어갈 부분 -->
 			<div class="content-section">
-				<a href="/samsam/SJ/payang/register">글쓰기</a>
-				<table border="1">
-					<tr>
-						<th align="center" width="80">번호</th>
-						<th align="center" width="320">제목</th>
-						<th align="center" width="100">작성자</th>
-						<th align="center" width="180">등록일자</th>
-					</tr>
-					
-					<c:if test="${empty list}">
+				<h2></h2>
+
+				<form id="board" action="register"  method="POST">
+					<input type="hidden" name="email" />
+					<input id="p_no" type="hidden" name="p_no" value="${payang.p_no } " />
+					<table>
 						<tr>
-							<td align="center" colspan="4">
-								조회된 데이터가 없습니다.
+							<td>제목</td>
+							<td><input type="text" name="p_subject" value="${payang.p_subject}" readonly="readonly" /></td>
+						</tr>
+						<tr>
+							<td>작성자</td>
+							<td><input type="text" name="p_nick" value="${payang.p_nick}" readonly="readonly"  /></td>
+						</tr>
+						<tr>
+							<td>정보</td>
+							<td>
+								이름 : <input type="text" name="p_name" value="${payang.p_name}" readonly="readonly" /> <br>
+								성별 : ${payang.p_gender} 
+									 <br>
+								축종 : ${payang.p_big_name}	
+					   				 <br>
+					   			나이 : <input type="text" name="p_age" value="${payang.p_age}" readonly="readonly"  /> <br>
+					   			지역 : ${payang.p_sido}  ${payang.p_sigungu}  ${payang.p_address}
+					   				 <br>
 							</td>
 						</tr>
-					</c:if>
-					
-					<c:forEach var="board" items="${list}" varStatus="status">
 						<tr>
-							<td align="center" >${board.p_no}</td>
-							<td align="left"><a href="/samsam/SJ/payang/read?p_no=${board.p_no}">${board.p_subject}</a></td>                                           
-							<td align="right">${board.p_nick}</td>
-							<td align="center">${board.p_date}</td>
+							<td>Content</td>
+							<td><textarea name="p_content" rows="10" cols="150" readonly="readonly" >${payang.p_content}</textarea></td>
 						</tr>
-					</c:forEach>
-				</table>
-		
+					</table>
+					
+					<div class="btn-box">
+						<!-- 작성자일 때 만 -->
+						<button id="btnModify" type="button" class="btn btn-sm">수정</button>
+						<button id="btnRemove" type="button" class="btn btn-sm">삭제</button>
+						<!-- 작성자일 때 만 -->
+						<button id="btnList" type="button" class="btn btn-sm">목록</button>
+					</div>
+				</form>	
+				
 				
 			</div>
 	
 
 
 	<!-- 카카오톡 채널 상담 -->
-	<span class="kakaoChat">
+	<div class="kakaoChat">
 	<a href="javascript:void plusFriendChat()">
     <img src="${pageContext.request.contextPath}/resources/img/kakaolink_btn_medium.png" width="45px" height="45px" class="kakao_btn">
 	</a>
-	</span>
+	</div>
 	
 	<!-- pageup button -->
 	<div class ="back-to-top">
@@ -1237,23 +1258,43 @@ ol, ul {
 <!-- 제이쿼리 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 <script>
-$(document).ready(function(){
-	$('#login').on('click', function(e){
-	      $('#logout').show();
-		  $('#mypage').show();
-		  $('#login').hide();
-		  $('#signin').hide();
-	  });
-	}) //헤더 상단 로그인 체인지
-
 	$(document).ready(function(){
-	$('#logout').on('click', function(e){
+		$('#login').on('click', function(e){
+		      $('#logout').show();
+			  $('#mypage').show();
+			  $('#login').hide();
+			  $('#signin').hide();
+		});
+		//헤더 상단 로그인 체인지
+		$('#logout').on('click', function(e){
 	       $('#logout').hide();
 		   $('#mypage').hide();
 		   $('#login').show();
 		   $('#signin').show();
 		});
-	}) //헤더 상단 로그아웃 체인지
+		 //헤더 상단 로그아웃 체인지
+		 
+		var form = $('#board');
+		// 수정 버튼 클릭 이벤트
+		$('#btnModify').on('click',function() {
+			var p_no = $('#p_no').val();
+			location.href = "/samsam/SJ/payang/modify?p_no=" + p_no;
+		});
+		 
+		// 삭제 버튼 클릭 이벤트
+		$('#btnRemove').on('click',function() {
+			form.attr("action", "/samsam/SJ/payang/remove");
+			form.attr("method", "post");
+			form.submit();
+		}); 
+		 
+		// 목록 버튼 클릭 이벤트
+		$('#btnList').on('click',function() {
+			location.href = "/samsam/SJ/payang/list";
+		}); 
+		 
+	}); 
+
 </script>
 
 <!-- 부트스트랩 4.0 js -->

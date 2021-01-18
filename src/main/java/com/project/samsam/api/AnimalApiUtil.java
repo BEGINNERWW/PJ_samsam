@@ -11,32 +11,10 @@ public class AnimalApiUtil implements AnimalApi {
 
 	@Override
 	public ArrayList<Sido> getSido() throws Exception {
-		StringBuilder urlBuilder = new StringBuilder(baseUrl + "sido"); 
-        urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + serviceKey);
+		ArrayList<String> paramNm = new ArrayList<String>();
+		ArrayList<String> paramVal = new ArrayList<String>();
         
-        URL url = new URL(urlBuilder.toString());
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-        conn.setRequestProperty("Content-type", "application/json");
-        System.out.println("Response code: " + conn.getResponseCode());
-        
-        // 응답코드 200~300 이면,  404 등 에러인지 확인
-        BufferedReader rd;
-        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        } else {
-            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-        }
-        
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = rd.readLine()) != null) {
-            sb.append(line);
-        }
-        rd.close();
-        conn.disconnect();
-        System.out.println(sb.toString());
-        
+        StringBuilder sb = getReponse("sido", 1, paramNm, paramVal);
         
         // sidoCode, sidoNm 추출
         String sido = sb.toString();
@@ -333,7 +311,7 @@ public class AnimalApiUtil implements AnimalApi {
 		return animalList;
 	}
 	
-	
+	// 보호 동물 정보 가져오기
 	@Override
 	public ArrayList<AnimalInfo> getAnimalInfo(String bgnde, String endde, Integer upr_cd, Integer org_cd, Integer upkind, Integer kind, String state,
 			Integer pageNo, Integer numOfRows, String neuter_yn) throws Exception {
@@ -368,6 +346,13 @@ public class AnimalApiUtil implements AnimalApi {
 		
 		String animalInfo = sb.toString();
         System.out.println(animalInfo);
+        
+        // 
+        Integer totalCount = Integer.parseInt( animalInfo.split("<totalCount>|</totalCount>")[1] );
+        if( totalCount == 0 ) {
+        	return null;
+        }
+        
         String[] str1 = animalInfo.split("<items>");
 		String result = str1[1];
 		String[] str2 = result.split("</items>");
@@ -383,11 +368,6 @@ public class AnimalApiUtil implements AnimalApi {
 			
 			if( count == 0 ) {
 				animal = new AnimalInfo();
-			}
-			
-			if( count == 22 ) {
-				animalList.add(animal);
-				count = 0;
 			}
 			
 			if( !str3[i].equals("") ) {
@@ -468,11 +448,90 @@ public class AnimalApiUtil implements AnimalApi {
 				}
 				
 			}
+			
+			if( count == 22 ) {
+				animalList.add(animal);
+				count = 0;
+			}
+		}
+		
+		System.out.println("@AnimalApiUtil");
+		System.out.println("--- 조회한 동물 정보 : ");
+		for (AnimalInfo a : animalList) {
+			System.out.println(a);
 		}
 		
 		
-		
 		return animalList;
+	}
+	
+	// 보호소 정보 가져오기
+	@Override
+	public ArrayList<ShelterInfo> getShelterInfo(Integer upr_cd, Integer org_cd, Integer pageNo) throws Exception {
+		
+		ArrayList<String> paramNm = new ArrayList<String>();
+		ArrayList<String> paramVal = new ArrayList<String>();
+
+		paramNm.add("upr_cd");
+		paramNm.add("org_cd");
+		
+		paramVal.add(upr_cd.toString());
+		paramVal.add(org_cd.toString());
+		
+		// 페이지 정보
+		if( pageNo != null) {
+			paramNm.add("pageNo");
+			paramVal.add(pageNo.toString());
+		}
+		
+		StringBuilder sb = getReponse("shelter", 6, paramNm, paramVal);
+		
+		String shelterInfo = sb.toString();
+        System.out.println(shelterInfo);
+        String[] str1 = shelterInfo.split("<items>");
+		String result = str1[1];
+		String[] str2 = result.split("</items>");
+		result = str2[0];
+		String[] str3 = result.split("(<\\w+>)|(</\\w+>)");
+		
+		System.out.println("###########################");
+		for (int i = 0; i < str3.length; i++) {
+			System.out.println(str3[i]);
+		}
+		
+		int count = 0;
+		ShelterInfo shelter = null;
+		ArrayList<ShelterInfo> shelterList = new ArrayList<ShelterInfo>();
+		ArrayList<String> careRecNoList = new ArrayList<String>();
+		ArrayList<String> careNmList = new ArrayList<String>();
+		
+		for (int i = 0; i < str3.length; i++) {
+				
+			if( !str3[i].equals("") ) {
+				// 숫자면
+				if( str3[i].matches("[+-]?\\d*(\\.\\d+)?") ) {
+					careRecNoList.add(str3[i]);
+					System.out.println("코드: " + str3[i]);
+				}
+				else {
+					careNmList.add(str3[i]);
+					System.out.println("이름: " + str3[i]);
+				}
+			}
+		}
+		
+		
+		ShelterApiUtil shelterApiUtil = new ShelterApiUtil();
+		for (int i = 0; i < careRecNoList.size(); i++) {
+			shelter = shelterApiUtil.getShelterDetail(careRecNoList.get(i));
+			if( shelter == null )
+				continue;
+			shelterList.add(shelter);
+			System.out.println(i + ". 보호소 상세정보" );
+		}
+		
+		
+		return shelterList;
 	}
 	
 	
@@ -481,6 +540,14 @@ public class AnimalApiUtil implements AnimalApi {
 		
 		StringBuilder urlBuilder = new StringBuilder(baseUrl + requestName); 
         urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + serviceKey);
+        
+        // 시도 요청
+        if( requestNo == 1 ) {
+        	for (int i = 0; i < paramNm.size(); i++) {
+        		urlBuilder.append("&" + URLEncoder.encode(paramNm.get(i), "UTF-8") + "=" + paramVal.get(i) ); 
+        	}
+        	
+        }
         
         // 시군구 요청
         if( requestNo == 2 ) {
@@ -499,6 +566,14 @@ public class AnimalApiUtil implements AnimalApi {
         
         // 유기동물 정보 요청
         if( requestNo == 5 ) {
+        	
+        	for (int i = 0; i < paramNm.size(); i++) {
+        		urlBuilder.append("&" + URLEncoder.encode(paramNm.get(i), "UTF-8") + "=" + paramVal.get(i) ); 
+			}
+        }
+        
+        // 보호소 번호/명 요청
+        if( requestNo == 6 ) {
         	
         	for (int i = 0; i < paramNm.size(); i++) {
         		urlBuilder.append("&" + URLEncoder.encode(paramNm.get(i), "UTF-8") + "=" + paramVal.get(i) ); 
@@ -528,9 +603,14 @@ public class AnimalApiUtil implements AnimalApi {
         }
         rd.close();
         conn.disconnect();
+        System.out.println("@AnimalApiUtil - getResponse() - " + requestNo);
         System.out.println(sb.toString());
         
         return sb;
 	}
+
+	
+
+	
 
 }
