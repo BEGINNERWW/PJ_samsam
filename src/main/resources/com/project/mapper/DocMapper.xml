@@ -41,6 +41,92 @@
 	 
 	 </select>
 
+	<update id="commentCount" parameterType="DocReflyVO">
+	 
+	 	update community set doc_comment=doc_comment+1 where doc_no =#{co_doc_no}
+	 	
+	 </update>
+	 
+	  <insert id="commentInsert" parameterType="DocReflyVO">
+	<selectKey keyProperty="co_no" order="BEFORE" resultType="int">
+		SELECT NVL(max(co_no),0) +1 from doc_comment
+	</selectKey>
+		INSERT INTO doc_comment VALUES(#{co_no},#{co_doc_no},#{co_nick},sysdate,#{co_content},#{co_secret},#{co_no},#{co_lev},#{co_seq})	
+	</insert>
+	
+	<select id="commentList" parameterType="int" resultType="DocReflyVO">
+	 
+		select * from (select * from doc_comment where co_doc_no = #{co_doc_no} order by co_no) order by co_ref asc,co_seq desc
+	 </select>
+	
+	 <update id="commentUpdate" parameterType="DocReflyVO">
+	 
+		UPDATE doc_comment SET CO_CONTENT = #{co_content},CO_SECRET =#{co_secret} where CO_NO = #{co_no}
+		
+	 </update>
+	 
+	  <update id="commentReflyUpdate" parameterType="DocReflyVO">
+	 
+	 	update doc_comment set co_seq=co_seq+1 where co_ref = #{co_ref} and co_seq >#{co_seq}
+	
+	 </update>
+	 
+	 <insert id="commentRefly" parameterType="DocReflyVO">
+	 
+	 	<selectKey keyProperty="co_no" order="BEFORE" resultType="int">
+	 	
+	 	select nvl(max(co_no),0) +1 from doc_comment
+	 	
+	 	</selectKey>
+	 
+	 
+	 	INSERT INTO doc_comment VALUES(#{co_no},#{co_doc_no},#{co_nick},sysdate,#{co_content},#{co_secret},#{co_ref},#{co_lev},#{co_seq})
+	 
+	 </insert>
+	 
+	   <update id="commentSub" parameterType="DocReflyVO">
+	 
+	 	update community set doc_comment=doc_comment-1 where doc_no =#{co_doc_no}
+	 	
+	 </update>
+	 
+	 <delete id="commentDelete"  parameterType="DocReflyVO">
+	 
+		DELETE FROM doc_comment WHERE co_no = #{co_no}
+	 	
+	 </delete>
+	 
+	  <select id="DeleteCount" parameterType="int" resultType="int">
+			 
+	 select count(*) from doc_comment where co_ref =#{co_no}
+	 
+	 </select> 
+	 
+	 
+	  <update id="DeleteUpdate" parameterType="int">
+	 
+	 	update doc_comment set co_lev=2 where co_no =#{co_no}
+	 	
+	 </update>
+	 
+	 
+	  <update id="DocUpdate" parameterType="DocVO">
+	 
+	 update community set doc_subject=#{doc_subject},doc_content=#{doc_content} where doc_no=#{doc_no}
+	 
+	 </update>
+	 
+	  <delete id="DocDeleteComment"  parameterType="DocVO">
+	 
+		DELETE FROM doc_comment WHERE CO_DOC_NO = #{doc_no}
+	 	
+	 </delete>
+	 
+	  <delete id="DocDelete"  parameterType="DocVO">
+	 
+		DELETE FROM community WHERE DOC_NO = #{doc_no}
+	 	
+	 </delete>
 	 
 	 
 	 </mapper>

@@ -28,6 +28,7 @@ public class Warning_Controller {
 		vo.setW_nick("2");
 		vo.setW_status("대기중");
 		vo.setW_category("책임");
+		vo.setW_note("처리 대기중입니다");
 		return WarningService.warningInsertService(vo);
 	}
 	
@@ -41,6 +42,7 @@ public class Warning_Controller {
 		vo.setW_nick("2");
 		vo.setW_status("대기중");
 		vo.setW_category("커뮤니티");
+		vo.setW_note("처리 대기중입니다");
 		return WarningService.warningInsertService(vo);
 	}
 

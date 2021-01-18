@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ page import="com.project.samsam.fdocboard.FdocVO"%>
 <%@ page session="false" %>
+<%
+FdocVO vo = (FdocVO) request.getAttribute("vo");
+
+%>
 <html>
 <head>
 
@@ -945,7 +949,7 @@ $(document).ready(function() {
      }
    
    $("input:radio[name=fdoc_big]").click(function(){
-	  	$('#kind1').empty();
+	   $('#kind1').empty();
 	  	$('#kind2').empty();
 	  	$('#kind3').empty();
 		  if($("input[name='fdoc_big']:checked").val() =="강아지"){
@@ -1058,6 +1062,7 @@ function setThumbnail(event) {
 		}
 
 
+  
  
 
 </script>
@@ -1121,8 +1126,8 @@ function setThumbnail(event) {
 			<!-- 왼쪽. 서브메뉴가 들어갈 부분 -->
 			<div class="sidemenu-section" id="left">
 				<ul class="list-group list-group-flush">
-					<li class="list-group-item click"><a href="/">가정분양</a></li>
-					<li class="list-group-item"><a href="fdoclist.bo">책임분양</a></li>
+					<li class="list-group-item"><a href="/">가정분양</a></li>
+					<li class="list-group-item click"><a href="fdoclist.bo">책임분양</a></li>
 					<li class="list-group-item"><a href="/">업체분양</a></li>
 				</ul>
 			</div>
@@ -1134,20 +1139,20 @@ function setThumbnail(event) {
 				<div class="content-form">
 		
 		 
-   <form method="post" action="fdoc_write.bo" enctype="multipart/form-data">
-
+   <form method="post" action="fdoc_updateinsert.bo" enctype="multipart/form-data">
+		<input type="hidden" name="fdoc_no" value=<%=vo.getFdoc_no() %>>
       
-      <div><div><textarea name="fdoc_subject" placeholder="제목을 입력해 주세요." class="textarea_input" style="height: 40px;"></textarea></div></div>
-     <div class="option_box">
+      <div><div><textarea name="fdoc_subject" placeholder="제목을 입력해 주세요." class="textarea_input" style="height: 40px;"><%=vo.getFdoc_subject() %></textarea></div></div>
+    <div class="option_box">
      
-       <div class="option1"><div style="display:inline-block;margin-right:10px;"><input type="radio" name="fdoc_big" value="강아지">&nbsp;&nbsp;강아지&nbsp;&nbsp;&nbsp;&nbsp;<span id="kind1"></span></div>
+     <div class="option1"><div style="display:inline-block;margin-right:10px;"><input type="radio" name="fdoc_big" value="강아지">&nbsp;&nbsp;강아지&nbsp;&nbsp;&nbsp;&nbsp;<span id="kind1"></span></div>
          <div style="display:inline-block;margin-right:10px;"><input type="radio" name="fdoc_big" value="고양이">&nbsp;&nbsp;고양이&nbsp;&nbsp;&nbsp;&nbsp;<span id="kind2"></span></div>
          <div style="display:inline-block;margin-right:10px;"><input type="radio" name="fdoc_big" value="기타">&nbsp;&nbsp;기타&nbsp;&nbsp;&nbsp;&nbsp;<span id="kind3"></span></div></div>
          
         
     <div>
-	<div class="option1">분양비&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" style="width:200px; display:inline-block;" type="text" name="fdoc_price" placeholder="분양비를 입력해주세요"></div> 
-	<div class="option1">지&nbsp;&nbsp;역&nbsp;&nbsp;&nbsp;&nbsp;<select class="form-control" style="width:200px; display:inline-block;" size="1" id="fdoc_loc" name="fdoc_loc">
+	<div class="option1">분양비&nbsp;:&nbsp;&nbsp;&nbsp;<input class="form-control" style="width:200px; display:inline-block;" type="text" name="fdoc_price" placeholder="분양비를 입력해주세요" value="<%=vo.getFdoc_price()%>"></div> 
+	<div class="option1">지&nbsp;&nbsp;역&nbsp;:&nbsp;&nbsp;&nbsp;<select class="form-control" style="width:200px; display:inline-block;" size="1" id="fdoc_loc" name="fdoc_loc">
 				
 				<option value="서울">서울</option>
 				<option value="부산">부산</option>
@@ -1167,7 +1172,7 @@ function setThumbnail(event) {
 				<option value="경남">경남</option>
 				<option value="제주">제주</option>
 	</select></div>
-	<div class="option1">책임기간 &nbsp;&nbsp;&nbsp;&nbsp;<select class="form-control" style="width:180px; display:inline-block;" size="1" id="fdoc_expiry" name="fdoc_expiry">
+	<div class="option1">책임기간 &nbsp;:&nbsp;&nbsp;&nbsp;<select class="form-control" style="width:180px; display:inline-block;" size="1" id="fdoc_expiry" name="fdoc_expiry">
 					<option value="1">1개월</option>
 					<option value="2">2개월</option>
 					<option value="3">3개월</option>
@@ -1189,9 +1194,11 @@ function setThumbnail(event) {
      -->
       <div><div style="margin-top:20px;margin-bottom:20px;"> 
      
-      <textarea id="summernote" name="fdoc_content"></textarea>
+      <textarea id="summernote" name="fdoc_content"><%=vo.getFdoc_content() %></textarea>
       </div>
+       <!-- 
       <div style="margin-bottom:10px;">책임 분양 이용약관&nbsp;&nbsp;<input type="checkbox" id="fdoc_agree" value="Y"></div>
+    
       <div style="margin-bottom:20px;">
       <textarea cols="154" rows="10" readonly
 									style="background-color: #f3f5f7;">
@@ -1349,7 +1356,8 @@ function setThumbnail(event) {
       
       
       </div>
-      <div><input class="btn_g full_type1" type="submit" id="fdoc_submit" value="글 작성" style="float: right;" disabled="disabled"><input class="btn_g full_type1" type="button" value="뒤로" onclick="javascript:history.go(-1)" style="float:right; margin-right:10px;"></div></div>
+       -->
+      <div><input class="btn_g full_type1" type="submit" id="fdoc_submit" value="수정하기" style="float: right;"><input class="btn_g full_type1" type="button" value="뒤로" onclick="javascript:history.go(-1)" style="float:right; margin-right:10px;"></div></div>
       
       
    </form>
