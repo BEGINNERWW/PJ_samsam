@@ -26,9 +26,14 @@
 	</select>
 	
 	<!-- 환급계좌 입력 -->
-	<insert id="insertAccount" parameterType="Myfree_doc_confirmVO">
-		INSERT INTO free_doc_confirm VALUES(#{confirm_account}) WHERE confirm_no = #{confirm_no}
-	</insert>
+	<update id="updateAccount" parameterType="Myfree_doc_confirmVO">
+		UPDATE free_doc_confirm SET confirm_account=#{confirm_account, jdbcType=VARCHAR} WHERE confirm_no=#{confirm_no}
+	</update>
+	
+	<!-- 환급계좌 삭제 -->
+	<update id="deleteAccount" parameterType="Myfree_doc_confirmVO">
+		UPDATE free_doc_confirm SET confirm_account=#{confirm_account, jdbcType=VARCHAR} WHERE confirm_no=#{confirm_no}
+	</update>
 	
 	<!-- 책임분양 인증글 작성창 띄우기 - 책임분양 인증현황 테이블 조회 -->
 	<select id="selectConfirm_write" parameterType="String" resultType="Myfree_doc_confirmVO">

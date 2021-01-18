@@ -7,27 +7,661 @@
 <%@ page import="com.project.samsam.myfree.*" %>
 
 <%
+	String email = (String) session.getAttribute("email");
+	//email.toUpperCase();
 	Myfree_doc_confirmVO myfree_doc_confirm_detail = (Myfree_doc_confirmVO)request.getAttribute("myfree_doc_confirm_detail");
 	List<Myfree_authVO> myfree_auth_detail = (List<Myfree_authVO>)request.getAttribute("myfree_auth_detail");
+	Myfree_docVO myfree_docVO = (Myfree_docVO)request.getAttribute("myfree_docVO");
 %>
-
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>관리자페이지_책임분양 관리_상세보기</title>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
-	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-	crossorigin="anonymous"></script>
+<title>관리자페이지 > 책임분양 관리 > 상세보기</title>
+
+
+<!-- 폰트 -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&display=swap" rel="stylesheet">
+
+
+<!-- 어드민페이지 css -->
+<link href="resources/css/admin_sidebar.css" rel="stylesheet">
+
+
+<!-- 아이콘 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+
+<!-- 제이쿼리 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script src="resources/js/adminPage.js"></script>
+
+
+
+</head>
+
+
+<style>
+header, #header {
+	height: 210vh;
+}
+ul {
+    list-style-type: none;
+}
+h1 {
+    text-align: center;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+h1 {
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+table {
+    border-collapse: separate;
+    margin: 0 auto;
+}
+.table{
+    margin-bottom: 0rem;
+}
+
+.table-sm td, .table-sm th {
+    padding: .3rem;
+    padding-left: 10px;
+}
+.table {
+    width: 100%;
+    max-width: 100%;
+    background-color: transparent;
+    border-collapse: collapse;
+    display: table;
+    text-indent: initial;
+    border-spacing: 2px;
+    border-color: grey;
+}
+thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+}
+.text-center {
+    text-align: center!important;
+}
+.table td, .table th {
+    padding: .75rem;
+    border-top: 1px solid #dee2e6;
+}
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+a {
+    display: contents;
+    text-decoration: none;
+    color: black;
+}
+
+.btn > a {
+    display: contents;
+    text-decoration: none;
+    color: white;
+}
+a:hover {
+    color: #0056b3;
+    text-decoration: none;
+}
+.btn > a:hover {
+    color: white;
+    text-decoration: none;
+}
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.btn-group-sm>.btn, .btn-sm {
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: .2rem;
+}
+button, select {
+    text-transform: none;
+}
+button, input {
+    overflow: visible;
+}
+button, input, optgroup, select, textarea {
+    margin: 0;
+    font-family: inherit;
+}
+.content {
+    margin-left: 50px;
+    margin-bottom: 30px;
+}
+
+.btn {
+    border-style: solid;
+    border-width: 0 1px 4px 1px;
+    text-transform: uppercase;
+}
+.btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+.btn:not(.disabled):hover {
+    margin-top: 1px;
+    border-bottom-width: 3px;
+}
+
+/* 인증 버튼 */
+.btn-primary {
+    border-color: #127ba3;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #158cba;
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: #117298;
+    border-color: #106a8c;
+}
+
+/* 반려, 인증취소 버튼 */
+.btn-danger {
+    border-color: #ff291d;
+}
+.btn-danger {
+    color: #fff;
+    background-color: #ff4136;
+}
+.btn-danger:hover {
+    color: #fff;
+    background-color: #ff1d10;
+    border-color: #ff1103;
+}
+
+/* 재검토 버튼 */
+.btn-warning {
+    border-color: #ff7702;
+}
+.btn-warning {
+    color: #fff;
+    background-color: #ff851b;
+}
+.btn-warning:hover {
+    color: #fff;
+    background-color: #f47100;
+    border-color: #e76b00;
+}
+
+/*책임분양 현황*/
+.auth_img {
+    -webkit-box-flex: 0;
+    flex: 0 0 45.666667%;
+    max-width: 45.666667%;
+}
+.ml-2, .mx-2 {
+    margin-left: .5rem!important;
+}
+.mb-2, .my-2 {
+    margin-bottom: .5rem!important;
+}
+.mr-2, .mx-2 {
+    margin-right: .5rem!important;
+}
+.mt-2, .my-2 {
+    margin-top: .5rem!important;
+}
+.card {
+    position: relative;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    min-width: 0;
+    background-color: #fff;
+    background-clip: border-box;
+    border-radius: .25rem;
+}
+.no-gutters>.col, .no-gutters>[class*=col-] {
+    padding-right: 0;
+    padding-left: 0px;
+    margin-left: 70px;
+    margin-top: 30px;
+}
+.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+    border: 0;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: -10px;
+}
+.row.auth-date {
+    justify-content: space-between;
+    margin-top: 0px;
+}
+.auth_img {
+    -webkit-box-flex: 0;
+    flex: 0 0 45.666667%;
+    max-width: 45.666667%;
+}
+.card-img {
+    width: 380px;
+    height: 253px;
+    border-radius: calc(0.75rem - 1px);
+}
+.ml-1, .mx-1 {
+    margin-left: .25rem!important;
+}
+.mb-1, .my-1 {
+    margin-bottom: .25rem!important;
+}
+.mr-1, .mx-1 {
+    margin-right: .25rem!important;
+}
+.mt-1, .my-1 {
+    margin-top: .25rem!important;
+}
+.no-gutters>.col, .no-gutters>[class*=col-] {
+    padding-right: 0;
+    padding-left: 0;
+}
+@media (min-width: 768px)
+.col-md-4 {
+    -webkit-box-flex: 0;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+}
+.card-body {
+    -webkit-box-flex: 1;
+    flex: 1 1 auto;
+    padding: 1.2rem;
+    margin-top: -115px;
+}
+.card-title {
+    margin-bottom: .75rem;
+}
+p.card-text {
+    text-align: left;
+    margin-bottom: 5px;
+}
+.h5, h5 {
+    font-size: 1.25rem;
+}
+
+
+/*책임분양 인증현황*/
+
+.auth-confirm {
+	border: 0;
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+.row.auth-date {
+    justify-content: space-between;
+}
+
+.progress {
+    display: -ms-flexbox;
+    display: flex;
+    height: 1rem;
+    overflow: hidden;
+    line-height: 0;
+    font-size: 0.9rem;
+    background-color: #f0f0f0;
+    border-radius: 0.25rem;
+    margin-top: 10px;
+}
+.progress-bar {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    background-color: #158cba;
+    transition: width .6s ease;
+    border-radius: 0.25rem;
+}
+
+</style>
+</head>
+<body>
+	<div class ="body_content">
+
+<header id = "header">
+	<div class="d-flex flex-column">
+		<div class ="profile">
+			<img src = "resources/img/ssong.PNG" class = "img-circle">
+			<h1 class = "text-light">
+				<a href = "#" class = "onMember">  <%= email.toUpperCase()%> </a>
+			</h1>
+		</div>
+		<div class ="admin_inout">
+			<button type="button" class ="grade">ADMIN</button>
+			<button type="button" class ="grade" onclick="location.href='loginForm.me'">LOGOUT</button>
+		</div>
+						
+		<ul>
+			<li>
+				<a href = "#" class = "nav-menu"><i class= "far fa-clipboard menu"></i><span class="a-menu"> 게시물관리</span></a>
+			</li>
+			<li>
+				<a href="admin_main.me" class = "nav-menu"><i class = "fas fa-users menu"></i><span class="a-menu"> 회원관리</span></a>
+			</li>
+			<li>
+				<a href="admin_pay.me" class = "nav-menu"><i class = "fas fa-ticket-alt menu"></i><span class="a-menu"> 이용권관리</span></a>
+			</li>
+			<li>
+				<a href="adminfree_auth.me" class = "nav-menu"><i class = "fas fa-dog menu"></i><span class="a-menu"> 책임분양</span></a>
+			</li>
+		</ul>
+</div>
+</header>
+
+<div class = "main_content">
+<!-- 메인컨텐트 -->
+<div class = "content">
+	
+	<br><br><br><br>
+		<h2>책임분양 현황</h2>
+			<table>
+				<tr height="300px">
+					<td width="770px">
+						<div class="card mb-2 ml-2 mr-2 mt-2" style="max-width: 850px">
+							<div class="row no-gutters">
+								
+								<%if (myfree_doc_confirm_detail.getConfirm_fdoc_img()==null||myfree_doc_confirm_detail.getConfirm_fdoc_img()=="") { %>
+								<div class="auth_img">
+									<img src="<%=myfree_docVO.getFdoc_thumbnail() %>"
+										class="card-img mt-1 ml-1 mx-1 my-1" alt="...">
+								</div>
+								<%}
+								else { %>
+								<div class="auth_img">
+								<img src="/resource<%=myfree_doc_confirm_detail.getConfirm_fdoc_img() %>"
+										class="card-img mt-1 ml-1 mx-1 my-1"/>
+								</div>
+								<%
+								}
+								%>
+								
+								
+								<div class="col-md-4">
+									<div class="card-body">
+										<br>
+										<br>
+											<div class="row">
+										<h4 class="card-title" style="font-size: 24px">품종</h4>
+										<h4 class="card-title" style="font-size: 24px;margin-left: 55px;"><%=myfree_doc_confirm_detail.getConfirm_fdoc_kindof() %></h4>
+											</div>
+											<div class="row">
+										<p class="card-text" style="font-size:16px;">분양코드</p>
+										<p class="card-text" style="font-size:16px;margin-left: 43px;"><%=myfree_doc_confirm_detail.getConfirm_fdoc_code() %></p>
+											</div>
+											<div class="row">
+										<p class="card-text" style="font-size:16px;">확정코드</p>
+										<p class="card-text" style="font-size:16px;margin-left: 43px;"><%=myfree_doc_confirm_detail.getConfirm_no() %></p>
+											</div>
+											<div class="row">
+										<p class="card-text" style="font-size:16px;">피분양자</p>
+										<p class="card-text" style="font-size:16px;margin-left: 44px;"><%=myfree_doc_confirm_detail.getConfirm_fdoc_r_email() %></p>
+											</div>
+											<div class="row">
+										<p class="card-text" style="font-size:16px;">분양자</p>
+										<p class="card-text" style="font-size:16px;margin-left: 59px;"><%=myfree_doc_confirm_detail.getConfirm_fdoc_s_email() %></p>
+											</div>
+											<div class="row">
+										<p class="card-text" style="font-size:16px;">책임비</p>
+										<p class="card-text" style="font-size:16px;margin-left: 59px;"><%=myfree_doc_confirm_detail.getConfirm_fdoc_price() %></p>
+											</div>
+											<div class="row">
+										<p class="card-text" style="font-size:16px;">환급 계좌번호</p>
+										<%if (myfree_doc_confirm_detail.getConfirm_account()==null||myfree_doc_confirm_detail.getConfirm_account()=="") { %>
+										<p class="card-text" style="font-size:16px;margin-left: 10px;">미입력</p>
+										<%} else { %>
+										<p class="card-text" style="font-size:16px;margin-left: 10px;"><%=myfree_doc_confirm_detail.getConfirm_account() %></p>
+											<%} %>
+											</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
+			</table>
+			<br>
+			
+			<span id="location"></span>
+			<h2>책임분양 인증현황</h2>
+						<table  align="center">
+							<tr height="100px">
+								<td width="870px">
+										<div class="row auth-date">
+										<div class="s-date-label ">책임시작일</div>
+										<div class="expiry-label">책임기간</div>
+										<div class="e-date-label">책임만료일</div>
+									</div>
+									<div class="row auth-date">
+										<div class="s-date"><%=myfree_doc_confirm_detail.getConfirm_s_date() %></div>
+										<div class="expiry"><%=myfree_doc_confirm_detail.getConfirm_fdoc_expiry() %> 개월</div>
+										<div class="e-date"><%=myfree_doc_confirm_detail.getConfirm_e_date() %></div>
+									</div>
+									<%
+										double checknum = 0;
+									
+									for (int i=0; i < myfree_auth_detail.size(); i++) {
+										Myfree_authVO auth_detail = (Myfree_authVO)myfree_auth_detail.get(i);
+										
+										if ( myfree_doc_confirm_detail.getConfirm_no().equals(auth_detail.getFadoc_confirm_no()))
+										{
+											if (auth_detail.getFadoc_check().equals("인증완료"))
+											{
+												++checknum;
+											}
+										}
+									}
+									%>
+									<div class="progress ml-2 mr-2" style= "height: 25px;">
+										<div class="progress-bar" role="progressbar"
+											style="width: <%=(checknum / myfree_doc_confirm_detail.getConfirm_fdoc_expiry())*100%>%" 
+											aria-valuenow="<%=(checknum / myfree_doc_confirm_detail.getConfirm_fdoc_expiry())*100%>" aria-valuemin="0"
+											aria-valuemax="100"><%=(int)checknum%>/<%=myfree_doc_confirm_detail.getConfirm_fdoc_expiry()%></div>
+									</div>
+									<br>
+								</td>
+							</tr>
+						</table>
+						<br>
+				
+					<h2>책임분양 인증글 신청현황</h2>
+
+
+					<table>
+						<tr>
+							<table class="table table-sm">
+								<thead>
+									<tr>
+										<th scope="col" class="text-center" width=500>제목</th>
+										<th scope="col" class="text-center" width=150>작성일</th>
+										<th scope="col" class="text-center" width=200>상태</th>
+									</tr>
+								</thead>
+								<tbody>
+								<%
+									for (int j=0; j < myfree_auth_detail.size(); j++) {
+										Myfree_authVO auth_list  = (Myfree_authVO)myfree_auth_detail.get(j);
+									if (auth_list.getFadoc_check().equals("검토중")) {
+								%>
+									<tr>
+										<td><a href="free_auth_view.me?fadoc_no=<%=auth_list.getFadoc_no() %>"
+											onclick="window.open(this.href, '_blanck', 'height='+popupHeight + ',width=' + popupWidth + ',left=' + popupX + ',top=' + popupY); return false">
+											&nbsp;&nbsp;&nbsp;<%=auth_list.getFadoc_subject() %></a></td>
+										<td class="text-center"><%=auth_list.getFadoc_date() %></td>
+										<td class="text-center">
+										<button type="button" class="btn btn-primary btn-sm" id="free_auth_ok">
+											<a href="free_auth_detail_ok.me?fadoc_no=<%=auth_list.getFadoc_no()%>#location">인증</a></button>
+										<button type="button" class="btn btn-danger btn-sm" id="free_auth_no">
+											<a href="free_auth_detail_no.me?fadoc_no=<%=auth_list.getFadoc_no()%>#location">반려</a></button>
+										</td>
+									</tr>
+								<%
+									}
+									else if (auth_list.getFadoc_check().equals("인증실패")) {
+								%>
+									<tr>
+										<td><a href="free_auth_view.me?fadoc_no=<%=auth_list.getFadoc_no() %>"
+											onclick="window.open(this.href, '_blanck', 'height='+popupHeight + ',width=' + popupWidth + ',left=' + popupX + ',top=' + popupY); return false">
+											&nbsp;&nbsp;&nbsp;<%=auth_list.getFadoc_subject() %></a></td>
+										<td class="text-center"><%=auth_list.getFadoc_date() %></td>
+										<td class="text-center"><%=auth_list.getFadoc_check() %>
+											<button type="button" class="btn btn-warning btn-sm" id="free_auth_re">
+										<a href="free_auth_detail_re.me?fadoc_no=<%=auth_list.getFadoc_no()%>#location">재검토</a></button>
+										</td>
+									</tr>
+								<%
+									}
+								}
+								
+								%>	
+									
+								</tbody>
+							</table>
+							</td>
+					</table> 
+					
+					<br>
+				<br>
+					<h2>인증완료 내역</h2>
+					<table class="table table-sm">
+						<thead>
+							<tr>
+								<th scope="col" class="text-center" width=500>제목</th>
+								<th scope="col" class="text-center" width=150>작성일</th>
+								<th scope="col" class="text-center" width=200>상태</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+							for(int k=0; k < myfree_auth_detail.size(); k++)	{
+								Myfree_authVO free_auth_list = (Myfree_authVO)myfree_auth_detail.get(k);
+								
+								if (free_auth_list.getFadoc_check().equals("인증완료")) {
+							%>
+								<tr>
+									<td><a href="free_auth_view.me?fadoc_no=<%=free_auth_list.getFadoc_no() %>"
+										onclick="window.open(this.href, '_blanck', 'height='+popupHeight + ',width=' + popupWidth + ',left=' + popupX + ',top=' + popupY); return false">
+										&nbsp;&nbsp;&nbsp;<%=free_auth_list.getFadoc_subject() %></a></td>
+									<td class="text-center"><%=free_auth_list.getFadoc_date() %></td>
+									<td class="text-center"><%=free_auth_list.getFadoc_check() %>
+									<button type="button" class="btn btn-danger btn-sm" id="free_auth_re">
+										<a href="free_auth_detail_re.me?fadoc_no=<%=free_auth_list.getFadoc_no()%>#location">인증취소</a></button>
+									</td>
+								</tr>
+							<%
+							}
+								}
+							%>
+						</tbody>
+					</table>
+
+
+
+</div>			
+</div><!-- 메인컨텐트 -->
+
+<!-- right-sidebar -->
+<div class="right-container">
+<!-- 달력 --> 
+<widget class="no-drag">
+  <table id="calendar">
+    <thead>
+      <tr height="35px">
+        <td><label onclick="prev()" style="color: #ccc;"><</label></td>
+        <td colspan="5" id="monthTable"></td>
+        <td><label onclick="next()" style="color: #ccc;">></label></td>
+      </tr>
+      <tr id="dateHead">
+        <td>S</td>
+        <td>M</td>
+        <td>T</td>
+        <td>W</td>
+        <td>T</td>
+        <td>F</td>
+        <td>S</td>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <script>
+    makeArray();
+  </script>
+</widget>
+<!-- 투두리스트 -->
+	<!-- 입력 -->
+	<div class = "todolist">
+      <input type="text" placeholder="Add A Task" class ="txt"> 
+    <!-- to do list -->
+      <div class="notdone">
+        <h3>To Do List</h3>
+      </div>
+	<!-- done list -->      
+      <div class="done">
+        <h3>Done</h3>
+      </div>
+     </div>
+
+<!-- pageup button -->
+<div class ="back-to-top">
+<a href="#" class ="back-to-top" style="display: inline;">
+	<i class = "fas fa-angle-up"></i>
+</a>
+</div>
+</div><!-- right-sidebar -->
+</div><!-- 바디컨텐트 -->
+
+
 
 <script>
 //책임인증글 팝업
@@ -91,369 +725,5 @@ setCookie("scroll_position", "");
 }
 
 ﻿</script>
-
-<style>
-ul, li {
-	list-style: none;
-}
-
-a {
-	text-decoration: none;
-	color: black;
-	hover: none;
-}
-
-a:hover { 
-	text-decoration:none !important; 
-	color : #4BA0B5;
-}
-
-html,body {
-	margin : 0;
-	padding : 0;
-	height:120%
-}
-
-.wrap {
-	width: 1200px;
-	min-height: 100%;
-	margin: 0 auto;
-	position: relative;
-}
-
-.aside {
-	width: 300px;
-	postion: absolute;
-}
-
-.section {
-	left: 330px;
-	top: 100px;
-	width: 870px;
-	position: absolute;
-}
-
-.footer {
-	position:relative;
-	bottom:0;
-	border-top:solid 1px #cccccc;
-}
-
-.progress {
-    display: -ms-flexbox;
-    display: flex;
-    height: 1rem;
-    overflow: hidden;
-    line-height: 0;
-    font-size: .75rem;
-    background-color: #d3d3d3;
-    border-radius: .25rem;
-}
-
-.btn-primary {
-    color: #007bff;
-    background-color: #fff;
-    border-color: #007bff;
-}
-.btn-danger {
-    color: #dc3545;
-    background-color: #fff;
-    border-color: #dc3545;
-}
-
-</style>
-</head>
-<body>
-	<div class="wrap">
-		<div class="aside">
-			<div>
-				<center>
-					<br> <a href="/"><img src="./resources/images/logo2.png"
-						width="200" height="140"></a>
-				</center>
-			</div>
-			<br>
-			<br>
-			<br>
-			<ul class="list-group list-group-flush">
-				<li class="list-group-item"><a href="/">게시물 관리</a></li>
-				<li class="list-group-item"><a href="/">회원관리</a></li>
-				<li class="list-group-item"><a href="/">이용권 관리</a></li>
-				<li class="list-group-item"><a href="/">책임분양 관리</a></li>
-			</ul>
-		</div>
-		<div class="section">
-			<div class="row">
-				<div class="col-md-10"></div>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<a class="btn btn-outline-info" href="#">ADMIN</a>
-			</div>
-			<br>
-			<br>
-			<br>
-			<br>
-			<center>
-				<table border="1">
-				<tr height="250px">
-					<td width="500px">
-						<div class="card mb-3 ml-2 mt-2 center" style="max-width: 480px">
-							<div class="row no-gutters">
-								<div class="col-md-5">
-									<img src="./resources/images/강아지1.png"
-										class="card-img mt-2 ml-2" alt="...">
-								</div>
-								<div class="col-md-4">
-									<div class="card-body">
-										<br>
-										<br>
-										<h5 class="card-title">품종 : <%=myfree_doc_confirm_detail.getConfirm_fdoc_kindof() %></h5>
-								</div>
-							</div>
-						</div>
-					</td>
-			</table>
-			</center>
-
-			<div class="row ml-1">
-				<div class="col-md-10">분양자 : <%=myfree_doc_confirm_detail.getConfirm_fdoc_s_email() %></div>
-				<div>피분양자 : <%=myfree_doc_confirm_detail.getConfirm_fdoc_r_email() %></div>
-			</div>
-			<br>
-
-
-			<table border="1" align="center" width=500>
-				<tr>
-					<th class="text-center" width=100>분양코드</th>
-					<th class="text-center" width=100>책임비</th>
-					<th class="text-center" width=300>환급 계좌번호</th>
-				</tr>
-				<tr>
-					<td class="text-center"><%=myfree_doc_confirm_detail.getConfirm_fdoc_code() %></td>
-					<td class="text-center"><%=myfree_doc_confirm_detail.getConfirm_fdoc_price() %></td>
-					<td class="text-center"><%=myfree_doc_confirm_detail.getConfirm_account() %></td>
-				</tr>
-			</table>
-			<br>
-			<br>
-			<span id="location"></span>
-			<h4>책임분양 인증현황</h4>
-						<table border="1" align="center">
-							<tr height="100px">
-								<td width="870px">
-										<div>책임시작일 : <%= myfree_doc_confirm_detail.getConfirm_s_date() %></div>
-										<div>책임만료일 : <%= myfree_doc_confirm_detail.getConfirm_e_date() %></div>
-										<div>책임기간 : <%= myfree_doc_confirm_detail.getConfirm_fdoc_expiry() %> 개월</div>
-										<br>
-									<%
-										double checknum = 0;
-									
-									for (int i=0; i < myfree_auth_detail.size(); i++) {
-										Myfree_authVO auth_detail = (Myfree_authVO)myfree_auth_detail.get(i);
-										
-										if ( myfree_doc_confirm_detail.getConfirm_no() == auth_detail.getFadoc_confirm_no())
-										{
-											if (auth_detail.getFadoc_check().equals("인증완료"))
-											{
-												++checknum;
-											}
-										}
-									}
-									%>
-									<div class="progress ml-2 mr-2" style= "height: 25px;">
-										<div class="progress-bar" role="progressbar"
-											style="width: <%=(checknum / myfree_doc_confirm_detail.getConfirm_fdoc_expiry())*100%>%" 
-											aria-valuenow="<%=(checknum / myfree_doc_confirm_detail.getConfirm_fdoc_expiry())*100%>" aria-valuemin="0"
-											aria-valuemax="100"><%=(int)checknum%>/<%=myfree_doc_confirm_detail.getConfirm_fdoc_expiry()%></div>
-									</div>
-									<br>
-								</td>
-							</tr>
-						</table>
-						<br>
-				
-					<br>
-					<h4>책임분양 인증글 신청현황</h4>
-
-
-					<table>
-						<tr>
-							<table class="table table-sm">
-								<thead>
-									<tr>
-										<th scope="col" class="text-center">#</th>
-										<th scope="col" class="text-center" width=500>제목</th>
-										<th scope="col" class="text-center" width=150>작성일</th>
-										<th scope="col" class="text-center" width=200>상태</th>
-									</tr>
-								</thead>
-								<tbody>
-								<%
-									for (int j=0; j < myfree_auth_detail.size(); j++) {
-										Myfree_authVO auth_list  = (Myfree_authVO)myfree_auth_detail.get(j);
-									if (auth_list.getFadoc_check().equals("검토중")) {
-								%>
-									<tr>
-										<th class="text-center" scope="row"><%=auth_list.getFadoc_no()%></th>
-										<td><a href="free_auth_view.me?fadoc_no=<%=auth_list.getFadoc_no() %>"
-											onclick="window.open(this.href, '_blanck', 'height='+popupHeight + ',width=' + popupWidth + ',left=' + popupX + ',top=' + popupY); return false">
-											&nbsp;&nbsp;&nbsp;<%=auth_list.getFadoc_subject() %></a></td>
-										<td class="text-center"><%=auth_list.getFadoc_date() %></td>
-										<td class="text-center">
-										<button type="button" class="btn btn-primary btn-sm" id="free_auth_ok">
-											<a href="free_auth_detail_ok.me?fadoc_no=<%=auth_list.getFadoc_no()%>#location">인증</a></button>
-										<button type="button" class="btn btn-danger btn-sm" id="free_auth_no">
-											<a href="free_auth_detail_no.me?fadoc_no=<%=auth_list.getFadoc_no()%>#location">반려</a></button>
-										</td>
-									</tr>
-								<%
-									}
-									else if (auth_list.getFadoc_check().equals("인증실패")) {
-								%>
-									<tr>
-										<th class="text-center" scope="row"><%=auth_list.getFadoc_no()%></th>
-										<td><a href="free_auth_view.me?fadoc_no=<%=auth_list.getFadoc_no() %>"
-											onclick="window.open(this.href, '_blanck', 'height='+popupHeight + ',width=' + popupWidth + ',left=' + popupX + ',top=' + popupY); return false">
-											&nbsp;&nbsp;&nbsp;<%=auth_list.getFadoc_subject() %></a></td>
-										<td class="text-center"><%=auth_list.getFadoc_date() %></td>
-										<td class="text-center"><%=auth_list.getFadoc_check() %>
-											<button type="button" class="btn btn-warning btn-sm" id="free_auth_re">
-										<a href="free_auth_detail_re.me?fadoc_no=<%=auth_list.getFadoc_no()%>#location">재검토</a></button>
-										</td>
-									</tr>
-								<%
-									}
-								}
-								
-								%>	
-									
-								</tbody>
-							</table>
-							</td>
-					</table> 
-					
-					<br>
-				<br>
-					<h4>인증완료 내역</h4>
-					<table class="table table-sm">
-						<thead>
-							<tr>
-								<th scope="col" class="text-center">#</th>
-								<th scope="col" class="text-center" width=500>제목</th>
-								<th scope="col" class="text-center" width=150>작성일</th>
-								<th scope="col" class="text-center" width=200>상태</th>
-							</tr>
-						</thead>
-						<tbody>
-							<%
-							for(int k=0; k < myfree_auth_detail.size(); k++)	{
-								Myfree_authVO free_auth_list = (Myfree_authVO)myfree_auth_detail.get(k);
-								
-								if (free_auth_list.getFadoc_check().equals("인증완료")) {
-							%>
-								<tr>
-									<th scope="row"><%=k+1%></th>
-									<td><a href="free_auth_view.me?fadoc_no=<%=free_auth_list.getFadoc_no() %>"
-										onclick="window.open(this.href, '_blanck', 'height='+popupHeight + ',width=' + popupWidth + ',left=' + popupX + ',top=' + popupY); return false">
-										&nbsp;&nbsp;&nbsp;<%=free_auth_list.getFadoc_subject() %></a></td>
-									<td class="text-center"><%=free_auth_list.getFadoc_date() %></td>
-									<td class="text-center"><%=free_auth_list.getFadoc_check() %>
-									<button type="button" class="btn btn-warning btn-sm" id="free_auth_re">
-										<a href="free_auth_detail_re.me?fadoc_no=<%=free_auth_list.getFadoc_no()%>#location">인증취소</a></button>
-									</td>
-								</tr>
-							<%
-							}
-								}
-							%>
-						</tbody>
-					</table>
-	<div class="footer">
-		<hr>
-		<footer class="bg-white text-black small">
-			<div class="pt-6 pb-4 pt-lg-7 pb-lg-6">
-				<div class="container">
-					<div class="row justify-content-md-between">
-						<div
-							class="col-md-5 col-lg-4 d-flex flex-column justify-content-between">
-							<svg width="137" height="42" class="mx-auto mx-md-0"
-								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 701 217">
-								<path
-									d="M122.73 185.24l12.57-15.05c8.77 7.2 18.58 11.4 29.58 11.4 8.37 0 12.7-3.4 12.7-8.25 0-5.36-4.2-6.54-17.28-9.68-19.23-4.32-33.5-9.56-33.5-27.62 0-17.27 13.87-28.8 34.42-28.8 15 0 26.83 4.32 36.38 12.3l-11.38 16c-8.2-6.3-17.28-9.54-25.65-9.54-7.2 0-11.26 3.4-11.26 7.85 0 5.5 4.32 7.33 17.67 10.2 20.15 4.32 33.1 10.07 33.1 27 0 18.06-13.74 29.3-36 29.3-15.96-.08-30.48-5.3-41.35-15.13zm190.7-6.02l8 6.94-10.87 12.56-8.77-7.6a49.08 49.08 0 0 1-28.53 9.16c-26.18 0-48.25-21.3-48.25-46.6s22.12-46.46 48.3-46.46 48.43 21.2 48.43 46.46a44 44 0 0 1-8.3 25.52zm-28.14-2.48l-9.28-8.12 10.86-12.56 9.56 8.24a26 26 0 0 0 2.22-10.6c0-14.13-11.64-26.17-25.4-26.17s-25.4 12-25.4 26.17 11.66 26.3 25.4 26.3a23.74 23.74 0 0 0 12.04-3.26zm51.57-17.4V108.8h22.38v49.47c0 12.7 8.12 21.73 19.37 21.73s19.5-9 19.5-21.73V108.8h22.25v50.52c0 24.08-17.14 41-41.75 41s-41.75-16.92-41.75-41zm158.23 26.3h-35.6l-5.24 13.1H429.1l35.6-89.9h25.13l35.6 89.9H500.3zm-6.93-17.53l-10.87-27.62-10.86 27.62zm102.35 30.62l-19.77-28.14h-11v28.14h-22.37v-89.9h41.75c19.76 0 34.16 12.7 34.16 30.9 0 13.1-7.46 23.42-19.1 28.14l21.73 30.88zm-30.76-48.55H577c7.72 0 13.2-4.2 13.2-10.47s-5.5-10.47-13.2-10.47h-17.26zm92.66-21.34v14h44v20h-44v15.87h48.43v20H630v-89.9h70.8v20z"
-									fill="#ffffff"></path>
-								<path d="M3.33 3.3h210.03v210.03H3.33z" fill="none"
-									stroke="#ffffff" stroke-miterlimit="10" stroke-width="6"></path></svg>
-							<div class="mt-4 mb-3 mt-lg-5 pt-lg-2 mx-auto mx-md-0">
-								<a href="#" class="text-reset text-decoration-none"><svg
-										width="15" height="15" class="mx-1"
-										xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-										<title>social-media-facebook</title><path
-											d="M18.14,7.17A.5.5,0,0,0,17.77,7H14V5.59c0-.28.06-.6.51-.6h3a.44.44,0,0,0,.35-.15A.5.5,0,0,0,18,4.5V.5a.5.5,0,0,0-.5-.5H13.17C8.37,0,8,4.1,8,5.35V7H5.5a.5.5,0,0,0-.5.5v4a.5.5,0,0,0,.5.5H8V23.5a.5.5,0,0,0,.5.5h5a.5.5,0,0,0,.5-.5V12h3.35a.5.5,0,0,0,.5-.45l.42-4A.5.5,0,0,0,18.14,7.17Z"></path></svg>
-								</a><a href="#" class="text-white text-decoration-none"><svg
-										width="15" height="15" class="mx-1"
-										xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-										<title>social-media-twitter</title><path
-											d="M23.32,6.44a.5.5,0,0,0-.2-.87l-.79-.2A.5.5,0,0,1,22,4.67l.44-.89a.5.5,0,0,0-.58-.7l-2,.56a.5.5,0,0,1-.44-.08,5,5,0,0,0-3-1,5,5,0,0,0-5,5v.36a.25.25,0,0,1-.22.25c-2.81.33-5.5-1.1-8.4-4.44a.51.51,0,0,0-.51-.15A.5.5,0,0,0,2,4a7.58,7.58,0,0,0,.46,4.92.25.25,0,0,1-.26.36L1.08,9.06a.5.5,0,0,0-.57.59,5.15,5.15,0,0,0,2.37,3.78.25.25,0,0,1,0,.45l-.53.21a.5.5,0,0,0-.26.69,4.36,4.36,0,0,0,3.2,2.48.25.25,0,0,1,0,.47A10.94,10.94,0,0,1,1,18.56a.5.5,0,0,0-.2,1,20.06,20.06,0,0,0,8.14,1.93,12.58,12.58,0,0,0,7-2A12.5,12.5,0,0,0,21.5,9.06V8.19a.5.5,0,0,1,.18-.38Z"></path></svg>
-								</a><a href="#" class="text-white text-decoration-none"><svg
-										width="15" height="15" class="mx-1"
-										xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-										<title>professional-network-linkedin</title><rect x="2"
-											y="8.5" width="5" height="14" rx="0.5" ry="0.5"></rect>
-										<ellipse cx="4.48" cy="4" rx="2.48" ry="2.5"></ellipse>
-										<path
-											d="M18.5,22.5h3A.5.5,0,0,0,22,22V13.6C22,9.83,19.87,8,16.89,8a4.21,4.21,0,0,0-3.17,1.27A.41.41,0,0,1,13,9a.5.5,0,0,0-.5-.5h-3A.5.5,0,0,0,9,9V22a.5.5,0,0,0,.5.5h3A.5.5,0,0,0,13,22V14.5a2.5,2.5,0,0,1,5,0V22A.5.5,0,0,0,18.5,22.5Z"></path></svg>
-								</a><a href="#" class="text-white text-decoration-none"><svg
-										width="15" height="15" class="mx-1"
-										xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-										<title>social-pinterest</title><path
-											d="M7.13,22.36a.4.4,0,0,0,.29.33h.11a.45.45,0,0,0,.36-.2,12.8,12.8,0,0,0,2.19-4c.09-.33.39-1.52.61-2.37a.25.25,0,0,1,.4-.13,4.12,4.12,0,0,0,2.53.88c3.9,0,6.73-3.57,6.73-8.48,0-3.51-2.94-7.13-7.86-7.13C7,1.29,3.65,5.23,3.65,9c0,2.35,1,4.15,2.62,4.82a.66.66,0,0,0,.94-.47l.24-1a.82.82,0,0,0-.22-.9,3.25,3.25,0,0,1-.73-2.2,5.47,5.47,0,0,1,5.67-5.5c2.93,0,4.75,1.67,4.75,4.36,0,3.5-1.53,6.14-3.56,6.14A1.73,1.73,0,0,1,12,13.7a1.58,1.58,0,0,1-.28-1.38c.13-.54.3-1.1.47-1.65A10.19,10.19,0,0,0,12.77,8,1.84,1.84,0,0,0,10.89,6C9.45,6,8.33,7.43,8.33,9.31a5.13,5.13,0,0,0,.32,1.79.5.5,0,0,1,0,.29L7.17,17.7A13.38,13.38,0,0,0,7.13,22.36Z"></path></svg>
-								</a><a href="#" class="text-white text-decoration-none"><svg
-										width="15" height="15" class="mx-1"
-										xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-										<title>designer-community-dribbble</title><path
-											d="M24,12A12,12,0,0,0,6.28,1.45l-.05,0A12.09,12.09,0,0,0,0,12a11.94,11.94,0,0,0,2.71,7.58l0,0h0A12,12,0,0,0,24,12ZM20.07,6.12A9.93,9.93,0,0,1,22,11.65c-.88-.09-1.82-.14-2.62-.14a24.12,24.12,0,0,0-4.17.38c-.27-.69-.56-1.37-.89-2A23.88,23.88,0,0,0,20.07,6.12ZM18.74,4.64a21.88,21.88,0,0,1-5.42,3.47A23.94,23.94,0,0,0,8.65,2.59a9.9,9.9,0,0,1,10.09,2ZM6.68,3.55a22,22,0,0,1,4.75,5.3A22,22,0,0,1,4.35,10c-.71,0-1.42,0-2.13-.11A10,10,0,0,1,6.68,3.55ZM2,11.92c.78.08,1.56.13,2.34.13a23.93,23.93,0,0,0,8.09-1.42q.43.84.78,1.71a23.78,23.78,0,0,0-9.59,5.11A9.9,9.9,0,0,1,2,11.92ZM4.87,19a21.79,21.79,0,0,1,9-4.78,22.1,22.1,0,0,1,.94,6.39c0,.33,0,.66,0,1A9.94,9.94,0,0,1,4.87,19Zm12,1.76s0-.1,0-.15a24.13,24.13,0,0,0-1-6.8,22.1,22.1,0,0,1,3.5-.3c.77,0,1.66.05,2.49.14A10,10,0,0,1,16.82,20.76Z"></path></svg></a>
-							</div>
-						</div>
-						<div class="col-md-7 col-lg-6 mt-5 mt-md-0">
-							<div class="row">
-								<div class="col-6 col-md-4 mb-4 mb-md-0">
-									<h3 class="h6 text-uppercase mb-3">Services</h3>
-									<ul class="list-unstyled">
-										<li class="mb-1"><a href="#" class="text-reset">UI
-												Kit</a></li>
-										<li class="mb-1"><a href="#" class="text-reset">Documentation</a></li>
-										<li class="mb-1"><a href="#" class="text-reset">Page
-												builder</a></li>
-									</ul>
-								</div>
-								<div class="col-6 col-md-4 mb-4 mb-md-0">
-									<h3 class="h6 text-uppercase mb-3">Company</h3>
-									<ul class="list-unstyled">
-										<li class="mb-1"><a href="#" class="text-reset">About
-												Us</a></li>
-										<li class="mb-1"><a href="#" class="text-reset">Contact
-												Us</a></li>
-										<li class="mb-1"><a href="#" class="text-reset">Careers</a></li>
-									</ul>
-								</div>
-								<div class="col-6 col-md-4">
-									<h3 class="h6 text-uppercase mb-3">Help</h3>
-									<ul class="list-unstyled">
-										<li class="mb-1"><a href="#" class="text-reset">FAQs</a></li>
-										<li class="mb-1"><a href="#" class="text-reset">Pricing</a></li>
-										<li class="mb-1"><a href="#" class="text-reset">Terms</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</footer>
-	</div>
-		</div>
-	</div>
-
-
 </body>
 </html>

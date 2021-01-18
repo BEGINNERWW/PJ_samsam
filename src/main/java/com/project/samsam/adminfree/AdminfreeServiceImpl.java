@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.project.mapper.AdminfreeMapper;
 import com.project.samsam.adminfree.AdminfreeService;
 import com.project.samsam.myfree.Myfree_authVO;
+import com.project.samsam.myfree.Myfree_docVO;
 import com.project.samsam.myfree.Myfree_doc_confirmVO;
 
 @Service("AdminfreeService")
@@ -52,6 +53,13 @@ public class AdminfreeServiceImpl implements AdminfreeService {
 		return myfree_auth_datail;
 	}
 	
+	public Myfree_docVO selectDoc(String confirm_fdoc_code) {
+		AdminfreeMapper adminfreeMapper = 
+				sqlSession.getMapper(AdminfreeMapper.class);
+		Myfree_docVO myfree_docVO = adminfreeMapper.selectDoc(confirm_fdoc_code);
+		return myfree_docVO;
+	}
+	
 	@Override
 	public Myfree_authVO selectAuth_detail_re_re(int fadoc_no) {
 		AdminfreeMapper adminfreeMapper = 
@@ -76,6 +84,14 @@ public class AdminfreeServiceImpl implements AdminfreeService {
 				sqlSession.getMapper(AdminfreeMapper.class);
 		Myfree_doc_confirmVO myfree_doc_confirm_detail_re = adminfreeMapper.selectConfirm_detail_re(confirm_no);
 		return myfree_doc_confirm_detail_re;
+	}
+	@Override
+	public Myfree_docVO selectDoc_detail_re(String confirm_fdoc_code) {
+		AdminfreeMapper adminfreeMapper = 
+				sqlSession.getMapper(AdminfreeMapper.class);
+		Myfree_docVO myfree_doc_detail_re = adminfreeMapper.selectDoc_detail_re(confirm_fdoc_code);
+		return myfree_doc_detail_re;
+		
 	}
 	
 	

@@ -24,7 +24,10 @@ public interface MyfreeMapper {
 	public List<Myfree_docVO> selectDoc(String email);
 	
 	//환급계좌 입력
-	public int insertAccount(Myfree_doc_confirmVO myfree_doc_confirmVO);
+	public int updateAccount(Myfree_doc_confirmVO myfree_doc_confirmVO);
+		
+	//환급계좌 삭제
+	public int deleteAccount(Myfree_doc_confirmVO myfree_doc_confirmVO);
 	
 	
 	//책임분양 인증글 작성창 띄우기 - 책임분양인증현황 테이블 조회

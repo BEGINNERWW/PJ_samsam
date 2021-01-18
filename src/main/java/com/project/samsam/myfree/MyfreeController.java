@@ -7,12 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -58,21 +60,24 @@ public class MyfreeController {
 		return "JunYoung/mypage_free_auth";
 	}
 	
+	
+	
 	//환급계좌 입력
-	@RequestMapping(value="/insertAccount.me", method=RequestMethod.POST, 
-			produces="application/json;charset=UTF-8")
-	@ResponseBody
-	public Map<String, Object> insertAccount(Myfree_doc_confirmVO myfree_doc_confirmVO) {
-		Map<String, Object> retVal = new HashMap<String, Object>();
-		try {
-			MyfreeService.insertAccount(myfree_doc_confirmVO);
+	@RequestMapping("/updateAccount.me")
+	public String updateAccount(Myfree_doc_confirmVO myfree_doc_confirmVO) throws Exception {
 			
-			retVal.put("res", "OK");
-		}
-		catch (Exception e) {
-			retVal.put("res", "FAIL");
-		}
-		return retVal;
+		MyfreeService.updateAccount(myfree_doc_confirmVO);
+			
+		return "redirect:/myfree_auth.me";
+	}
+		
+	//@환급계좌 삭제
+	@RequestMapping("/deleteAccount.me")
+	public String deleteAccount(Myfree_doc_confirmVO myfree_doc_confirmVO) throws Exception {
+			
+		MyfreeService.deleteAccount(myfree_doc_confirmVO);
+			
+		return "redirect:/myfree_auth.me";
 	}
 	
 	//책임분양 인증글 작성창 띄우기
@@ -102,6 +107,27 @@ public class MyfreeController {
 		return "redirect:/myfree_auth.me";
 		
 	}
+	
+	//썸머노트 이미지 업로드
+		@ResponseBody
+		@PostMapping("/auth_img.me")
+		public void auth_image(MultipartFile file, HttpServletRequest request, 
+				HttpServletResponse response) throws Exception {
+			response.setContentType("text/html;charset=utf-8");
+			String imgUploadPath = uploadPath + File.separator + "imgUpload";
+			String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+			String fileName = null;
+			PrintWriter out = response.getWriter();
+			
+			if(file != null) {
+			 fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+			} else {
+			 fileName = uploadPath + File.separator + "images" + File.separator + "none.png";
+			}
+			
+			out.println("/resource" + File.separator + "imgUpload" + ymdPath + File.separator + fileName);
+			out.close();
+		}
 	
 	//책임분양 인증글 조회
 	@RequestMapping("/free_auth_view.me")

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.project.samsam.myfree.Myfree_authVO;
+import com.project.samsam.myfree.Myfree_docVO;
 import com.project.samsam.myfree.Myfree_doc_confirmVO;
 
 @Controller
@@ -18,8 +19,7 @@ public class AdminfreeController {
 
 	@Autowired
 	private AdminfreeServiceImpl AdminfreeService;
-	
-	
+
 	//관리자 페이지 책임분양
 	@RequestMapping("/adminfree_auth.me")
 	public String getAuthlist(Model model, @RequestParam(value="page", required=false, 
@@ -53,7 +53,7 @@ public class AdminfreeController {
 	model.addAttribute("startpage", startpage);
 	model.addAttribute("endpage", endpage);
 
-	return "JunYoung/admin_free_auth";
+	return "admin_free_auth";
 	}
 	
 	
@@ -69,12 +69,16 @@ public class AdminfreeController {
 		Myfree_doc_confirmVO myfree_doc_confirm_detail = AdminfreeService.selectConfirm_detail(confirm_no);
 		
 		List<Myfree_authVO> myfree_auth_detail = AdminfreeService.selectAuth_detail(confirm_no);
-
+		
+		String confirm_fdoc_code = myfree_doc_confirm_detail.getConfirm_fdoc_code();
+		
+		Myfree_docVO myfree_docVO = AdminfreeService.selectDoc(confirm_fdoc_code);
 		
 		model.addAttribute("myfree_doc_confirm_detail", myfree_doc_confirm_detail);
 		model.addAttribute("myfree_auth_detail", myfree_auth_detail);
+		model.addAttribute("myfree_docVO", myfree_docVO);
 		
-		return "JunYoung/admin_free_auth_detail";
+		return "admin_free_auth_detail";
 	}
 	
 	//책임글 인증 완료
@@ -118,9 +122,12 @@ public class AdminfreeController {
 		List<Myfree_authVO> myfree_auth_detail_re = AdminfreeService.selectAuth_detail_re(confirm_no);
 		Myfree_doc_confirmVO myfree_doc_confirm_detail_re = AdminfreeService.selectConfirm_detail_re(confirm_no);
 		
+		String confirm_fdoc_code = myfree_doc_confirm_detail_re.getConfirm_fdoc_code();	//myfree_docVO 조회하기위해 필요
+		Myfree_docVO myfree_docVO = AdminfreeService.selectDoc_detail_re(confirm_fdoc_code);
 		
 		result.addObject("myfree_doc_confirm_detail", myfree_doc_confirm_detail_re);
 		result.addObject("myfree_auth_detail", myfree_auth_detail_re);
+		result.addObject("myfree_docVO", myfree_docVO);
 		result.setViewName("admin_free_auth_detail");
 		
 		return result;
@@ -140,8 +147,12 @@ public class AdminfreeController {
 		List<Myfree_authVO> myfree_auth_detail_re = AdminfreeService.selectAuth_detail_re(confirm_no);
 		Myfree_doc_confirmVO myfree_doc_confirm_detail_re = AdminfreeService.selectConfirm_detail_re(confirm_no);
 		
+		String confirm_fdoc_code = myfree_doc_confirm_detail_re.getConfirm_fdoc_code();	//myfree_docVO 조회하기위해 필요
+		Myfree_docVO myfree_docVO = AdminfreeService.selectDoc_detail_re(confirm_fdoc_code);
+		
 		result.addObject("myfree_doc_confirm_detail", myfree_doc_confirm_detail_re);
 		result.addObject("myfree_auth_detail", myfree_auth_detail_re);
+		result.addObject("myfree_docVO", myfree_docVO);
 		result.setViewName("admin_free_auth_detail");
 		
 		return result;
@@ -161,8 +172,12 @@ public class AdminfreeController {
 		List<Myfree_authVO> myfree_auth_detail_re = AdminfreeService.selectAuth_detail_re(confirm_no);
 		Myfree_doc_confirmVO myfree_doc_confirm_detail_re = AdminfreeService.selectConfirm_detail_re(confirm_no);
 		
+		String confirm_fdoc_code = myfree_doc_confirm_detail_re.getConfirm_fdoc_code();	//myfree_docVO 조회하기위해 필요
+		Myfree_docVO myfree_docVO = AdminfreeService.selectDoc_detail_re(confirm_fdoc_code);
+		
 		result.addObject("myfree_doc_confirm_detail", myfree_doc_confirm_detail_re);
 		result.addObject("myfree_auth_detail", myfree_auth_detail_re);
+		result.addObject("myfree_docVO", myfree_docVO);
 		result.setViewName("admin_free_auth_detail");
 		
 		return result;
