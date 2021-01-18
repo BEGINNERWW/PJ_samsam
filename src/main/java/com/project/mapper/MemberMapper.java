@@ -1,6 +1,7 @@
 package com.project.mapper;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.project.samsam.admin.Search_paramsVO;
 import com.project.samsam.admin.Todo_listVO;
@@ -13,6 +14,12 @@ import com.project.samsam.simport.Payed_listVO;
 
 public interface MemberMapper {
 
+	//JJ
+	public int userCheck (MemberVO memberVO);
+	public int k_joinMember (MemberVO mvo);
+	public void updateAuthkey(Map<String,String> map);
+	public void updateAuthStatus(Map<String,Integer> map);
+	
 	public MemberVO selectMember(String email);
 	public ArrayList<MemberVO> getMemberlist();
 	public int updateMember(MemberVO vo);
@@ -49,7 +56,7 @@ public interface MemberMapper {
 	public int delete_todo(Todo_listVO todo);
 	public ArrayList<Todo_listVO> select_todo();
 	
-	//È¸¿ø°¡ÀÔ
+	//íšŒì›ê°€ì…
 	public int joinMember(MemberVO mvo);
 
 
