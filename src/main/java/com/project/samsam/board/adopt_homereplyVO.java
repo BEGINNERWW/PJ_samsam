@@ -1,11 +1,11 @@
 package com.project.samsam.board;
 
 import java.sql.Date;
-
+    
 public class adopt_homereplyVO {
 	private int home_cno;
 	private int home_no;
-	private String home_cemail;
+	private String home_cnick;
 	private Date home_cdate;
 	private String home_ccontent;
 	private int home_csecret;
@@ -24,13 +24,6 @@ public class adopt_homereplyVO {
 	public void setHome_no(int home_no) {
 		this.home_no = home_no;
 	}
-	public String getHome_cemail() {
-		return home_cemail;
-	}
-	public void setHome_cemail(String home_cemail) {
-		this.home_cemail = home_cemail;
-	}
-
 	public Date getHome_cdate() {
 		return home_cdate;
 	}
@@ -66,5 +59,11 @@ public class adopt_homereplyVO {
 	}
 	public void setHome_seq(int home_seq) {
 		this.home_seq = home_seq;
+	}
+	public String getHome_cnick() {
+		return home_cnick;
+	}
+	public void setHome_cnick(String home_cnick) {
+		this.home_cnick = home_cnick;
 	}
 }

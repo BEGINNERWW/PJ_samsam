@@ -20,7 +20,9 @@ public interface AdoptService {
 	public int adopthomereply_re(adopt_homereplyVO adhome);
 	public int adopthomereplyDelete(adopt_homereplyVO adhome);//댓글 삭제
 	public List<adopt_homeVO> getSearchList(adopt_homeVO vo);
-
+	public int adopthomereplyupdate(adopt_homereplyVO adhome);
+	public int deleteCount(int home_cno);
+	public int deleteUpdate(int home_cno);
 	
 	
 		

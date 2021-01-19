@@ -79,8 +79,10 @@ public class AdoptServiceImpl implements AdoptService {
 	@Override
 	public int adoptreplyInsertService(adopt_homereplyVO homereply) throws Exception {
 		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
-		
+		adoptMapper.adopthomereplyspace(homereply);
+		homereply.setHome_seq(homereply.getHome_seq()+1);
 		return adoptMapper.adoptreplyInsert(homereply);
+		
 	}
 
 
@@ -120,10 +122,11 @@ public class AdoptServiceImpl implements AdoptService {
 		
 	}
 
-	@Override
+	
+
+	@Override //필터 검색시 리스트로드
 	public List<adopt_homeVO> getSearchList(adopt_homeVO vo) {
 		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
-		
 		if(vo.getKind_search()==null) {
 			ArrayList <String> none = new ArrayList<String>();
 			none.add("none");
@@ -140,10 +143,41 @@ public class AdoptServiceImpl implements AdoptService {
 			vo.setHome_search(none2);
 		}
 		
-		List<adopt_homeVO> fdoc_list = adoptMapper.getSearchList(vo);
+		List<adopt_homeVO> home_list = adoptMapper.getSearchList(vo);
+		System.out.println("5");
+		System.out.println(home_list.size());
+		System.out.println("5");
+		System.out.println(vo.getEndrow());
+		System.out.println(vo.getStartrow());
 		
-		
-		return fdoc_list;
+		return home_list;
 	}
+
+	@Override // 댓글 수정
+	public int adopthomereplyupdate(adopt_homereplyVO comment) {
+		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
+		System.out.println(comment.getHome_ccontent());
+		String home_ccontent = comment.getHome_ccontent();
+		
+		home_ccontent = home_ccontent.replace("\r\n","<br>");
+		comment.setHome_ccontent(home_ccontent);
+		int res = adoptMapper.adopthomereplyupdate(comment);
+		System.out.println(comment.getHome_cno());
+		System.out.println(comment.getHome_cno());
+		System.out.println(res);
+		return adoptMapper.adopthomereplyupdate(comment);
+	}
+
+	@Override
+	   public int deleteCount(int home_cno) {
+		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
+	      return adoptMapper.DeleteCount(home_cno);
+	   }
+
+	@Override
+	   public int deleteUpdate(int home_cno) {
+		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
+	      return adoptMapper.DeleteUpdate(home_cno);
+	   }
 
 }

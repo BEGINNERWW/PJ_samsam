@@ -7,12 +7,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
 <meta charset="UTF-8">
-<script type ="text/javascript" src = "https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<title>Insert title here</title>	
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<title>Insert title here</title>
+
 <style>
 	
+	img{
+	max-width:100%;
+	}
 	
 	hr{
 		width:650px;
@@ -93,17 +99,46 @@
 	};
 </script>
 
+</script>
+
+	<!-- 부트스트랩 4.0 js -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+
+	<!-- 카카오톡 채널 상담 js -->
+	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+	<script type='text/javascript'>
+  //<![CDATA[
+    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    Kakao.init('be685f4c6119a7e447cd31c67878faf1');
+    // 카카오톡 채널 1:1채팅 버튼을 생성합니다.
+    function plusFriendChat() {
+        Kakao.Channel.chat({
+              channelPublicId: '_cjxmxiK' // 카카오톡채널 홈 URL에 명시된 홈ID
+        });
+    }
+    
+  //]]>
+</script>
 </head>
 <body>
-	<div class = "menubar">
-	menu
-	</div>
+
 	<div class = "Dbody">
 		<div class = "content">
 			<div id = "content_wrap">
 				<div id="btn_area">
 					<p><b>가정분양 게시판</b></p>
 					<button type = "button" class="btn btn-default">목록</button>
+					<a href = "writeupdateview.bo">수정</a>
 					
 				</div>		
 				<div id = "subject_area">

@@ -26,6 +26,18 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <title>가정분양 게시판</title>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&display=swap" rel="stylesheet">
+
+<!-- 아이콘 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+
+<!-- 부트스트랩 4.0 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 <style>
 
 #viewtrans{
@@ -34,10 +46,6 @@
 	height:50px;
 }
 
-#menubar{
-	height:50px;
-	background-color:white;
-}
 
 #write{
 margin:0 auto;
@@ -60,578 +68,331 @@ width:100px;
 
 
 
-.card{
-
+@charset "utf-8";
+* {
+   margin:0;
+   padding: 0;
 }
-
-html, div, span, applet, object, iframes, h1, h2, h3, h4, h5, h6,
-
-	p, blockquote, pre, a, abbr, acronym, address, big, quotes, code, del,
-
-	dfn, em, img, ins, kbd, q, s, samp, small, strike, sub, sup, tt, var, u,
-
-	i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
-
-	caption, tbody, tfoot, thead ,th, article, aside, canvas,
-
-	details, embed, figure, figcaption, footer, header, hgroup, menu, nav,
-
-	output, ruby, section, summary, time, mark, audio, video {
-
-	margin: 0;
-
-	padding: 0;
-
-	border: 0;
-
-	font-size: 100%;
-
-	do: inherit;
-
-	vertical-align: baseline;
-
-}
-
-
-
-article, aside, details, figcaption, figure, footer, header, hgroup,
-
-	menu, nav, section {
-
-	display: block;
-
-}
-
-
-
-blockquote, q {
-
-	quotes: none;
-
-}
-
-
-
-blockquote : before, blockquote : after, q : before, q : after {
-
-	content: '';
-
-	content: none;
-
-}
-
-
-
-table,td{
-
-	border-collapse: collapse;
-
-	border-spacing: 0;
-	
-	width:600px;
-	
-	align:center;
-	
-	text-align:center;
-	vertical-align:middle;
-}
-
-.line{border-bottom:1px solid black;}
-
-#copy{
-	background-color:#f3f1ff;
-	height:30px;	
-}
-
-/*css 초기화*/
-
-
-
-.card {
-
-	height: 200px;
-
-	width: 150px;
-
-	border-radius: 15px;
-
-	display: inline-block;
-
-	margin-top: 30px;
-
-	margin-left: 30px;
-
-	margin-bottom: 30px;
-
-	position: relative;
-
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
-	overflow: hidden;
-
-}
-
-
-
-.card-header {
-
-	-webkit-transition: 0.5s; /*사파리 & 크롬*/
-
-    -moz-transition: 0.5s;  /*파이어폭스*/
-
-    -ms-transition: 0.5s;	/*인터넷 익스플로러*/
-
-    -o-transition: 0.5s;  /*오페라*/
-
-    transition: 0.5s;
-
-	width: 100%;
-
-	height: 170px;
-
-	border-radius: 15px 15px 0 0;
-	
-
-	background-size: 100% 280px;
-
-	background-repeat: no-repeat;	
-
-}
-
-.bg_image{
-
-}
-
-.card:hover .card-header  {
-
-	opacity: 0.8;
-
-	height: 100px;
-
-}
-
-
-
-.card-header-is_closed{
-
-    background-color: #EF5A31 ;
-
-    color: #FFF ;
-
-    font-weight: bold ;
-
-    text-align: center ;
-
-    float: right;
-
-    margin: 15px 15px 0 0;
-
-    border-radius: 50%;
-
-    font-weight: bold;
-
-    padding: 10px 10px;
-
-    line-height: 20px;
-
-}
-
-
-
-h1 {
-
-    font-size: 13px;
-
-    font-weight: bold;
-
-}
-
-
-
-.card-body {
-
-}
-
-
-
-.card-body-header{
-
-	line-height: 25px;
-
-	margin: 10px 20px 0px 20px;
-
-}
-
-
-
-.card-body-description  {
-
-    opacity: 0;
-
-    color: #757B82;
-
-    line-height: 25px;
-
-    -webkit-transition: .2s ease-in-out; /*사파리&크롬*/
-
-    -moz-transition: .2s ease-in-out; /*파이어폭스*/
-
-    -ms-transition: .2s ease-in-out; /*익스플로러*/
-
-    -o-transition: .2s ease-in-out; /*오페라*/
-
-    transition : .2s ease-in-out;
-
+html{
+   margin:0 auto;
+   width : 100%;
+   height: 100%;
     overflow: hidden;
-
-	height: 180px;
-
-	margin: 5px 20px;
-
 }
-
-.card:hover .card-body-description {
-
-    opacity: 1;
-
-    -webkit-transition: .5s ease-in-out;
-
-    -moz-transition: .5s ease-in-out;
-
-    -ms-transition: .5s ease-in-out;
-
-    -o-transition: .5s ease-in-out;
-
-    transition : .5s ease-in-out;
-
- 	
-
+a:hover {
+    color: #0056b3;
+    text-decoration: none;
+}
+body {
+   margin: 0;
+   height: 100vh;
+    min-height : 600px;
+    box-sizing : content-box;
+   line-height: 1.7;
+    color: gray;
+      font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    font-size: .9rem;
+   
 }
 
 
-
-
-
-
-
-.card-body-hashtag {
-
-	color: #2478FF;
-
-	font-style: italic;
-
+a{
+   text-decoration : none;
+   color : #9494b8;
 }
 
-
-
-.card-body-footer {
-
-  	position: absolute; 
-
-  	margin-top: 15px;
-
-  	margin-bottom: 6px;
-
-    bottom: 0; 
-
-    width: 314px;
-
-    font-size: 14px;
-
-    color: #9FA5A8;
-
-    padding: 0 15px;
-
+body {
+   text-align: -webkit-center;
 }
 
-
-
-.icon {
-
-    display: inline-block;
-
-    vertical-align: middle;
-
-    margin-right: 2px;
-
+.body_content {
+   margin: 0;
+   height: 100vh;
+    min-height : 600px;
+    box-sizing : content-box;
+   line-height: 1.7;
+    color: gray;
+      font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    font-size: .9rem;
+    overflow:scroll;
 }
 
-
-
-.icon-view_count {
-
-    width: 25px;
-
-    height: 17px;
-
-	
-
+#header {
+    width: 100%;
+    height: 190px;
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #efefef;
+    padding-bottom: 20px;
+}
+.inout_gocen{
+   position: fixed; 
+   top : 20px;
+   right : 390px;
 }
 
-
-
-.icon-comments_count {
-
-	margin-left: 5px;
-
-	width: 25px;
-
-    height: 17px;
-
-	
-
+.header-top {
+   margin-top : 40px;
+   display : flex;
+   justify-content : flex-start;
+   margin-right: auto;
+}
+.header_btn{
+   width : 70px;
+   height : 30px;
+   background-color : #fff;
+   color : #9494b8;
+    border-radius: 5px;
+    border : none;
+    outline : 0;
+}
+.header_btn:hover{
+   color : #6200cc;
+   font-weight: 700;
+}
+#logout, #mypage{
+   display : none;
+}
+.img-circle{
+   width : 450px;
+   height : 150px;
+   display: block;
+   margin : 0 auto;
+}
+.nav-menu{
+   margin : 0 auto;
+   display : flex;
+   justify-content : space-around;
+   align-items: baseline;
+   width: 1200px;
+}
+.sticky-wrapper{
+   width: 400px;
+   height: 50px;
+   margin : 0;
+   margin-left: 0;
+     position: sticky;
+     list-style : none;
+    display : flex;
+    padding: 0;
+    line-height:1.6;
 }
 
-
-
-.reg_date {
-
-	float: right;
-
+.sticky-wrapper > li{
+   padding : 8px 8px;
+   list-style-type:none;
+   float: left;
+}
+.sticky-wrapper > ul{
+   padding : 8px 8px;
 }
 
-<!-- 카드 css 끝-->
-@font-face {
-  font-family: "NanumSquareRoundR";
-  src: url("./fonts/NanumSquareRoundR.eot"); /* IE9 Compat Modes */
-  src: url("./fonts/NanumSquareRoundR.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
-    url("./fonts/NanumSquareRoundR.otf") format("opentype"), /* Open Type Font */
-    url("./fonts/NanumSquareRoundR.svg") format("svg"), /* Legacy iOS */
-    url("./fonts/NanumSquareRoundR.ttf") format("truetype"), /* Safari, Android, iOS */
-    url("./fonts/NanumSquareRoundR.woff") format("woff"), /* Modern Browsers */
-    url("./fonts/NanumSquareRoundR.woff2") format("woff2"); /* Modern Browsers */
-  font-weight: normal;
-  font-style: normal;
+li.dropdown {
+    color: #9494b8;
+    background: #fff;
+    transition: .3s all ease;
+    font-size: 20px;
+    width: 90px;
+    height: 50px;
 }
 
-body {font-family: "NanumSquareRoundR", sans-serif}
-/* 나눔스퀘어  font 적용 끝*/
-
-body,html {
-	background-color: #f7f7f7;
+.sticky-wrapper.active{
+   position: fixed;
+    top: 0px;
 }
 
-.row > * {
-    padding: 30px 0px 0px 0px;
+/* dropdown */
+.dropdown-menu{
+   display: none;
+      justify-content : flex-start;
+   position: absolute;
+   list-style : none;
+    visibility: visible;
+    background-color: rgb(0,0,0,0);
+   width: 350px;
+   top : 48px;
+   padding: 5px;
+   border: none;
 }
-.row {
-    margin-top: -40px;
-    margin-left: 0px;
+.dropdown-menu li{
+   margin-right : 40px;
 }
-
-.header-top > .container {
-    padding-top: 10px;
-    padding-bottom: 0px;
-}
-
-.sign_in {
-    margin-top: 30px;
-    margin-left: 85px;
-}
-
-.site-section {
-	background-colir: #f7f7f7;
-}
+.dropdown:hover .dropdown-menu { display: flex; visibility: visible;}
 
 
-.site-section {
-  padding: 2.5em 0; }
-  @media (min-width: 768px) {
-    .site-section {
-      padding: 0em 0; } }
-  .site-section.site-section-sm {
-    padding: 4em 0; }
-      
+/* search-wrapper */
+.search-wrapper {
+  padding : 5px;
+  width: 280px;
+  height: 38px;
+  display: flex;
+  justify-content : space-betwwen;
+  background: #fff;
+  border: 2px solid #9494b8;
+  border-radius: 10px;
+}
+.search-box {
+  color: #9494b8;
+  text-align: left;
+  height : 100%;
+  padding: 0;
+  border: none;
+  background: #fff;
+  display: inline-block;
+  font-weight: 400;
+  white-space: nowrap;
+  vertical-align: middle;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: .25rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.search-box.input {
+  width : 80%;
+  margin-left : 15px;
+  font-size : .9rem;
+}
+.search-box.input:focus {outline:none;}
 
-.container_nav {
-    margin: 0 auto;
-    max-width: 100%;
-    width: 1900px;
+.search-box.btn {
+  color : #9494b8;
+  text-align : left; 
 }
 
-.site-navbar .site-navigation .site-menu > li > a {
-    text-transform: uppercase;
-    font-size: 1.4rem;
-    font-family: "NanumSquareRoundR", sans-serif;
- }
- .site-navbar {
-    font-family: "NanumSquareRoundR", sans-serif;
-}
- 
- #nav:after {
-    content: '';
-    display: block;
-    width: 1900px;
-    left: 0;
-    height: 0.5em;
-    background-color: #FFC324;
-    }
+/* search-wrqpper */
+
+
+
+/* footer */
+#footer {
+
+   position: relative;
+    margin: -15px auto;
+    width: 100%;
+    bottom: 35px;
+    padding-top: 35px;
+    z-index: -1;
+    border-top: 1px solid #efefef;
     
-#nav > ul > li.current:before {
-    -moz-transform: rotateZ(45deg);
-    -webkit-transform: rotateZ(45deg);
-    -ms-transform: rotateZ(45deg);
-    transform: rotateZ(45deg);
-    width: 0.5em;
-    height: 0.5em;
-    content: '';
+}
+p{
+   text-align : center;
+}
+.fa-heart{
+   color : red;
+}
+
+/* pageup button */
+.back-to-top{
+   width : 40px;
+   height : 40px;
+   margin : 0 auto;
+   font-size : 24px;
+   color : white;
+   background-color : #149DDD;
+   border-radius : 50%;
+   visibility : visible;
+   position: fixed; 
+   bottom: 45px; 
+   right: 30px;
+   text-align : center;
+}
+/* pageup button */
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+/*카카오톡 톡상담*/
+.kakaoChat {
+    text-align: right;
+    position: fixed;
+    margin-right: 28px;
+    bottom: 90px;
+    right: 0;
+
+}
+.kakao_btn {
+   border-radius: 1rem!important;
+}
+
+/* side menu와 내용 묶음 */
+.content-wrap {
+    width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    top: 50px;
+    overflow: visible;
+    margin-bottom: 100px;
+
+}
+
+
+/* side menu 틀*/
+.sidemenu-section {
+  width: 200px;
+   position: absolute;
+   font-size: 18px;
+   text-align: left;
+   height: 100%;
+   padding: 0px 0px 0 0;
+   margin-left: 0;
+}
+
+/* 내용 틀*/
+.content-section {
+   width: 1000px;
+   position: relative;
+   left: 200px;
+   text-align: left;
+   font-size: 14px;
+   margin-top: 3px;
+   color: black;
+   padding-left: 50px;
+   border-left: 1px solid #efefef;
+}
+
+/* 각각의 페이지에서 사용할 CSS */
+.list-group{
+   margin-block-start: 0;
+   line-height:1.6;
+}
+.list-group-item {
+    position: relative;
     display: block;
-    position: absolute;
-    bottom: -0.3em;
-    left: 50%;
-    margin-left: 0;
-    background-color: #FFC324;
-    }
+    padding: .75rem 1.25rem;
+    margin-bottom: -1px;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,.125);
+}
+/* 현재 페이지의 서브메뉴 */
+li.list-group-item.click > a {
+    font-weight: bold;
+    color: #5c5c8a;
+}
+
+.list-group-item > a {
+   text-decoration : none;
+   }
+
+
     
 ul {
-	background-color: white;
+   background-color: white;
 }
 .filter-list{
     background-color: white;
 }
 
 
-#nav > ul > li a {
-    color: black;
-    text-decoration: none;
-    border: 0;
-    display: block;
-    padding: 1.5em 0.5em 1.35em 0.5em;
-    font-size: 20px;
-}
 
-#nav > ul > li.current a {
-    color: black;
-}
-
-.site-navbar {
-    margin-bottom: 0px;
-    z-index: 1999;
-    width: 100%;
-    background: #f7f7f7;
-}
-
-.sticky-wrapper .site-navbar {
-    -webkit-transition: .3s all ease;
-    -o-transition: .3s all ease;
-    transition: .3s all ease;
-    border-bottom: none;
-}
-
-.search-form .form-control {
-    margin-right: 10px;
-    height: 35px;
-    padding-left: 20px;
-    padding-right: 20px;
-    border-radius: 30px;
-    border: none;
-    background: #fff;
-    border-bottom: 1px solid transparent;
-    border-bottom: 1px solid #ccc;
-}
-
-
-ul {
-    background-color: #f7f7f7;
-}
-
-.sticky-wrapper {
-	color : #474747;
-    position: absolute;
-    z-index: 100;
-    width: 100%;
-    background: #f7f7f7;
-}
-
-a {
-	text-decoration: none;
-	color: black;
-	border-bottom: none;
-}
-#nav > ul > li:hover a {
-    color: #37c0fb;
-}
-
-.site-section.subscribe {
-    padding: 2em 0;
-}
-
-hr {
-    border-top: solid 1px #ECECEC;
-    border: 1;
-    margin-bottom: 1.5em;
-}
-
-.blockquote {
-    margin-bottom: 0;
-    font-size: 1.25rem;
-}
-blockquote {
-    border-left: 0;
-    padding: 0;
-}
-.blockquote-footer {
-    display: block;
-    font-size: 70%;
-    color: #6c757d;
-    font-style: italic;
-    margin: 5px 0 0em 0;
-}
-.container_footer {
-    margin: 0 auto;
-    width: 1140px;
-}
-.row_footer {
-    display: flex;
-    flex-wrap: inherit;
-    box-sizing: border-box;
-    align-items: stretch;
-}
-.footer {
-	width:100%;
-    font-size: .85rem;
-    text-align: center;
-    bottom: 0;
-    padding: 0rem 0;
-    position: fixed;
-    background-color: #f7f7f7;
-   
-}
 .brand-list{
-	background-color: white;
+   background-color: white;
 }
 
 /* header, footer 이외 css */
-.content-wrap {
-	width: 1110px;
-	min-height: 100%;
-	margin: 0 auto;
-	position: relative;
-	top: 50px;
-	
-}
-.content-section {
-	width: 860px;
-	position: absolute;
-	padding-bottom: 190px;
-}
-.sidemenu-section {
-	width: 230px;
-	left: 880px;
-	position: absolute;
-}
-
-.list-group-item {
-    position: relative;
-    display: block;
-    padding: .75rem 1.25rem;
-    margin-bottom: -1px;
-    background-color: #f7f7f7;
-    border: 1px solid rgba(0,0,0,.125);
-}
-.list-group-item > a {
-	text-decoration : none;
-	}
 
 
 
@@ -649,87 +410,9 @@ th, td {
     padding: 10px;
   }
   
- .card {
-  width:300px;
-  display: grid;
-  grid-template-columns: 300px;
-  grid-template-rows: 210px 210px 80px;
-  grid-template-areas: "image" "text" "stats";
-
-  border-radius: 18px;
-  background: white;
-  box-shadow: 0px 0px 1px rgba(0,0,0,0.9);
-  font-family: roboto;
-  text-align: center;
-  float:left;
-}
-
-.card-image {
-  grid-area: image;
-}
-.card-text {
-  grid-area: text;
-}
-.card-stats {
-  grid-area: stats; 
-}
-
-.card-image {
-  grid-area: image;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  background-size: cover;
-}
-.card-text {
-  grid-area: text;
-  margin: 25px;
-}
-.card-text .date {
-  color: rgb(255, 7, 110);
-  font-size:13px;
-}
-.card-text p {
-  color: grey;
-  font-size:15px;
-  font-weight: 300;
-}
-.card-text h2 {
-  margin-top:0px;
-  font-size:28px;
-}
-.card-stats {
-  grid-area: stats; 
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
-
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
-  background: #E0D7CE;
-}
-.card-stats .stat {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-
-  color: #614D3C;
-  padding:10px;
-}
-.card:hover {
-  transform: scale(1.05);
-  box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
-}
-.card {
 
 
-  transition: 0.5s ease;
-  cursor: pointer;
-  margin:10px;
-}
-
-a{
-
+.a_1{
   text-decoration:none;
   color:black;
   
@@ -925,7 +608,7 @@ select, input, button, textarea {
     margin: 0 auto;
     width: 18px;
     height: 15px;
-    background: url(./resources/images/m_merged.png) 0 0 no-repeat;
+    background: url(./resources/img/m_merged.png) 0 0 no-repeat;
    
 }
 .prod-category-smart-search.active .smart-search-toggle:after {
@@ -981,7 +664,7 @@ select, input, button, textarea {
 }
 .smart-search-wrap .search-item-wrap .search-item .filter-content.custom-scroll {
     width: calc(100% + 1px);
-    height: 354px;
+    height: 220px;
     border-right: 1px solid #ededed;
 }
 .custom-scroll {
@@ -1386,11 +1069,11 @@ ol, ul {
     height: 20px;
     margin-left: 8px;
     border: 1px solid #e5e5e5;
-    background: url(./resources/images/free-icon-x-mark-482641.png) center no-repeat;
+    background: url(./resources/img/free-icon-x-mark-482641.png) center no-repeat;
     vertical-align: top;
 }
 .btn-filter-del{
-	font-size:0px;
+   font-size:0px;
 }
 .prod-category-smart-search .smart-search-result .title-box .title {
     padding-right: 53px;
@@ -1407,14 +1090,94 @@ ol, ul {
 .smart-search-result .search-btn-wrap {
     margin-top: 30px;
     text-align: center;
-}	
+}
+.list_content{
+   
+   padding:15px 15px;
+}
+
+.comment_icon{
+    background: url(./resources/img/free-icon-speech-bubble-2462719.png) center no-repeat;
+
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+   
+}
+.recount_icon{
+   background: url(./resources/img/free-icon-eye-660022.png) center no-repeat;
+
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+}
+.detail-read{
+   float:right;
+   margin-right:135px;
+}
+.section-title {
+    color: #000;
+    margin-bottom: 30px;
+}
+.section-title h2 {
+   margin-top: 10px;
+    font-size: 20px;
+    font-weight: 400;
+    position: relative;
+    display: inline-block;
+    border-bottom:none;
+}
+.post-entry-2 .thumbnail {
+    background-size: cover;
+    background-position: center;
+    width: 30%;
+   
+}
+.order-md-2 {
+    -webkit-box-ordinal-group: 3;
+    -ms-flex-order: 2;
+    order: 2;
+}
+.post-entry-2 .contents {
+    width: 70%;
+    padding: 10px 20px;
+}
+.post-entry-2 .contents h2 {
+    font-size: 15px;
+}
+.mb-3, .my-3 {
+    margin-bottom: 1rem!important;
+    text-align:left;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.post-meta {
+    font-size: .8rem;
+}
+.d-block {
+    display: block!important;
+}
+.date-read {
+    color: #b4b4b4;
+}
+.post-entry-1, .post-entry-2 {
+    font-size: .9rem;
+    margin-bottom: 18px;
+    padding-bottom:18px;
+    border-bottom: 1px solid #efefef;
+}
+.tag{
+   
+   
+   color:#5c5c8a;
+}
+	
 
 
 </style>
 <script type ="text/javascript" src = "https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
-
-
 function create_list(){
 	$('.content').empty();
 	jQuery.ajax({
@@ -1423,30 +1186,18 @@ function create_list(){
          contentType : 'application/x-www-form-urlencoded; charset=utf-8',
          dataType : 'json',
          success : function (data) {
-        	 var thead = '';
-        	 thead += '<th>번호 </th>'
-        	 thead += '<th colspan="2">제목 </th>'
-        	 thead += '<th>분양가 </th>'
-        	 thead += '<th>닉네임 </th>'
-        	 thead += '<th>작성일자 </th>'
-         	 thead += '<th>조회수 </th>'
-         	 
-         	 $('.content').append(thead);
         	 $.each(data, function(index, item){
         		var output = '';
         		
-				
-                output += '<tr>';
-                output += '<td class ="line">' + item.home_no +'</td>'
-                output += '<td class ="line"><a href = "adopthomeview.bo?num='+item.home_no+'">' + item.home_thumbnail +'</a></td>'
-                output += '<td class ="line" valign="middle"><a href = "adopthomeview.bo">' + item.home_subject +'</a></td>'
-                output += '<td class ="line">' + item.home_price + '</td>'  
-                output += '<td class ="line">' + item.home_nick + '</td>'
-                output += '<td class ="line">' + item.home_date + '</td>'
-                output += '<td class ="line">' + item.home_readcount + '</td>'
-                output += '</tr>';
+                output += '<div>';
+                output += '<p><a href = "adopthomeview.bo?num='+item.home_no+'">' + item.home_subject +'</a></p>'
+                output += '<p>' + item.big_name + item.loc + item.kindof + item.home_price +'</p>'
+                output += '<p>' + item.home_nick + '</p>'  
+                output += '<p>' + item.home_date + '</p>'
+                output += '<p>' + item.home_readcount + '</p>'
+                output += '</div>';
                 
-                $('.content').append(output);
+                $('.list_content').append(output);
         	 });
          },
          error:function(){
@@ -1565,6 +1316,19 @@ $(document).ready(function(){
 	 create_list();
 	 
 	 
+	 if(sessionStorage.getItem("default_option")!=null){
+			var default_option = sessionStorage.getItem("default_option");
+			 $(".filter-list").append(default_option);
+			
+		}
+		
+	if(sessionStorage.getItem("detail_option")!=null){
+		var detail_option = sessionStorage.getItem("detail_option");
+		 $(".filter-list").append(detail_option);
+		
+	}
+	
+	 
 	 $("input:checkbox[name='chkBrandAModule']").change(function(){
 	        if($(this).is(":checked")){
 	            
@@ -1663,19 +1427,108 @@ function search(){
 	alert(search);
 	
 }
+
 function default_submit(){
+	$(".content").empty();
+	
+	var searchinsert = $("#detail_form").serializes();
+	
+	jQuery.ajax({
+		 url : 'home_search.bo',
+         type : 'POST',
+         contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+         data : searchinsert,
+         dataType : 'json',
+         success :	function (data) {
+        	 
+        	 var thead = '';
+        	 thead += '<th>번호 </th>'
+        	 thead += '<th colspan="2">제목 </th>'
+        	 thead += '<th>분양가 </th>'
+        	 thead += '<th>닉네임 </th>'
+        	 thead += '<th>작성일자 </th>'
+         	 thead += '<th>조회수 </th>'
+         	 
+         	 $('.content').append(thead);
+        	 $.each(data, function(index, item){
+        		var output = '';
+        		
+				
+                output += '<tr>';
+                output += '<td class ="line">' + item.home_no +'</td>'
+                output += '<td class ="line"><a href = "adopthomeview.bo?num='+item.home_no+'">' + item.home_thumbnail +'</a></td>'
+                output += '<td class ="line" valign="middle"><a href = "adopthomeview.bo">' + item.home_subject +'</a></td>'
+                output += '<td class ="line">' + item.home_price + '</td>'  
+                output += '<td class ="line">' + item.home_nick + '</td>'
+                output += '<td class ="line">' + item.home_date + '</td>'
+                output += '<td class ="line">' + item.home_readcount + '</td>'
+                output += '</tr>';
+                
+                $('.content').append(output);
+        	 });
+         },
+         error:function(){
+             alert("ajax통신 실패!!!");
+          }
+		
+	});	
+	/*
 	sessionStorage.removeItem("default_option");
 	sessionStorage.removeItem("detail_option");
-	$('#default_form').submit();
 	var default_option = $('#default_option').html();
 	sessionStorage.setItem('default_option',default_option);
+	*/
 }
+
 function detail_submit(){
+$(".content").empty();
+var searchinsert = $("#detail_form").serialize();
+	
+	jQuery.ajax({
+		 url : 'home_search	.bo',
+         type : 'POST',
+         contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+         data : searchinsert,
+         dataType : 'json',
+         success :	function (data) {
+        	 
+        	 var thead = '';
+        	 thead += '<th>번호 </th>'
+        	 thead += '<th colspan="2">제목 </th>'
+        	 thead += '<th>분양가 </th>'
+        	 thead += '<th>닉네임 </th>'
+        	 thead += '<th>작성일자 </th>'
+         	 thead += '<th>조회수 </th>'
+         	 
+         	 $('.content').append(thead);
+        	 $.each(data, function(index, item){
+        		var output = '';
+        		
+				
+                output += '<tr>';
+                output += '<td class ="line">' + item.home_no +'</td>'
+                output += '<td class ="line"><a href = "adopthomeview.bo?num='+item.home_no+'">' + item.home_thumbnail +'</a></td>'
+                output += '<td class ="line" valign="middle"><a href = "adopthomeview.bo">' + item.home_subject +'</a></td>'
+                output += '<td class ="line">' + item.home_price + '</td>'  
+                output += '<td class ="line">' + item.home_nick + '</td>'
+                output += '<td class ="line">' + item.home_date + '</td>'
+                output += '<td class ="line">' + item.home_readcount + '</td>'
+                output += '</tr>';
+                
+                $('.content').append(output);
+        	 });
+         },
+         error:function(){
+             alert("ajax통신 실패!!!");
+          }
+		
+	});
+	/*
 	sessionStorage.removeItem("detail_option");
 	sessionStorage.removeItem("default_option");
-	$('#detail_form').submit();
 	var detail_option = $('#detail_option').html();
 	sessionStorage.setItem('detail_option',detail_option);
+	*/
 }
 function search_submit(a){
 	
@@ -1684,625 +1537,740 @@ function search_submit(a){
 	var default_option = $('#default_option').html();
 	sessionStorage.setItem('default_option',default_option);
 }
-
 </script>
 </head>
 <body>
 
-	<div id="copy"></div>
-	<div id="menubar">
-	</div>
-	
-	<div class="prod-category-smart-search smart-search-filter include-type" id="option">
+	<div class ="body_content">
+<header id = "header">
+
+   <div class ="inout_gocen">
+         <input type="button" class= "header_btn" id="login" value="로그인">
+         <input type="button" class= "header_btn" id="logout" value="로그아웃">
+         <input type="button" class= "header_btn" id="signin" value="회원가입">
+         <input type="button" class= "header_btn" id="mypage" value="마이페이지">
+         <input type="button" class= "header_btn" id="gocen" value="고객센터">
+      </div>
+   
+   <div class="nav-menu">
+            <ul class="sticky-wrapper">
+               <li class="dropdown"><a href="main.me">HOME</a></li>
+               <li class="dropdown"><a href="board.me">분양</a>
+                  <ul class="dropdown-menu">
+                     <li><a href="#">&nbsp;&nbsp;가정분양</a></li>
+                     <li><a href="#">책임분양</a></li>
+                     <li><a href="#">업체분양</a></li>
+                  </ul></li>
+               <li class="dropdown"><a href="care.me">보호소</a>
+                  <ul class="dropdown-menu">
+                     <li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
+                     <li><a href="#">파양</a></li>
+                     <li><a href="#">실종</a></li>
+                  </ul></li>
+               <li class="dropdown"><a href="community.me">커뮤니티</a>
+                  <ul class="dropdown-menu">
+                     <li><a href="#">&nbsp;자유게시판</a></li>
+                     <li><a href="#">책임분양인증</a></li>
+                  </ul></li>
+            </ul>
+   
+   <div class="header-top">
+      <div class="mainlogo">
+      <a href="#">
+      <img src = "./resources/img/mainlogo.png" class = "img-circle">
+      </a>
+      </div>
+   </div>
+   <div class= "search-wrapper">
+      <input class="search-box input" type="text" placeholder="Search">
+      <button class="search-box" type="button"><i class="fas fa-search"></i></button>
+   </div>
+   </div><!-- nav-menu -->
+</header>
+      
+      
+         <div class="content-wrap">
+         
+         <!-- 왼쪽. 서브메뉴가 들어갈 부분 -->
+	         <div class="sidemenu-section">
+	         <ul class="list-group list-group-flush">
+	            <li class="list-group-item click"><a href="home_list.bo">가정분양</a></li>
+	            <li class="list-group-item"><a href="/">책임분양</a></li>
+	            <li class="list-group-item"><a href="/">업체분양</a></li>
+	         </ul>
+	         </div>
+         
+         <!-- 오른쪽. 내용이 들어갈 부분 -->
+         <div class="content-section">
+         <div><div class="content-inner prod-category">
+<div class="prod-category-smart-search smart-search-filter include-type" id="option">
 <div id="search" class="smart-search-result bare-smart-filter">
-<form id="default_form" method="post" action="home_search.bo">
-		<div class="keyword-wrap">
-			<div class="title-box">
-				<span class="title">검색어 추가</span>
-				<span class="title-desc">함께 찾고 싶은 검색어를 입력해주세요.</span>
-			</div>
-			<div class="keyword-input-box input-wrap">
-				<input id="default_search" type="text" class="ui-input filter-search-word" placeholder="검색어를 입력해주세요" title="검색어 입력" onsubmit="return false;">
-				<button id="default_button" type="button" class="btn btn-sm add-filter-search-word-btn">추가</button>
-			</div>
-		</div>
-		<div class="left-box">
-			<div class="title-box"><span class="title">선택한 조건</span></div>
-			<div class="filter-box">
-				<ul id="default_option" class="filter-list smart-search-selected-condition-list"></ul>
-			</div>
-		</div>
-		</form>
-		<div class="search-btn-wrap">
-				<button type="button" class="btn btn-line smart-search-clear-btn" onclick="reset();">초기화</button>
-				<button type="button" class="btn smart-search-submit-btn" onclick="default_submit();">검색</button>
-			</div>
-		
-	</div>
-	
-	
-	
-	<div class="smart-search-detail" id="smart-search-detail">
-		<div class="smart-search-wrap smart-search-include-wrap no-category">
-			<form id="tmp2">
-			<div class="search-item-wrap">
-				
-					<div class="search-item brand">
-						<span class="search-title">강아지</span>
-						<div class="filter-content custom-scroll" data-simplebar="init">
-						<div class="simplebar-wrapper" style="margin: 0px -20px 0px 0px;">
-						<div class="simplebar-height-auto-observer-wrapper">
-						<div class="simplebar-height-auto-observer">
-						</div></div><div class="simplebar-mask">
-						<div class="simplebar-offset" style="right: -20px; bottom: 0px;">
-						<div class="simplebar-content" style="padding: 0px calc(40px) 0px 0px; height: 100%; overflow: hidden scroll;">
-						<div class="custom-scroll-inner" style="position: relative;">
-						<div class="filter-content-inner">
-						
-						<ul class="brand-list smart-search-dialog-brand-list-A">
-						<li class="smart-search-option" id="">
-						<span class="item">
-						<input id="dog1" type="checkbox" name="chkBrandAModule" value="포메라니안">
-						<label for="dog1">포메라니안</label>
-						</span>
-						</li>
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="dog2" type="checkbox" name="chkBrandAModule" value="치와와">
-						<label for="dog2">치와와</label>
-						</span>
-						</li>
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="dog3" type="checkbox" name="chkBrandAModule" value="미니어처 핀셔(미니핀)">
-						<label for="dog3">미니어처 핀셔(미니핀)</label>
-						</span>
-						</li>
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="dog4" type="checkbox" name="chkBrandAModule" value="파피용">
-						<label for="dog4">파피용</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="dog5" type="checkbox" name="chkBrandAModule" value="토이 푸들">
-						<label for="dog5">토이 푸들</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="dog6" type="checkbox" name="chkBrandAModule" value="미니어처 닥스훈트">
-						<label for="dog6">미니어처 닥스훈트</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="dog7" type="checkbox" name="chkBrandAModule" value="요크셔테리어">
-						<label for="dog7">요크셔테리어</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="dog8" type="checkbox" name="chkBrandAModule" value="말티즈">
-						<label for="dog8">말티즈</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="dog9" type="checkbox" name="chkBrandAModule" value="비숑 프리제">
-						<label for="dog9">비숑 프리제</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="dog10" type="checkbox" name="chkBrandAModule" value="미니어쳐 슈나우저">
-						<label for="dog10">미니어쳐 슈나우저</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="dog11"type="checkbox" name="chkBrandAModule" value="페키니즈">
-						<label for="dog11">페키니즈</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="dog12" type="checkbox" name="chkBrandAModule" value="꼬똥 드 툴레아">
-						<label for="dog12">꼬똥 드 툴레아</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="dog13" type="checkbox" name="chkBrandAModule" value="퍼그">
-						<label for="dog13">퍼그</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="dog14" type="checkbox" name="chkBrandAModule" value="웰시 코기">
-						<label for="dog14">웰시 코기</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="dog15" type="checkbox" name="chkBrandAModule" value="프렌치 불독">
-						<label for="dog15">프렌치 불독</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="dog16" type="checkbox" name="chkBrandAModule" value="비글">
-						<label for="dog16">비글</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="dog17" type="checkbox" name="chkBrandAModule" value="코카 스파니엘">
-						<label for="dog17">코카 스파니엘</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="dog18" type="checkbox" name="chkBrandAModule" value="보스턴 테리어">
-						<label for="dog18">보스턴 테리어</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="dog19" type="checkbox" name="chkBrandAModule" value="셔틀랜드 쉽독">
-						<label for="dog19">셔틀랜드 쉽독</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="dog20" type="checkbox" name="chkBrandAModule" value="이탈리안 그레이하운드">
-						<label for="dog20">이탈리안 그레이하운드</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="dog21" type="checkbox" name="chkBrandAModule" value="스코티시 테리어">
-						<label for="dog21">스코티시 테리어</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="dog22" type="checkbox" name="chkBrandAModule" value="베들링턴 테리어">
-						<label for="dog22">베들링턴 테리어</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="dog23" type="checkbox" name="chkBrandAModule" value="시바이누">
-						<label for="dog23">시바이누</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="dog24" type="checkbox" name="chkBrandAModule" value="볼테리어">
-						<label for="dog24">불테리어</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="dog25" type="checkbox" name="chkBrandAModule" value="보더콜리">
-						<label for="dog25">보더콜리</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="dog26" type="checkbox" name="chkBrandAModule" value="시추">
-						<label for="dog26">시추</label>
-						</span>
-						</li>
-						</ul>
-						</div><div dir="ltr" class="resize-sensor" style="position: absolute; inset: -10px 0px 0px -10px; overflow: hidden; z-index: -1; visibility: hidden;"><div class="resize-sensor-expand" style="position: absolute; left: -10px; top: -10px; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 100000px; height: 100000px;"></div></div><div class="resize-sensor-shrink" style="position: absolute; left: -10px; top: -10px; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%"></div></div></div></div>
-							
-						</div></div></div><div class="simplebar-placeholder" style="width: 353px; height: 1809px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"></div></div>
-					</div>
-				
-				<div class="search-item brand">
-						<span class="search-title">고양이</span>
-						<div class="filter-content custom-scroll" data-simplebar="init">
-						<div class="simplebar-wrapper" style="margin: 0px -20px 0px 0px;">
-						<div class="simplebar-height-auto-observer-wrapper">
-						<div class="simplebar-height-auto-observer">
-						</div></div><div class="simplebar-mask">
-						<div class="simplebar-offset" style="right: -20px; bottom: 0px;">
-						<div class="simplebar-content" style="padding: 0px calc(40px) 0px 0px; height: 100%; overflow: hidden scroll;">
-						<div class="custom-scroll-inner" style="position: relative;">
-						<div class="filter-content-inner">
-						
-						<ul class="brand-list smart-search-dialog-brand-list-A">
-						<li class="smart-search-option" id="">
-						<span class="item">
-						<input id="cat1" type="checkbox" name="chkBrandAModule" value="노르웨이 숲 고양이">
-						<label for="cat1">노르웨이 숲 고양이</label>
-						</span>
-						</li>
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat2" type="checkbox" name="chkBrandAModule" value="데본렉스">
-						<label for="cat2">데본렉스</label>
-						</span>
-						</li>
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat3" type="checkbox" name="chkBrandAModule" value="라가머핀">
-						<label for="cat3">라가머핀</label>
-						</span>
-						</li>
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat4" type="checkbox" name="chkBrandAModule" value="라팜">
-						<label for="cat4">라팜</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat5" type="checkbox" name="chkBrandAModule" value="렉돌">
-						<label for="cat5">렉돌</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat6" type="checkbox" name="chkBrandAModule" value="러시안블루">
-						<label for="cat6">러시안블루</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat7" type="checkbox" name="chkBrandAModule" value="메인쿤">
-						<label for="cat7">메인쿤</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat8" type="checkbox" name="chkBrandAModule" value="발리네즈 고양이">
-						<label for="cat8">발리네즈 고양이</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat9" type="checkbox" name="chkBrandAModule" value="버만">
-						<label for="cat9">버만</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat10" type="checkbox" name="chkBrandAModule" value="버미즈">
-						<label for="cat10">버미즈</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat11" type="checkbox" name="chkBrandAModule" value="봄베이">
-						<label for="cat11">봄베이</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat12" type="checkbox" name="chkBrandAModule" value="브리티쉬 숏 헤어">
-						<label for="cat12">브리티쉬 숏 헤어</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat13" type="checkbox" name="chkBrandAModule" value="샤트룩스">
-						<label for="cat13">샤트룩스</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat14" type="checkbox" name="chkBrandAModule" value="샴">
-						<label for="cat14">샴</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat15" type="checkbox" name="chkBrandAModule" value="셀커크  렉스">
-						<label for="cat15">셀커크 렉스</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat16" type="checkbox" name="chkBrandAModule" value="소말리">
-						<label for="cat16">소말리</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat17" type="checkbox" name="chkBrandAModule" value="스코티쉬 폴드">
-						<label for="cat17">스코티쉬 폴드</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat18" type="checkbox" name="chkBrandAModule" value="스핑크스">
-						<label for="cat18">스핑크스</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat19" type="checkbox" name="chkBrandAModule" value="시베리아">
-						<label for="cat19">시베리아</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat20" type="checkbox" name="chkBrandAModule" value="아메리칸 밥테일">
-						<label for="cat20">아메리칸 밥테일</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat21" type="checkbox" name="chkBrandAModule" value="아메리칸 숏헤어">
-						<label for="cat21">아메리칸 숏헤어</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat22" type="checkbox" name="chkBrandAModule" value="아메리칸 와이어헤어">
-						<label for="cat22">아메리칸 와이어헤어</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat23" type="checkbox" name="chkBrandAModule" value="아메리칸 컬">
-						<label for="cat23">아메리칸 컬</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat24" type="checkbox" name="chkBrandAModule" value="아비니시안">
-						<label for="cat24">아비니시안</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat25" type="checkbox" name="chkBrandAModule" value="오시캣">
-						<label for="cat25">오시캣</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat26" type="checkbox" name="chkBrandAModule" value="유러피안 버미즈">
-						<label for="cat26">유러피안 버미즈</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat27" type="checkbox" name="chkBrandAModule" value="이그저틱">
-						<label for="cat27">이그저틱</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat28" type="checkbox" name="chkBrandAModule" value="이집션 마우">
-						<label for="cat28">이집션 마우</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat29" type="checkbox" name="chkBrandAModule" value="재패니즈밥테일">
-						<label for="cat29">재패니즈밥테일</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat30" type="checkbox" name="chkBrandAModule" value="컬러포인트쇼트헤어">
-						<label for="cat30">컬러포인트쇼트헤어</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat31" type="checkbox" name="chkBrandAModule" value="코니시 렉스"> 
-						<label for="cat31">코니시 렉스</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="cat32" type="checkbox" name="chkBrandAModule" value="코랫">
-						<label for="cat32">코랫</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input type="checkbox" name="chkBrandAModule" value="터키시 반">
-						<label for="ibrand2">터키시 반</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input type="checkbox" name="chkBrandAModule" value="터키쉬 앙고라">
-						<label for="ibrand2">터키쉬 앙고라</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input type="checkbox" name="chkBrandAModule" value="통키니즈">
-						<label for="ibrand2">통키니즈</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input type="checkbox" name="chkBrandAModule" value="페르시안">
-						<label for="ibrand2">페르시안</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input type="checkbox" name="chkBrandAModule" value="하바나 브라운">
-						<label for="ibrand2">하바나 브라운</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option">
-						<span class="item"><input type="checkbox" name="chkBrandAModule" value="자바니즈">
-						<label for="ibrand2">자바니즈</label>
-						</span>
-						</li>
-						</ul>
-						</div><div dir="ltr" class="resize-sensor" style="position: absolute; inset: -10px 0px 0px -10px; overflow: hidden; z-index: -1; visibility: hidden;"><div class="resize-sensor-expand" style="position: absolute; left: -10px; top: -10px; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 100000px; height: 100000px;"></div></div><div class="resize-sensor-shrink" style="position: absolute; left: -10px; top: -10px; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%"></div></div></div></div>
-							
-						</div></div></div><div class="simplebar-placeholder" style="width: 353px; height: 1809px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"></div></div>
-					</div>
-					
-						<div class="search-item brand">
-						<span class="search-title">지역</span>
-						<div class="filter-content custom-scroll" data-simplebar="init">
-						<div class="simplebar-wrapper" style="margin: 0px -20px 0px 0px;">
-						<div class="simplebar-height-auto-observer-wrapper">
-						<div class="simplebar-height-auto-observer">
-						</div></div><div class="simplebar-mask">
-						<div class="simplebar-offset" style="right: -20px; bottom: 0px;">
-						<div class="simplebar-content" style="padding: 0px calc(40px) 0px 0px; height: 100%; overflow: hidden scroll;">
-						<div class="custom-scroll-inner" style="position: relative;">
-						<div class="filter-content-inner">
-						
-						<ul class="brand-list smart-search-dialog-brand-list-A">
-						<li class="smart-search-option" id="">
-						<span class="item">
-						<input id="loc1" type="checkbox" name="chkloc" value="서울">
-						<label for="loc1">서울</label>
-						</span>
-						</li>
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="loc2" type="checkbox" name="chkloc" value="부산">
-						<label for="loc2">부산</label>
-						</span>
-						</li>
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="loc3" type="checkbox" name="chkloc" value="대구">
-						<label for="loc3">대구</label>
-						</span>
-						</li>
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="loc4" type="checkbox" name="chkloc" value="인천">
-						<label for="loc4">인천</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="loc5" type="checkbox" name="chkloc" value="광주">
-						<label for="loc5">광주</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="loc6" type="checkbox" name="chkloc" value="대전">
-						<label for="loc6">대전</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="loc7" type="checkbox" name="chkloc" value="울산">
-						<label for="loc7">울산</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="loc8" type="checkbox" name="chkloc" value="세종">
-						<label for="loc8">세종</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="loc9" type="checkbox" name="chkloc" value="경기">
-						<label for="loc9">경기</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="loc10" type="checkbox" name="chkloc" value="강원">
-						<label for="loc10">강원</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="loc11" type="checkbox" name="chkloc" value="충북">
-						<label for="loc11">충북</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="loc12" type="checkbox" name="chkloc" value="충남">
-						<label for="loc12">충남</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="loc13" type="checkbox" name="chkloc" value="전북">
-						<label for="loc13">전북</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="loc14" type="checkbox" name="chkloc" value="전남">
-						<label for="loc14">전남</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="loc15" type="checkbox" name="chkloc" value="경북">
-						<label for="loc15">경북</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="loc16" type="checkbox" name="chkloc" value="경남">
-						<label for="loc16">경남</label>
-						</span>
-						</li>
-						
-						<li class="smart-search-option" id="">
-						<span class="item"><input id="loc17" type="checkbox" name="chkloc" value="제주">
-						<label for="loc17">제주</label>
-						</span>
-						</li>
-						
-						</ul>
-						</div><div dir="ltr" class="resize-sensor" style="position: absolute; inset: -10px 0px 0px -10px; overflow: hidden; z-index: -1; visibility: hidden;"><div class="resize-sensor-expand" style="position: absolute; left: -10px; top: -10px; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 100000px; height: 100000px;"></div></div><div class="resize-sensor-shrink" style="position: absolute; left: -10px; top: -10px; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%"></div></div></div></div>
-							
-						</div></div></div><div class="simplebar-placeholder" style="width: 353px; height: 1809px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"></div></div>
-					</div>
-				
-			</div>
-			</form>
-			<div class="keyword-wrap">
-				<div class="title-box">
-					<span class="title">검색어 추가</span>
-					<span class="title-desc">함께 찾고 싶은 검색어를 입력해주세요.</span>
-				</div>
-				<div class="keyword-input-box input-wrap">
-					<input id="detail_search" type="text" class="ui-input filter-search-word" placeholder="검색어를 입력해주세요" title="검색어 입력">
-					<button id="detail_button" type="button" class="btn btn-sm add-filter-search-word-btn">추가</button>
-				</div>
-			</div>
-			<form id="detail_form" method="post" action="home_search.bo">
-				
-				<div class="filter-wrap">
-					<div class="title-box"><span class="title">선택한 조건</span></div>
-					<ul id="detail_option" class="filter-list smart-search-selected-condition-list"></ul>
-				</div>
-			</form>
-			<div class="search-btn-wrap">
-				<button type="button" class="btn btn-line smart-search-clear-btn" onclick="reset();">초기화</button>
-				<button type="button" class="btn smart-search-submit-btn" onclick="detail_submit();">검색</button>
-			</div>
-			
-		</div>
-		<!-- e : 190423 수정 // search-title-box 영역 삭제, 신발 category-list영역 col-6 클래스 추가, filter-wrap 영역 선택한 조건 타이틀 추가 -->
-	</div>
-	<button type="button" class="smart-search-toggle smart-filter-toggle-btn" onclick="option();"></button>
-	</div>
-	
+<form id="default_form" method="post" action="fdoc_search.bo">
+      <div class="keyword-wrap">
+         <div class="title-box">
+            <span class="title">검색어 추가</span>
+            <span class="title-desc">함께 찾고 싶은 검색어를 입력해주세요.</span>
+         </div>
+         <div class="keyword-input-box input-wrap">
+            <input id="default_search" type="text" class="ui-input filter-search-word" placeholder="검색어를 입력해주세요" title="검색어 입력" onsubmit="return false;">
+            <button id="default_button" type="button" class="btn btn-sm add-filter-search-word-btn">추가</button>
+         </div>
+      </div>
+      <div class="left-box">
+         <div class="title-box"><span class="title">선택한 조건</span></div>
+         <div class="filter-box">
+            <ul id="default_option" class="filter-list smart-search-selected-condition-list"></ul>
+         </div>
+      </div>
+      </form>
+      <div class="search-btn-wrap">
+            <button type="button" class="btn btn-line smart-search-clear-btn" onclick="reset();">초기화</button>
+            <button type="button" class="btn smart-search-submit-btn" onclick="default_submit();">검색</button>
+         </div>
+      
+   </div>
+   
+   
+   
+   <div class="smart-search-detail" id="smart-search-detail">
+      <div class="smart-search-wrap smart-search-include-wrap no-category">
+         <form id="tmp2">
+         <div class="search-item-wrap">
+            
+               <div class="search-item brand">
+                  <span class="search-title">강아지</span>
+                  <div class="filter-content custom-scroll" data-simplebar="init">
+                  <div class="simplebar-wrapper" style="margin: 0px -20px 0px 0px;">
+                  <div class="simplebar-height-auto-observer-wrapper">
+                  <div class="simplebar-height-auto-observer">
+                  </div></div><div class="simplebar-mask">
+                  <div class="simplebar-offset" style="right: -20px; bottom: 0px;">
+                  <div class="simplebar-content" style="padding: 0px calc(40px) 0px 0px; height: 100%; overflow: hidden scroll;">
+                  <div class="custom-scroll-inner" style="position: relative;">
+                  <div class="filter-content-inner">
+                  
+                  <ul class="brand-list smart-search-dialog-brand-list-A">
+                  <li class="smart-search-option" id="">
+                  <span class="item">
+                  <input id="dog1" type="checkbox" name="chkBrandAModule" value="포메라니안">
+                  <label for="dog1">포메라니안</label>
+                  </span>
+                  </li>
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="dog2" type="checkbox" name="chkBrandAModule" value="치와와">
+                  <label for="dog2">치와와</label>
+                  </span>
+                  </li>
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="dog3" type="checkbox" name="chkBrandAModule" value="미니어처 핀셔(미니핀)">
+                  <label for="dog3">미니어처 핀셔(미니핀)</label>
+                  </span>
+                  </li>
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="dog4" type="checkbox" name="chkBrandAModule" value="파피용">
+                  <label for="dog4">파피용</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="dog5" type="checkbox" name="chkBrandAModule" value="토이 푸들">
+                  <label for="dog5">토이 푸들</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="dog6" type="checkbox" name="chkBrandAModule" value="미니어처 닥스훈트">
+                  <label for="dog6">미니어처 닥스훈트</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="dog7" type="checkbox" name="chkBrandAModule" value="요크셔테리어">
+                  <label for="dog7">요크셔테리어</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="dog8" type="checkbox" name="chkBrandAModule" value="말티즈">
+                  <label for="dog8">말티즈</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="dog9" type="checkbox" name="chkBrandAModule" value="비숑 프리제">
+                  <label for="dog9">비숑 프리제</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="dog10" type="checkbox" name="chkBrandAModule" value="미니어쳐 슈나우저">
+                  <label for="dog10">미니어쳐 슈나우저</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="dog11"type="checkbox" name="chkBrandAModule" value="페키니즈">
+                  <label for="dog11">페키니즈</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="dog12" type="checkbox" name="chkBrandAModule" value="꼬똥 드 툴레아">
+                  <label for="dog12">꼬똥 드 툴레아</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="dog13" type="checkbox" name="chkBrandAModule" value="퍼그">
+                  <label for="dog13">퍼그</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="dog14" type="checkbox" name="chkBrandAModule" value="웰시 코기">
+                  <label for="dog14">웰시 코기</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="dog15" type="checkbox" name="chkBrandAModule" value="프렌치 불독">
+                  <label for="dog15">프렌치 불독</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="dog16" type="checkbox" name="chkBrandAModule" value="비글">
+                  <label for="dog16">비글</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="dog17" type="checkbox" name="chkBrandAModule" value="코카 스파니엘">
+                  <label for="dog17">코카 스파니엘</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="dog18" type="checkbox" name="chkBrandAModule" value="보스턴 테리어">
+                  <label for="dog18">보스턴 테리어</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="dog19" type="checkbox" name="chkBrandAModule" value="셔틀랜드 쉽독">
+                  <label for="dog19">셔틀랜드 쉽독</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="dog20" type="checkbox" name="chkBrandAModule" value="이탈리안 그레이하운드">
+                  <label for="dog20">이탈리안 그레이하운드</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="dog21" type="checkbox" name="chkBrandAModule" value="스코티시 테리어">
+                  <label for="dog21">스코티시 테리어</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="dog22" type="checkbox" name="chkBrandAModule" value="베들링턴 테리어">
+                  <label for="dog22">베들링턴 테리어</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="dog23" type="checkbox" name="chkBrandAModule" value="시바이누">
+                  <label for="dog23">시바이누</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="dog24" type="checkbox" name="chkBrandAModule" value="볼테리어">
+                  <label for="dog24">불테리어</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="dog25" type="checkbox" name="chkBrandAModule" value="보더콜리">
+                  <label for="dog25">보더콜리</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="dog26" type="checkbox" name="chkBrandAModule" value="시추">
+                  <label for="dog26">시추</label>
+                  </span>
+                  </li>
+                  </ul>
+                  </div><div dir="ltr" class="resize-sensor" style="position: absolute; inset: -10px 0px 0px -10px; overflow: hidden; z-index: -1; visibility: hidden;"><div class="resize-sensor-expand" style="position: absolute; left: -10px; top: -10px; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 100000px; height: 100000px;"></div></div><div class="resize-sensor-shrink" style="position: absolute; left: -10px; top: -10px; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%"></div></div></div></div>
+                     
+                  </div></div></div><div class="simplebar-placeholder" style="width: 353px; height: 1809px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"></div></div>
+               </div>
+            
+            <div class="search-item brand">
+                  <span class="search-title">고양이</span>
+                  <div class="filter-content custom-scroll" data-simplebar="init">
+                  <div class="simplebar-wrapper" style="margin: 0px -20px 0px 0px;">
+                  <div class="simplebar-height-auto-observer-wrapper">
+                  <div class="simplebar-height-auto-observer">
+                  </div></div><div class="simplebar-mask">
+                  <div class="simplebar-offset" style="right: -20px; bottom: 0px;">
+                  <div class="simplebar-content" style="padding: 0px calc(40px) 0px 0px; height: 100%; overflow: hidden scroll;">
+                  <div class="custom-scroll-inner" style="position: relative;">
+                  <div class="filter-content-inner">
+                  
+                  <ul class="brand-list smart-search-dialog-brand-list-A">
+                  <li class="smart-search-option" id="">
+                  <span class="item">
+                  <input id="cat1" type="checkbox" name="chkBrandAModule" value="노르웨이 숲 고양이">
+                  <label for="cat1">노르웨이 숲 고양이</label>
+                  </span>
+                  </li>
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat2" type="checkbox" name="chkBrandAModule" value="데본렉스">
+                  <label for="cat2">데본렉스</label>
+                  </span>
+                  </li>
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat3" type="checkbox" name="chkBrandAModule" value="라가머핀">
+                  <label for="cat3">라가머핀</label>
+                  </span>
+                  </li>
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat4" type="checkbox" name="chkBrandAModule" value="라팜">
+                  <label for="cat4">라팜</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat5" type="checkbox" name="chkBrandAModule" value="렉돌">
+                  <label for="cat5">렉돌</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat6" type="checkbox" name="chkBrandAModule" value="러시안블루">
+                  <label for="cat6">러시안블루</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat7" type="checkbox" name="chkBrandAModule" value="메인쿤">
+                  <label for="cat7">메인쿤</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat8" type="checkbox" name="chkBrandAModule" value="발리네즈 고양이">
+                  <label for="cat8">발리네즈 고양이</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat9" type="checkbox" name="chkBrandAModule" value="버만">
+                  <label for="cat9">버만</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat10" type="checkbox" name="chkBrandAModule" value="버미즈">
+                  <label for="cat10">버미즈</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat11" type="checkbox" name="chkBrandAModule" value="봄베이">
+                  <label for="cat11">봄베이</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat12" type="checkbox" name="chkBrandAModule" value="브리티쉬 숏 헤어">
+                  <label for="cat12">브리티쉬 숏 헤어</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat13" type="checkbox" name="chkBrandAModule" value="샤트룩스">
+                  <label for="cat13">샤트룩스</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat14" type="checkbox" name="chkBrandAModule" value="샴">
+                  <label for="cat14">샴</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat15" type="checkbox" name="chkBrandAModule" value="셀커크  렉스">
+                  <label for="cat15">셀커크 렉스</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat16" type="checkbox" name="chkBrandAModule" value="소말리">
+                  <label for="cat16">소말리</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat17" type="checkbox" name="chkBrandAModule" value="스코티쉬 폴드">
+                  <label for="cat17">스코티쉬 폴드</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat18" type="checkbox" name="chkBrandAModule" value="스핑크스">
+                  <label for="cat18">스핑크스</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat19" type="checkbox" name="chkBrandAModule" value="시베리아">
+                  <label for="cat19">시베리아</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat20" type="checkbox" name="chkBrandAModule" value="아메리칸 밥테일">
+                  <label for="cat20">아메리칸 밥테일</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat21" type="checkbox" name="chkBrandAModule" value="아메리칸 숏헤어">
+                  <label for="cat21">아메리칸 숏헤어</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat22" type="checkbox" name="chkBrandAModule" value="아메리칸 와이어헤어">
+                  <label for="cat22">아메리칸 와이어헤어</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat23" type="checkbox" name="chkBrandAModule" value="아메리칸 컬">
+                  <label for="cat23">아메리칸 컬</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat24" type="checkbox" name="chkBrandAModule" value="아비니시안">
+                  <label for="cat24">아비니시안</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat25" type="checkbox" name="chkBrandAModule" value="오시캣">
+                  <label for="cat25">오시캣</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat26" type="checkbox" name="chkBrandAModule" value="유러피안 버미즈">
+                  <label for="cat26">유러피안 버미즈</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat27" type="checkbox" name="chkBrandAModule" value="이그저틱">
+                  <label for="cat27">이그저틱</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat28" type="checkbox" name="chkBrandAModule" value="이집션 마우">
+                  <label for="cat28">이집션 마우</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat29" type="checkbox" name="chkBrandAModule" value="재패니즈밥테일">
+                  <label for="cat29">재패니즈밥테일</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat30" type="checkbox" name="chkBrandAModule" value="컬러포인트쇼트헤어">
+                  <label for="cat30">컬러포인트쇼트헤어</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat31" type="checkbox" name="chkBrandAModule" value="코니시 렉스"> 
+                  <label for="cat31">코니시 렉스</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat32" type="checkbox" name="chkBrandAModule" value="코랫">
+                  <label for="cat32">코랫</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat33" type="checkbox" name="chkBrandAModule" value="터키시 반">
+                  <label for="cat33">터키시 반</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat34" type="checkbox" name="chkBrandAModule" value="터키쉬 앙고라">
+                  <label for="cat34">터키쉬 앙고라</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat35" type="checkbox" name="chkBrandAModule" value="통키니즈">
+                  <label for="cat35">통키니즈</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat36" type="checkbox" name="chkBrandAModule" value="페르시안">
+                  <label for="cat36">페르시안</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="cat37" type="checkbox" name="chkBrandAModule" value="하바나 브라운">
+                  <label for="cat37">하바나 브라운</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option">
+                  <span class="item"><input id="cat38" type="checkbox" name="chkBrandAModule" value="자바니즈">
+                  <label for="cat38">자바니즈</label>
+                  </span>
+                  </li>
+                  </ul>
+                  </div><div dir="ltr" class="resize-sensor" style="position: absolute; inset: -10px 0px 0px -10px; overflow: hidden; z-index: -1; visibility: hidden;"><div class="resize-sensor-expand" style="position: absolute; left: -10px; top: -10px; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 100000px; height: 100000px;"></div></div><div class="resize-sensor-shrink" style="position: absolute; left: -10px; top: -10px; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%"></div></div></div></div>
+                     
+                  </div></div></div><div class="simplebar-placeholder" style="width: 353px; height: 1809px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"></div></div>
+               </div>
+               
+                  <div class="search-item brand">
+                  <span class="search-title">지역</span>
+                  <div class="filter-content custom-scroll" data-simplebar="init">
+                  <div class="simplebar-wrapper" style="margin: 0px -20px 0px 0px;">
+                  <div class="simplebar-height-auto-observer-wrapper">
+                  <div class="simplebar-height-auto-observer">
+                  </div></div><div class="simplebar-mask">
+                  <div class="simplebar-offset" style="right: -20px; bottom: 0px;">
+                  <div class="simplebar-content" style="padding: 0px calc(40px) 0px 0px; height: 100%; overflow: hidden scroll;">
+                  <div class="custom-scroll-inner" style="position: relative;">
+                  <div class="filter-content-inner">
+                  
+                  <ul class="brand-list smart-search-dialog-brand-list-A">
+                  <li class="smart-search-option" id="">
+                  <span class="item">
+                  <input id="loc1" type="checkbox" name="chkloc" value="서울">
+                  <label for="loc1">서울</label>
+                  </span>
+                  </li>
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="loc2" type="checkbox" name="chkloc" value="부산">
+                  <label for="loc2">부산</label>
+                  </span>
+                  </li>
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="loc3" type="checkbox" name="chkloc" value="대구">
+                  <label for="loc3">대구</label>
+                  </span>
+                  </li>
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="loc4" type="checkbox" name="chkloc" value="인천">
+                  <label for="loc4">인천</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="loc5" type="checkbox" name="chkloc" value="광주">
+                  <label for="loc5">광주</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="loc6" type="checkbox" name="chkloc" value="대전">
+                  <label for="loc6">대전</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="loc7" type="checkbox" name="chkloc" value="울산">
+                  <label for="loc7">울산</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="loc8" type="checkbox" name="chkloc" value="세종">
+                  <label for="loc8">세종</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="loc9" type="checkbox" name="chkloc" value="경기">
+                  <label for="loc9">경기</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="loc10" type="checkbox" name="chkloc" value="강원">
+                  <label for="loc10">강원</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="loc11" type="checkbox" name="chkloc" value="충북">
+                  <label for="loc11">충북</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="loc12" type="checkbox" name="chkloc" value="충남">
+                  <label for="loc12">충남</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="loc13" type="checkbox" name="chkloc" value="전북">
+                  <label for="loc13">전북</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="loc14" type="checkbox" name="chkloc" value="전남">
+                  <label for="loc14">전남</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="loc15" type="checkbox" name="chkloc" value="경북">
+                  <label for="loc15">경북</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="loc16" type="checkbox" name="chkloc" value="경남">
+                  <label for="loc16">경남</label>
+                  </span>
+                  </li>
+                  
+                  <li class="smart-search-option" id="">
+                  <span class="item"><input id="loc17" type="checkbox" name="chkloc" value="제주">
+                  <label for="loc17">제주</label>
+                  </span>
+                  </li>
+                  
+                  </ul>
+                  </div><div dir="ltr" class="resize-sensor" style="position: absolute; inset: -10px 0px 0px -10px; overflow: hidden; z-index: -1; visibility: hidden;"><div class="resize-sensor-expand" style="position: absolute; left: -10px; top: -10px; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 100000px; height: 100000px;"></div></div><div class="resize-sensor-shrink" style="position: absolute; left: -10px; top: -10px; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%"></div></div></div></div>
+                     
+                  </div></div></div><div class="simplebar-placeholder" style="width: 353px; height: 1809px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"></div></div>
+               </div>
+            
+         </div>
+         </form>
+         <div class="keyword-wrap">
+            <div class="title-box">
+               <span class="title">검색어 추가</span>
+               <span class="title-desc">함께 찾고 싶은 검색어를 입력해주세요.</span>
+            </div>
+            <div class="keyword-input-box input-wrap">
+               <input id="detail_search" type="text" class="ui-input filter-search-word" placeholder="검색어를 입력해주세요" title="검색어 입력">
+               <button id="detail_button" type="button" class="btn btn-sm add-filter-search-word-btn">추가</button>
+            </div>
+         </div>
+         <form id="detail_form" method="post" action="fdoc_search.bo">
+            
+            <div class="filter-wrap">
+               <div class="title-box"><span class="title">선택한 조건</span></div>
+               <ul id="detail_option" class="filter-list smart-search-selected-condition-list"></ul>
+            </div>
+         </form>
+         <div class="search-btn-wrap">
+            <button type="button" class="btn btn-line smart-search-clear-btn" onclick="reset();">초기화</button>
+            <button type="button" class="btn smart-search-submit-btn" onclick="detail_submit();">검색</button>
+         </div>
+         
+      </div>
+      <!-- e : 190423 수정 // search-title-box 영역 삭제, 신발 category-list영역 col-6 클래스 추가, filter-wrap 영역 선택한 조건 타이틀 추가 -->
+   </div>
+   <button type="button" class="smart-search-toggle smart-filter-toggle-btn" onclick="option();"></button>
+   </div>
+   <div style="margin-top:20px;">
+          <div class="col-lg-12">
+            <div class="section-title">
+              <span class="caption d-block small">Categories</span>
+              <h2>가정분양</h2>
+            </div>
+            <div class="list_wrap">
+            <div class="list_content">
+         
           
-	<div id="viewtrans">
-		<input type = "button" value = "카드로 보기" style = "float:right;" class = "cardview">
-		<input type = "button" value = "리스트로 보기" style = "float:right;" class = "listview" onclick = "create_list();">
-	</div>
-	<div class="content">
-		
-	</div>
-	<div id="write">
+            
+            
+            </div>
+          </div>
+       </div>
+        </div>
+
+      <div style="margin-top:20px;">
+   
+     
+   
+
+   
+   <div style="display:inline-block; float:right;margin-right:25px;">
 		<input type = "button" value = "글작성" style = "float:right;" onclick="location.href='adopt_write.bo' ">
 	</div>
+   
+</div>
+</div></div>
+         
+         
+         </div>
+         
+   
+      </div>
+   
 
+
+   <!-- 카카오톡 채널 상담 -->
+   <div class="kakaoChat">
+   <a href="javascript:void plusFriendChat()">
+    <img src="./resources/img/kakaolink_btn_medium.png" width="45px" height="45px" class="kakao_btn">
+   </a>
+   </div>
+   
+   <!-- pageup button -->
+   <div class ="back-to-top">
+   <a href="#" class ="back-to-top" style="display: inline;">
+   <i class = "fas fa-angle-up"></i>
+   </a>
+   </div>
+   
+   <footer id="footer">
+<p>Copyright ©2021 All rights reserved | This template is made with <i class="fas fa-heart"></i> by SamSam
+
+</footer>
+</div><!-- 바디컨텐트 -->
+
+	     <!--  
+		<div id="viewtrans">
+			<input type = "button" value = "카드로 보기" style = "float:right;" class = "cardview">
+			<input type = "button" value = "리스트로 보기" style = "float:right;" class = "listview" onclick = "create_list();">
+		</div>
+		-->
+		
+		
+		<div class="content">
+			
+		</div>
+		
+	</div>
 </body>
 </html>
