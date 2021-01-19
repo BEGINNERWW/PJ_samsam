@@ -151,7 +151,7 @@ public class MyfreeController {
 		
 		//model.addAttribute("member_listVO", member_listVO);
 		
-		return "customer_service";
+		return "JunYoung/customer_service";
 	}
 	
 	//책임분양 사진 수정하기.

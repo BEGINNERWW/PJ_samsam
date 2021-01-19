@@ -30,9 +30,23 @@
 <script type="text/javascript" src="resources/js/admin_member.js" charset="UTF-8"></script>
 <script type="text/javascript" src="resources/js/datepicker.js" charset="UTF-8"></script> <!-- Air datepicker js -->
 <script type="text/javascript" src="resources/js/datepicker.ko.js" charset="UTF-8"></script> <!-- Air datepicker js -->
+<!-- 스윗얼럿 -->
+<script src = "https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- 모달 플러그인 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+<script>
+    $("#fromDate").datepicker({
+    });
+    
+    $("#toDate").datepicker({
+    }); 
+</script>
+<style>
+.modal{
+max-width: 700px;
+}
+</style>
 </head>
 <body>
 <div class ="body_content">
@@ -61,7 +75,7 @@
 				<a href="admin_pay.me" class = "nav-menu"><i class = "fas fa-ticket-alt menu"></i><span class="a-menu"> 이용권관리</span></a>
 			</li>
 			<li>
-				<a href="adminfree_auth.me" class = "nav-menu"><i class = "fas fa-dog menu"></i><span class="a-menu"> 책임분양</span></a>
+				<a href="#" class = "nav-menu"><i class = "fas fa-dog menu"></i><span class="a-menu"> 책임분양</span></a>
 			</li>
 		</ul>
 </div>
@@ -70,12 +84,12 @@
 <div class = "main_content">
 <!-- 메인컨텐트 -->
 <div class="content">
+<h3>회원관리 > 회원정보조회</h3>
 <form id="content" name="content" action="search_member.do" method="post">
 <div class="search">
 	<div class = "condition">
 	<div class="date">
-	일자&nbsp;&nbsp; <input id="fromDate" class="datepicker-here" data-position="right top" type="text">  - 	
-	<input id="toDate" type="text" class="datepicker-here" data-position="right top">
+	일자&nbsp;&nbsp; <input id="fromDate" type="text">&nbsp; - &nbsp; <input id="toDate" type="text">
 	</div>
 	<div class="member">
 	분류

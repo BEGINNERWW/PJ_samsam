@@ -83,6 +83,7 @@ public class JJMemberController {
 		
 		MemberVO vo = memberSV.selectMember(mvo.getEmail());
 		if(vo != null && !(vo.getGrade().equals("카카오"))){
+			
 			return "jj/loginForm";
 		}
 		if(memberSV.selectMember(mvo.getEmail()) == null) {
@@ -129,16 +130,21 @@ public class JJMemberController {
 	@RequestMapping(value = "/kkoJoin.me")
 	public String kko_joinProcess(MemberVO mvo) {
 		if(mvo.getGrade().equals("카카오")) {
+			mvo.setAuthkey("kkoAuth");
+			mvo.setStatus("1");
 			System.out.println("카카오회원가입" + mvo.getGrade());
-		}else if(mvo.getGrade().equals("네이버")) {
+		}
+		else if(mvo.getGrade().equals("네이버")) {
+			mvo.setAuthkey("nidAuth");
+			mvo.setStatus("1");
 			System.out.println("네이버회원가입" + mvo.getGrade());
 		}
 		int res = memberSV.k_joinMember(mvo);
 		if(res == 1) {
-			return "member/loginForm";
+			return "jj/loginForm";
 		}
 		else {
-			return "member/k_joinform";
+			return "jj/k_joinform";
 		}
 	}
 
@@ -153,7 +159,7 @@ public class JJMemberController {
 			session.setAttribute("id", vo.getEmail());
 			session.setAttribute("email", vo.getEmail());
 			
-			return "redirect:/adminboard.do";  //어드민 페이지로 변경 필요
+			return "redirect:/admin_main.me";  //어드민 페이지로 변경 필요
 		}
 		//카카오
 		MemberVO res = memberSV.selectMember(vo.getEmail());
@@ -165,7 +171,7 @@ public class JJMemberController {
 					return "redirect:/cominfo_main.do";//사업자 마이페이지로 변경 필요
 				}
 			}
-			return "redirect:/home.me";//마이페이지로 변경 필요
+			return "redirect:/myinfo_check.me";//마이페이지로 변경 필요
 		}
 		//네이버
 		if(res.getGrade().equals("네이버")) {
@@ -176,7 +182,7 @@ public class JJMemberController {
 					return "redirect:/cominfo_main.do";//사업자 마이페이지로 변경 필요
 				}
 			}
-			return "redirect:/home.me";//마이페이지로 변경 필요
+			return "redirect:/myinfo_check.me";//마이페이지로 변경 필요
 		}
 		//일반	
 		if(res.getPw().equals(vo.getPw())) {
@@ -192,9 +198,9 @@ public class JJMemberController {
 					return "redirect:/cominfo_main.do";  //사업자 마이페이지로 변경 필요
 				}
 			}
-			return "redirect:/home.me";  //������������ ���� �ʿ�
+			return "redirect:/myinfo_check.me";  
 		}else {
-			return "redirect:/loginform.me";
+			return "redirect:/loginForm.me";
 		}
 	}
 	//join

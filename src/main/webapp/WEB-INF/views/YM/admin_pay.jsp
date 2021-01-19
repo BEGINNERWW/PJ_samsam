@@ -39,11 +39,12 @@
 <script src = "https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
 var count = 20;
-
+var page =0;
 $(document).on("click", ".before-btn",function(event) {
 	if(count > 20){
 		count -= 20
-		$(".payed").slice(0,count).show();
+		page -= 1
+		$(".payed").slice(page * 20,count).show();
 	}
 	else{
 		swal("","첫 페이지 입니다.","info")
@@ -52,9 +53,10 @@ $(document).on("click", ".before-btn",function(event) {
 
 $(document).on("click", ".after-btn",function(event) {
 	count += 20
-	$(".payed").slice(0,count).show();
+	page += 1
+	$(".payed").slice(page * 20,count).show();
 	if($(".payed").length <= count){
-		console.log($("#result").length)
+		console.log($(".payed").length)
 		swal("","마지막 페이지 입니다.","info")
 	}
 });
@@ -87,7 +89,7 @@ $(document).on("click", ".after-btn",function(event) {
 				<a href="admin_pay.me" class = "nav-menu"><i class = "fas fa-ticket-alt menu"></i><span class="a-menu"> 이용권관리</span></a>
 			</li>
 			<li>
-				<a href="adminfree_auth.me" class = "nav-menu"><i class = "fas fa-dog menu"></i><span class="a-menu"> 책임분양</span></a>
+				<a href="#" class = "nav-menu"><i class = "fas fa-dog menu"></i><span class="a-menu"> 책임분양</span></a>
 			</li>
 		</ul>
 </div>

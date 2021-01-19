@@ -1345,11 +1345,11 @@ a, button {
 	</div>
 	<div>
 	<div class ="inout_gocen">
-			<input type="button" class= "header_btn" id="login" value="로그인">
-			<input type="button" class= "header_btn" id="logout" value="로그아웃">
-			<input type="button" class= "header_btn" id="signin" value="회원가입">
-			<input type="button" class= "header_btn" id="mypage" value="마이페이지">
-			<input type="button" class= "header_btn" id="gocen" value="고객센터">
+			<a href="loginForm.me"><input type="button" class= "header_btn" id="login" value="로그인"></a>
+			<a href="home.me"><input type="button" class= "header_btn" id="logout" value="로그아웃"></a>
+			<a href="joinForm.me"><input type="button" class= "header_btn" id="signin" value="회원가입"></a>
+			<a href="myfree_auth.me"><input type="button" class= "header_btn" id="mypage" value="마이페이지"></a>
+			<a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
 		</div>
 	<div class= "search-wrapper">
       <input class="search-box input" type="text" placeholder="Search">
@@ -1487,22 +1487,22 @@ a, button {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 <script>
 $(document).ready(function(){
-	$('#login').on('click', function(e){
-	      $('#logout').show();
+	console.log("<%= email %>") 
+	var session = '<%= email %>'
+	console.log(session);
+	if(session != null || session != ''){
+		  $('#logout').show();
 		  $('#mypage').show();
 		  $('#login').hide();
 		  $('#signin').hide();
-	  });
-	}) //헤더 상단 로그인 체인지
-
-	$(document).ready(function(){
-	$('#logout').on('click', function(e){
+	} //헤더 상단 로그인상태 일때
+	else{
 	       $('#logout').hide();
 		   $('#mypage').hide();
 		   $('#login').show();
 		   $('#signin').show();
-		});
-	}) //헤더 상단 로그아웃 체인지
+	}; //헤더 상단 로그아웃상태 일때 
+}); 
 </script>
 
 <!-- 부트스트랩 4.0 js -->

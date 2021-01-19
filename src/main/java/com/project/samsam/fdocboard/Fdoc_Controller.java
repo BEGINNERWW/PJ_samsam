@@ -39,11 +39,6 @@ public class Fdoc_Controller {
 	@Autowired
 	private Fdoc_Service FdocService;
 	
-	@RequestMapping(value = "/my_free_auth.bo", method = RequestMethod.GET)
-	public String my_free() {
-		
-		return "my_free";
-	}
 	@RequestMapping(value = "/home.bo", method = RequestMethod.GET)
 	public String home() {
 		return "board";

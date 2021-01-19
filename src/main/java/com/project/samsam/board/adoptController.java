@@ -35,7 +35,7 @@ private AdoptService adoptservice;
  @RequestMapping("/adopt_write.bo")
    public String boardInsertForm() {
       
-      return "adopt_write";
+      return "JM/adopt_write";
    }
  
  //수정폼
@@ -43,7 +43,7 @@ private AdoptService adoptservice;
  @RequestMapping("/writeupdateview.bo")
  public String writeupdateview() {
     
-    return "WriteUpdateview";
+    return "JM/WriteUpdateview";
  }
  
  
@@ -87,28 +87,8 @@ private AdoptService adoptservice;
 	 model.addAttribute("startpage",startpage);
 	 model.addAttribute("endpage",endpage);
 	 
-	 return "adopt_homelist";
+	 return "JM/adopt_homelist";
  }
- 
- 
-	
- 
- @ResponseBody
- @PostMapping("/image.bo")
- public void summer_image(MultipartFile file, HttpServletRequest request,
-       HttpServletResponse response) throws Exception {
-    response.setContentType("text/html;charset=utf-8");
-    String uploadPath = "C:\\Project\\upload\\";
-    PrintWriter out = response.getWriter();
-    String originalFileExtension = file.getOriginalFilename();
-    String storedFileName = UUID.randomUUID().toString().replaceAll("-", "") + originalFileExtension;
-    System.out.println("storedFileName : " + storedFileName);
-    file.transferTo(new File(uploadPath+storedFileName));
-    out.println("/springfileupload1/upload/"+storedFileName);
-    out.close();
-    
- }
- 
  
  
  	//리스트 생성
@@ -198,7 +178,7 @@ private AdoptService adoptservice;
 		adopt_homeVO adopt = adoptservice.adopt_homeinfo(num);
 		model.addAttribute("adopt", adopt);
 		
-		return "adopt_homeview";
+		return "JM/adopt_homeview";
 	}
 	
 	@RequestMapping(value = "/adopt_replylist.bo",produces="application/json;charset=UTF-8")

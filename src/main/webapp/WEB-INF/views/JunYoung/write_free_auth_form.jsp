@@ -565,7 +565,7 @@ form.input-account {
 				
 	<div class="header-top">
 		<div class="mainlogo">
-		<a href="#">
+		<a href="home.me">
 		<img src = "resources/img/mainlogo.png" class = "img-circle">
 		</a>
 		</div>
@@ -588,10 +588,10 @@ form.input-account {
 				
 			
 			<ul class="list-group list-group-flush">
-				<li class="list-group-item"><a href="/">회원정보</a></li>
+				<li class="list-group-item"><a href="myinfo_check.me">회원정보</a></li>
 				<li class="list-group-item"><a href="/">작성글관리</a></li>
 				<li class="list-group-item click"><a href="myfree_auth.me">책임분양관리</a></li>
-				<li class="list-group-item"><a href="/">판매허가번호인증</a></li>
+				<li class="list-group-item"><a href="myinfo_auth.me">판매허가번호인증</a></li>
 			</ul>
 			</div>
 			

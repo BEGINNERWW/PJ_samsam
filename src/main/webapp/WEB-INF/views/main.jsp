@@ -44,7 +44,7 @@ a:hover {
 }
 body {
 	margin: 0;
-	height: 100%;
+	height: auto;
     min-height : 600px;
     box-sizing : content-box;
     overflow: hidden;
@@ -82,15 +82,24 @@ body {
     flex-direction: column;
     border-bottom: 1px solid #efefef;
     padding-bottom: 20px;
+    background-color : #fff;
+    position : fixed;
+      z-index : 10000;
+    top : 0;
+    left : 0;
+    right : 0;
 }
 .inout_gocen{
-	position: fixed; 
-	top : 20px;
-	right : 390px;
+   position : inline;
+   display : flex;
+   justify-content : flex-end;
+   margin-top : 20px;
+   margin-right : 340px;
+   background-color : #fff;
 }
 
 .header-top {
-	margin-top : 40px;
+    margin-top : -10px;
 	display : flex;
 	justify-content : flex-start;
 	margin-right: auto;
@@ -159,17 +168,30 @@ li.dropdown {
 }
 
 /* dropdown */
-.dropdown-menu{
-	display: none;
-   	justify-content : flex-start;
-	position: absolute;
-	list-style : none;
+.dropdown-menu {
+   display: none;
+      justify-content : flex-start;
+   position: absolute;
+   list-style : none;
     visibility: visible;
-    background-color: rgb(0,0,0,0);
-	width: 350px;
-	top : 48px;
-	padding: 5px;
-	border: none;
+    background-color: #fff;
+   width: 1200px;
+   top : 52px;
+   margin-left : -30px;
+   border: none;
+}
+
+.board {
+	padding-left: 46px;
+}
+.care {
+	padding-left: 30px;
+}
+.commu {
+	padding-left: 35px;
+}
+li.dropdown > a {
+    text-decoration: none;
 }
 .dropdown-menu li{
 	margin-right : 40px;
@@ -215,11 +237,11 @@ li.dropdown {
 
 
 /* footer */
-#footer{
-	margin : 0px auto;
-	width: 100%;
-  	bottom : 28px;
-	position: sticky;
+#footer {
+    margin: 0 auto;
+    width: fit-content;
+    bottom: 20px;
+    position: relative;
 }
 
 p{
@@ -321,10 +343,10 @@ p{
 
 	<div class ="inout_gocen">
 			<input type="button" class= "header_btn" id="login" value="로그인" onclick = "location.href='loginForm.me'">
-			<input type="button" class= "header_btn" id="logout" value="로그아웃">
+			<input type="button" class= "header_btn" id="logout" value="로그아웃" onclick ="location.href='home.me'">
 			<input type="button" class= "header_btn" id="signin" value="회원가입" onclick = "location.href='joinform.me'">
 			<input type="button" class= "header_btn" id="mypage" value="마이페이지" onclick = "location.href='myfree_auth.me'">
-			<input type="button" class= "header_btn" id="gocen" value="고객센터" >
+			<input type="button" class= "header_btn" id="gocen" value="고객센터" onclick ="location.href='customer_service.me'">
 		</div>
 
 			<div class="nav-menu">
@@ -428,22 +450,22 @@ p{
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 <script>
 $(document).ready(function(){
-	$('#login').on('click', function(e){
-	      $('#logout').show();
+	console.log("<%= email %>") 
+	var session = '<%= email %>'
+	console.log(session);
+	if(session != null || session != ''){
+		  $('#logout').show();
 		  $('#mypage').show();
 		  $('#login').hide();
 		  $('#signin').hide();
-	  });
-	}) //헤더 상단 로그인 체인지
-
-	$(document).ready(function(){
-	$('#logout').on('click', function(e){
+	} //헤더 상단 로그인상태 일때
+	else{
 	       $('#logout').hide();
 		   $('#mypage').hide();
 		   $('#login').show();
 		   $('#signin').show();
-		});
-	}) //헤더 상단 로그아웃 체인지
+	}; //헤더 상단 로그아웃상태 일때 
+}); 
 </script>
 
 <!-- 부트스트랩 4.0 js -->
