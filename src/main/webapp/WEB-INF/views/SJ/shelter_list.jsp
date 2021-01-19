@@ -1260,6 +1260,12 @@ ol, ul {
 	$(document).ready(function(){
 		console.log("ready!!!");
 		
+		/* 시작 */
+		sidoCode = $("#sido").val();
+		siGunGuCode = $("#sigungu").val();
+		getShelterInfo();
+		/* 시작 */
+		
 		// 시도 변경 시, 이벤트
 		$('#sido').on('change', function() {
 			sidoCode = $("#sido").val();

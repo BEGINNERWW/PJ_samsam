@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.project.mapper.PayangMapper">
 	
-	<select id="list" resultType="Payang">
+	<select id="list" resultType="PayangVO">
 		SELECT * FROM payang ORDER BY p_no DESC , p_date DESC
 	</select>
 	
