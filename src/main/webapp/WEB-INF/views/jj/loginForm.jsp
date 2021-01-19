@@ -103,8 +103,8 @@ document.addEventListener("DOMContentLoaded", function(){
 <body>
 <div class="login-header">
 <hgroup>
+
   <h1>Login</h1>
-  <h3>smasmahagae</h3>
 </hgroup>
 </div>
 <form name="loginform" action = "login.me" method="post" class="loginform" >

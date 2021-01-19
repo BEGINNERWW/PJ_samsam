@@ -26,7 +26,15 @@ biz_email / biz_no / biz_com/ biz_name / biz_add / biz_img / free_coupon/ pay_co
 	<update id="updateAuthStatus" parameterType="HashMap">
 	update member_list set status ='1' where email=#{email} and authkey=#{authkey}
 	</update>
-	
+<!-- join email check -->
+<select id="idCheck" parameterType="String" resultType="int">
+	SELECT count(*) FROM smember WHERE email=#{check, jdbcType=VARCHAR}
+	</select>
+<!-- join nick check -->
+<select id="nickCheck" parameterType="String" resultType="int">
+	SELECT count(*) FROM smember WHERE nick=#{check, jdbcType=VARCHAR}
+	</select>
+		
 <!-- 회원가입 -->
 <insert id = "joinMember" parameterType="MemberVO">
 	insert into member_list (email, pw, name,phone,local, grade, authkey,status, signdate)

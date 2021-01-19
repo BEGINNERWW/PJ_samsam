@@ -21,15 +21,22 @@ public interface JJBoardService {
       
       
       
-      public MemberVO adModalView_m (JJADModalVO membervo);
-      public JJABoardVOto adModalView_b (JJADModalVO membervo);
+      public MemberVO ad_member (JJADModalVO movo);
+      public JJABoardVOto ad_board (JJADModalVO movo);
       
-      public List<JJCommentVO> adModalView_c (JJADModalVO membervo);
-      public JJCommentVO adModalView_ccount (JJADModalVO mvo);
+      public List<JJCommentVO> ad_cList (JJADModalVO movo);
+      public JJCommentVO ad_cccount (JJADModalVO movo);
       
-      public List<JJWarningVO> adModalView_w (JJADModalVO membervo);
-      public JJWarningVO adModalView_wcount (JJADModalVO membervo);
-	  //어드민 게시글 뷰 Modal
+      public List<JJWarningVO> w_docList (JJADModalVO movo);
+      public List<JJWarningVO> w_coList (JJADModalVO movo);
+      public JJWarningVO ad_wcount (JJADModalVO movo);
+	  //어드민 게시글 뷰 
+      
+      public JJWarningVO wvo(JJADModalVO movo);
+      public JJCommentVO covo(JJADModalVO movo);
+      //어드민 게시글 뷰 MODAL
+      public int update_status(JJWarningVO wVO);
+      //어드민 게시글 뷰 모달 상태처리
       
 	  
 }

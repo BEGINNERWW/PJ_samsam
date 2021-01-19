@@ -29,5 +29,9 @@ public interface MemberSV {
 	public void updateAuthStatus (Map<String, Integer> map);
 	
 	public int userCheck(MemberVO memberVO);
+	
+	//jj 0119
+	public int idCheck(String email);
+	public int nickCheck(String nick);
 
 }

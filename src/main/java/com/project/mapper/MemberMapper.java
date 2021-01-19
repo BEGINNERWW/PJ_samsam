@@ -19,6 +19,8 @@ public interface MemberMapper {
 	public int k_joinMember (MemberVO mvo);
 	public void updateAuthkey(Map<String,String> map);
 	public void updateAuthStatus(Map<String,Integer> map);
+	public int idCheck (String email);
+	public int nickCheck (String nick);
 	
 	public MemberVO selectMember(String email);
 	public ArrayList<MemberVO> getMemberlist();

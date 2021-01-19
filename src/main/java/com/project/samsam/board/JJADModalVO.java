@@ -1,12 +1,12 @@
 package com.project.samsam.board;
 
 public class JJADModalVO {
-	private int number;
+	private String number;
 	private String category;
-	public int getNumber() {
+	public String getNumber() {
 		return number;
 	}
-	public void setNumber(int number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 	public String getCategory() {
