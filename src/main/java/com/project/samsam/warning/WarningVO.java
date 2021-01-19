@@ -12,6 +12,7 @@ public class WarningVO {
 	private String w_reason;
 	private String w_status;
 	private String w_category;
+	private String w_note;
 	public int getW_no() {
 		return w_no;
 	}
@@ -65,5 +66,11 @@ public class WarningVO {
 	}
 	public void setW_category(String w_category) {
 		this.w_category = w_category;
+	}
+	public String getW_note() {
+		return w_note;
+	}
+	public void setW_note(String w_note) {
+		this.w_note = w_note;
 	}
 }

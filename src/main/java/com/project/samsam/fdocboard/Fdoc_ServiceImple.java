@@ -99,9 +99,10 @@ public class Fdoc_ServiceImple implements Fdoc_Service {
 	}
 
 	@Override
-	public int commentDeleteService(int fdoc_cno) throws Exception {
+	public int commentDeleteService(FdocReflyVO comment) throws Exception {
 		FdocMapper fdocMapper = sqlSession.getMapper(FdocMapper.class);
-		return fdocMapper.commentDelete(fdoc_cno);
+		fdocMapper.commentSub(comment);
+		return fdocMapper.commentDelete(comment);
 	}
 
 	@Override
@@ -175,6 +176,32 @@ public class Fdoc_ServiceImple implements Fdoc_Service {
 		FdocMapper fdocMapper = sqlSession.getMapper(FdocMapper.class);
 		
 		return fdocMapper.payInsert(vo);
+	}
+
+	@Override
+	public int boardDelete(FdocVO vo) {
+		FdocMapper fdocMapper = sqlSession.getMapper(FdocMapper.class);
+		fdocMapper.FdocDeleteComment(vo);
+		return fdocMapper.FdocDelete(vo);
+	}
+
+	@Override
+	public int deleteCount(int fdoc_cno) {
+		FdocMapper fdocMapper = sqlSession.getMapper(FdocMapper.class);
+		return fdocMapper.DeleteCount(fdoc_cno);
+	}
+
+	@Override
+	public int deleteUpdate(int fdoc_cno) {
+		FdocMapper fdocMapper = sqlSession.getMapper(FdocMapper.class);
+		return fdocMapper.DeleteUpdate(fdoc_cno);
+	}
+
+	@Override
+	public int boardUpdate(FdocVO vo) {
+		FdocMapper fdocMapper = sqlSession.getMapper(FdocMapper.class);
+		
+		return fdocMapper.FdocUpdate(vo);
 	}
 
 	

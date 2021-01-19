@@ -2,6 +2,8 @@ package com.project.samsam.community;
 
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project.samsam.fdocboard.FdocReflyVO;
 import com.project.samsam.fdocboard.FdocVO;
 
 
@@ -80,5 +84,88 @@ public class Doc_Controller {
 		return "js/doc_view";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/doccomment_insert.bo",produces="application/json;charset=UTF-8")
+	private int mCommentServiceInsert(DocReflyVO comment, HttpSession session) throws Exception{
+		//comment.setFdoc_CNick((String)session.getAttribute("id"));
+		
+		comment.setCo_nick("2");
+		
+		return DocService.commentInsertService(comment);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/doccomment_list.bo", produces="application/json;charset=UTF-8")
+	private List<DocReflyVO> mCommentServiceList(@RequestParam int co_doc_no) throws Exception{
+		
+		List<DocReflyVO> comment_list = DocService.commentListService(co_doc_no);
+		
+		
+		return comment_list;
+	
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/doccomment_update.bo",produces="application/json;charset=UTF-8")
+	private int mCommentServiceUpdateProc(DocReflyVO comment) throws Exception{
+		
+		return DocService.commentUpdateService(comment);
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/doccomment_refly.bo",produces="application/json;charset=UTF-8")
+	private int mCommentServiceReflyInsert(DocReflyVO comment) throws Exception{
+		comment.setCo_nick("2");
+		
+		return DocService.commentReflyService(comment);
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/doccomment_delete.bo",produces="application/json;charset=UTF-8")
+	private int mCommentServiceDelete(DocReflyVO vo) throws Exception{
+		
+		if(vo.getCo_lev() != 0) {
+			return DocService.commentDeleteService(vo);
+		}else {
+			
+			int res = DocService.deleteCount(vo.getCo_no());
+			
+			if(res == 1) {
+				return DocService.commentDeleteService(vo);
+			}else {
+				
+				
+				return DocService.deleteUpdate(vo.getCo_no());
+			}
+			
+		}
+	}
+	@RequestMapping(value = "/doc_update.bo", method = RequestMethod.GET)
+	public String doc_update(@RequestParam(value="doc_no", required=true) int doc_no,Model model) {
+		DocVO vo = DocService.getView(doc_no);
+		model.addAttribute("vo",vo);
+		
+		
+		return "js/doc_update";
+	}
+	
+	@RequestMapping(value = "/doc_updateinsert.bo", method = RequestMethod.POST)
+	public String doc_updateinsert(DocVO vo,Model model) throws Exception {
+		
+		vo.setDoc_email("123@gmail.net");
+		int res = DocService.boardUpdate(vo);
+		
+		return "redirect:/docdetail.bo?doc_no="+vo.getDoc_no();
+	}
+	
+	@RequestMapping(value = "/doc_delete.bo", method = RequestMethod.GET)
+	public String doc_delete(DocVO vo) {
+		DocService.boardDelete(vo);
+		
+		
+		return "redirect:/doclist.bo";
+	}
 
 }

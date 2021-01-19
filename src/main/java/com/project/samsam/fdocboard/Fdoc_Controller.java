@@ -46,9 +46,9 @@ public class Fdoc_Controller {
 	}
 	@RequestMapping(value = "/home.bo", method = RequestMethod.GET)
 	public String home() {
-		return "boardpage";
+		return "board";
 		//return "fdoc_list";
-		//return "redirect:/fdoclisst.bo";
+		//return "redirect:/fdoclist.bo";
 	}
 	@RequestMapping(value = "/fdocform.bo", method = RequestMethod.GET)
 	public String fdoc_Form() {
@@ -130,6 +130,7 @@ public class Fdoc_Controller {
 		String fdoc_ThumbNail = "THUMB_"+fdoc_thumbnail;
         vo.setFdoc_thumbnail(fdoc_ThumbNail);
 		vo.setFdoc_email("123@gmail.net");
+		vo.setFdoc_nick("작성자");
 		int res = FdocService.boardInsert(vo);
 		
 		
@@ -223,9 +224,23 @@ public class Fdoc_Controller {
 	}
 	@ResponseBody
 	@RequestMapping(value="/comment_delete.bo",produces="application/json;charset=UTF-8")
-	private int mCommentServiceDelete(@RequestParam(value="fdoc_cno") int fdoc_cno) throws Exception{
+	private int mCommentServiceDelete(FdocReflyVO vo) throws Exception{
 		
-		return FdocService.commentDeleteService(fdoc_cno);
+		if(vo.getFdoc_lev() != 0) {
+			return FdocService.commentDeleteService(vo);
+		}else {
+			
+			int res = FdocService.deleteCount(vo.getFdoc_cno());
+			
+			if(res == 1) {
+				return FdocService.commentDeleteService(vo);
+			}else {
+				
+				
+				return FdocService.deleteUpdate(vo.getFdoc_cno());
+			}
+			
+		}
 	}
 	
 	@ResponseBody
@@ -236,15 +251,7 @@ public class Fdoc_Controller {
 		return FdocService.commentReflyService(comment);
 		
 	}
-	
-	@ResponseBody
-	@RequestMapping(value="/pay_select.bo",produces="application/json;charset=UTF-8")
-	private int paySelect(String id) throws Exception{
-		
-		
-		return 1;
-		
-	}
+
 	
 	@RequestMapping("/fdoc_search.bo")
 	public String getFdocSearch_list(Model model, @RequestParam(value="page", required=false, 
@@ -287,27 +294,60 @@ public class Fdoc_Controller {
 		
 		return "js/fdoc_list";
 	}
-	/*
-	@ResponseBody
-	@RequestMapping(value="/fdoc_warning.bo",produces="application/json;charset=UTF-8")
-	private int warningInsert(FdocWarningVO vo, HttpSession session,@RequestParam(value="etc_reason",required=false) String etc_reason) throws Exception{
-		//comment.setFdoc_CNick((String)session.getAttribute("id"));
-		if(etc_reason != null) {
-			vo.setW_reason(etc_reason);
-		}
-		vo.setW_fdoc_nick("2");
-		vo.setW_status("�����");
-		
-		return FdocService.warningInsertService(vo);
-	}
-	*/
-	//���� �μ�Ʈ
+	
 	@ResponseBody
 	@RequestMapping(value="/pay_insert.bo",produces="application/json;charset=UTF-8")
 	private int warningInsert(Myfree_doc_confirmVO vo) throws Exception{
 		System.out.println(vo.getConfirm_no());
 		
 		return FdocService.payInsertService(vo);
+	}
+	
+	@RequestMapping(value = "/fdoc_delete.bo", method = RequestMethod.GET)
+	public String fdoc_delete(FdocVO vo) {
+		FdocService.boardDelete(vo);
+		
+		
+		return "redirect:/fdoclist.bo";
+	}
+	
+	@RequestMapping(value = "/fdoc_update.bo", method = RequestMethod.GET)
+	public String fdoc_update(@RequestParam(value="fdoc_no", required=true) int fdoc_no,Model model) {
+		FdocVO vo = FdocService.getView(fdoc_no);
+		model.addAttribute("vo",vo);
+		
+		
+		return "js/fdoc_update";
+	}
+	
+	@RequestMapping(value = "/fdoc_updateinsert.bo", method = RequestMethod.POST)
+	public String fdoc_updateinsert(FdocVO vo,Model model) throws Exception {
+		Pattern pattern  =  Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
+		String content = vo.getFdoc_content();
+		Matcher match = pattern.matcher(content);
+		String fdoc_thumbnail = null;
+		String uploadPath = "C:\\Project\\upload\\"; 
+		
+		if(match.find()){
+		    fdoc_thumbnail = match.group(0); 
+		}
+	
+		int index1 =fdoc_thumbnail.lastIndexOf("/");
+		fdoc_thumbnail = fdoc_thumbnail.substring(index1+1);
+		int index2 = fdoc_thumbnail.lastIndexOf(".");
+		int index3 = fdoc_thumbnail.indexOf("\"");
+		String fileExt = fdoc_thumbnail.substring(index2+ 1,index3).trim();
+		fdoc_thumbnail = fdoc_thumbnail.substring(0, index2);
+		
+        String fullPath = uploadPath+fdoc_thumbnail+"."+fileExt;
+        System.out.println(fullPath);
+        makeThumbnail(uploadPath,fullPath,fdoc_thumbnail,fileExt);
+		String fdoc_ThumbNail = "THUMB_"+fdoc_thumbnail;
+        vo.setFdoc_thumbnail(fdoc_ThumbNail);
+		vo.setFdoc_email("123@gmail.net");
+		int res = FdocService.boardUpdate(vo);
+		
+		return "redirect:/fdocdetail.bo?fdoc_no="+vo.getFdoc_no();
 	}
 }
 

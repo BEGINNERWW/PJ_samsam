@@ -24,9 +24,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <!-- 템플릿  CSS -->
-
+<!--  
 <link rel="stylesheet" href="./resources/fonts/icomoon/style.css">
+-->
 
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&display=swap" rel="stylesheet">
@@ -152,17 +155,8 @@ $(document).ready(function() {
 	
 	
 });
-function list(){
-	sessionStorage.removeItem("card");
-	$('#list_table').show();
-	$('#card_table').hide();
-}
-function card(){
-	var card = "card";
-	sessionStorage.setItem("card",card);
-	$('#list_table').hide();
-	$('#card_table').show();
-}
+
+
 function option(){
 	
 	($('#option').attr('class') == 'prod-category-smart-search smart-search-filter include-type')? $('#option').attr('class','prod-category-smart-search smart-search-filter include-type active') : $('#option').attr('class','prod-category-smart-search smart-search-filter include-type');
@@ -231,7 +225,7 @@ body {
    	font-family: 'Noto Sans KR', sans-serif;
     font-weight: 300;
     font-size: .9rem;
-    overflow:scroll;
+   
 }
 
 
@@ -244,13 +238,17 @@ body {
 	text-align: -webkit-center;
 }
 
-.body_content{
-  	margin : 0;
-  	padding : 0;
-  	width : 100%;
-  	height:100vh;
-    display : flex;
-    flex-direction : column;
+.body_content {
+	margin: 0;
+	height: 100vh;
+    min-height : 600px;
+    box-sizing : content-box;
+	line-height: 1.7;
+    color: gray;
+   	font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    font-size: .9rem;
+    overflow:scroll;
 }
 
 #header {
@@ -312,6 +310,7 @@ body {
   	list-style : none;
     display : flex;
     padding: 0;
+    line-height:1.6;
 }
 
 .sticky-wrapper > li{
@@ -397,19 +396,19 @@ li.dropdown {
 
 /* search-wrqpper */
 
-.main-content{
-	width : 100%;
-	height : 100%;
-	margin : 0 auto;
-}
 
 
 /* footer */
-#footer{
-	margin : -15px auto;
-	width: 100%;
-  	bottom : 44px;
-	position: sticky;
+#footer {
+	position: relative;
+    margin: -15px auto;
+    width: 100%;
+    bottom: 0px;
+    padding-bottom:10px;
+    padding-top: 35px;
+    z-index: -1;
+    border-top: 1px solid #efefef;
+    
 }
 p{
 	text-align : center;
@@ -441,9 +440,11 @@ p{
 /*카카오톡 톡상담*/
 .kakaoChat {
     text-align: right;
-    position: sticky;
+    position: fixed;
     margin-right: 28px;
-    bottom: 92px;
+    bottom: 90px;
+    right: 0;
+
 }
 .kakao_btn {
 	border-radius: 1rem!important;
@@ -451,41 +452,45 @@ p{
 
 /* side menu와 내용 묶음 */
 .content-wrap {
-	width: 1200px;
-	min-height: 100%;
-	margin: 0 auto;
-	position: relative;
-	top: 50px;
-	
+    width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    top: 50px;
+    overflow: visible;
+    margin-bottom: 100px;
+
 }
+
+
 /* side menu 틀*/
 .sidemenu-section {
-    width: 200px;
-    position: absolute;
-    font-size: 18px;
-    text-align: left;
-    height: 100%;
-    border-right-color: darkblue;
-    border-right: 1px solid #efefef;
-    padding: 0px 0px 0 0;
-    margin-left: 0;
+  width: 200px;
+	position: absolute;
+	font-size: 18px;
+	text-align: left;
+	height: 100%;
+	padding: 0px 0px 0 0;
+	margin-left: 0;
 }
 
 /* 내용 틀*/
 .content-section {
-  
-    width: 1000px;
-    height: 100%;
-    position: absolute;
-    left: 200px;
-    text-align: left;
-    font-size: 14px;
-    margin-top: 3px;
-    color: black;
-    margin-left: 50px;
+	width: 1000px;
+	position: relative;
+	left: 200px;
+	text-align: left;
+	font-size: 14px;
+	margin-top: 3px;
+	color: black;
+	padding-left: 50px;
+	border-left: 1px solid #efefef;
 }
 
 /* 각각의 페이지에서 사용할 CSS */
+.list-group{
+	margin-block-start: 0;
+	line-height:1.6;
+}
 .list-group-item {
     position: relative;
     display: block;
@@ -735,7 +740,7 @@ select, input, button, textarea {
     margin: 0 auto;
     width: 18px;
     height: 15px;
-    background: url(./resources/images/m_merged.png) 0 0 no-repeat;
+    background: url(./resources/img/m_merged.png) 0 0 no-repeat;
    
 }
 .prod-category-smart-search.active .smart-search-toggle:after {
@@ -1196,7 +1201,7 @@ ol, ul {
     height: 20px;
     margin-left: 8px;
     border: 1px solid #e5e5e5;
-    background: url(./resources/images/free-icon-x-mark-482641.png) center no-repeat;
+    background: url(./resources/img/free-icon-x-mark-482641.png) center no-repeat;
     vertical-align: top;
 }
 .btn-filter-del{
@@ -1222,11 +1227,9 @@ ol, ul {
 	
 	padding:15px 15px;
 }
-.list_wrap{
-	border:1px solid #ededed;
-}
+
 .comment_icon{
-	 background: url(./resources/images/free-icon-speech-bubble-2462719.png) center no-repeat;
+	 background: url(./resources/img/free-icon-speech-bubble-2462719.png) center no-repeat;
 
 	 display: inline-block;
     width: 16px;
@@ -1234,7 +1237,7 @@ ol, ul {
    
 }
 .recount_icon{
-	background: url(./resources/images/free-icon-eye-660022.png) center no-repeat;
+	background: url(./resources/img/free-icon-eye-660022.png) center no-repeat;
 
 	 display: inline-block;
     width: 16px;
@@ -1292,7 +1295,14 @@ ol, ul {
 }
 .post-entry-1, .post-entry-2 {
     font-size: .9rem;
-    margin-bottom: 30px;
+    margin-bottom: 18px;
+    padding-bottom:18px;
+    border-bottom: 1px solid #efefef;
+}
+.tag{
+	
+	
+	color:#5c5c8a;
 }
 
 </style>
@@ -1315,7 +1325,7 @@ ol, ul {
 					<li class="dropdown"><a href="board.me">분양</a>
 						<ul class="dropdown-menu">
 							<li><a href="#">&nbsp;&nbsp;가정분양</a></li>
-							<li><a href="#">책임분양</a></li>
+							<li><a href="fdoclist.bo">책임분양</a></li>
 							<li><a href="#">업체분양</a></li>
 						</ul></li>
 					<li class="dropdown"><a href="care.me">보호소</a>
@@ -1334,7 +1344,7 @@ ol, ul {
 	<div class="header-top">
 		<div class="mainlogo">
 		<a href="#">
-		<img src = "./resources/images/mainlogo.png" class = "img-circle">
+		<img src = "./resources/img/mainlogo.png" class = "img-circle">
 		</a>
 		</div>
 	</div>
@@ -1345,14 +1355,14 @@ ol, ul {
 	</div><!-- nav-menu -->
 </header>
 		
-		<div class="main-content">
+		
 			<div class="content-wrap">
 			
 			<!-- 왼쪽. 서브메뉴가 들어갈 부분 -->
 			<div class="sidemenu-section">
 			<ul class="list-group list-group-flush">
-				<li class="list-group-item click"><a href="/">가정분양</a></li>
-				<li class="list-group-item"><a href="/">책임분양</a></li>
+				<li class="list-group-item"><a href="/">가정분양</a></li>
+				<li class="list-group-item click"><a href="fdoclist.bo">책임분양</a></li>
 				<li class="list-group-item"><a href="/">업체분양</a></li>
 			</ul>
 			</div>
@@ -1974,11 +1984,11 @@ ol, ul {
           %>
           
             <div class="post-entry-2 d-flex">
-              <div class="thumbnail order-md-2" style="border-radius:10px 10px 10px 10px;border:1px solid #bfbfbf; background-image: url('/springfileupload1/upload/<%=vo.getFdoc_thumbnail().toString() %>');"></div>
+              <div class="thumbnail order-md-2" style="background-image: url('/springfileupload1/upload/<%=vo.getFdoc_thumbnail().toString() %>');"></div>
               <div class="contents order-md-1 pl-0">
                 
                 <h2><a class="a_1" href="./fdocdetail.bo?fdoc_no=<%=vo.getFdoc_no()%>&page=<%=nowpage%>"><%=vo.getFdoc_subject() %></a></h2>
-                <p class="mb-3">#<%=vo.getFdoc_big() %> #<%=vo.getFdoc_loc() %> #<%=vo.getFdoc_kindof() %> #<%=vo.getFdoc_expiry() %>개월 #책임비 <%=form.format(vo.getFdoc_price()) %>원</p>
+                <p class="mb-3 tag">#<%=vo.getFdoc_big() %> #<%=vo.getFdoc_loc() %> #<%=vo.getFdoc_kindof() %> #<%=vo.getFdoc_expiry() %>개월 #책임비 <%=form.format(vo.getFdoc_price()) %>원</p>
                 <div class="post-meta">
                   <span class="d-block"><a class="a_1" href="#"><%=vo.getFdoc_nick() %></a></span>
                   <span class="date-read"><%=date.format(vo.getFdoc_date()) %></span><span class="detail-read">&nbsp;&nbsp;&nbsp;&nbsp;<span class="recount_icon"></span>&nbsp;<%=vo.getFdoc_readcount() %>&nbsp;&nbsp;<span class="comment_icon"></span>&nbsp;<%=vo.getFdoc_comment() %></span>
@@ -1991,9 +2001,9 @@ ol, ul {
        </div>
         </div>
 
-		<table width=570 cellpadding="0" cellspacing="0" style="border:0;">
-		<tr align=center height=20>
-		<td colspan=7 style=font-family:Tahoma;font-size:10pt;>
+		<div style="margin-top:20px;">
+	
+		<div style="text-align:center;display:inline-block;margin-left:400px;">
 			<%if(nowpage<=1){ %>
 			[이전]&nbsp;
 			<%}else{ 
@@ -2033,15 +2043,13 @@ ol, ul {
 			<%}else{ %>
 			<a onclick="search_submit(<%=nowpage+1 %>);" href="#">[다음]</a>
 			<%}} %>
-		</td>
-	</tr>
-	<tr align="right">
-		<td colspan="6">
-	   		<a href="./fdocform.bo">[글쓰기]</a>
-		</td>
-	</tr>
+		</div>
 	
-</table>
+	<div style="display:inline-block; float:right;margin-right:25px;">
+	   		<a href="./fdocform.bo">[글쓰기]</a>
+	</div>
+	
+</div>
 </div></div>
 			
 			
@@ -2049,13 +2057,13 @@ ol, ul {
 			
 	
 		</div>
-		</div>
+	
 
 
 	<!-- 카카오톡 채널 상담 -->
 	<div class="kakaoChat">
 	<a href="javascript:void plusFriendChat()">
-    <img src="./resources/images/kakaolink_btn_medium.png" width="45px" height="45px" class="kakao_btn">
+    <img src="./resources/img/kakaolink_btn_medium.png" width="45px" height="45px" class="kakao_btn">
 	</a>
 	</div>
 	
@@ -2066,13 +2074,14 @@ ol, ul {
 	</a>
 	</div>
 	
-</div><!-- 바디컨텐트 -->
-	
-		
-<footer id="footer">
+	<footer id="footer">
 <p>Copyright ©2021 All rights reserved | This template is made with <i class="fas fa-heart"></i> by SamSam
 
 </footer>
+</div><!-- 바디컨텐트 -->
+	
+		
+
 
 
 <!-- 제이쿼리 -->

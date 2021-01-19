@@ -13,7 +13,7 @@
 	 	</selectKey>
 	 
 	 
-	 	INSERT INTO warning VALUES(#{w_no},#{w_email},#{w_co_no},#{w_doc_no},#{w_nick},sysdate,#{w_status},#{w_reason},#{w_category})
+	 	INSERT INTO warning VALUES(#{w_no},#{w_email},#{w_co_no},#{w_doc_no},#{w_nick},sysdate,#{w_status},#{w_reason},#{w_category},#{w_note})
 	 
 	 </insert>
 	 

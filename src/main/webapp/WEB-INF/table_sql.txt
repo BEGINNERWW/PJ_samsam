@@ -103,7 +103,7 @@ CREATE TABLE free_doc (
    fdoc_email varchar2(50) not null,
    fdoc_nick   varchar2(50)      NOT NULL,
    fdoc_subject   varchar2(150)      NULL,
-   fdoc_content   varchar2(2000)      NULL,
+   fdoc_content   clob  NULL,
    fdoc_date   date      NULL,
    fdoc_readcount   number      NULL,
    fdoc_expiry   number      NULL,
@@ -213,5 +213,6 @@ CREATE TABLE warning (
    w_date   date   NULL,
    w_status   varchar2(20)   NULL,
    w_reason   varchar2(100)   NULL,
-   w_category varchar2(20) NULL
+   w_category varchar2(20) NULL,
+   w_note varchar2(500) null
 );

@@ -67,7 +67,7 @@
 		
 	 </update>
 	 
-	 <delete id="commentDelete"  parameterType="int">
+	 <delete id="commentDelete"  parameterType="FdocReflyVO">
 	 
 		DELETE FROM fdoc_refly WHERE FDOC_CNO = #{fdoc_cno}
 	 	
@@ -158,6 +158,44 @@
 	 	update FREE_DOC set fdoc_comment=fdoc_comment+1 where fdoc_no =#{fdoc_no}
 	 	
 	 </update>
+	 
+	 <delete id="FdocDelete"  parameterType="FdocVO">
+	 
+		DELETE FROM free_doc WHERE FDOC_NO = #{fdoc_no}
+	 	
+	 </delete>
+	 
+	  <delete id="FdocDeleteComment"  parameterType="FdocVO">
+	 
+		DELETE FROM fdoc_refly WHERE FDOC_NO = #{fdoc_no}
+	 	
+	 </delete>
+	 
+	 <select id="DeleteCount" parameterType="int" resultType="int">
+			 
+	 select count(*) from fdoc_refly where fdoc_ref =#{fdoc_cno}
+	 
+	 </select> 
+	 
+	  <update id="DeleteUpdate" parameterType="int">
+	 
+	 	update fdoc_refly set fdoc_lev=2 where fdoc_cno =#{fdoc_cno}
+	 	
+	 </update>
+	 
+	  <update id="FdocUpdate" parameterType="FdocVO">
+	 
+	 update free_doc set fdoc_subject=#{fdoc_subject},fdoc_content=#{fdoc_content},fdoc_expiry=#{fdoc_expiry},fdoc_price=#{fdoc_price},fdoc_big=#{fdoc_big},fdoc_kindof=#{fdoc_kindof},fdoc_thumbnail=#{fdoc_thumbnail},fdoc_loc=#{fdoc_loc} where fdoc_no=#{fdoc_no}
+	 
+	 </update>
+	 
+	  <update id="commentSub" parameterType="FdocReflyVO">
+	 
+	 	update FREE_DOC set fdoc_comment=fdoc_comment-1 where fdoc_no =#{fdoc_no}
+	 	
+	 </update>
+	 
+	 
 	 
 	 
 	 </mapper>
