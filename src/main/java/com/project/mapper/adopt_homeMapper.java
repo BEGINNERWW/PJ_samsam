@@ -19,7 +19,7 @@ public interface adopt_homeMapper {
 	public void setReadCountUpdate(int num);
 	public int isBoardWriter(HashMap<String,String>hashmap);
 	
-	//´ñ±Û
+	//ëŒ€ëŒ“ê¸€
 	public int adoptreplyCount() throws Exception;
 	public List<adopt_homereplyVO>adopthomereplyList(adopt_homereplyVO homereply) throws Exception;
 	public int adoptreplyInsert(adopt_homereplyVO homereply) throws Exception;
@@ -27,4 +27,7 @@ public interface adopt_homeMapper {
 	public int adopthomereply_re(adopt_homereplyVO adhome);
 	public int replyDelete(adopt_homereplyVO adhome);
 	public List<adopt_homeVO> getSearchList(adopt_homeVO vo);
+	public int adopthomereplyupdate(adopt_homereplyVO comment);
+	public int DeleteCount(int home_cno);
+	public int DeleteUpdate(int home_cno);
 }
