@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.project.samsam.api.AnimalApiUtil;
 import com.project.samsam.api.AnimalInfo;
 import com.project.samsam.api.AnimalKind;
+import com.project.samsam.api.PageInfo;
+import com.project.samsam.api.ShelterApiUtil;
+import com.project.samsam.api.ShelterInfo;
 import com.project.samsam.api.Sido;
 import com.project.samsam.api.Sigungu;
 
@@ -52,7 +55,18 @@ public class ShelterController {
 		ArrayList<Sido> sido = animalUtil.getSido();
 		model.addAttribute("sido", sido);
 
-		return "/SJ/pet_list";
+		return "SJ/pet_list";
+	}
+	
+	@RequestMapping(value = "/pet_detail", method = RequestMethod.GET)
+	public String petDetail(Model model, AnimalInfo animalInfo) throws Exception {
+		
+		System.out.println("@ShelterController - petDetail() ");
+		System.out.println(animalInfo);
+		
+		model.addAttribute("animalInfo", animalInfo);
+		
+		return "SJ/pet_detail";
 	}
 	
 	
@@ -66,8 +80,6 @@ public class ShelterController {
 
 		model.addAttribute("sido", sido);
 		//
-		ArrayList<AnimalInfo> animalList = animalUtil.getAnimalInfo("20140601", "20140601", 417000, "notice", 1, 10, "Y");
-		model.addAttribute("animalList", animalList);
 		
 		return "/SJ/shelter_list";
 	}
@@ -80,6 +92,9 @@ public class ShelterController {
 		
 		
 		List<Sigungu> siGunGuList = animalUtil.getSiGunGu(sidoCode);
+		for (Sigungu sigungu : siGunGuList) {
+			System.out.println(sigungu.getSigunguNm());
+		}
 		model.addAttribute("sigungu", siGunGuList);
 		
 		return siGunGuList;
@@ -112,12 +127,87 @@ public class ShelterController {
 		bgnde = bgnde.replaceAll("-", "");
 		endde = endde.replaceAll("-", "");
 		
+		System.out.println("@ShelterController ");
+		System.out.println("bgnde : " + bgnde);
+		System.out.println("endde : " + endde);
+		System.out.println("sido : " + sido);
+		System.out.println("siGunGu : " + siGunGu);
+		System.out.println("upKind : " + upKind);
+		System.out.println("kind : " + kind);
+		
 		// 보호 동물 정보
 		ArrayList<AnimalInfo> animalList = animalUtil.getAnimalInfo(bgnde, endde, sido, siGunGu, upKind, kind, "notice", 1, 10, "Y");
 		model.addAttribute("animalList", animalList);
 		
 		return animalList;
 	}
+	
+	// 보호소 리스트 요청
+	@RequestMapping(value = "/shelterList", method = RequestMethod.GET)
+	public List<ShelterInfo> getShelterList(Model model, Integer sidoCode, Integer siGunGuCode, Integer pageNo) throws Exception {
+		
+		AnimalApiUtil animalUtil = new AnimalApiUtil();
+		ShelterApiUtil shelterUtil = new ShelterApiUtil();
+		
+		System.out.println("sidoCode : "+ sidoCode);
+		System.out.println("siGunGuCode : "+ siGunGuCode);
+		
+		// 보호소 정보
+		ArrayList<ShelterInfo> shelterList = null;
+		
+		// 페이지 정보
+		PageInfo pageInfo = null;
+		
+		// 시도 : 전체
+		if( sidoCode == 0 ) {
+			shelterList = shelterUtil.getAllShelterDetail(pageNo);
+			pageInfo = shelterUtil.getPageInfo(pageNo);
+		} else {
+			shelterList = animalUtil.getShelterInfo(sidoCode, siGunGuCode, pageNo);
+		}
+		
+		System.out.println("################ pageInfo ######################");
+		System.out.println(pageInfo);
+		
+		int totalCount;
+		int numOfRows;
+		int startNo = 1;
+		int maxNo = 1;
+		int endNo = 1;
+		
+		if( pageInfo != null ) {
+			
+			totalCount = pageInfo.getTotalCount();
+			numOfRows =  pageInfo.getNumOfRows();
+			startNo = pageInfo.getPageNo();
+			maxNo = ( totalCount / numOfRows ) + 1;
+			endNo = 0;
+			
+			if( startNo + numOfRows - 1 > maxNo ) {
+				endNo = maxNo;
+			} else {
+				endNo = startNo + numOfRows - 1;
+			}
+			
+			pageInfo.setStartNo(startNo);
+			pageInfo.setEndNo(endNo);
+			pageInfo.setMaxNo(maxNo);
+		}
+		
+		model.addAttribute("pageInfo", pageInfo);
+		
+		// model
+		model.addAttribute("shelterList", shelterList);
+		
+		
+		if( pageNo == null )
+			model.addAttribute("pageNo", 1);
+		else 
+			model.addAttribute("pageNo", pageNo);
+		
+		return shelterList;
+	}
+	
 	
 	
 	

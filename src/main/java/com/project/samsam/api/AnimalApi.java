@@ -24,6 +24,8 @@ public interface AnimalApi {
 	public ArrayList<AnimalInfo> getAnimalInfo( String bgnde, String endde, Integer upkind, String state, Integer pageNo, Integer numOfRows, String neuter_yn  ) throws Exception;
 	public ArrayList<AnimalInfo> getAnimalInfo( String bgnde, String endde,Integer upr_cd, Integer org_cd, Integer upkind, Integer kind, String state, Integer pageNo, Integer numOfRows, String neuter_yn  ) throws Exception;
 	
+	// 보호소 정보
+	public ArrayList<ShelterInfo> getShelterInfo( Integer upr_cd, Integer org_cd, Integer pageNo ) throws Exception;
 	
 	
 	
