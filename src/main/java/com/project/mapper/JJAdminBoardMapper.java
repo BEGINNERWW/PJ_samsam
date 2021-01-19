@@ -15,14 +15,21 @@ public interface JJAdminBoardMapper {
 	public List<JJABoardVOto> find_w_List(JJABoardVO abvo);
 	//어드민 게시글 검색
 	
-	public MemberVO ad_view_m (	JJADModalVO mvo);
-    public JJABoardVOto ad_view_b (JJADModalVO mvo);
-    public List<JJCommentVO> ad_view_cList (JJADModalVO mvo);
-    public JJCommentVO ad_view_ccount (JJADModalVO mvo);
-    public List<JJWarningVO> ad_view_wList (JJADModalVO mvo);
-    public JJWarningVO ad_view_wcount (JJADModalVO mvo);
-	  //어드민 게시글 뷰 Modal
-	
+	public MemberVO ad_member (	JJADModalVO movo);
+    public JJABoardVOto ad_board (JJADModalVO movo);
+    
+    public List<JJCommentVO> ad_cList (JJADModalVO movo);
+    public JJCommentVO ad_cccount (JJADModalVO movo);
+    
+    public List<JJWarningVO> w_docList (JJADModalVO movo);
+    public List<JJWarningVO> w_coList (JJADModalVO movo);
+    public JJWarningVO ad_wcount (JJADModalVO movo);
+	  //어드민 게시글 뷰 
+    public JJWarningVO wvo(JJADModalVO movo);
+    public JJCommentVO covo(JJADModalVO movo);
+    //어드민 게시글 뷰 MODAL
+    public int update_status(JJWarningVO wVO);
+    //어드민 게시글 뷰 MODAL 상태처리 끝
 
 }
 

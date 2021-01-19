@@ -1,16 +1,18 @@
 @charset "utf-8";
 * { box-sizing:border-box; }
-.etc {
-	display: hidden;
 a{
 	text-decoration: none;
 }
 
+.etc {
+	display: hidden;
 }
+
 body {
 	font-family: Helvetica;
-	background: #fcfcfc;
+	background: #fff;
   -webkit-font-smoothing: antialiased;
+   
 }
 .join-header {
 	margin-top: 200px;
@@ -26,34 +28,31 @@ h1, h3 { font-weight: 300; }
 h1 { color: #636363; }
 
 h3 { color: #4a89dc; }
-/*이용지역*/
+
 h5 { color: #4a89dc;
-margin: 0 auto;
-}
+	display: inline;
+	width:30px;}
 
 form {
-	width: 500px;
-    height : 100vh;
+	width: 400px;
 	margin:1em auto;
-	padding: 3em 2em 2em 2em;
-	background: #fcfcfc;
+	padding: 1em 2em 2em em;
+	background: #fff;
 	border-radius: 5px;
-    display : flex;
-    flex-direction : column;
-    justify-content : space-around;
 }
 
 .group { 
-	margin-bottom: 30px; 
+	position: relative; 
+	margin-bottom: 35px; 
 }
 
 
-input {
-	font-size: 12px;
+.group input {
+	font-size: 15px;
 	padding: 10px 10px 10px 5px;
 	-webkit-appearance: none;
 	display: block;
-	background: #fcfcfc;
+	background: #fff;
 	color: #636363;
 	width: 100%;
 	border: none;
@@ -61,12 +60,16 @@ input {
 	border-bottom: 1px solid #757575;
 }
 
-input:focus { outline: none; }
-
+.group  input:focus { outline: none; }
+.same_check{
+	margin-top : 10px;
+	margin-left : 10px;
+	font-size : 12px;
+}
 
 /* Label */
 
-label {
+.group label {
 	color: #999; 
 	font-size: 15px;
 	font-weight: normal;
@@ -80,19 +83,17 @@ label {
 
 /* active */
 
-input:focus ~ label, input.used ~ label {
+.group input:focus ~ label, .group input.used ~ label {
 	top: -20px;
   transform: scale(.75); left: -2px;
 	/* font-size: 14px; */
 	color: #4a89dc;
 }
 
-
 .group>.local {
 	color: #fff;
 }
 /* Underline */
-
 .bar {
 	position: relative;
 	display: block;
@@ -132,14 +133,38 @@ input:focus ~ .bar:before, input:focus ~ .bar:after { width: 50%; }
 }
 
 /* active */
-input:focus ~ .highlight {
+
+.group input:focus ~ .highlight {
 	animation: inputHighlighter 0.3s ease;
 }
 
-/* Button */
+/* 이메일 Button */
+.group .idbtn {
+  border: 1 solid gray;
+  display: inline;
+  width: 150px;
+  border-radius: 5px;
+}
+
+/* 닉네임 Button */
+.group .nickbtn {
+  border: 1 solid gray;
+  display: inline;
+  width: 150px;
+  border-radius: 5px;
+}
+.check_email,
+.check_nick,
+.pass1,
+.pass2 {
+	color: #999;
+	font-size: 0.8em;
+}
+/* 회원가입Button */
 
 .button {
-  display: block;
+  position: relative;
+  display: inline-block;
   padding: 12px 24px;
   margin: .3em 0 1em 0;
   width: 100%;
@@ -161,18 +186,30 @@ input:focus ~ .highlight {
 
 
 /* Button modifiers */
+
 .buttonBlue {
   background: #4a89dc;
   text-shadow: 1px 1px 0 rgba(39, 110, 204, .5);
 }
-
 .buttonBlue:hover { background: #357bd8; }
 
-/* 이용지역 셀렉 */
-.local-group{
-  display : flex;
+
+/* 이용지역 */
+.local-group {
+  display:flex;
+}
+.local-group span{
+  width: 100px;
+}
+.local-group select {
+  width: 100px;
+  border: 1 solid #999;
+  font-size: 16px;
+  color:  #999;
 }
 
 
-	justify-content: space-between;
-}
+
+
+
+

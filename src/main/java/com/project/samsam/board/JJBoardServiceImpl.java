@@ -76,40 +76,67 @@ public class JJBoardServiceImpl implements JJBoardService {
     }
 	//어드민 게시글 관리 
 	
-	public MemberVO adModalView_m (JJADModalVO movo){
+	public MemberVO ad_member (JJADModalVO movo){
 		JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
-		MemberVO mvo = adminMapper.ad_view_m(movo);
+		MemberVO mvo = adminMapper.ad_member(movo);
+		System.out.println("서비스임플 ad_member:"+mvo);
 		return mvo;
 		
 	}
-     public JJABoardVOto adModalView_b (JJADModalVO movo) {
+     public JJABoardVOto ad_board (JJADModalVO movo) {
     	 JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
-    	 JJABoardVOto bvo = adminMapper.ad_view_b(movo);
+    	 JJABoardVOto bvo = adminMapper.ad_board(movo);
  		return  bvo;
      }
      
-     public List<JJCommentVO> adModalView_c (JJADModalVO movo){
+     public List<JJCommentVO> ad_cList (JJADModalVO movo){
     	 JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
-    	 List<JJCommentVO> cList =(List<JJCommentVO>) adminMapper.ad_view_cList(movo);
+    	 List<JJCommentVO> cList =(List<JJCommentVO>) adminMapper.ad_cList(movo);
     	 return  cList;
      }
-     public JJCommentVO adModalView_ccount(JJADModalVO movo){
+     public JJCommentVO ad_cccount(JJADModalVO movo){
     	 JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
-    	 JJCommentVO co_count = adminMapper.ad_view_ccount(movo);
+    	 JJCommentVO co_count = adminMapper.ad_cccount(movo);
  		return  co_count;
      }
      
-     public List<JJWarningVO> adModalView_w (JJADModalVO movo){
+     public List<JJWarningVO> w_docList(JJADModalVO movo){
     	 JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
-    	 List<JJWarningVO> wList =(List<JJWarningVO>) adminMapper.ad_view_wList(movo);
- 		return  wList;
+    	 List<JJWarningVO> w_docList =(List<JJWarningVO>) adminMapper.w_docList(movo);
+ 		return  w_docList;
      }
-     public JJWarningVO adModalView_wcount(JJADModalVO movo){
+     public List<JJWarningVO> w_coList(JJADModalVO movo){
     	 JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
-    	 JJWarningVO w_count = adminMapper.ad_view_wcount(movo);
+    	 List<JJWarningVO> w_coList =(List<JJWarningVO>) adminMapper.w_coList(movo);
+ 		return  w_coList;
+     }
+     public JJWarningVO ad_wcount(JJADModalVO movo){
+    	 JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
+    	 JJWarningVO w_count = adminMapper.ad_wcount(movo);
  		return  w_count;
      }
-	  //어드민 게시글 뷰 Modal
+	  //어드민 게시글 뷰  
+     
+     public JJWarningVO wvo(JJADModalVO movo) {
+    	 JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
+    	 JJWarningVO wvo = adminMapper.wvo(movo);
+    	 return wvo;
+     }
+     public JJCommentVO covo(JJADModalVO movo) {
+    	 JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
+    	 JJCommentVO covo = adminMapper.covo(movo);
+    	 return covo;
+     }
+     //어드민 게시글 뷰 MODAL
+     
+     public int update_status(JJWarningVO wVO) {
+    	 System.out.println("wVO : " + wVO.getW_no());
+    	 JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
+    	 int res = adminMapper.update_status(wVO);
+    	 System.out.println("res : " + res);
+    	 return res;
+     }
+     //어드민 게시글 뷰 모달 상태처리 끝
 
 
 }

@@ -3,6 +3,9 @@
 a{
 	text-decoration: none;
 }
+a:hover {
+	font-weight:bold;
+}
 body {
 	font-family: Helvetica;
 	background: #fcfcfc;
@@ -19,7 +22,9 @@ hgroup {
 
 h1, h3 { font-weight: 300; }
 
-h1 { color: #636363; }
+h1 { color: #636363;
+margin-top : -50px;
+ }
 
 h3 { color: #4a89dc; }
 

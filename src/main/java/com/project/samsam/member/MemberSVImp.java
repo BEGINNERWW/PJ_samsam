@@ -33,11 +33,6 @@ public class MemberSVImp implements MemberSV {
 		//카카오 회원가입
 	}
 	@Override
-	public int userCheck(MemberVO memberVO) {
-		int res = mapper.userCheck(memberVO);
-		return res;
-	}
-	@Override
 	public void updateAuthkey ( Map<String, String> map){
 		mapper.updateAuthkey(map);
 	}
@@ -45,6 +40,24 @@ public class MemberSVImp implements MemberSV {
 	public void updateAuthStatus ( Map<String, Integer> map){
 		mapper.updateAuthStatus(map);
 	}
+	@Override
+	public int userCheck(MemberVO memberVO) {
+		int res = mapper.userCheck(memberVO);
+		return res;
+	}
+	
+	//jj 0119 
+	@Override
+	public int idCheck(String email) {
+		int checkid = mapper.idCheck(email);
+		return checkid;
+	}
+	@Override
+	public int nickCheck(String nick) {
+		int checked = mapper.nickCheck(nick);
+		return checked;
+	}
+	
 	@Override
 	public MemberVO selectMember(String email) {
 		System.out.println(email);

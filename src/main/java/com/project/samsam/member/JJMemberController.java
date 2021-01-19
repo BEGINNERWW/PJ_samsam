@@ -11,9 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -38,6 +40,43 @@ public class JJMemberController {
 		return "jj/loginForm";
 	}
 	
+	//email overlap check
+		@RequestMapping(value="/idcheckajax.do",
+				produces="application/json;charset=utf-8")
+		@ResponseBody
+		public  Map<String , Object> idcheck(@RequestBody   Map<String , Object> map) throws Exception{
+			String email =(String) map.get("email");
+			int checkid = memberSV.idCheck(email);	
+			if(checkid == 0 ) {
+			System.out.println("checkres=" + checkid);
+			map.put("email", "ZERO");
+			return map;
+			}
+			else {
+				System.out.println("checkres=" + checkid);
+				map.put("email", "A");
+				return map;
+				}
+			}
+		//nick overlap check
+		@RequestMapping(value="/nickcheckajax.do",
+				produces="application/json;charset=utf-8")
+		@ResponseBody
+		public  Map<String , Object> nickcheck(@RequestBody   Map<String , Object> map) throws Exception{
+			String nick =(String) map.get("nick");
+			int checked = memberSV.nickCheck(nick);	
+			if(checked == 0 ) {
+			System.out.println("checkres=" + checked);
+			map.put("nick", "ZERO");
+			return map;
+			}
+			else {
+				System.out.println("checkres=" + checked);
+				map.put("nick", "A");
+				return map;
+				}
+			}
+		
 	@RequestMapping(value = "/kkoLogin.me")
 	public String kko_Join(MemberVO mvo, Model model, RedirectAttributes redi_attr) {
 		System.out.println("이메일: " + mvo.getEmail() + "닉네임 : " + mvo.getNick());
@@ -90,22 +129,16 @@ public class JJMemberController {
 	@RequestMapping(value = "/kkoJoin.me")
 	public String kko_joinProcess(MemberVO mvo) {
 		if(mvo.getGrade().equals("카카오")) {
-			mvo.setAuthkey("kkoAuth");
-			mvo.setStatus("1");
 			System.out.println("카카오회원가입" + mvo.getGrade());
-		}
-		else if(mvo.getGrade().equals("네이버")) {
+		}else if(mvo.getGrade().equals("네이버")) {
 			System.out.println("네이버회원가입" + mvo.getGrade());
-			mvo.setAuthkey("nidAuth");
-			mvo.setStatus("1");
 		}
-		
 		int res = memberSV.k_joinMember(mvo);
 		if(res == 1) {
-			return "jj/loginForm";
+			return "member/loginForm";
 		}
 		else {
-			return "jj/k_joinform";
+			return "member/k_joinform";
 		}
 	}
 
@@ -120,20 +153,19 @@ public class JJMemberController {
 			session.setAttribute("id", vo.getEmail());
 			session.setAttribute("email", vo.getEmail());
 			
-			return "redirect:/admin_main.me";  
+			return "redirect:/adminboard.do";  //어드민 페이지로 변경 필요
 		}
-		MemberVO res = memberSV.selectMember(vo.getEmail());
-
 		//카카오
+		MemberVO res = memberSV.selectMember(vo.getEmail());
 		if(res.getGrade().equals("카카오")) {
 			session.setAttribute("email", res.getEmail());
 			Biz_memberVO bo = memberSV.selectBizMember(vo.getEmail());
 			if(bo != null) {
 				if(bo.getStatus() == 0) {
-					return "redirect:/cominfo_main.do";//사업자 마이페이지
+					return "redirect:/cominfo_main.do";//사업자 마이페이지로 변경 필요
 				}
 			}
-			return "redirect:/myinfo_check.me";
+			return "redirect:/home.me";//마이페이지로 변경 필요
 		}
 		//네이버
 		if(res.getGrade().equals("네이버")) {
@@ -141,13 +173,14 @@ public class JJMemberController {
 			Biz_memberVO bo = memberSV.selectBizMember(vo.getEmail());
 			if(bo != null) {
 				if(bo.getStatus() == 0) {
-					return "redirect:/cominfo_main.do";//사업자 마이페이지
+					return "redirect:/cominfo_main.do";//사업자 마이페이지로 변경 필요
 				}
 			}
-			return "redirect:/myinfo_check.me";//마이페이지
+			return "redirect:/home.me";//마이페이지로 변경 필요
 		}
 		//일반	
-		if(memberSV.userCheck(vo) == 1) {
+		if(res.getPw().equals(vo.getPw())) {
+			
 			session.setAttribute("id", res.getEmail());
 			session.setAttribute("email", res.getEmail());
 			System.out.println("session id :" +session.getAttribute("id"));
@@ -156,12 +189,12 @@ public class JJMemberController {
 			Biz_memberVO bo = memberSV.selectBizMember(vo.getEmail());
 			if(bo != null) {
 				if(bo.getStatus() == 0) {
-					return "redirect:/cominfo_main.do";  //사업자 마이페이지
+					return "redirect:/cominfo_main.do";  //사업자 마이페이지로 변경 필요
 				}
 			}
-			return "redirect:/myinfo_check.me"; 
+			return "redirect:/home.me";  //������������ ���� �ʿ�
 		}else {
-			return "redirect:/loginForm.me";
+			return "redirect:/loginform.me";
 		}
 	}
 	//join
@@ -176,15 +209,15 @@ public class JJMemberController {
 		System.out.println(memberVO.getNick());
 		 // DB에 기본정보 insert
 		int res= memberSV.joinMember(memberVO);
-		System.out.println("인서트완료"+res);
-		//임의의 authKey생성 & 이메일 발송
+		System.out.println("insert compl"+res);
+		//random authKey create & email send
 		String authkey = mss.sendAuthMail(memberVO.getEmail());
 		memberVO.setAuthkey(authkey);
-		System.out.println("인증번호 발송 : " + authkey);
+		System.out.println("authkey send : " + authkey);
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("email", memberVO.getEmail());
 		map.put("authkey", memberVO.getAuthkey());
-		System.out.println("맵" + map.get("email") + "인증키  " + map.get("authkey"));
+		System.out.println("map" + map.get("email") + "suthkey  " + map.get("authkey"));
 		
 		//DB에 authKey업데이트
 		memberSV.updateAuthkey(map);
@@ -194,9 +227,9 @@ public class JJMemberController {
 	 @GetMapping("/signUpConfirm.me")
 	 public ModelAndView signUpConfirm(@RequestParam HashMap<String, Integer> map, ModelAndView mav){
 		//email, authKey 가 일치할경우 authStatus 업데이트
-		System.out.println("연결된  email :" + map.get("email"));
+		System.out.println("connection  email :" + map.get("email"));
 	    memberSV.updateAuthStatus(map);
-	    System.out.println("연결된  email2 :" + map.get("email"));
+	    System.out.println("connection  email2 :" + map.get("email"));
 	    mav.addObject("display", "/jj/loginForm.jsp");
 	    mav.setViewName("/jj/loginForm");
 	    return mav;

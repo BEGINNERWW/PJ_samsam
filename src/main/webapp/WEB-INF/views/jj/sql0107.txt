@@ -1,0 +1,315 @@
+drop table care_pet;
+select * from free_doc;
+desc c_comment;
+SELECT *FROM USER_CONSTRAINTS
+ WHERE TABLE_NAME ='c_comment';
+ commit;
+ 
+ CREATE TABLE biz_member (
+    biz_email  varchar2(50)    NOT NULL,
+  biz_no  varchar2(30)    not null primary key,
+  biz_com  varchar2(30)    NULL,
+  biz_name varchar2(9)    NULL,
+  biz_add  varchar2(50)    NULL,
+  biz_img  varchar2(2000)    NULL,
+  free_coupon  number    NULL,
+  pay_coupon  number    NULL,
+  status    number      not null
+   );
+alter table biz_member modify free_coupon number default 5;
+alter table biz_member add status number default 1 not null;
+
+alter table adopt_list rename column adopt_no to num;
+alter table adopt_list rename column adop_email to email;
+alter table adopt_list rename column adop_nick to nick;
+alter table adopt_list rename column adop_subject to subject;
+alter table adopt_list rename column adop_content to c_content;
+alter table adopt_list rename column adop_date to c_date;
+alter table adopt_list rename column adop_readcount to readcount;
+alter table community rename column doc_subject to subject;
+alter table community rename column doc_phone to num;
+alter table community rename column doc_price to num;
+alter table community rename column doc_title to num;
+
+alter table community rename column big_name to num;
+alter table community rename column kindof to num;
+
+
+create table smember(
+email varchar2(50) primary key,
+pw varchar2(20)not null,
+name  varchar2(20)not null,
+nick  varchar2(50) UNIQUE not null,
+phone number not null,
+local varchar2(20),
+grade  varchar2(20),
+authKey varchar2(10),
+status  varchar2(10),
+signdate date 
+);
+/* 멤버 테이블*/
+commit;
+create table free_doc(
+fdoc_no number not null primary key,
+email VARCHAR2(50),
+nick varchar2(20) not null,
+subject varchar2(50),
+c_content varchar2(2000),
+c_date date,
+readcount number,
+foreign key (email) REFERENCES smember(email) 
+on delete cascade 
+);
+/* 책임 */
+create table community(
+num number not null primary key,
+email VARCHAR2(50),
+nick varchar2(20) not null,
+subject varchar2(50),
+c_content varchar2(2000),
+c_date date,
+readcount number,
+foreign key (email) REFERENCES smember(email) 
+on delete cascade 
+);
+/* 커뮤니티 */
+create table adopt_list(
+num number not null primary key,
+email varchar2(50) not null,
+nick varchar2(50),
+subject varchar2(100),
+c_content varchar2(2000),
+c_date date,
+readcount number,
+foreign key (email) REFERENCES smember(email) 
+on delete cascade 
+);
+/* 분양게시글 */
+create table care_pet(
+care_no number not null primary key,
+care_noti_no number not null,
+care_kind varchar2(100),
+care_comp varchar2(30),
+care_etc  varchar2(500),
+care_date date,
+care_where  varchar2(255),
+care_part varchar2(20),
+care_part_num number,
+care_img varchar2(250),
+care_gender varchar2(4),
+care_age number,
+care_color varchar2(15),
+care_weight number,
+care_name varchar2(40),
+care_add varchar2(50),
+care_status varchar2(10)
+);
+/* 보호소 게시글 */
+
+
+   select num,subject,nick,c_date
+		from (
+		select
+		num,subject,nick,c_date
+		from community where subject like '%제%' or c_content like '%제%'
+		
+		union all
+		
+		select
+		num,subject,nick,c_date
+		from adopt_list where subject like '%제%' or c_content like '%제%'
+		
+		union all
+		
+		select
+		care_no as num,care_kind as subject,care_comp as nick,care_date as c_date
+		from care_pet where care_kind like '%제%' or care_etc like '%제%'
+		)order by c_date desc;
+        /*홈페이지 검색 리스트*/
+        select num,subject,c_content, nick,c_date
+		from (
+		select
+		num,subject,c_content, nick,c_date
+		from community where num like '%1000%'
+		
+		union all
+		
+		select
+		num,subject,c_content, nick,c_date
+		from adopt_list where num like '%1000%'
+		
+		union all
+		
+		select
+		care_no as num,care_kind as subject,care_etc as c_content,care_comp as nick,care_date as c_date
+		from care_pet where care_no like '%1000%'
+		);
+        /*홈페이지 검색 detail*/
+
+/*커뮤니티 & 분양 &보호소 insert*/
+insert into community values(1000,'081749@gmail.com','닉네임','제목가양이','내용3가아지','2021-01-01',23);
+insert into community values(1001,'081749@gmail.com','닉네임','제목나양이','내용3나아지','2021-01-02',23);
+insert into community values(1002,'081749@gmail.com','닉네임','제목다양이','내용3다아지','2021-01-02',23);
+insert into community values(1003,'081749@naver.com','닉네임','제목라양이','내용3라아지','2021-01-03',23);
+insert into community values(1004,'081749@naver.com','닉네임','제목라양이','내용3라아지','2021-01-01',23);
+insert into adopt_list values(1100,'081749@naver.com,','그리디','제목가양이','내용3가아지','2021-01-01',7);
+insert into adopt_list values(1101,'081749@naver.com,','그리디','제목나양이','내용3나아지','2021-01-02',7);
+insert into adopt_list values(1102,'081749@naver.com,','그리디','제목다양이','내용3다아지','2021-01-03',7);
+insert into adopt_list values(1103,'081749@naver.com,','그리디','제목라양이','내용3라아지','2021-01-04',7);
+insert into adopt_list values(1104,'081749@naver.com,','그리디','제목라양이','내용3라아지','2021-01-01',7);
+insert into care_pet(care_no,care_noti_no,care_kind,care_comp,care_etc,care_date ) values(1000,451124,'kind말티즈','보호센터','서울00에서발견','2021-01-01');
+insert into care_pet(care_no,care_noti_no,care_kind,care_comp,care_etc,care_date ) values(1001,451125,'kin제목고양이','보호센터','고서울00에서발견','2021-01-01');
+
+commit;
+
+create table c_comment(
+co_no number primary key,
+co_doc_no number,
+co_email varchar2(50),
+co_nick varchar2(50),
+co_content varchar2(1000),
+co_date date,
+co_secret number,
+foreign key (co_doc_no) REFERENCES community(num) on delete cascade 
+);
+/* 댓글 테이블*/
+create table warning(
+w_no number primary key,
+w_email varchar2(50),
+w_co_no number,
+w_doc_no number,
+w_date date,
+w_a_reason varchar2(100),
+w_status varchar2(20),
+w_reason varchar2(100),
+foreign key (w_doc_no) REFERENCES community(num) on delete cascade,
+foreign key (w_email) REFERENCES smember(email) on delete cascade ,
+foreign key (w_co_no) REFERENCES c_comment(co_no) on delete cascade
+);
+/* 신고 테이블*/
+
+/* 테스트 댓글 인서트 */
+insert into c_comment values(1000,1016,'081749@gmail.com','이름','댓글내용123123123123',sysdate,1);
+insert into c_comment values(1000,1003,'081749@gmail.com','이름','댓글내용123123123123',sysdate,1);
+insert into c_comment values(1001,1004,'081749@naver.com','이름','댓글내용123123123123',sysdate,1);
+insert into c_comment values(1003,1101,'081749@gmail.com','이름','댓글내용123123123123',sysdate,1);
+                            /*댓번호 글번호  아이디          이름    내용                 댓날짜   비밀글*/
+                            
+/*테스트 신고 인서트*/
+insert into warning values(1000,'081749@gmail.com',null,1000,sysdate,null,null,null);
+insert into warning values(1001,'081749@gmail.com',null,1001,'20210110',null,'대기','관계없는글');
+insert into warning values(1002,'081749@gmail.com',null,1002,sysdate,null,'대기','관계없는글');
+insert into warning values(1005,'081749@naver.com',null,1002,sysdate,null,'대기','관계없는글');
+insert into warning values(1003,'081749@naver.com',null,1003,sysdate,null,'유지','관계없는글');
+insert into warning values(1004,'081749@naver.com',null,1004,sysdate,null,'대기','관계없는글'); /*댓 생성필요*/
+
+                        /*신고번호   아이디          댓번호 글번호 신고날짜 기타 상태 사유*/
+/*
+1000 null
+1001 글 대기
+1002 글 대기
+1003 글 유지
+1014 댓글 대기
+*/
+/* 게시글>신고 인서트*/
+select num,email,nick, subject,c_content, c_date,readcount
+			from community 
+            where
+            (c_date between '210101' and '210104') and
+			subject like '%제%' or c_content like '%wp%'
+			order by c_date desc;
+            /*게시글 검색*/
+            
+select c.num,c.email,c.nick, c.subject, c.c_content, c.c_date,c.readcount,w.*
+			from community  c join warning  w
+			on c.num =w.w_doc_no 
+            where
+           (w.w_date(int, convert(char(8), registdate,112)) between '2021/01/01' and '2021/01/04') and
+			c.subject like '%제%' or c.c_content like '%제%'
+			order by w.w_status asc, w.w_date asc;
+            /*신고 검색*/
+            
+select c.num,c.email,c.nick, c.subject, c.c_content, c.c_date,c.readcount,w.*
+			from community  c  join warning  w
+			on c.num =w.w_doc_no 
+            where
+        c.subject like '%제%' or c.c_content like '%제%' and
+         (w_date between '2021/01/01' and '2021/01/04') 
+			order by w.w_status asc, c.c_date desc;
+            /*신고 검색*/
+            
+
+
+select w.*
+from  warning  w
+where
+(w.w_date between '2021/01/04' and '2021/01/10');
+
+                        
+select c.c_date,c.num, w.w_date,w.w_doc_no
+from community c join warning w
+on c.num=w.w_doc_no;
+commit;
+select * from community;
+select * from warning;
+
+/*admin board modal view Mapper*/
+/*ad_vie_m    MEmber*/
+select email, nick, local, grade from smember 
+where email='081749@gmail.com';
+select email, nick, local, grade from smember 
+where email in (select email from community where num= 1000);
+/*ad_view_b */
+select subject, c_content,c_date, readcount
+from community
+where num =1000;
+/*ad_view_w*/
+select w_no,w_email,w_co_no, w_doc_no,w_date,w_a_reason,w_status,w_reason
+from warning where w_doc_no in(select num from community where num=1000);
+/*ad_view_co*/
+select co_no,co_doc_no, co_email,co_nick,co_content, co_date,co_secret
+from c_comment where co_doc_no in(select num from community where num=1000);
+/*ad_view_신고count*/
+select count(*) from warning where w_doc_no 
+in(select num from community where num=1000);
+
+/*  신고 모달*/
+/*ad_vie_m    MEmber*/
+select email, nick, local, grade from smember 
+where email='081749@gmail.com';
+select email, nick, local, grade from smember 
+where email in (select email from community where num= 1000);
+/*ad_view_b */
+select subject, c_content,c_date, readcount
+from community
+where num =1000;
+/*ad_view_w*/
+select w_no,w_email,w_co_no, w_doc_no,w_date,w_a_reason,w_status,w_reason
+from warning where w_doc_no in(select num from community where num=1000);
+/*ad_view_co*/
+select co_no,co_doc_no, co_email,co_nick,co_content, co_date,co_secret
+from c_comment where co_doc_no in(select num from community where num=1000);
+/*ad_view_count*/
+select count(*) from warning where w_doc_no 
+in(select num from community where num=1000);
+/*ad_view_w */
+select w_no,w_email,w_co_no, w_doc_no,w_date,w_a_reason,w_status,w_reason
+from warning where w_doc_no in(select num from community where num=1000);
+
+select * from smember;
+delete from smember where email= 'ivedot@nate.com';
+commit;
+
+select num, nick, subject, c_date, readcount
+from community where num = 1000;
+
+/* 연습장-----------------------------------------------------------------------*/
+
+commit;
+select * from c_comment;
+select co_no,co_email,co_content,co_date,co_secret from c_comment where co_doc_no 
+			in(select co_doc_no from c_comment where co_doc_no=1000)
+            
+          
+            
+		
