@@ -51,11 +51,17 @@ public class MyfreeServiceImpl implements MyfreeService {
 	}
 	
 	//환급계좌 입력
-	public void insertAccount(Myfree_doc_confirmVO myfree_doc_confirmVO) {
+	public void updateAccount(Myfree_doc_confirmVO myfree_doc_confirmVO) {
 		MyfreeMapper myfreeMapper = 
 				sqlSession.getMapper(MyfreeMapper.class);
-		myfreeMapper.insertAccount(myfree_doc_confirmVO);
-		return;
+		int confirm_account = myfreeMapper.updateAccount(myfree_doc_confirmVO);
+	}
+		
+	//환급계좌 삭제
+	public void deleteAccount(Myfree_doc_confirmVO myfree_doc_confirmVO) {
+		MyfreeMapper myfreeMapper = 
+				sqlSession.getMapper(MyfreeMapper.class);
+		int delete_account = myfreeMapper.deleteAccount(myfree_doc_confirmVO);
 	}
 	
 	//책임분양 인증글 작성창 띄우기 - 책임분양 인증현황 테이블 조회

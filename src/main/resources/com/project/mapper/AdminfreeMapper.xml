@@ -27,6 +27,10 @@
 		SELECT * FROM free_auth WHERE fadoc_confirm_no=#{confirm_no} order by fadoc_check asc, fadoc_no desc
 	</select>
 	
+	<select id="selectDoc" parameterType="String" resultType="Myfree_DocVO">
+		SELECT * FROM free_doc WHERE fdoc_code=#{fdoc_confirm_code}
+	</select>
+	
 	<!-- 상세보기 페이지 redirect할 때 사용 -->
 	<select id="selectAuth_detail_re_re" parameterType="int" resultType="Myfree_authVO">
 		SELECT * FROM free_auth WHERE fadoc_no=#{fadoc_no} order by fadoc_check asc, fadoc_no desc
@@ -38,6 +42,10 @@
 	
 	<select id="selectConfirm_detail_re" parameterType="String" resultType="Myfree_doc_confirmVO">
 		SELECT * FROM free_doc_confirm WHERE confirm_no=#{confirm_no}
+	</select>
+	
+	<select id="selectDoc_detail_re" parameterType="String" resultType="Myfree_docVO">
+		SELECT * FROM free_doc WHERE fdoc_code=#{confirm_fdoc_code}
 	</select>
 	
 	<!-- 책임인증글 인증 상태 -->

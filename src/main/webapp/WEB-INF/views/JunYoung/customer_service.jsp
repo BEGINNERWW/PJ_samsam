@@ -17,7 +17,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>마이페이지 > 책임인증글 작성</title>
+<title>고객센터</title>
 
 <!-- 폰트 -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -33,11 +33,6 @@
 <!-- 제이쿼리 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 
-<!-- Summernote -->
-<link rel="stylesheet"
-   href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-   integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-   crossorigin="anonymous">
 
 <style>
 /* 공통으로 사용하는 CSS */
@@ -335,10 +330,10 @@ li.dropdown > a {
 
 /* 내용 틀*/
 .content-section {
-    width: 1001px;
+    width: 1100px;
     height: max-content;
     position: relative;
-    left: 100px;
+    left: 0px;
     text-align: left;
     font-size: 14px;
     margin-top: 0px;
@@ -346,65 +341,14 @@ li.dropdown > a {
     margin-left: 0;
     padding-bottom: 100px;
     border-left-color: darkblue;
-    border-left: 1px solid #efefef;
-    padding-left: 50px;
+    padding-left: 0px;
     padding-right: 0;
     min-height: 940px;
     padding-top: 200px;
 }
 
 /* 각각의 페이지에서 사용할 CSS */
-.btn:not(:disabled):not(.disabled) {
-    cursor: pointer;
-}
-.btn-primary {
-    border-color: #127ba3;
-}
-.btn {
-    border-style: solid;
-    border-width: 0 1px 4px 1px;
-    text-transform: uppercase;
-}
-.btn-primary {
-    color: #fff;
-    background-color: #158cba;
-}
-.btn:not(.disabled):hover {
-    margin-top: 1px;
-    border-bottom-width: 3px;
-}
-.btn-primary:hover {
-    color: #fff;
-    background-color: #117298;
-    border-color: #106a8c;
-}
 
-.list-group {
-	border-bottom: 1px solid rgba(0,0,0,.125);
-}
-.list-group-item {
-    position: relative;
-    display: block;
-    padding: .75rem 1.25rem;
-    margin-bottom: -1px;
-    background-color: white;
-    border: 1px solid rgba(0,0,0,.125);
-}
-/* 현재 페이지의 서브메뉴 */
-li.list-group-item.click > a {
-    font-weight: bold;
-    color: #5c5c8a;
-}
-
-
-.list-group-item > a {
-	text-decoration : none;
-	}
-
-/* 프로필 사진  */
-.profile {
-    text-align: center;
-}
 
 /* 테이블 */
 table {
@@ -415,114 +359,36 @@ table {
     margin-bottom: 0rem;
 }
 
-/* 책임분양내역 */
-.auth_img {
-    -webkit-box-flex: 0;
-    flex: 0 0 45.666667%;
-    max-width: 45.666667%;
+
+div#accordion {
+    width: 1000px;
 }
+.FAQ {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
 .card-body {
-    -webkit-box-flex: 1;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-    padding: 1.2rem;
+	background-color: ghostwhite;
+    border-radius: 10px;
+}
+.btn-link {
+    color: black; 
+    text-decoration: none;
+}
+.btn-link:hover {
+	text-decoration: none;
+	
 }
 
-.card-img {
-    width: 380px;
-    height: 253px;
-    border-radius: calc(0.75rem - 1px);
+h5 {
+    margin-top: -7px;
+    margin-bottom: -7px;
 }
 
-p.card-text {
-    text-align: left;
-    margin-bottom: 5px;
-}
-input#fdoc_img {
-    margin-bottom: 5px;
-    margin-top: 20px;
-}
-.no-gutters {
-    margin-right: 0;
-    margin-left: 0;
-    border: 1px solid rgba(0,0,0,.125);
-}
-.auth-btn {
-    width: 71.45px;
-    height: 29px;
-    padding:1px;
-}
-
-/*책임분양 인증현황*/
-.auth-confirm {
-	border: 1px solid rgba(0,0,0,.125);
-}
-
-*, ::after, ::before {
-    box-sizing: border-box;
-    border-radius: .25rem;
-}
-
-.row.auth-date {
-    justify-content: space-between;
-}
-.s-date {
-    margin-left: 16px;
-}
-.e-date {
-    margin-right: 16px;
-}
-.s-date-label {
-    margin-left: 20px;
-}
-.e-date-label {
-    margin-right: 20px;
-}
-.progress-bar {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    color: #fff;
-    text-align: center;
-    background-color: #158cba;
-    transition: width .6s ease;
-    border
-}
-form.input-account {
-    margin-left: 20px;
-}
-
-.btn-danger {
-    border-color: #ff291d;
-}
-.btn-danger {
-    color: #fff;
-    background-color: #ff4136;
-}
-.btn-danger:hover {
-    color: #fff;
-    background-color: #ff1d10;
-    border-color: #ff1103;
-}
-
-.row.account-auth {
-    justify-content: space-between;
-}
-
-/* summernote */
-.note-editor.note-frame .note-editing-area .note-editable {
-    padding: 10px;
-    overflow: auto;
-    color: #000;
-    background-color: #fff;
-    
+.h4, h4 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
 }
 
 </style>
@@ -583,64 +449,116 @@ form.input-account {
 		<div class="main-content">
 			<div class="content-wrap">
 			
-			<!-- 왼쪽. 서브메뉴가 들어갈 부분 -->
-			<div class="sidemenu-section">
-				
-			
-			<ul class="list-group list-group-flush">
-				<li class="list-group-item"><a href="/">회원정보</a></li>
-				<li class="list-group-item"><a href="/">작성글관리</a></li>
-				<li class="list-group-item click"><a href="myfree_auth.me">책임분양관리</a></li>
-				<li class="list-group-item"><a href="/">판매허가번호인증</a></li>
-			</ul>
-			</div>
-			
-			<!-- 오른쪽. 내용이 들어갈 부분 -->
+			<!--내용이 들어갈 부분 -->
 			<div class="content-section">
-				<h2>책임인증글 작성</h2>
-				<br>
-<form action="./write_auth.me#write" method="post" name="write_free_auth_form" enctype="multipart/form-data">
-<input type="hidden" name="fadoc_r_email" value="<%=myfree_doc_confirm_write.getConfirm_fdoc_r_email() %>">
-<input type="hidden" name="fadoc_s_email" value="<%=myfree_doc_confirm_write.getConfirm_fdoc_s_email() %>">
-<input type="hidden" name="fadoc_confirm_no" value="<%=myfree_doc_confirm_write.getConfirm_no() %>">
-<input type="hidden" name="confirm_fdoc_code" value="<%=myfree_doc_confirm_write.getConfirm_fdoc_code() %>">
-<input type="hidden" name="fadoc_check" value="검토중">
+				<h2>자주 묻는 질문</h2>
+				<br><br><br>
+					<div class="FAQ">
+						<h4>회원</h4>
+						<div id="accordion">
+						
+							<div class="card">
+								<div class="card-header" id="headingOne">
+									<h5>
+										<button class="btn btn-link collapsed" data-toggle="collapse"
+											data-target="#collapseOne" aria-expanded="false"
+											aria-controls="collapseOne">판매허가인증을 받으려면 어떻게 해야 하나요?</button>
+									</h5>
+								</div>
 
-<table border="2" width="830px">
-	<tr>
-		<td>
-			<table width="820px" cellspacing="10px">
-				<tr><td height="5px"></td></tr>
-				<tr>
-					<th width="100px" class="text-center" height="15">제목</th>
-					<td width="700px"><input name="fadoc_subject" class="titleFocus" type="text" size="85" style="padding-left: 3px;"></td>
-				</tr>
-				<tr><td height="5px"></td></tr>
-				<tr>
-					<th width="100px" class="text-center">분양코드</th>
-					<td><%=myfree_doc_confirm_write.getConfirm_fdoc_code() %></td>
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-				</tr>
-				<tr>
-					<td width="820" colspan="2">
-  						<textarea id="summernote" name="fadoc_content"></textarea>
-						</form>
-					</td>
-				</tr>
-			</table>		
-		</td>
-	</tr>
-</table>
-<br>
-	<center>
-		<button type="button" class="btn btn-primary btn-md"><a href="javascript:write_auth()" style="color:white;">등록하기</a></button>
-		&nbsp;&nbsp;&nbsp;&nbsp;
-		<button type="button" class="btn btn-danger btn-md"><a href="javascript:history.go(-1)" style="color:white;">취소하기</a></button>
-	</center>
-<br>
- 			
+								<div id="collapseOne" class="collapse"
+									aria-labelledby="headingOne" data-parent="#accordion">
+									<div class="card-body">
+										마이페이지의 판매허가번호 인증에서 본인의 판매번호 인증을 신청하시면 관리자가 검수 후 인증을 완료합니다.
+									</div>
+								</div>
+							</div>
+							
+							<br><br>
+							
+							<h4>분양</h4>
+							<div class="card">
+								<div class="card-header" id="headingTwo">
+									<h5>
+										<button class="btn btn-link collapsed" data-toggle="collapse"
+											data-target="#collapseTwo" aria-expanded="false"
+											aria-controls="collapseTwo">분양게시판에서 반려동물을 분양하기 위해서는 어떻게 해야 하나요?</button>
+									</h5>
+								</div>
+
+								<div id="collapseTwo" class="collapse"
+									aria-labelledby="headingTwo" data-parent="#accordion">
+									<div class="card-body">
+									분양게시판에서 반려동물을 분양하기 위해서는 먼저 판매허가번호를 인증받아야 합니다. 판매허가번호를 인증받은 회원만이 업체분양, 가정분양 게시판에서
+									반려동물 분양이 가능합니다.
+									</div>
+								</div>
+							</div>
+							
+							<div class="card">
+								<div class="card-header" id="headingThree">
+									<h5>
+										<button class="btn btn-link collapsed" data-toggle="collapse"
+											data-target="#collapseThree" aria-expanded="false"
+											aria-controls="collapseThree">책임분양이 무엇인가요?</button>
+									</h5>
+								</div>
+
+								<div id="collapseThree" class="collapse"
+									aria-labelledby="headingThree" data-parent="#accordion">
+									<div class="card-body">
+									책임분양이란 반려동물을 분양할 때 일정 금액의 책임분양비를 받고 분양해주는 방식입니다.
+									책임분양비는 보통 일정 기간에 걸쳐 입양자로부터 본인이 분양한 반려동물의 안부를 확인 한 후 입양자에게 돌려주거나,
+									분양자가 기부를 하는 등의 목적으로 사용됩니다.
+									</div>
+								</div>
+							</div>
+							
+							<div class="card">
+								<div class="card-header" id="headingFour">
+									<h5>
+										<button class="btn btn-link collapsed" data-toggle="collapse"
+											data-target="#collapseFour" aria-expanded="false"
+											aria-controls="collapseFour">책임분양 인증 시스템이 무엇인가요?</button>
+									</h5>
+								</div>
+
+								<div id="collapseFour" class="collapse"
+									aria-labelledby="headingFour" data-parent="#accordion">
+									<div class="card-body">
+									분양자가 책임분양이라는 명목으로 책임분양비를 받은 후에 연락이 두절되거나 사라지는 등의 문제가 발생하여, 입양자가 추후에 
+									책임분양비를 돌려받지 못하는 경우가 종종 발생합니다.
+									그래서 저희는 책임분양이 이루어질 때 책임분양비를 저희가 맡아두었다가 입양자가 일정한 기간에 걸쳐 반려동물의 안부를 확인할 수 있는
+									글을 올릴 때 책임분양비를 나눠서 돌려드리고 있습니다. 이것을 책임분양 인증 시스템이라 합니다.
+									만약 인증게시글을 올리지 않은 기간에 대한 책임분양비는 사전에 동의를 받아 기부 등의 목적으로 사용됩니다.
+									</div>
+								</div>
+							</div>
+							
+							<div class="card">
+								<div class="card-header" id="headingFive">
+									<h5>
+										<button class="btn btn-link collapsed" data-toggle="collapse"
+											data-target="#collapseFive" aria-expanded="false"
+											aria-controls="collapseFive">정액권이 무엇인가요?</button>
+									</h5>
+								</div>
+
+								<div id="collapseFive" class="collapse"
+									aria-labelledby="headingFive" data-parent="#accordion">
+									<div class="card-body">
+									저희는 무분별한 분양글의 도배를 막기 위해, 펫샵(동물판매업자)의 경우 정액제를 운영하고 있습니다. 
+									정액권의 개수만큼 분양글을 게시할 수 있으며, 정액권의 금액은 한달에 올릴 수 있는 분양글의 개수에 따라 차등하여 정해집니다.
+									<br>
+									가정분양의 경우 따로 정액제를 운영하지 않고, 분양글을 1달에 5건으로 제한하고 있으며 3일에 한 번 기존에 작성한 글을 끌어올릴 수 있습니다.
+									</div>
+								</div>
+							</div>
+							
+							
+						</div>
+					</div>
+					
  			</div> <!-- content-section -->
 		</div> <!-- content-wrap -->
 		<footer id="footer">
@@ -687,17 +605,11 @@ $(document).ready(function(){
 }); 
 </script>
 
-<script>
-//제목에 focus
-$(document).ready(function(){
-  $("input.titleFocus").focus();
-});
-</script>
 
 <!-- 부트스트랩 4.0 js -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
 	
 
 <!-- 카카오톡 채널 상담 js -->
@@ -716,75 +628,6 @@ $(document).ready(function(){
   //]]>
 </script>
 
-<!-- Summernote -->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet"> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
-
-
-
-
-<script>
-
-$('#summernote').summernote({
-	    toolbar: [
-         // [groupName, [list of button]]
-         ['fontname', ['fontname']],
-         ['fontsize', ['fontsize']],
-         ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-         ['color', ['forecolor','color']],
-         ['table', ['table']],
-         ['para', ['ul', 'ol', 'paragraph']],
-         ['height', ['height']],
-         ['insert',['picture','link','video']],
-         ['view', ['fullscreen', 'help']]
-       ],
-     fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
-     fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
-     height: 500,                 // 에디터 높이
-     minHeight: null,             // 최소 높이
-     maxHeight: null,             // 최대 높이
-     focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-     lang: "ko-KR",               // 한글 설정
-     placeholder: '책임분양을 받은 아이의 사진을 포함해서 올려주세요',	//placeholder 설정
-       callbacks: {
-            onImageUpload: function(files, editor, welEditable) {
-                  for (var i = files.length - 1; i >= 0; i--) {
-                     sendFile(files[i], this);
-                  }
-              }
-         }
-       
-});
-
-$("div.note-editable").on('drop',function(e){
-    for(i=0; i< e.originalEvent.dataTransfer.files.length; i++){
-    	sendFile(e.originalEvent.dataTransfer.files[i],$("#summernote")[0]);
-    }
-   e.preventDefault();
-})
-
-function sendFile(file, el) {
-    var form_data = new FormData();
-    form_data.append('file', file);
-	
-    $.ajax({
-      
-      data: form_data,
-      type: "post",
-      url: 'auth_img.me',
-      cache: false,
-      contentType: false,
-      enctype: 'multipart/form-data',
-      processData: false,
-      success: function(url) {
-     		 $(el).summernote('editor.insertImage', url);
-     		 
-      }
-    });
-  }
-		 
-</script>
 
 <script language="javascript">
 function write_auth() {
