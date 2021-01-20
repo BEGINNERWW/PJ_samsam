@@ -22,10 +22,10 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-
+<link href="resources/img/title.png" rel="shortcut icon" type="image/x-icon">
+<title>삼삼하개</title>
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-<title>가정분양 게시판</title>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -1544,43 +1544,44 @@ function search_submit(a){
 	<div class ="body_content">
 <header id = "header">
 
-   <div class ="inout_gocen">
-         <input type="button" class= "header_btn" id="login" value="로그인">
-         <input type="button" class= "header_btn" id="logout" value="로그아웃">
-         <input type="button" class= "header_btn" id="signin" value="회원가입">
-         <input type="button" class= "header_btn" id="mypage" value="마이페이지">
-         <input type="button" class= "header_btn" id="gocen" value="고객센터">
-      </div>
-   
-   <div class="nav-menu">
+  	<div class ="inout_gocen">
+			<input type="button" class= "header_btn" id="login" value="로그인" onclick = "location.href='loginForm.me'">
+			<input type="button" class= "header_btn" id="logout" value="로그아웃" onclick ="location.href='logout.me'">
+			<input type="button" class= "header_btn" id="signin" value="회원가입" onclick = "location.href='joinform.me'">
+			<input type="button" class= "header_btn" id="mypage" value="마이페이지" onclick = "location.href='mypage.me'">
+			<input type="button" class= "header_btn" id="gocen" value="고객센터" onclick ="location.href='customer_service.me'">
+		</div>
+
+		 <div class="nav-menu">
             <ul class="sticky-wrapper">
-               <li class="dropdown"><a href="main.me">HOME</a></li>
-               <li class="dropdown"><a href="board.me">분양</a>
+               <li class="dropdown"><a href="home.me">HOME</a></li>
+               <li class="dropdown"><a href="home_list.bo">분양</a>
                   <ul class="dropdown-menu">
-                     <li><a href="#">&nbsp;&nbsp;가정분양</a></li>
-                     <li><a href="#">책임분양</a></li>
-                     <li><a href="#">업체분양</a></li>
+                     <li><a href="home_list.bo">&nbsp;&nbsp;가정분양</a></li>
+                     <li><a href="fdoclist.bo">책임분양</a></li>
+                     <li><a href="selladopt_list.bo">업체분양</a></li>
                   </ul></li>
-               <li class="dropdown"><a href="care.me">보호소</a>
+               <li class="dropdown"><a href="/SJ/pet_list">보호소</a>
                   <ul class="dropdown-menu">
-                     <li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
-                     <li><a href="#">파양</a></li>
-                     <li><a href="#">실종</a></li>
+                     <li><a href="/SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
+                     <li><a href="/SJ/payang/list">파양</a></li>
+                     <li><a href="/SJ/missing/list">실종</a></li>
                   </ul></li>
-               <li class="dropdown"><a href="community.me">커뮤니티</a>
+               <li class="dropdown"><a href="doclist.bo">커뮤니티</a>
                   <ul class="dropdown-menu">
-                     <li><a href="#">&nbsp;자유게시판</a></li>
-                     <li><a href="#">책임분양인증</a></li>
+                     <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
+                     <li><a href="auth_fdoc.bo">책임분양인증</a></li>
                   </ul></li>
             </ul>
-   
-   <div class="header-top">
-      <div class="mainlogo">
-      <a href="#">
-      <img src = "./resources/img/mainlogo.png" class = "img-circle">
-      </a>
-      </div>
-   </div>
+
+
+				<div class="header-top">
+					<div class="mainlogo">
+						<a href="home.me"> <img src="resources/img/mainlogo.png"
+							class="img-circle">
+						</a>
+					</div>
+				</div>
    <div class= "search-wrapper">
       <input class="search-box input" type="text" placeholder="Search">
       <button class="search-box" type="button"><i class="fas fa-search"></i></button>
@@ -1595,8 +1596,8 @@ function search_submit(a){
 	         <div class="sidemenu-section">
 	         <ul class="list-group list-group-flush">
 	            <li class="list-group-item click"><a href="home_list.bo">가정분양</a></li>
-	            <li class="list-group-item"><a href="/">책임분양</a></li>
-	            <li class="list-group-item"><a href="/">업체분양</a></li>
+	            <li class="list-group-item"><a href="fdoclist.bo">책임분양</a></li>
+	            <li class="list-group-item"><a href="selladopt_list.bo">업체분양</a></li>
 	         </ul>
 	         </div>
          
@@ -2272,5 +2273,26 @@ function search_submit(a){
 		</div>
 		
 	</div>
+<!-- 로그인로그아웃 -->
+<script>
+$(document).ready(function(){
+    console.log("<%= email %>") 
+    var session = '<%= email %>'
+    console.log(session);
+    if(session == "null" ){
+        $('#logout').hide();
+          $('#mypage').hide();
+          $('#login').show();
+          $('#signin').show();
+        
+     } //헤더 상단 로그인상태 일때
+     else{
+       $('#logout').show();
+         $('#mypage').show();
+         $('#login').hide();
+         $('#signin').hide();
+     }; //헤더 상단 로그아웃상태 일때 
+  });
+</script>
 </body>
 </html>

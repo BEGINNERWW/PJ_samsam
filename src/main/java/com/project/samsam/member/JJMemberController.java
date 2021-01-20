@@ -242,11 +242,13 @@ public class JJMemberController {
 	}
 
 	//로그아웃
-	@RequestMapping(value = "/logout", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/logout.me")
 	public String logout(HttpSession session)throws IOException {
-		System.out.println("logout");
-		session.invalidate();
-			        
-		return "redirect:/home.me";
+	   System.out.println("logout");
+	   System.out.println("세션 : "+ (String)session.getAttribute("email"));
+	   session.removeAttribute("email");
+	   System.out.println("세션삭제후 : "+ (String)session.getAttribute("email"));
+		              
+	   return "redirect:/home.me";
 	}
 }

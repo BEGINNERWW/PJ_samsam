@@ -19,7 +19,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>분양페이지</title>
+<link href="resources/img/title.png" rel="shortcut icon" type="image/x-icon">
+<title>삼삼하개</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -1311,43 +1312,44 @@ ol, ul {
 <div class ="body_content">
 <header id = "header">
 
-	<div class ="inout_gocen">
-			<input type="button" class= "header_btn" id="login" value="로그인">
-			<input type="button" class= "header_btn" id="logout" value="로그아웃">
-			<input type="button" class= "header_btn" id="signin" value="회원가입">
-			<input type="button" class= "header_btn" id="mypage" value="마이페이지">
-			<input type="button" class= "header_btn" id="gocen" value="고객센터">
+		<div class ="inout_gocen">
+			<input type="button" class= "header_btn" id="login" value="로그인" onclick = "location.href='loginForm.me'">
+			<input type="button" class= "header_btn" id="logout" value="로그아웃" onclick ="location.href='logout.me'">
+			<input type="button" class= "header_btn" id="signin" value="회원가입" onclick = "location.href='joinform.me'">
+			<input type="button" class= "header_btn" id="mypage" value="마이페이지" onclick = "location.href='mypage.me'">
+			<input type="button" class= "header_btn" id="gocen" value="고객센터" onclick ="location.href='customer_service.me'">
 		</div>
-	
-	<div class="nav-menu">
-				<ul class="sticky-wrapper">
-					<li class="dropdown"><a href="main.me">HOME</a></li>
-					<li class="dropdown"><a href="board.me">분양</a>
-						<ul class="dropdown-menu">
-							<li><a href="#">&nbsp;&nbsp;가정분양</a></li>
-							<li><a href="fdoclist.bo">책임분양</a></li>
-							<li><a href="#">업체분양</a></li>
-						</ul></li>
-					<li class="dropdown"><a href="care.me">보호소</a>
-						<ul class="dropdown-menu">
-							<li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
-							<li><a href="#">파양</a></li>
-							<li><a href="#">실종</a></li>
-						</ul></li>
-					<li class="dropdown"><a href="community.me">커뮤니티</a>
-						<ul class="dropdown-menu">
-							<li><a href="#">&nbsp;자유게시판</a></li>
-							<li><a href="#">책임분양인증</a></li>
-						</ul></li>
-				</ul>
-	
-	<div class="header-top">
-		<div class="mainlogo">
-		<a href="#">
-		<img src = "./resources/img/mainlogo.png" class = "img-circle">
-		</a>
-		</div>
-	</div>
+
+		 <div class="nav-menu">
+            <ul class="sticky-wrapper">
+               <li class="dropdown"><a href="home.me">HOME</a></li>
+               <li class="dropdown"><a href="home_list.bo">분양</a>
+                  <ul class="dropdown-menu">
+                     <li><a href="home_list.bo">&nbsp;&nbsp;가정분양</a></li>
+                     <li><a href="fdoclist.bo">책임분양</a></li>
+                     <li><a href="selladopt_list.bo">업체분양</a></li>
+                  </ul></li>
+               <li class="dropdown"><a href="/SJ/pet_list">보호소</a>
+                  <ul class="dropdown-menu">
+                     <li><a href="/SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
+                     <li><a href="/SJ/payang/list">파양</a></li>
+                     <li><a href="/SJ/missing/list">실종</a></li>
+                  </ul></li>
+               <li class="dropdown"><a href="doclist.bo">커뮤니티</a>
+                  <ul class="dropdown-menu">
+                     <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
+                     <li><a href="auth_fdoc.bo">책임분양인증</a></li>
+                  </ul></li>
+            </ul>
+
+
+				<div class="header-top">
+					<div class="mainlogo">
+						<a href="home.me"> <img src="resources/img/mainlogo.png"
+							class="img-circle">
+						</a>
+					</div>
+				</div>
 	<div class= "search-wrapper">
       <input class="search-box input" type="text" placeholder="Search">
       <button class="search-box" type="button"><i class="fas fa-search"></i></button>
@@ -1361,9 +1363,9 @@ ol, ul {
 			<!-- 왼쪽. 서브메뉴가 들어갈 부분 -->
 			<div class="sidemenu-section">
 			<ul class="list-group list-group-flush">
-				<li class="list-group-item"><a href="/">가정분양</a></li>
+				<li class="list-group-item"><a href="home_list.bo">가정분양</a></li>
 				<li class="list-group-item click"><a href="fdoclist.bo">책임분양</a></li>
-				<li class="list-group-item"><a href="/">업체분양</a></li>
+				<li class="list-group-item"><a href="selladopt_list.bo">업체분양</a></li>
 			</ul>
 			</div>
 			
@@ -2088,22 +2090,23 @@ ol, ul {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 <script>
 $(document).ready(function(){
-	$('#login').on('click', function(e){
-	      $('#logout').show();
-		  $('#mypage').show();
-		  $('#login').hide();
-		  $('#signin').hide();
-	  });
-	}) //헤더 상단 로그인 체인지
-
-	$(document).ready(function(){
-	$('#logout').on('click', function(e){
-	       $('#logout').hide();
-		   $('#mypage').hide();
-		   $('#login').show();
-		   $('#signin').show();
-		});
-	}) //헤더 상단 로그아웃 체인지
+    console.log("<%= email %>") 
+    var session = '<%= email %>'
+    console.log(session);
+    if(session == "null" ){
+        $('#logout').hide();
+          $('#mypage').hide();
+          $('#login').show();
+          $('#signin').show();
+        
+     } //헤더 상단 로그인상태 일때
+     else{
+       $('#logout').show();
+         $('#mypage').show();
+         $('#login').hide();
+         $('#signin').hide();
+     }; //헤더 상단 로그아웃상태 일때 
+  });
 </script>
 
 <!-- 부트스트랩 4.0 js -->

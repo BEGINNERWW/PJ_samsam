@@ -8,6 +8,8 @@
 <head>
 
 <meta charset="utf-8" />
+<link href="resources/img/title.png" rel="shortcut icon" type="image/x-icon">
+<title>삼삼하개</title>
 <head profile="http://www.w3.org/2005/10/profile">
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 	<link href="resources/css/join_form.css"rel="stylesheet"/>

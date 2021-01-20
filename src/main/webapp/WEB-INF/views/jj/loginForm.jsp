@@ -6,7 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원관리 시스템 로그인 페이지</title>
+<link href="resources/img/title.png" rel="shortcut icon" type="image/x-icon">
+<title>삼삼하개</title>
 	<link href="resources/css/login_form.css"rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 	<script src="resources/js/login_form.js"></script>

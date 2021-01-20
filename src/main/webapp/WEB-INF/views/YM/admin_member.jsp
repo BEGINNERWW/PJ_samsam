@@ -61,12 +61,12 @@ max-width: 700px;
 		</div>
 		<div class ="admin_inout">
 			<button type="button" class ="grade">ADMIN</button>
-			<button type="button" class ="grade" onclick="location.href='loginForm.me'">LOGOUT</button>
+			<button type="button" class ="grade" onclick="location.href='logout.me'">LOGOUT</button>
 		</div>
 						
 		<ul>
 			<li>
-				<a href = "#" class = "nav-menu"><i class= "far fa-clipboard menu"></i><span class="a-menu"> 게시물관리</span></a>
+				<a href = "adminboard.do" class = "nav-menu"><i class= "far fa-clipboard menu"></i><span class="a-menu"> 게시물관리</span></a>
 			</li>
 			<li>
 				<a href="admin_main.me" class = "nav-menu"><i class = "fas fa-users menu"></i><span class="a-menu"> 회원관리</span></a>
@@ -75,7 +75,7 @@ max-width: 700px;
 				<a href="admin_pay.me" class = "nav-menu"><i class = "fas fa-ticket-alt menu"></i><span class="a-menu"> 이용권관리</span></a>
 			</li>
 			<li>
-				<a href="#" class = "nav-menu"><i class = "fas fa-dog menu"></i><span class="a-menu"> 책임분양</span></a>
+				<a href="adminfree_auth.me" class = "nav-menu"><i class = "fas fa-dog menu"></i><span class="a-menu"> 책임분양</span></a>
 			</li>
 		</ul>
 </div>

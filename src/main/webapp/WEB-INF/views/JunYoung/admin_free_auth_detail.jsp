@@ -18,7 +18,8 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>관리자페이지 > 책임분양 관리 > 상세보기</title>
+<link href="resources/img/title.png" rel="shortcut icon" type="image/x-icon">
+<title>삼삼하개</title>
 
 
 <!-- 폰트 -->
@@ -381,12 +382,12 @@ p.card-text {
 		</div>
 		<div class ="admin_inout">
 			<button type="button" class ="grade">ADMIN</button>
-			<button type="button" class ="grade" onclick="location.href='loginForm.me'">LOGOUT</button>
+			<button type="button" class ="grade" onclick="location.href='logout.me'">LOGOUT</button>
 		</div>
 						
 		<ul>
 			<li>
-				<a href = "#" class = "nav-menu"><i class= "far fa-clipboard menu"></i><span class="a-menu"> 게시물관리</span></a>
+				<a href = "adminboard.do" class = "nav-menu"><i class= "far fa-clipboard menu"></i><span class="a-menu"> 게시물관리</span></a>
 			</li>
 			<li>
 				<a href="admin_main.me" class = "nav-menu"><i class = "fas fa-users menu"></i><span class="a-menu"> 회원관리</span></a>

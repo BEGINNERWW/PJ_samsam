@@ -10,7 +10,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원관리 시스템 회원가입 페이지</title>
+<link href="resources/img/title.png" rel="shortcut icon" type="image/x-icon">
+<title>삼삼하개</title>
 <script type="text/javascript">
 
 $(document).ready(function(){

@@ -17,7 +17,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>책임인증글 상세보기</title>
+<link href="resources/img/title.png" rel="shortcut icon" type="image/x-icon">
+<title>삼삼하개</title>
 
 <!-- 폰트 -->
 <link rel="preconnect" href="https://fonts.gstatic.com">

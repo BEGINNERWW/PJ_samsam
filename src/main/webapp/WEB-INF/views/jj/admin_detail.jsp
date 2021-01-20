@@ -42,7 +42,8 @@
 
 <head>
 <meta charset="utf-8">
-<title>admin_board</title>
+<link href="resources/img/title.png" rel="shortcut icon" type="image/x-icon">
+<title>삼삼하개</title>
 
 <!-- 폰트 -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -291,7 +292,7 @@ width: 500px;
 				<div class="admin_inout">
 					<button type="button" class="grade">ADMIN</button>
 					<button type="button" class="grade"
-						onclick="location.href='loginForm.me'">LOGOUT</button>
+						onclick="location.href='logout.me'">LOGOUT</button>
 				</div>
 
 				<ul>
@@ -303,7 +304,7 @@ width: 500px;
 					<li><a href="admin_pay.me" class="nav-menu"><i
 							class="fas fa-ticket-alt menu"></i><span class="a-menu">
 								이용권관리</span></a></li>
-					<li><a href="#" class="nav-menu"><i
+					<li><a href="adminfree_auth.me" class="nav-menu"><i
 							class="fas fa-dog menu"></i><span class="a-menu"> 책임분양</span></a></li>
 				</ul>
 			</div>
