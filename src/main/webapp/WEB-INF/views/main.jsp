@@ -30,13 +30,13 @@
 /* 공통으로 사용하는 CSS */
 @charset "utf-8";
 * {
-	margin:0;
-	padding: 0;
+   margin:0;
+   padding: 0;
 }
 html{
-	margin:0 auto;
-	width : 100%;
-	height: 100%;
+   margin:0 auto;
+   width : 100%;
+   height: 100%;
     overflow: hidden;
 }
 a:hover {
@@ -44,33 +44,33 @@ a:hover {
     text-decoration: none;
 }
 body {
-	margin: 0;
-	height: auto;
+   margin: 0;
+   height: 100%;
     min-height : 600px;
     box-sizing : content-box;
     overflow: hidden;
-	-ms-overflow-style:none;
-	line-height: 1.7;
+   -ms-overflow-style:none;
+   line-height: 1.7;
     color: gray;
-   	font-family: 'Noto Sans KR', sans-serif;
+      font-family: 'Noto Sans KR', sans-serif;
     font-weight: 300;
     font-size: .9rem;
 }
 body::-webkit-scrollbar { display:none; }
 a{
-	text-decoration : none;
-	color : #9494b8;
+   text-decoration : none;
+   color : #9494b8;
 }
 
 body {
-	text-align: -webkit-center;
+   text-align: -webkit-center;
 }
 
 .body_content{
-  	margin : 0;
-  	padding : 0;
-  	width : 100%;
-  	height:100vh;
+     margin : 0;
+     padding : 0;
+     width : 100%;
+     height:100vh;
     display : flex;
     flex-direction : column;
 }
@@ -83,80 +83,71 @@ body {
     flex-direction: column;
     border-bottom: 1px solid #efefef;
     padding-bottom: 20px;
-    background-color : #fff;
-    position : fixed;
-      z-index : 10000;
-    top : 0;
-    left : 0;
-    right : 0;
 }
 .inout_gocen{
-   position : inline;
-   display : flex;
-   justify-content : flex-end;
-   margin-top : 20px;
-   margin-right : 340px;
-   background-color : #fff;
+   position: fixed; 
+   top : 20px;
+   right : 390px;
 }
 
 .header-top {
-    margin-top : -10px;
-	display : flex;
-	justify-content : flex-start;
-	margin-right: auto;
+   margin-top : 40px;
+   display : flex;
+   justify-content : flex-start;
+   margin-right: auto;
 }
 .header_btn{
-	width : 70px;
-	height : 30px;
-	background-color : #fff;
-	color : #9494b8;
+   width : 70px;
+   height : 30px;
+   background-color : #fff;
+   color : #9494b8;
     border-radius: 5px;
     border : none;
     outline : 0;
 }
 .header_btn:hover{
-	color : #6200cc;
-	font-weight: 700;
+   color : #6200cc;
+   font-weight: 700;
 }
 #logout, #mypage{
-	display : none;
+   display : none;
 }
 .img-circle{
-	width : 450px;
-	height : 150px;
-	display: block;
-	margin : 0 auto;
+   width : 450px;
+   height : 150px;
+   display: block;
+   margin : 0 auto;
 }
 .nav-menu{
-	margin : 0 auto;
-	display : flex;
-	justify-content : space-around;
-	align-items: baseline;
-	width: 1200px;
+   margin : 0 auto;
+   display : flex;
+   justify-content : space-around;
+   align-items: baseline;
+   width: 1200px;
 }
 .sticky-wrapper{
-	width: 400px;
-	height: 50px;
-	margin : 0;
-	margin-left: 0;
-  	position: sticky;
-  	list-style : none;
+   width: 400px;
+   height: 50px;
+   margin : 0;
+   margin-left: 0;
+     position: sticky;
+     list-style : none;
     display : flex;
     padding: 0;
 }
 
 .sticky-wrapper > li{
-	padding : 8px 8px;
-	list-style-type:none;
-	float: left;
+   padding : 8px 8px;
+   list-style-type:none;
+   float: left;
 }
 .sticky-wrapper > ul{
-	padding : 8px 8px;
+   padding : 8px 8px;
 }
 
 li.dropdown {
-	color : #9494b8;
-  	background: #fff;
+   color : #9494b8;
+     background: #fff;
     transition: .3s all ease;
     font-size: 20px;
     width: 90px;
@@ -164,21 +155,21 @@ li.dropdown {
 }
 
 .sticky-wrapper.active{
-	position: fixed;
+   position: fixed;
     top: 0px;
 }
 
 /* dropdown */
-.dropdown-menu {
+.dropdown-menu{
    display: none;
       justify-content : flex-start;
    position: absolute;
    list-style : none;
     visibility: visible;
-    background-color: #fff;
-   width: 1200px;
-   top : 52px;
-   margin-left : -30px;
+    background-color: rgb(0,0,0,0);
+   width: 350px;
+   top : 48px;
+   padding: 5px;
    border: none;
 }
 
@@ -195,7 +186,7 @@ li.dropdown > a {
     text-decoration: none;
 }
 .dropdown-menu li{
-	margin-right : 40px;
+   margin-right : 40px;
 }
 .dropdown:hover .dropdown-menu { display: flex; visibility: visible;}
 
@@ -231,22 +222,22 @@ li.dropdown > a {
 /* search-wrqpper */
 
 .main-content{
-	width : 100%;
-	height : 100%;
-	margin : 0 auto;
+   width : 100%;
+   height : 100%;
+   margin : 0 auto;
 }
 
 
 /* footer */
-#footer {
-    margin: 0 auto;
-    width: fit-content;
-    bottom: 20px;
-    position: relative;
+#footer{
+   margin : 0px auto;
+   width: 100%;
+     bottom : 28px;
+   position: sticky;
 }
 
 p{
-	text-align : center;
+   text-align : center;
 }
 
 .fa-heart {
@@ -255,18 +246,18 @@ p{
 
 /* pageup button */
 .back-to-top{
-	width : 40px;
-	height : 40px;
-	margin : 0 auto;
-	font-size : 24px;
-	color : white;
-	background-color : #149DDD;
-	border-radius : 50%;
-	visibility : visible;
-	position: fixed; 
-	bottom: 45px; 
-	right: 30px;
-	text-align : center;
+   width : 40px;
+   height : 40px;
+   margin : 0 auto;
+   font-size : 24px;
+   color : white;
+   background-color : #149DDD;
+   border-radius : 50%;
+   visibility : visible;
+   position: fixed; 
+   bottom: 45px; 
+   right: 30px;
+   text-align : center;
 }
 /* pageup button */
 *, ::after, ::before {
@@ -280,7 +271,7 @@ p{
     bottom: 92px;
 }
 .kakao_btn {
-	border-radius: 1rem!important;
+   border-radius: 1rem!important;
 }
 
 /* 각각의 페이지에서 사용할 CSS */
@@ -337,6 +328,7 @@ p{
 
 </style>
 
+
 </head>
 <body>
 <div class ="body_content">
@@ -354,19 +346,19 @@ p{
             <ul class="sticky-wrapper">
                <li class="dropdown"><a href="home.me">HOME</a></li>
                <li class="dropdown"><a href="home_list.bo">분양</a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu board">
                      <li><a href="home_list.bo">&nbsp;&nbsp;가정분양</a></li>
                      <li><a href="fdoclist.bo">책임분양</a></li>
                      <li><a href="selladopt_list.bo">업체분양</a></li>
                   </ul></li>
                <li class="dropdown"><a href="/SJ/pet_list">보호소</a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu care">
                      <li><a href="/SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
                      <li><a href="/SJ/payang/list">파양</a></li>
                      <li><a href="/SJ/missing/list">실종</a></li>
                   </ul></li>
                <li class="dropdown"><a href="doclist.bo">커뮤니티</a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu commu">
                      <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
                      <li><a href="auth_fdoc.bo">책임분양인증</a></li>
                   </ul></li>

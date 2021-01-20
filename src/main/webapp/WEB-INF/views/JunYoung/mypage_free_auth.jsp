@@ -3,7 +3,6 @@
 <%@ page import="java.util.*"%>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <%@ page import="com.project.samsam.myfree.*" %>
 
 
