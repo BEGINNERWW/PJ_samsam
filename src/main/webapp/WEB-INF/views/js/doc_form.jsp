@@ -6,6 +6,10 @@
 <meta charset="UTF-8">
 <link href="resources/img/title.png" rel="shortcut icon" type="image/x-icon">
 <title>삼삼하개</title>
+<%
+String email = (String) session.getAttribute("email");
+String id = (String) session.getAttribute("nick");
+%>
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -803,7 +807,7 @@ textarea {
 }
 
 .btn_g.full_type1 {
-	background-color: #ff5656;
+	background-color: #ed457d;
 	color: #fff;
 	border: 0;
 }
@@ -954,11 +958,15 @@ $(document).ready(function() {
 		<header id="header">
 
 			<div class="inout_gocen">
-				<a href="loginForm.me"><input type="button" class= "header_btn" id="login" value="로그인"></a>
-				<a href="logout.me"><input type="button" class= "header_btn" id="logout" value="로그아웃"></a>
-				<a href="joinform.me"><input type="button" class= "header_btn" id="signin" value="회원가입"></a>
-				<a href="mypage.me"><input type="button" class= "header_btn" id="mypage" value="마이페이지"></a>
-				<a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
+				<%if(email != null){ %>
+			
+			<input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='logout.me'">
+			<input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='mypage.me'">
+			<%}else{ %>
+			<input  type="button" class= "header_btn" value="로그인" onclick="location.href='loginForm.me'">
+			<input  type="button" class= "header_btn" value="회원가입" onclick="location.href='joinform.me'">
+			<%} %>
+			<a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
 			</div>
 
 		 <div class="nav-menu">
@@ -1021,7 +1029,8 @@ $(document).ready(function() {
 		 
    <form method="post" action="doc_write.bo" enctype="multipart/form-data">
 
-      
+      <input type="hidden" name="doc_nick" value=<%=id %>>
+      <input type="hidden" name="doc_email" value=<%=email %>>
       <div><div><textarea name="doc_subject" placeholder="제목을 입력해 주세요." class="textarea_input" style="height: 40px;"></textarea></div></div>
    
      
@@ -1096,8 +1105,8 @@ $(document).ready(function() {
   //]]>
   
     $(document).ready(function(){
-        console.log("<%= email %>") 
-        var session = '<%= email %>'
+        console.log("<%=email%>") 
+        var session = '<%=email %>'
         console.log(session);
         if(session == "null" ){
             $('#logout').hide();
@@ -1125,3 +1134,9 @@ $(document).ready(function() {
 
 
 </body>
+<style>
+.note-editor.note-frame {
+    border: 1px solid #ebecef;
+}
+
+</style>

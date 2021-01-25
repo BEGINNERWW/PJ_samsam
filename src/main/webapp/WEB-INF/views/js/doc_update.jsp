@@ -3,7 +3,7 @@
 <%@ page import="com.project.samsam.community.DocVO"%>
 <%
 DocVO vo = (DocVO) request.getAttribute("vo");
-
+String email = (String) session.getAttribute("email");
 %>
 <html>
 <head>
@@ -806,7 +806,7 @@ textarea {
 }
 
 .btn_g.full_type1 {
-	background-color: #ff5656;
+	background-color: #ed457d;
 	color: #fff;
 	border: 0;
 }
@@ -953,8 +953,8 @@ $(document).ready(function() {
 });
 
 $(document).ready(function(){
-    console.log("<%= email %>") 
-    var session = '<%= email %>'
+	 console.log("<%=email%>") 
+     var session = '<%=email %>'
     console.log(session);
     if(session == "null" ){
         $('#logout').hide();
@@ -1125,5 +1125,11 @@ $(document).ready(function(){
 
 
 </body>
+<style>
+.note-editor.note-frame {
+    border: 1px solid #ebecef;
+}
+
+</style>
 
 
