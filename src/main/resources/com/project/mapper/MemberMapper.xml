@@ -24,7 +24,7 @@ biz_email / biz_no / biz_com/ biz_name / biz_add / biz_img / free_coupon/ pay_co
 	</update>
 	
 	<update id="updateAuthStatus" parameterType="HashMap">
-	update member_list set status ='1' where email=#{email} and authkey=#{authkey}
+	update member_list set status ='1' where email=#{email} and authkey=#{authkey,jdbcType=VARCHAR }
 	</update>
 <!-- join email check -->
 <select id="idCheck" parameterType="String" resultType="int">

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 
 <script>
@@ -38,7 +39,6 @@
 			getShelterInfo(pageNo);
 		});
 		
-		
 	});
 	
 </script> 
@@ -68,6 +68,13 @@
 		<th>주소</th>
 		<th>전화번호</th>
 	</tr>
+    <c:if test="${fn:length(shelterList) == 0}">
+    	<tr>
+    		<td colspan="4" style="text-align: center;">
+    			<span>데이터가 존재하지 않습니다.</span>
+    		</td>
+    	</tr>
+    </c:if>
 	<c:forEach var="shelter" items="${shelterList}" varStatus="status">
 		<tr>
 			<td>${shelter.divisionNm }</td>

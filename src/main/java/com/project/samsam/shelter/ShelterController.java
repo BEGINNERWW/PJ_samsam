@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,22 +35,36 @@ public class ShelterController {
 		// 날짜
 		Calendar calendar = Calendar.getInstance();
 		String year = "yyyy";
+		String month = "MM";
+		
+		String dayOfMonth = String.valueOf( calendar.getActualMaximum(Calendar.DAY_OF_MONTH) );
 		
 		SimpleDateFormat yyyy = new SimpleDateFormat(year);
 		year = yyyy.format(calendar.getTime());
+		SimpleDateFormat mm = new SimpleDateFormat(month);
+		month = mm.format(calendar.getTime());
 		
-		// 연초~연말 (default)
-		String firstDate = year + "0101";
-		String lastDate = year + "1231";
+		// 최초 검색기간은 이번달
+		String firstDate = year + "-" + month + "01";
+		String lastDate = year + month + dayOfMonth;
 		
+		// 이번 달 
+		String formatFirstDate = year + "-" + month + "-01";
+		String formatLastDate = year + "-" + month + "-" + dayOfMonth;
+				
+		// 20200101
 		model.addAttribute("firstDate", firstDate);
 		model.addAttribute("lastDate", lastDate);
-		System.out.println("@petList()");
+		
+		// 2020-01-01
+		model.addAttribute("formatFirstDate", formatFirstDate);
+		model.addAttribute("formatLastDate", formatLastDate);
+				
 		System.out.println(firstDate);
 		System.out.println(lastDate);
 		
 		// 보호 동물 정보
-		ArrayList<AnimalInfo> animalList = animalUtil.getAnimalInfo(firstDate, lastDate, 417000, "notice", 1, 10, "Y");
+		ArrayList<AnimalInfo> animalList = animalUtil.getAnimalInfo(firstDate, lastDate, "417000", "", 1, 10, "Y");
 		model.addAttribute("animalList", animalList);
 		
 		// 시도
@@ -86,9 +102,10 @@ public class ShelterController {
 
 	// 시군구 요청
 	@RequestMapping(value = "/SiGunGu", method = RequestMethod.POST)
-	public List<Sigungu> getSiGunGuList(Model model, int sidoCode) throws Exception{
+	public List<Sigungu> getSiGunGuList(Model model, String sidoCode, HttpServletRequest request) throws Exception{
 		
 		AnimalApiUtil animalUtil = new AnimalApiUtil();
+		String requestType = request.getParameter("requestType");
 		
 		
 		List<Sigungu> siGunGuList = animalUtil.getSiGunGu(sidoCode);
@@ -96,13 +113,14 @@ public class ShelterController {
 			System.out.println(sigungu.getSigunguNm());
 		}
 		model.addAttribute("sigungu", siGunGuList);
+		model.addAttribute("requestType", requestType);
 		
 		return siGunGuList;
 	}
 	
 	// 축종 요청
 	@RequestMapping(value = "/animalKind", method = RequestMethod.POST)
-	public List<AnimalKind> getAnimalKindList(Model model, int upKindCode) throws Exception{
+	public List<AnimalKind> getAnimalKindList(Model model, String upKindCode) throws Exception{
 		
 		AnimalApiUtil animalUtil = new AnimalApiUtil();
 		
@@ -119,7 +137,7 @@ public class ShelterController {
 	
 	// (필터)유기동물리스트  요청
 	@RequestMapping(value = "/animalInfoList", method = RequestMethod.POST)
-	public List<AnimalInfo> getAnimalList(Model model, String bgnde, String endde, Integer sido, Integer siGunGu, Integer upKind, Integer kind ) throws Exception{
+	public List<AnimalInfo> getAnimalList(Model model, String bgnde, String endde, String sido, String siGunGu, String upKind, String kind ) throws Exception{
 		
 		AnimalApiUtil animalUtil = new AnimalApiUtil();
 		
@@ -136,15 +154,105 @@ public class ShelterController {
 		System.out.println("kind : " + kind);
 		
 		// 보호 동물 정보
-		ArrayList<AnimalInfo> animalList = animalUtil.getAnimalInfo(bgnde, endde, sido, siGunGu, upKind, kind, "notice", 1, 10, "Y");
+		ArrayList<AnimalInfo> animalList = animalUtil.getAnimalInfo(bgnde, endde, sido, siGunGu, upKind, kind, "", 1, 10, "Y");
 		model.addAttribute("animalList", animalList);
+		
+		return animalList;
+	}
+	
+	// 유기동물 리스트 요청
+	@RequestMapping(value = "/petList", method = RequestMethod.GET)
+	public List<AnimalInfo> getPetList(Model model, String bgnde, String endde, String sido, String siGunGu, String upKind, String kind, Integer pageNo) throws Exception {
+		AnimalApiUtil animalUtil = new AnimalApiUtil();
+		
+		
+		// 날짜
+		Calendar calendar = Calendar.getInstance();
+		String year = "yyyy";
+		String month = "mm";
+		
+		String dayOfMonth = String.valueOf( calendar.getActualMaximum(Calendar.DAY_OF_MONTH) );
+		
+		SimpleDateFormat yyyy = new SimpleDateFormat(year);
+		year = yyyy.format(calendar.getTime());
+		SimpleDateFormat mm = new SimpleDateFormat(month);
+		month = mm.format(calendar.getTime());
+		
+		// 연초~연말 (default)
+		String firstDate = year + "0101";
+		String lastDate = year + "1231";
+		
+		
+		// 이번 달 
+		String formatFirstDate = year + "-" + month + "-01";
+		String formatLastDate = year + "-" + month + "-" + dayOfMonth;
+				
+		// 20200101
+		model.addAttribute("firstDate", firstDate);
+		model.addAttribute("lastDate", lastDate);
+		
+		// 2020-01-01
+		model.addAttribute("formatFirstDate", formatFirstDate);
+		model.addAttribute("formatLastDate", formatLastDate);
+		
+		bgnde =  firstDate;
+		endde =  lastDate;
+		
+		
+		// 보호 동물 정보
+		ArrayList<AnimalInfo> animalList = animalUtil.getAnimalInfo(bgnde, endde, "417000", "", pageNo, 10, "Y");
+		
+		System.out.println("########### petList #############");
+		for (AnimalInfo animal : animalList) {
+			System.out.println(animal);
+		}
+		
+		model.addAttribute("animalList", animalList);
+		
+		// 시도
+		ArrayList<Sido> sidoList = animalUtil.getSido();
+		model.addAttribute("sido", sidoList);
+		
+		// 페이지 정보
+		// 필터 적용 후, 페이지번호, 페이지당 개수, 전체 건수 적용할 것
+		PageInfo pageInfo = new PageInfo(1, 10, 59);
+		
+		System.out.println("################ pageInfo ######################");
+		System.out.println(pageInfo);
+		
+		int totalCount;
+		int numOfRows;
+		int startNo = 1;
+		int maxNo = 1;
+		int endNo = 1;
+		
+		if( pageInfo != null ) {
+			
+			totalCount = pageInfo.getTotalCount();
+			numOfRows =  pageInfo.getNumOfRows();
+			startNo = pageInfo.getPageNo();
+			maxNo = ( totalCount / numOfRows ) + 1;
+			endNo = 0;
+			
+			if( startNo + numOfRows - 1 > maxNo ) {
+				endNo = maxNo;
+			} else {
+				endNo = startNo + numOfRows - 1;
+			}
+			
+			pageInfo.setStartNo(startNo);
+			pageInfo.setEndNo(endNo);
+			pageInfo.setMaxNo(maxNo);
+		}
+		
+		model.addAttribute("pageInfo", pageInfo);
 		
 		return animalList;
 	}
 	
 	// 보호소 리스트 요청
 	@RequestMapping(value = "/shelterList", method = RequestMethod.GET)
-	public List<ShelterInfo> getShelterList(Model model, Integer sidoCode, Integer siGunGuCode, Integer pageNo) throws Exception {
+	public List<ShelterInfo> getShelterList(Model model, String sidoCode, String siGunGuCode, Integer pageNo) throws Exception {
 		
 		AnimalApiUtil animalUtil = new AnimalApiUtil();
 		ShelterApiUtil shelterUtil = new ShelterApiUtil();
@@ -159,7 +267,7 @@ public class ShelterController {
 		PageInfo pageInfo = null;
 		
 		// 시도 : 전체
-		if( sidoCode == 0 ) {
+		if("".equals(sidoCode)) {
 			shelterList = shelterUtil.getAllShelterDetail(pageNo);
 			pageInfo = shelterUtil.getPageInfo(pageNo);
 		} else {

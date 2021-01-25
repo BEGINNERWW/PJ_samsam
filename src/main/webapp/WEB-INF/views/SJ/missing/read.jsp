@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>파양게시판</title>
+  <title>실종게시판</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -902,23 +902,23 @@ padding: 0 0 29px;
 	
 	<div class="nav-menu">
 				<ul class="sticky-wrapper">
-					<li class="dropdown"><a href="main.me">HOME</a></li>
-					<li class="dropdown"><a href="board.me">분양</a>
+					<li class="dropdown"><a href="home.me">HOME</a></li>
+					<li class="dropdown"><a href="home_list.bo">분양</a>
 						<ul class="dropdown-menu">
-							<li><a href="#">&nbsp;&nbsp;가정분양</a></li>
-							<li><a href="#">책임분양</a></li>
-							<li><a href="#">업체분양</a></li>
+							<li><a href="home_list.bo">&nbsp;&nbsp;가정분양</a></li>
+							<li><a href="fdoclist.bo">책임분양</a></li>
+							<li><a href="selladopt_list.bo">업체분양</a></li>
 						</ul></li>
-					<li class="dropdown"><a href="/SJ/pet_list">보호소</a>
+					<li class="dropdown"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a>
 						<ul class="dropdown-menu">
-					<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
+				<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
+				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
+				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
 						</ul></li>
-					<li class="dropdown"><a href="community.me">커뮤니티</a>
+					<li class="dropdown"><a href="doclist.bo">커뮤니티</a>
 						<ul class="dropdown-menu">
-							<li><a href="#">&nbsp;자유게시판</a></li>
-							<li><a href="#">책임분양인증</a></li>
+							<li><a href="doclist.bo">&nbsp;자유게시판</a></li>
+							<li><a href="auth_fdoc.bo">책임분양인증</a></li>
 						</ul></li>
 				</ul>
 	
@@ -953,23 +953,23 @@ padding: 0 0 29px;
 				<h2></h2>
 				<div class="contents">
 					<div class="article-head">
-						<p style="font-szie:16px;font-weight:bold;">보호소 &nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;파양 게시판</p>
-						<h2 class="headsubject">${payang.doc_subject}</h2>
-						<p class="name">${payang.doc_name}</p>
+						<p style="font-szie:16px;font-weight:bold;">보호소 &nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;실종 게시판</p>
+						<h2 class="headsubject">${missing.doc_subject}</h2>
+						<p class="name">${missing.doc_name}</p>
 						<div class="option-info">
 							<span class="big option"> 
 								<i class="fas fa-dog"></i> 
 								<i class="fas fa-cat"></i> 
 								<i class="fas fa-dove"></i>
-								${payang.doc_big_name}
+								${missing.doc_big_name}
 							</span> 
 								<span class="kind_of option">
 									<i class="fas fa-tags"></i>&nbsp;
-									${payang.doc_kind}
+									${missing.doc_kind}
 								</span> 
 								<span class="local option">
 									<i class="fas fa-map-marker-alt"></i>&nbsp;
-									${payang.doc_sido}
+									${missing.doc_sido}
 								</span>
 					
 					 </div> 
@@ -978,8 +978,8 @@ padding: 0 0 29px;
 							<span class="pv option"><i class="far fa-eye"></i>&nbsp;</span>
 							<span class="cmt"><i class="far fa-comment"></i>&nbsp;</span>
 							<div class="option-wrap">
-								<span><a href="modify?doc_no=${payang.doc_no}">수정</a>&nbsp;&nbsp;&nbsp;</span>
-								<span><a href="remove?doc_no=${payang.doc_no}">삭제</a></span>
+								<span><a href="modify?doc_no=${missing.doc_no}">수정</a>&nbsp;&nbsp;&nbsp;</span>
+								<span><a href="remove?doc_no=${missing.doc_no}">삭제</a></span>
 							</div>
 						</div>
 						</div>
@@ -988,7 +988,7 @@ padding: 0 0 29px;
 					
 					<div class="article-view-content">
 						<div class="article-content">
-							${payang.doc_content}
+							${missing.doc_content}
 						</div>
 					</div>
 						
@@ -1007,8 +1007,8 @@ padding: 0 0 29px;
 								<div class="text_write_g comment_write">
 									<div class="inner_text_write">
 										<%-- 세션 정보로 수정할 것 --%>
-										<input type="hidden" id="doc_nick" value="${payang.doc_nick }" />
-										<input type="hidden" id="doc_email" value="${payang.doc_email }" />
+										<input type="hidden" id="doc_nick" value="${missing.doc_nick }" />
+										<input type="hidden" id="doc_email" value="${missing.doc_email }" />
 										<div class="box_textarea">
 											<textarea id="doc_content" name="doc_content"
 												placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요."
@@ -1091,19 +1091,19 @@ padding: 0 0 29px;
 		// 수정 버튼 클릭 이벤트
 		$('#btnModify').on('click',function() {
 			var doc_no = $('#doc_no').val();
-			location.href = "/samsam/SJ/payang/modify?doc_no=" + doc_no;
+			location.href = "/samsam/SJ/missing/modify?doc_no=" + doc_no;
 		});
 		 
 		// 삭제 버튼 클릭 이벤트
 		$('#btnRemove').on('click',function() {
-			form.attr("action", "/samsam/SJ/payang/remove");
+			form.attr("action", "/samsam/SJ/missing/remove");
 			form.attr("method", "post");
 			form.submit();
 		}); 
 		 
 		// 목록 버튼 클릭 이벤트
 		$('#btnList').on('click',function() {
-			location.href = "/samsam/SJ/payang/list";
+			location.href = "/samsam/SJ/missing/list";
 		}); 
 		 
 	}); 
@@ -1113,10 +1113,10 @@ padding: 0 0 29px;
 	function commentInsert() {
 		
 		var doc_content = $("#doc_content").val();
-		var doc_no = "${payang.doc_no}";
+		var doc_no = "${missing.doc_no}";
 		// 나중에 세션 정보로 변경할 것
-		var doc_email = "${payang.doc_email}";
-		var doc_nick = "${payang.doc_nick}";
+		var doc_email = "${missing.doc_email}";
+		var doc_nick = "${missing.doc_nick}";
 		
 		$.ajax({
 		    url:'comment_insert', //request 보낼 서버의 경로
@@ -1142,7 +1142,7 @@ padding: 0 0 29px;
 	
 	// 댓글 목록 조회
 	function commentList() {
-		var doc_no = "${payang.doc_no}";
+		var doc_no = "${missing.doc_no}";
 		
 		$.ajax({
 		    url:'comment_list', //request 보낼 서버의 경로

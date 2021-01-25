@@ -1,34 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"%>
-<%@ page import="java.util.*"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	String email = (String) session.getAttribute("email");
+%>
 <html>
 <head>
-  <title>파양게시판</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- 템플릿  CSS -->
 
-<link rel="stylesheet" href="./resources/fonts/icomoon/style.css">
-
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&display=swap" rel="stylesheet">
-
-<!-- 아이콘 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
-
-<!-- 부트스트랩 4.0 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	
-<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>  -->
-
-	<link rel="stylesheet"
+<link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
-
 <style>
 html, body {
 	margin: 0;
@@ -98,7 +80,7 @@ a {
 
 .name {
 	color: #37acc9;
-	font-size: 16px;
+	font-size: 20px;
 	margin-top: 16px;
 	line-height: 16px;
 }
@@ -108,7 +90,7 @@ a {
 }
 
 .option {
-	margin-right: 15px;
+	margin-right: 7px;
 }
 
 .wrap-info {
@@ -333,11 +315,11 @@ li.dropdown {
 
 /* footer */
 #footer {
+
 	position: relative;
     margin: -15px auto;
     width: 100%;
-    bottom: 0px;
-    padding-bottom:10px;
+    bottom: 35px;
     padding-top: 35px;
     z-index: -1;
     border-top: 1px solid #efefef;
@@ -854,25 +836,11 @@ select, input, button, textarea {
 .article-content{
 	margin-bottom:60px;
 }
-.option-info{
-	color:#94969b;
-}
-.headsubject{
-	font-size: 24px;
-    line-height: 32px;
-    font-weight: 700;
-    font-family: "Roboto","Noto Sans KR",AppleSDGothicNeo-Regular,"Malgun Gothic","맑은 고딕",dotum,"돋움",sans-serif;
-}
-.article-head{
-padding: 0 0 29px;
-    border-bottom: 1px solid #eee;
-}
-
 
 .textarea_input {
     display: block;
     width: 100%;
-    min-height: 140px;
+    min-height: 40px;
     padding: 11px 12px 10px;
     border: 1px solid #a9a9a9;
     box-sizing: border-box;
@@ -884,8 +852,66 @@ padding: 0 0 29px;
     line-height: 17px;
     outline: none;
 }
+.content-form{
+	padding-top:10px;
+	padding-bottom:10px;
+
+}
+.option_box{
+	margin-top:20px;
+	margin-bottom:20px;
+	padding: 15px 48px 20px 35px;
+    border: 1px solid #a9a9a9;
+}
+
+.option_box div {
+	margin: 10px 0px;
+}
+.option1{
+	display:inline-block;
+	padding-bottom:10px;
+	margin-right:24px;
+}
+
+
+.option_lable {
+	margin-right : 20px;
+}
+
+.prod-category-smart-search .smart-search-result .btn-box {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.btn-box {
+	margin-top: 40px;
+	margin-bottom: 20px;
+    text-align: center;
+}
+
 
 </style>
+<link href="resources/img/title.png" rel="shortcut icon" type="image/x-icon">
+<title>삼삼하개</title>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"
+	type="text/javascript"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&display=swap"
+	rel="stylesheet">
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+	 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet"> 
+	 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
+
+
+<!-- include libraries(jQuery, bootstrap) -->
 
 </head>
 <body>
@@ -902,23 +928,23 @@ padding: 0 0 29px;
 	
 	<div class="nav-menu">
 				<ul class="sticky-wrapper">
-					<li class="dropdown"><a href="main.me">HOME</a></li>
-					<li class="dropdown"><a href="board.me">분양</a>
+					<li class="dropdown"><a href="home.me">HOME</a></li>
+					<li class="dropdown"><a href="home_list.bo">분양</a>
 						<ul class="dropdown-menu">
-							<li><a href="#">&nbsp;&nbsp;가정분양</a></li>
-							<li><a href="#">책임분양</a></li>
-							<li><a href="#">업체분양</a></li>
+							<li><a href="home_list.bo">&nbsp;&nbsp;가정분양</a></li>
+							<li><a href="fdoclist.bo">책임분양</a></li>
+							<li><a href="selladopt_list.bo">업체분양</a></li>
 						</ul></li>
-					<li class="dropdown"><a href="/SJ/pet_list">보호소</a>
+					<li class="dropdown"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a>
 						<ul class="dropdown-menu">
-					<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
+				<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
+				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
+				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
 						</ul></li>
-					<li class="dropdown"><a href="community.me">커뮤니티</a>
+					<li class="dropdown"><a href="doclist.bo">커뮤니티</a>
 						<ul class="dropdown-menu">
-							<li><a href="#">&nbsp;자유게시판</a></li>
-							<li><a href="#">책임분양인증</a></li>
+							<li><a href="doclist.bo">&nbsp;자유게시판</a></li>
+							<li><a href="auth_fdoc.bo">책임분양인증</a></li>
 						</ul></li>
 				</ul>
 	
@@ -950,91 +976,71 @@ padding: 0 0 29px;
 			
 			<!-- 오른쪽. 내용이 들어갈 부분 -->
 			<div class="content-section">
-				<h2></h2>
-				<div class="contents">
-					<div class="article-head">
-						<p style="font-szie:16px;font-weight:bold;">보호소 &nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;파양 게시판</p>
-						<h2 class="headsubject">${payang.doc_subject}</h2>
-						<p class="name">${payang.doc_name}</p>
-						<div class="option-info">
-							<span class="big option"> 
-								<i class="fas fa-dog"></i> 
-								<i class="fas fa-cat"></i> 
-								<i class="fas fa-dove"></i>
-								${payang.doc_big_name}
-							</span> 
-								<span class="kind_of option">
-									<i class="fas fa-tags"></i>&nbsp;
-									${payang.doc_kind}
-								</span> 
-								<span class="local option">
-									<i class="fas fa-map-marker-alt"></i>&nbsp;
-									${payang.doc_sido}
-								</span>
+				<h6>실종게시판 > 수정</h6>
+				<h2>가족의 품으로 돌려보내 주세요.</h2>
+				<form id="board" action="register"  method="POST">
+					<input type="text" name="doc_nick" />
+					<input type="text" name="doc_email" />
+<%-- 					<input type="text" name="doc_email" value="<%=email %>" /> 세션만넣으면오류가..--%>
 					
-					 </div> 
-						<div class="option-info">
-							<span class="date option"><i class="far fa-clock"></i>&nbsp;</span>
-							<span class="pv option"><i class="far fa-eye"></i>&nbsp;</span>
-							<span class="cmt"><i class="far fa-comment"></i>&nbsp;</span>
-							<div class="option-wrap">
-								<span><a href="modify?doc_no=${payang.doc_no}">수정</a>&nbsp;&nbsp;&nbsp;</span>
-								<span><a href="remove?doc_no=${payang.doc_no}">삭제</a></span>
-							</div>
+					<textarea name="doc_subject" placeholder="제목을 입력해 주세요." class="textarea_input" style="height: 40px;">${missing.doc_subject}</textarea>
+					<div class="option_box">
+						<div class="">
+							<span class="option_lable">이름</span>
+							<input type="text" name="doc_name" class="form-control" style="width:200px; display:inline-block;"
+									value="${missing.doc_name}" />
+	  	            	</div>
+	  	            	
+						<div class="">
+							<span class="option_lable">성별</span>
+							<input id="male" type="radio" name="doc_gender" value="암" /> <label for="male">암</label>
+							<input id="female" type="radio" name="doc_gender" value="수" /> <label for="female">수</label>
+	  	            	</div>
+							
+						<div class="">
+							<span class="option_lable">축종</span>
+							<select id="doc_big_name" name="doc_big_name" class="form-control" style="width:200px; display:inline-block;">
+								<option value="개">개</option>
+								<option value="고양이">고양이</option>
+								<option value="기타">기타</option>
+			   				 </select>		
+						     <select id="doc_kind" name="doc_kind" class="form-control" style="width:200px; display:inline-block;">
+								<option value="개">개</option>
+								<option value="고양이">고양이</option>
+								<option value="기타">기타</option>
+			   				 </select>
 						</div>
+						
+						<div class="">
+							<span class="option_lable">나이</span>
+							<input type="text" name="doc_age" class="form-control" style="width:200px; display:inline-block;"
+									value="${missing.doc_age }" /> <br>
 						</div>
+					
+						<div class="">
+							<span class="option_lable">지역</span>
+							<select name="doc_sido" class="form-control" style="width:200px; display:inline-block;" >
+								<option value="서울">서울</option>
+			   				 </select> 
+			   				 <select name="doc_sigungu" class="form-control" style="width:200px; display:inline-block;" >
+								<option value="강남구">강남구</option>
+			   				 </select> 
+			   				 <br>
+			   				 <input type="text" name="doc_address" class="form-control" style="width:600px; display:inline-block; margin: 10px 50px 0px;"
+			   				 		value="${missing.doc_address}" />	
+						</div>
+					
 					</div>
+					 <textarea id="summernote" name="doc_content">${missing.doc_content}</textarea>
 					
-					
-					<div class="article-view-content">
-						<div class="article-content">
-							${payang.doc_content}
-						</div>
+					<div class="btn-box">
+						<input type="submit" value="등록" class="btn btn-sm" />
+						<button id="btnCancel" type="button" class="btn btn-sm">취소</button>
 					</div>
-						
-						
-						
-					
-						
-					<div class="cont_comment" style="background-color: #f8f8f8;">
-						<div style="width: 100%; margin: 0;">
-							<div class="comment_view">
-								<ul class="list_comment"></ul>
-							</div>
-						</div>
-						<div style="margin: 0; width: 100%; background-color: #F8F8F8;">
-							<div id="fdoc_refly">
-								<div class="text_write_g comment_write">
-									<div class="inner_text_write">
-										<%-- 세션 정보로 수정할 것 --%>
-										<input type="hidden" id="doc_nick" value="${payang.doc_nick }" />
-										<input type="hidden" id="doc_email" value="${payang.doc_email }" />
-										<div class="box_textarea">
-											<textarea id="doc_content" name="doc_content"
-												placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요."
-												maxlength="600" style="height: 86px;"></textarea>
-										</div>
-										<div class="wrap_menu">
-											<div class="area_r">
-												<button id="secretcheck"
-													class="btn_g_ico btn_item secret_button" data-is-hidden="">
-													<span class="ico_bbs ico_lock_state">비밀글</span>
-												</button>
-												<div class="btn_group">
-													<button class="btn_g full_type1 confirm_button"
-														onclick="commentInsert();" id="fdoc_submit"
-														style="font-size: 13px;">등록</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-							</div>
-						</div>
-
-					</div>
-				</div>
+				</form>	
+				 
+				 
+				
 				
 			</div>
 	
@@ -1057,19 +1063,31 @@ padding: 0 0 29px;
 </div><!-- 바디컨텐트 -->
 	
 		
-<footer id="footer">
-<p>Copyright ©2021 All rights reserved | This template is made with <i class="fas fa-heart"></i> by SamSam
-
-</footer>
-
 
 <!-- 제이쿼리 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script> -->
 <script>
 	$(document).ready(function(){
 		
-		// 댓글 조회
-		commentList();
+		// 성별, 축종, 지역 초기화
+		var doc_gender = "${missing.doc_gender}";
+		var doc_big_name = "${missing.doc_big_name}";
+		var doc_kind = "${missing.doc_kind}";
+		var doc_sido = "${missing.doc_sido}";
+		var doc_sigungu = "${missing.doc_sigungu}";
+		
+		if( doc_gender == '남' )	$("#male").attr("checked", "checked");
+		if( doc_gender == '여' )	$("#female").attr("checked", "checked");
+		
+		$("#doc_big_name option[value='" + doc_big_name + "']").attr("selected","selected");
+		$("#doc_kind option[value='" + doc_kind + "']").attr("selected","selected");
+		$("#doc_sido option[value='" + doc_sido + "']").attr("selected","selected");
+		$("#doc_sigungu option[value='" + doc_sigungu + "']").attr("selected","selected");
+		
+		
+		
+		
+		
 		
 		
 		$('#login').on('click', function(e){
@@ -1077,102 +1095,83 @@ padding: 0 0 29px;
 			  $('#mypage').show();
 			  $('#login').hide();
 			  $('#signin').hide();
-		});
-		//헤더 상단 로그인 체인지
+		  });//헤더 상단 로그인 체인지
+		
 		$('#logout').on('click', function(e){
-	       $('#logout').hide();
-		   $('#mypage').hide();
-		   $('#login').show();
-		   $('#signin').show();
+		       $('#logout').hide();
+			   $('#mypage').hide();
+			   $('#login').show();
+			   $('#signin').show();
+		});//헤더 상단 로그아웃 체인지
+		
+		$('#btnCancel').on('click', function(){
+			location.href = "/samsam/SJ/missing/list";
 		});
-		 //헤더 상단 로그아웃 체인지
-		 
-		var form = $('#board');
-		// 수정 버튼 클릭 이벤트
-		$('#btnModify').on('click',function() {
-			var doc_no = $('#doc_no').val();
-			location.href = "/samsam/SJ/payang/modify?doc_no=" + doc_no;
-		});
-		 
-		// 삭제 버튼 클릭 이벤트
-		$('#btnRemove').on('click',function() {
-			form.attr("action", "/samsam/SJ/payang/remove");
-			form.attr("method", "post");
-			form.submit();
-		}); 
-		 
-		// 목록 버튼 클릭 이벤트
-		$('#btnList').on('click',function() {
-			location.href = "/samsam/SJ/payang/list";
-		}); 
-		 
+		
+		
+		// summernote
+		$('#summernote').summernote({
+		    toolbar: [
+	            // [groupName, [list of button]]
+	            ['fontname', ['fontname']],
+	            ['fontsize', ['fontsize']],
+	            ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+	            ['color', ['forecolor','color']],
+	            ['table', ['table']],
+	            ['para', ['ul', 'ol', 'paragraph']],
+	            ['height', ['height']],
+	            ['insert',['picture','link','video']],
+	            ['view', ['fullscreen', 'help']]
+	          ],
+	        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+	        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+	        height: 600,                 // 에디터 높이
+	        minHeight: null,             // 최소 높이
+	        maxHeight: null,             // 최대 높이
+	        focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+	        lang: "ko-KR",               // 한글 설정
+	        placeholder: '사진을 등록해주세요. 처음 등록되는 사진이 썸네일 사진으로 지정됩니다.',   //placeholder 설정
+	          callbacks: {
+	               onImageUpload: function(files, editor, welEditable) {
+	                     for (var i = files.length - 1; i >= 0; i--) {
+	                        sendFile(files[i], this);
+	                     }
+	                 }
+	            }
+	          
+	   });
+		
+		
 	}); 
 	
-	
-	// 댓글 등록
-	function commentInsert() {
-		
-		var doc_content = $("#doc_content").val();
-		var doc_no = "${payang.doc_no}";
-		// 나중에 세션 정보로 변경할 것
-		var doc_email = "${payang.doc_email}";
-		var doc_nick = "${payang.doc_nick}";
-		
-		$.ajax({
-		    url:'comment_insert', //request 보낼 서버의 경로
-		    type : 'POST',
-    		data :  {	'doc_no' : doc_no,
-    					'doc_content' : doc_content , 
-    					'doc_email' : doc_email , 
-    					'doc_nick' : doc_nick , 
-    					'doc_secret' : 'N'
-    				},
-		    success: function(data) {
-		        //서버로부터 정상적으로 응답이 왔을 때 실행
-		        if( data == 1 )
-		        	commentList();
-		    },
-		    error: function(err) {
-		        //서버로부터 응답이 정상적으로 처리되지 못햇을 때 실행
-		    }
-		});
-
-
-	}
-	
-	// 댓글 목록 조회
-	function commentList() {
-		var doc_no = "${payang.doc_no}";
-		
-		$.ajax({
-		    url:'comment_list', //request 보낼 서버의 경로
-		    type : 'GET',
-    		data :  {	
-    					'doc_no' : doc_no
-    				},
-		    success: function(data) {
-		        //서버로부터 정상적으로 응답이 왔을 때 실행
-		        console.log(data);
-		        $('.list_comment').empty();
-		        $('.list_comment').append(data);
-		        
-		    },
-		    error: function(err) {
-		        //서버로부터 응답이 정상적으로 처리되지 못햇을 때 실행
-		    }
-		});
-		
-	}
+	// 파일업로드
+	function sendFile(file, el) {
+	       var form_data = new FormData();
+	       form_data.append('file', file);
+	   
+	       $.ajax({
+	         data: form_data,
+	         type: "post",
+	         url: 'image.bo',
+	         cache: false,
+	         contentType: false,
+	         enctype: 'multipart/form-data',
+	         processData: false,
+	         success: function(url) {
+	               $(el).summernote('editor.insertImage', url);
+	         }
+	       });
+	     }
 
 </script>
 
 <!-- 부트스트랩 4.0 js -->
 <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
 
 <!-- 카카오톡 채널 상담 js -->
-	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type='text/javascript'>
   //<![CDATA[
     // 사용할 앱의 JavaScript 키를 설정해 주세요.
@@ -1185,8 +1184,6 @@ padding: 0 0 29px;
     }
     
   //]]>
-  
- 	
 </script>
 
 </body>
