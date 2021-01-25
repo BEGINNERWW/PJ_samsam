@@ -53,18 +53,13 @@ public class AdminfreeServiceImpl implements AdminfreeService {
 		return myfree_auth_datail;
 	}
 	
-	public Myfree_docVO selectDoc(String confirm_fdoc_code) {
-		AdminfreeMapper adminfreeMapper = 
-				sqlSession.getMapper(AdminfreeMapper.class);
-		Myfree_docVO myfree_docVO = adminfreeMapper.selectDoc(confirm_fdoc_code);
-		return myfree_docVO;
-	}
+
 	
 	@Override
-	public Myfree_authVO selectAuth_detail_re_re(int fadoc_no) {
+	public Myfree_authVO selectAuth_detail_re_re(int doc_no) {
 		AdminfreeMapper adminfreeMapper = 
 				sqlSession.getMapper(AdminfreeMapper.class);
-		Myfree_authVO myfree_auth_datail_re_re = adminfreeMapper.selectAuth_detail_re_re(fadoc_no);
+		Myfree_authVO myfree_auth_datail_re_re = adminfreeMapper.selectAuth_detail_re_re(doc_no);
 		
 		return myfree_auth_datail_re_re;
 	}
@@ -85,37 +80,30 @@ public class AdminfreeServiceImpl implements AdminfreeService {
 		Myfree_doc_confirmVO myfree_doc_confirm_detail_re = adminfreeMapper.selectConfirm_detail_re(confirm_no);
 		return myfree_doc_confirm_detail_re;
 	}
-	@Override
-	public Myfree_docVO selectDoc_detail_re(String confirm_fdoc_code) {
-		AdminfreeMapper adminfreeMapper = 
-				sqlSession.getMapper(AdminfreeMapper.class);
-		Myfree_docVO myfree_doc_detail_re = adminfreeMapper.selectDoc_detail_re(confirm_fdoc_code);
-		return myfree_doc_detail_re;
-		
-	}
+	
 	
 	
 	@Override
-	public int update_auth_ok(int fadoc_no) {
+	public int update_auth_ok(int doc_no) {
 		AdminfreeMapper adminfreeMapper = 
 				sqlSession.getMapper(AdminfreeMapper.class);
-		int res = adminfreeMapper.update_auth_ok(fadoc_no);
+		int res = adminfreeMapper.update_auth_ok(doc_no);
 		return res;
 	}
 	
 	@Override
-	public int update_auth_re(int fadoc_no) {
+	public int update_auth_re(int doc_no) {
 		AdminfreeMapper adminfreeMapper = 
 				sqlSession.getMapper(AdminfreeMapper.class);
-		int res = adminfreeMapper.update_auth_re(fadoc_no);
+		int res = adminfreeMapper.update_auth_re(doc_no);
 		return res;
 	}
 	
 	@Override
-	public int update_auth_no(int fadoc_no) {
+	public int update_auth_no(int doc_no) {
 		AdminfreeMapper adminfreeMapper = 
 				sqlSession.getMapper(AdminfreeMapper.class);
-		int res = adminfreeMapper.update_auth_no(fadoc_no);
+		int res = adminfreeMapper.update_auth_no(doc_no);
 		return res;
 	}
 	

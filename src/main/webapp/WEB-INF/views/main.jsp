@@ -1,10 +1,11 @@
-<%@ page language = "java" contentType = "text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%
-	String email = (String) session.getAttribute("email");
+	String email = (String)session.getAttribute("email");
 	//email.toUpperCase();
 %>
 
@@ -26,9 +27,14 @@
 <!-- 부트스트랩 4.0 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+<!-- 제이쿼리 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
+
 <style>
 /* 공통으로 사용하는 CSS */
 @charset "utf-8";
+
 * {
    margin:0;
    padding: 0;
@@ -37,61 +43,77 @@ html{
    margin:0 auto;
    width : 100%;
    height: 100%;
-    overflow: hidden;
+    overflow: auto;
 }
-a:hover {
-    color: #0056b3;
-    text-decoration: none;
-}
+
+
 body {
    margin: 0;
-   height: 100%;
+   height: auto;
     min-height : 600px;
     box-sizing : content-box;
-    overflow: hidden;
-   -ms-overflow-style:none;
    line-height: 1.7;
     color: gray;
       font-family: 'Noto Sans KR', sans-serif;
     font-weight: 300;
     font-size: .9rem;
 }
-body::-webkit-scrollbar { display:none; }
+
+
 a{
    text-decoration : none;
    color : #9494b8;
 }
+a:hover {
+    color: #0056b3;
+    text-decoration: none;
+}
 
 body {
    text-align: -webkit-center;
+   display : flex;
+   flex-direction : column;
+   justify-content : space-between;
 }
 
 .body_content{
      margin : 0;
      padding : 0;
      width : 100%;
-     height:100vh;
+     height:fit_content;
     display : flex;
     flex-direction : column;
 }
 
 #header {
     width: 100%;
-    height: 190px;
+    height: 189px;
     box-sizing: content-box;
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid #efefef;
-    padding-bottom: 20px;
-}
-.inout_gocen{
-   position: fixed; 
-   top : 20px;
-   right : 390px;
+    padding-bottom: 18px;
+    background-color : #fff;
+    position : fixed;
+    z-index : 100;
+    top : 0;
+    left : 0;
+    right : 0;
 }
 
+.inout_gocen{
+   position : inline;
+   display : flex;
+   justify-content : flex-end;
+   margin-top : 20px;
+   margin-right : 340px;
+   background-color : #fff;
+}
+.fixinner{
+   position: fixed; 
+}
 .header-top {
-   margin-top : 40px;
+   margin-top : -10px;
    display : flex;
    justify-content : flex-start;
    margin-right: auto;
@@ -146,8 +168,8 @@ body {
 }
 
 li.dropdown {
-   color : #9494b8;
-     background: #fff;
+    color: #9494b8;
+    background: #fff;
     transition: .3s all ease;
     font-size: 20px;
     width: 90px;
@@ -160,35 +182,41 @@ li.dropdown {
 }
 
 /* dropdown */
-.dropdown-menu{
+.dropdown-menu {
    display: none;
       justify-content : flex-start;
    position: absolute;
    list-style : none;
     visibility: visible;
-    background-color: rgb(0,0,0,0);
-   width: 350px;
+    background-color: #fff;
+   width: 1200px;
    top : 48px;
-   padding: 5px;
+   margin-left : -30px;
    border: none;
+   border-top: 1px solid #efefef;
 }
 
 .board {
-	padding-left: 18px;
+	padding-left: 46px;
 }
 .care {
-	padding-left: 0px;
+	padding-left: 30px;
 }
 .commu {
-	padding-left: 4px;
+	padding-left: 35px;
 }
+
 li.dropdown > a {
     text-decoration: none;
 }
+
 .dropdown-menu li{
    margin-right : 40px;
 }
-.dropdown:hover .dropdown-menu { display: flex; visibility: visible;}
+.dropdown:hover .dropdown-menu { 
+   display: flex; 
+   visibility: visible; 
+}
 
 /* search-wrapper */
 .search-wrapper {
@@ -214,7 +242,7 @@ li.dropdown > a {
 }
 .search-box.input:focus {outline:none;}
 
-.search-box.btn {
+.search-box.btn1 {
   color : #9494b8;
   text-align : left; 
 }
@@ -223,25 +251,22 @@ li.dropdown > a {
 
 .main-content{
    width : 100%;
-   height : 100%;
+   height : auto;
    margin : 0 auto;
+   padding-top: 220px;
 }
 
 
 /* footer */
-#footer{
-   margin : 0px auto;
-   width: 100%;
-     bottom : 28px;
-   position: sticky;
+#footer {
+   width: fit-content;
+    bottom: 0px;
+    position: absolute;
+    align-self: center;
 }
 
-p{
-   text-align : center;
-}
-
-.fa-heart {
-    color: red;
+.fa-heart{
+   color : red;
 }
 
 /* pageup button */
@@ -263,15 +288,18 @@ p{
 *, ::after, ::before {
     box-sizing: border-box;
 }
+
+
 /*카카오톡 톡상담*/
 .kakaoChat {
     text-align: right;
-    position: sticky;
+    position: fixed;
     margin-right: 28px;
-    bottom: 92px;
+    bottom: 90px;
+    right: 0;
 }
 .kakao_btn {
-   border-radius: 1rem!important;
+	border-radius: 1rem!important;
 }
 
 /* 각각의 페이지에서 사용할 CSS */
@@ -335,12 +363,16 @@ p{
 <header id = "header">
 
 	<div class ="inout_gocen">
-			<input type="button" class= "header_btn" id="login" value="로그인" onclick = "location.href='loginForm.me'">
-			<input type="button" class= "header_btn" id="logout" value="로그아웃" onclick ="location.href='logout.me'">
-			<input type="button" class= "header_btn" id="signin" value="회원가입" onclick = "location.href='joinform.me'">
-			<input type="button" class= "header_btn" id="mypage" value="마이페이지" onclick = "location.href='mypage.me'">
-			<input type="button" class= "header_btn" id="gocen" value="고객센터" onclick ="location.href='customer_service.me'">
-		</div>
+         <%if(email != null){ %>
+         
+         <input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='logout.me'">
+         <input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='mypage.me'">
+         <%}else{ %>
+         <input  type="button" class= "header_btn" value="로그인" onclick="location.href='loginForm.me'">
+         <input  type="button" class= "header_btn" value="회원가입" onclick="location.href='joinform.me'">
+         <%} %>
+         <a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
+      </div>
 
 		 <div class="nav-menu">
             <ul class="sticky-wrapper">
@@ -351,16 +383,17 @@ p{
                      <li><a href="fdoclist.bo">책임분양</a></li>
                      <li><a href="selladopt_list.bo">업체분양</a></li>
                   </ul></li>
-               <li class="dropdown"><a href="/SJ/pet_list">보호소</a>
+                <li class="dropdown"><a href="SJ/pet_list">보호소</a>
                   <ul class="dropdown-menu care">
-                     <li><a href="/SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
-                     <li><a href="/SJ/payang/list">파양</a></li>
-                     <li><a href="/SJ/missing/list">실종</a></li>
+                     <li><a href="SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
+                     <li><a href="SJ/payang/list">파양</a></li>
+                     <li><a href="SJ/missing/list">실종</a></li>
                   </ul></li>
                <li class="dropdown"><a href="doclist.bo">커뮤니티</a>
                   <ul class="dropdown-menu commu">
                      <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
                      <li><a href="auth_fdoc.bo">책임분양인증</a></li>
+                     <li><a href="hospital_map.me">동물병원</a></li>
                   </ul></li>
             </ul>
 

@@ -17,16 +17,14 @@ public interface AdminfreeMapper {
 	//인증글 상세보기
 	public Myfree_doc_confirmVO selectConfirm_detail(String confirm_no);
 	public List<Myfree_authVO> selectAuth_detail(String confirm_no);
-	public Myfree_docVO selectDoc(String confirm_fdoc_code);
 	
 	//인증글 상세보기 redirect
-	public Myfree_authVO selectAuth_detail_re_re(int fadoc_no);
+	public Myfree_authVO selectAuth_detail_re_re(int doc_no);
 	public List<Myfree_authVO> selectAuth_detail_re(String confirm_no);
 	public Myfree_doc_confirmVO selectConfirm_detail_re(String confirm_no);
-	public Myfree_docVO selectDoc_detail_re(String confirm_fdoc_code);
 	
 	//책임분양 인증글 상태변화
-	public int update_auth_ok(int fadoc_no);
-	public int update_auth_re(int fadoc_no);
-	public int update_auth_no(int fadoc_no);
+	public int update_auth_ok(int doc_no);
+	public int update_auth_re(int doc_no);
+	public int update_auth_no(int doc_no);
 }

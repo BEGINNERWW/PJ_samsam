@@ -1,5 +1,6 @@
 package com.project.samsam.myfree;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -25,10 +26,17 @@ public class MyfreeServiceImpl implements MyfreeService {
 	}
 	
 	//나의 책임분양 조회
-	public List<Myfree_doc_confirmVO> selectConfirm(String email) {
+	public int ConfirmListCount(String email) {
 		MyfreeMapper myfreeMapper = 
 				sqlSession.getMapper(MyfreeMapper.class);
-		List<Myfree_doc_confirmVO> myfree_doc_confirm = myfreeMapper.selectConfirm(email);
+		int res = myfreeMapper.ConfirmListCount(email);
+		return res;
+	}
+	
+	public List<Myfree_doc_confirmVO> selectConfirm(HashMap<String, Object> hashmap) {
+		MyfreeMapper myfreeMapper = 
+				sqlSession.getMapper(MyfreeMapper.class);
+		List<Myfree_doc_confirmVO> myfree_doc_confirm = myfreeMapper.selectConfirm(hashmap);
 		return myfree_doc_confirm;
 	}
 	
@@ -42,10 +50,17 @@ public class MyfreeServiceImpl implements MyfreeService {
 	}
 	
 	//작성한 책임분양글 목록 조회
-	public List<Myfree_docVO> selectDoc(String email) {
+	public int DocListCount(String email) {
 		MyfreeMapper myfreeMapper = 
 				sqlSession.getMapper(MyfreeMapper.class);
-		List<Myfree_docVO> myfree_docVO = myfreeMapper.selectDoc(email);
+		int res = myfreeMapper.DocListCount(email);
+		return res;
+	}
+	
+	public List<Myfree_docVO> selectDoc(HashMap<String, Object> hashmap_doc) {
+		MyfreeMapper myfreeMapper = 
+				sqlSession.getMapper(MyfreeMapper.class);
+		List<Myfree_docVO> myfree_docVO = myfreeMapper.selectDoc(hashmap_doc);
 		
 		return myfree_docVO;
 	}
@@ -64,6 +79,22 @@ public class MyfreeServiceImpl implements MyfreeService {
 		int delete_account = myfreeMapper.deleteAccount(myfree_doc_confirmVO);
 	}
 	
+	//확정번호가 일치하고 작성한 달이 일치하고 상태가 인증완료인 글의 개수
+	public int auth_ok_count(HashMap<String, Object> hashmap) {
+		MyfreeMapper myfreeMapper = 
+				sqlSession.getMapper(MyfreeMapper.class);
+		int auth_ok_count = myfreeMapper.auth_ok_count(hashmap);
+		return auth_ok_count;
+	}
+	
+	//확정번호가 일치하고 작성한 달이 일치하고 상태가 검토중인 글의 개수
+	public int auth_wait_count(HashMap<String, Object> hashmap) {
+		MyfreeMapper myfreeMapper = 
+				sqlSession.getMapper(MyfreeMapper.class);
+		int auth_wait_count = myfreeMapper.auth_wait_count(hashmap);
+		return auth_wait_count;
+	}
+	
 	//책임분양 인증글 작성창 띄우기 - 책임분양 인증현황 테이블 조회
 	public Myfree_doc_confirmVO selectConfirm_write(String confirm_no) {
 		MyfreeMapper myfreeMapper = 
@@ -72,6 +103,7 @@ public class MyfreeServiceImpl implements MyfreeService {
 		
 		return myfree_doc_confirm_write;
 	}
+	
 	
 	//책임분양 인증글 작성
 	public int insertFree_auth(Myfree_authVO myfree_authVO) {
@@ -83,11 +115,11 @@ public class MyfreeServiceImpl implements MyfreeService {
 	}
 	
 	//책임분양 인증글 조회
-	public Myfree_authVO selectAuth_view(int fadoc_no) {
+	public Myfree_authVO selectAuth_view(int doc_no) {
 		MyfreeMapper myfreeMapper = 
 				sqlSession.getMapper(MyfreeMapper.class);
-		myfreeMapper.setReadCountUpdate(fadoc_no);
-		Myfree_authVO auth_view = myfreeMapper.selectAuth_view(fadoc_no);
+		myfreeMapper.setReadCountUpdate(doc_no);
+		Myfree_authVO auth_view = myfreeMapper.selectAuth_view(doc_no);
 		
 		return auth_view;
 	}
@@ -105,9 +137,7 @@ public class MyfreeServiceImpl implements MyfreeService {
 	public void update_fdoc_img(Myfree_doc_confirmVO myfree_doc_confirmVO) {
 		MyfreeMapper myfreeMapper = 
 				sqlSession.getMapper(MyfreeMapper.class);
-		System.out.println("2");
 		int res = myfreeMapper.update_fdoc_img(myfree_doc_confirmVO);
-		System.out.println("3");
 		
 	}
 }
