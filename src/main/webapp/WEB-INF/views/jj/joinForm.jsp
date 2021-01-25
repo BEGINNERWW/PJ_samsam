@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.project.samsam.member.MemberVO"%> 
+<%	
+	MemberVO vo = (MemberVO) request.getAttribute("MemberVO"); 
+%>  
+  
 
 <!doctype html>
 <html>
@@ -11,22 +17,24 @@
 <link href="resources/img/title.png" rel="shortcut icon" type="image/x-icon">
 <title>삼삼하개</title>
 <head profile="http://www.w3.org/2005/10/profile">
-<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-	<link href="resources/css/join_form.css"rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<link href="resources/css/join_form.css"rel="stylesheet"/>
 <script src="resources/js/login_form.js"></script>
+<!-- 스윗얼럿 -->
+<script src = "https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script type="text/javascript">
 
 
 $(document).ready(function(){
+	// name 속성이 'email'인 input 이 focus를 잃었을때 처리한다.
+	
+		
 	//이메일 체크
 		$('#email').focusout(function(){
-		
-		// name 속성이 'email'인 input 이 focus를 잃었을때 처리한다.
-		//$("input[name='email']").blur(function(){ 
-			var emailt = $('#email').val(); 
-			
 			// 값을 입력안한경우는 아예 체크를 하지 않는다.
+			//$("input[name='email']").blur(function(){ 
+		var emailt = $('#email').val(); 
 		if( emailt == '' || emailt == 'undefined' || emailt == null) 
 			return false; 
 			
@@ -77,6 +85,9 @@ $(document).ready(function(){
 	
 	//닉네임 체크 시작
 	$('#nick').focusout(function(){
+		//$("input[name='email']").blur(function(){ 
+		var emailt = $('#email').val(); 
+	
 		if( emailt == '' || emailt == 'undefined' || emailt == null) {
 			return false; 
 	}else{
@@ -210,9 +221,10 @@ function email_check(emailt) {
     	  alert("동의 후 회원가입이 완료됩니다");
     	  return;
       }
-     
-
-
+     console.log("너의 등급은 " + $('.grade').val())
+	 if($('.grade').val() == '일반'){
+	 swal("","인증번호가 발송되었습니다. 이메일을 확인하세요","info")
+	 }
      input_form.submit(); // 서버로 전송
     }
   </script>
@@ -229,10 +241,18 @@ function email_check(emailt) {
 </hgroup>
 </div>
 <form name="input_form" action = "signUp.me" method="post" class="joinform" onsubmit="return check_input();" >
+<% if(vo != null){ %>
+<input type="hidden" name = "grade" value =<%=vo.getGrade() %>>
+<%} %>
+
 
 <div class="group">
   <div class="id">
-	<input type="text"name="email" id="email"><span class="highlight"></span><span class="bar"></span>
+  <% if(vo != null){ %>
+  <input type="text"name="email" id="email" readonly value=<%=vo.getEmail() %>>
+  <%} else {%>
+	<input type="text"name="email" id="email">
+  <%} %><span class="highlight"></span><span class="bar"></span>
     <label for="email" class="label-email"id="labelemail"><span class="content-email">Email</span></label>
   </div>
   <div class ="check_email"></div>
@@ -244,7 +264,11 @@ function email_check(emailt) {
 </div>
 <div class="group">
 <div class="nick">
-	<input type="text"name="nick"id="nick"><span class="highlight"></span><span class="bar"></span>
+<% if(vo != null){ %>
+<input type="text"name="nick"id="nick" value=<%=vo.getNick() %>>
+<%} else {%>
+	<input type="text"name="nick"id="nick">
+<%} %>	<span class="highlight"></span><span class="bar"></span>
     <label for="nick" class="label-email"id="labelnick"><span class="content-email">닉네임</span></label>
 </div>
 <div class ="check_nick"></div>
@@ -311,9 +335,9 @@ function email_check(emailt) {
 회원가입</button>
   </div>
 <div class="etc">
-			<input type="hidden" name="grade"value="일반">
-			<input type="hidden" name="authkey"value="">
-			<input type="hidden" name="status"value="">
+			<input type="hidden" name="grade" class = "grade" value="일반">
+			<input type="hidden" name="authkey" value="">
+			<input type="hidden" name="status" value="">
 		</div>
 			
 

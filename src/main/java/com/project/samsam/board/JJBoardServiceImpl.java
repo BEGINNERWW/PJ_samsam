@@ -17,27 +17,49 @@ public class JJBoardServiceImpl implements JJBoardService {
 	@Autowired // Myb atis(ibatis) ���̺귯���� �����ϴ� Ŭ����
 	private SqlSession sqlSession;
 
-	@Override
-	public List<JJBoardVO> getSearch_commu_List(String keyword) {
-		JJBoardMapper boardMapper = sqlSession.getMapper(JJBoardMapper.class);
-		List<JJBoardVO> c_list = boardMapper.getSearch_commu_List(keyword);
-		return c_list;
-		
-	}
-	@Override
-	  public List<JJBoardVO> getSearch_adopt_List(String keyword) {
-		JJBoardMapper boardMapper = sqlSession.getMapper(JJBoardMapper.class);
-		List<JJBoardVO> a_list = boardMapper.getSearch_adopt_List(keyword);
-		return a_list;
-		  
+	 @Override  
+	  public List<JJBoardVO> getSearch_free_auth(String keyword){
+	    JJBoardMapper boardMapper = sqlSession.getMapper(JJBoardMapper.class);
+	    List<JJBoardVO> a_list = boardMapper.getSearch_free_auth(keyword);
+	    return a_list;
 	  }
-	@Override
-	  public List<JJBoardVO> getSearch_free_List(String keyword) {
-		JJBoardMapper boardMapper = sqlSession.getMapper(JJBoardMapper.class);
-		List<JJBoardVO> f_list = boardMapper.getSearch_free_List(keyword);
-		return f_list;
-		
+	  @Override
+	  public List<JJBoardVO> getSearch_adopt_home(String keyword){
+	    JJBoardMapper boardMapper = sqlSession.getMapper(JJBoardMapper.class);
+	    List<JJBoardVO> a_list = boardMapper.getSearch_adopt_home(keyword);
+	    return a_list;
 	  }
+	  @Override
+	  public List<JJBoardVO> getSearch_payang(String keyword){
+	    JJBoardMapper boardMapper = sqlSession.getMapper(JJBoardMapper.class);
+	    List<JJBoardVO> a_list = boardMapper.getSearch_payang(keyword);
+	    return a_list;
+	  }
+	  @Override
+	  public List<JJBoardVO> getSearch_missing(String keyword){
+	    JJBoardMapper boardMapper = sqlSession.getMapper(JJBoardMapper.class);
+	    List<JJBoardVO> a_list = boardMapper.getSearch_missing(keyword);
+	    return a_list;
+	  }
+	  @Override
+	  public List<JJBoardVO> getSearch_commu_List(String keyword){
+		  JJBoardMapper boardMapper = sqlSession.getMapper(JJBoardMapper.class);
+		  List<JJBoardVO> a_list = boardMapper.getSearch_commu_List(keyword);
+		  return a_list;
+	  }
+	  @Override
+	  public List<JJBoardVO> getSearch_adopt_List(String keyword){
+		  JJBoardMapper boardMapper = sqlSession.getMapper(JJBoardMapper.class);
+		  List<JJBoardVO> a_list = boardMapper.getSearch_adopt_List(keyword);
+		  return a_list;
+	  }
+	  @Override
+	  public List<JJBoardVO> getSearch_free_List(String keyword){
+		  JJBoardMapper boardMapper = sqlSession.getMapper(JJBoardMapper.class);
+		  List<JJBoardVO> a_list = boardMapper.getSearch_free_List(keyword);
+		  return a_list;
+	  }
+	  
 	  
 
 	@Override
@@ -55,22 +77,22 @@ public class JJBoardServiceImpl implements JJBoardService {
 	@Override
 	public List<JJABoardVOto> findList(JJABoardVO abvo){
 		JJAdminBoardMapper adminMapper =sqlSession.getMapper(JJAdminBoardMapper.class);
-		List<JJABoardVOto> list =adminMapper.findList(abvo);
+		List<JJABoardVOto> list = adminMapper.findList(abvo);
 		List<JJABoardVOto> newlist = new ArrayList<JJABoardVOto>();
 		
 		for(JJABoardVOto vo :list) {
-			vo.setCategory(abvo.getKategorie());
+			vo.setCategory(abvo.getCategory());
 			newlist.add(vo);
-			System.out.println("서비스임플"+vo.getNick() + "카테고리 : " + vo.getCategory());
+			System.out.println("서비스임플"+vo.getDoc_nick() + "카테고리 : " + vo.getCategory());
 		}
 		return newlist;
 	}
 	@Override
-    public List<JJABoardVOto> find_w_List(JJABoardVO abvo){
+    public List<BoardDetailVO> find_w_List(JJABoardVO abvo){
 		JJAdminBoardMapper adminMapper =sqlSession.getMapper(JJAdminBoardMapper.class);
-		List<JJABoardVOto> Wlist =adminMapper.find_w_List(abvo);
-		for(JJABoardVOto vo :Wlist) {
-			System.out.println("서비스임플"+vo);
+		List<BoardDetailVO> Wlist =adminMapper.find_w_List(abvo); 
+		for(BoardDetailVO vo :Wlist) {
+			System.out.println("서비스임플"+vo.getDoc_nick() + "카테고리 : " + vo.getW_status());
 		}
 		return Wlist;
     }
@@ -97,6 +119,7 @@ public class JJBoardServiceImpl implements JJBoardService {
      public JJCommentVO ad_cccount(JJADModalVO movo){
     	 JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
     	 JJCommentVO co_count = adminMapper.ad_cccount(movo);
+    	 System.out.println(co_count);			
  		return  co_count;
      }
      
@@ -129,14 +152,39 @@ public class JJBoardServiceImpl implements JJBoardService {
      }
      //어드민 게시글 뷰 MODAL
      
-     public int update_status(JJWarningVO wVO) {
-    	 System.out.println("wVO : " + wVO.getW_no());
+      
+     public String getCategory(int w_no) {
     	 JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
-    	 int res = adminMapper.update_status(wVO);
+    	 String category=adminMapper.getCategory(w_no);
+    	 return category; 
+     }
+     public int update_hide(JJWarningVO wvo) {
+    	 System.out.println("wVO hide : " + wvo.getW_no());
+    	 System.out.println("status : " + wvo.getW_status() + "w_no : " + wvo.getW_no());
+    	 JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
+    	 int res = adminMapper.update_hide(wvo);
+    	 System.out.println("res : " + res);
+    	 return res;
+     }
+     public int update_keep(JJWarningVO wvo) {
+    	 System.out.println("wVO keep: " + wvo.getW_no());
+    	 JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
+    	 int res = adminMapper.update_keep(wvo);
     	 System.out.println("res : " + res);
     	 return res;
      }
      //어드민 게시글 뷰 모달 상태처리 끝
 
-
+   //myinfo write handler
+	  	public List<JJABoardVOto> myinfo_write (String email){
+	  		JJBoardMapper boardMapper = sqlSession.getMapper(JJBoardMapper.class);
+		   	 List<JJABoardVOto> b_list = boardMapper.my_boardList(email);
+		   	 return b_list;
+	  	}
+	 //myinfo comment handler
+	  	public List<JJCommentVO> myinfo_comment(String email){
+	  		JJBoardMapper boardMapper = sqlSession.getMapper(JJBoardMapper.class);
+		   	 List<JJCommentVO> c_list = boardMapper.my_commenList(email);
+		   	 return c_list;
+	  	}
 }

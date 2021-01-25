@@ -1,0 +1,229 @@
+@charset "utf-8";
+h3 {
+	margin-bottom:5px;
+}
+h4{
+	margin: 4px  0px;
+	display: inline-block;
+	padding:0 2px;
+	font-weight: normal;
+}
+hr{
+	transform: scaleY(0.5);
+	background-color:#fcfcfc;
+}
+.body_content{
+	display: flex;
+	flex-direction:	row;
+	height: 100vh;
+}	
+.board_content {
+	height: 500px;
+	padding: 1px 15px;
+	overflow: auto;	
+}
+.co_tableRow{
+	height: 500px;
+	overflow: auto;
+}
+
+.content1 label{
+	font-size: 15px;
+	padding:0 2px;
+	color: #aeaeae;
+}
+
+<!-- 댓글-작성글 선택 -->
+#ud_tab {
+    max-width: 600px;
+    width: 90%;
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    height: 300px;
+}
+#ud_tab input[type="radio"] {
+    display: none;
+}
+#ud_tab label {
+    display: block;
+    float: left;
+    width: 47%;
+    margin-top:30px;
+    padding-bottom:20px;
+    color: #000000;
+    font-size: 20px;
+/*     padding: 0; */
+    font-weight: normal;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    background: #ffffff;
+}
+#ud_tab .ud_content {
+    background: #fff;
+    width: 100%;
+    display: none;
+    padding:0;
+    float: left;
+}
+.ud_content td{
+	border:0;
+}
+
+#ud_tab [id^="tab"]:checked + label {
+	border-bottom :  7px solid  skyblue;
+    background:  #ffffff;
+    color:  #000000;
+}
+#tab1:checked ~ #ud_tab-content1,
+#tab2:checked ~ #ud_tab-content2 {
+    display: block;
+}
+
+/* DivTable.com */
+/* DivTable.com */
+.divTable{
+	display: table;
+	width: 100%;
+	border-top: 1px solid #c7c7c7;
+}
+.divTableRow {
+	display: table-row;
+}
+.divTableRow {
+	 backgroung-color: #e1f5fe;
+  }
+.cell1 {
+	width:30%;
+}
+.cell2 {
+	width: 50%;
+}
+.cell3{
+	width:20%;
+}
+.divTableHeading {
+	background-color: #EEE;
+	display: table-header-group;
+}
+.divTableCell, .divTableHead {
+	 border-bottom: 1px solid #c7c7c7;
+    padding: 10px;
+	display: table-cell;
+}
+.divTableCell {
+	font-size: 15px;
+	
+}
+.divTableHeading {
+	color: #aeaeae;
+  border-radius: 7px;
+  font-weight:normal;
+}
+.divTableFoot {
+	background-color: #EEE;
+	display: table-footer-group;
+	font-weight: bold;
+}
+.divTableBody {
+	display: table-row-group;
+}
+
+/*토글*/
+.moreEvent {
+	display: none;
+	padding-bottom: 30px;
+}
+
+
+  .horder{
+  color: #aeaeae;
+  }
+  
+
+/* 모달 시작*/
+.right-container {
+	height: 100%;
+}
+.content2 {
+	height: 70%;
+	border-bottom: 1px solid #c7c7c7;
+}
+
+
+.authForm {
+	height: 30%;
+}
+.authForm{
+	margin-top :30px;
+	display: flex;
+}
+.authForm .w_info1, 
+.authForm .w_info2{
+	display: flex;
+	flex-direction: column;
+}
+.authForm input {
+	border: 1px solid #c7c7c7;
+	border-radius : 3px;
+	height : 30px;
+	width : 250px;
+}
+.w_info1, .w_info2 {
+	width : 50%;
+	height: 100px;
+}
+.w_reason div,
+.w_co_cont div{
+	margin-bottom : 15px;
+	display : flex;
+	justify-content : space-evenly;
+}
+.w_reason div label,
+.w_co_cont div label{
+	width : 100px;
+	text-align : left;
+}
+
+.auth_write{
+	margin-bottom : 15px;
+	display : flex;
+	flex-direction: column;
+	justify-content : space-evenly;
+}
+.auth_write label{
+	margin-bottom : 15px;
+}
+.auth_write textarea{
+	height : 123px;
+	width : 250px;
+	padding : 10px;
+	border: 1px solid #c7c7c7;
+	border-radius : 3px;
+}
+.auth_btn2 {
+	display : flex;
+	justify-content : center;	
+}
+
+/* 유지/숨김 버튼 */
+.auth_hide,
+.auth_keep {
+    width:40px;
+    height: 30px;
+    background-color: #f8585b;
+    border: none;
+    color:#fff;
+    padding: 5px 0;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    margin: 4px;
+    cursor: pointer;
+}
+
+

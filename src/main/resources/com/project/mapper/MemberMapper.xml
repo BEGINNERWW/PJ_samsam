@@ -24,21 +24,21 @@ biz_email / biz_no / biz_com/ biz_name / biz_add / biz_img / free_coupon/ pay_co
 	</update>
 	
 	<update id="updateAuthStatus" parameterType="HashMap">
-	update member_list set status ='1' where email=#{email} and authkey=#{authkey}
+	update member_list set status ='1' where email=#{email} and authkey=#{authkey, jdbcType=VARCHAR}
 	</update>
 <!-- join email check -->
 <select id="idCheck" parameterType="String" resultType="int">
-	SELECT count(*) FROM smember WHERE email=#{check, jdbcType=VARCHAR}
+	SELECT count(*) FROM member_list WHERE email=#{check, jdbcType=VARCHAR}
 	</select>
 <!-- join nick check -->
 <select id="nickCheck" parameterType="String" resultType="int">
-	SELECT count(*) FROM smember WHERE nick=#{check, jdbcType=VARCHAR}
+	SELECT count(*) FROM member_list WHERE nick=#{check, jdbcType=VARCHAR}
 	</select>
 		
 <!-- 회원가입 -->
 <insert id = "joinMember" parameterType="MemberVO">
-	insert into member_list (email, pw, name,phone,local, grade, authkey,status, signdate)
-	values (#{email}, #{pw}, #{name}, #{phone}, #{local}, #{grade}, #{authkey},#{status},sysdate)
+	insert into member_list (email, pw, name, nick,phone,local, grade, authkey,status, signdate)
+	values (#{email}, #{pw}, #{name},#{nick}, #{phone}, #{local}, #{grade}, #{authkey},#{status},sysdate)
 </insert>
 
 <!-- 소셜 회원가입 -->
@@ -111,16 +111,16 @@ biz_email / biz_no / biz_com/ biz_name / biz_add / biz_img / free_coupon/ pay_co
 
 <!-- 내 작성글 리스트 -->
 <select id="getWriteList" parameterType="String" resultType="BoardlistVO">
-	select adopt_no as num, adopt_title as subject, adopt_date as write_date from adopt_list where adopt_email = #{email}
+	select doc_no as num, doc_subject as subject, doc_date as write_date from adopt_list where doc_email = #{email}
 	union all
-	select fdoc_no as num, fdoc_subject as subject, fdoc_date as write_date from free_doc where fdoc_email = #{email}
+	select doc_no as num, doc_subject as subject, doc_date as write_date from free_doc where doc_email = #{email}
 </select>
 
 <!-- 내 댓글 리스트 -->
 <select id="getWriteComment" parameterType="String" resultType="CommentListVO">
-	select adopt_ccontent as content, adopt_cdate as write_date from adopt_reply where adopt_cemail = #{email}
+	select doc_content as content, doc_date as write_date from adopt_reply where doc_email = #{email}
 	union all
-	select fdoc_ccontent as content, fdoc_cdate as write_date from fdoc_reply where fdoc_cemail = #{email}
+	select doc_content as content, doc_date as write_date from fdoc_refly where doc_email = #{email}
 </select>
 
 <!-- 이용권 결제내역 추가 -->

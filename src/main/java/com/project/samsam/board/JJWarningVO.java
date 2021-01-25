@@ -5,9 +5,13 @@ public class JJWarningVO {
 	private String w_email;
 	private int w_co_no;
 	private int w_doc_no;
+	private String w_nick;
 	private String w_date;
 	private String w_status;
 	private String w_reason;
+	private String w_category;
+	private String w_note;
+	
 	
 	private String w_count;
 	
@@ -58,6 +62,30 @@ public class JJWarningVO {
 		return w_count;
 	}
 	public void setWcount(String w_count) {
+		this.w_count = w_count;
+	}
+	public String getW_nick() {
+		return w_nick;
+	}
+	public void setW_nick(String w_nick) {
+		this.w_nick = w_nick;
+	}
+	public String getW_category() {
+		return w_category;
+	}
+	public void setW_category(String w_category) {
+		this.w_category = w_category;
+	}
+	public String getW_note() {
+		return w_note;
+	}
+	public void setW_note(String w_note) {
+		this.w_note = w_note;
+	}
+	public String getW_count() {
+		return w_count;
+	}
+	public void setW_count(String w_count) {
 		this.w_count = w_count;
 	}
 
