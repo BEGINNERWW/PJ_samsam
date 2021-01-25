@@ -45,17 +45,55 @@ public class AdoptServiceImpl implements AdoptService {
 	public int adoptInsert(adopt_homeVO adopt) {
 		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
 		Pattern pattern  =  Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
+		
 		String content = adopt.getHome_content();
 		Matcher match = pattern.matcher(content); 
 		String imgTag = null;
+		
 		if(match.find()){ 
 		    imgTag = match.group(0); 
 		}
+		
+		int index1 =imgTag.lastIndexOf("/");
+		imgTag = imgTag.substring(index1+1);
+		int index2 = imgTag.lastIndexOf(".");
+		imgTag = imgTag.substring(0, index2);
+		
+		
 		adopt.setHome_thumbnail(imgTag);
 		adopt.setHome_nick("user");
 		adopt.setHome_email("user");
 		adopt.setHome_img("aa");
 	    int res = adoptMapper.adoptInsert(adopt);
+		return res;
+	     
+	   
+	}
+	
+	
+	public int adoptupdateInsert(adopt_homeVO adopt) {
+		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
+		Pattern pattern  =  Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
+		
+		String content = adopt.getHome_content();
+		Matcher match = pattern.matcher(content); 
+		String imgTag = null;
+		
+		if(match.find()){ 
+		    imgTag = match.group(0); 
+		}
+		
+		int index1 =imgTag.lastIndexOf("/");
+		imgTag = imgTag.substring(index1+1);
+		int index2 = imgTag.lastIndexOf(".");
+		imgTag = imgTag.substring(0, index2);
+		
+		
+		adopt.setHome_thumbnail(imgTag);
+		adopt.setHome_nick("user");
+		adopt.setHome_email("user");
+		adopt.setHome_img("aa");
+	    int res = adoptMapper.adoptupdateInsert(adopt);
 		return res;
 	     
 	   
@@ -80,6 +118,7 @@ public class AdoptServiceImpl implements AdoptService {
 	public int adoptreplyInsertService(adopt_homereplyVO homereply) throws Exception {
 		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
 		adoptMapper.adopthomereplyspace(homereply);
+		adoptMapper.ReplycountService(homereply);
 		homereply.setHome_seq(homereply.getHome_seq()+1);
 		return adoptMapper.adoptreplyInsert(homereply);
 		
@@ -100,26 +139,9 @@ public class AdoptServiceImpl implements AdoptService {
 	@Override
 	public int adopthomereplyDelete(adopt_homereplyVO adhome) {
 		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
+		adoptMapper.replycountupdate(adhome);
+		System.out.println(adhome.getHome_no());
 		return adoptMapper.replyDelete(adhome);
-	}
-
-	@Override
-	public int adoptreplyUpdateService(adopt_homereplyVO homereply) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public adopt_homeVO boardModifyForm(int num) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getSearchCount(adopt_homeVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
-		
 	}
 
 	
@@ -179,5 +201,14 @@ public class AdoptServiceImpl implements AdoptService {
 		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
 	      return adoptMapper.DeleteUpdate(home_cno);
 	   }
+
+	@Override
+	public int homeDelete(adopt_homeVO vo) {
+		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
+		adoptMapper.HomeDeleteComment(vo);
+		return adoptMapper.homeDelete(vo);
+	}
+
+	
 
 }

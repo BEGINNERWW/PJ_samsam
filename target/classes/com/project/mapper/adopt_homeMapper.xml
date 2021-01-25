@@ -2,6 +2,7 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace = "com.project.mapper.adopt_homeMapper">
+
   <select id="getListCount" resultType="int">
       select count(*) from adopt_home
    </select>
@@ -10,15 +11,19 @@
   	<selectKey keyProperty="home_no" order="BEFORE" resultType="int"><!-- select에서 구한 값을 num에 저장한다. keyProperty에 들어갈 값의 타입을 resultType에 적는다. -->
          select nvl(max(home_no), 0)+1 from adopt_home
     </selectKey>
- 	insert into adopt_home values (#{home_no},#{home_email},#{home_nick},#{loc},sysdate,#{home_readcount},#{home_img},#{home_subject},#{home_price},#{home_content},#{big_name},#{kindof},#{home_thumbnail})
+ 	insert into adopt_home values (#{home_no},#{home_email},#{home_nick},sysdate,#{loc},#{home_readcount},#{home_img},#{home_subject},#{home_price},#{home_content},#{big_name},#{kindof},#{home_thumbnail},#{replycount})
  </insert>
+ 
+  <update id="adoptupdateInsert" parameterType="adopt_homeVO">
+	 
+	 update adopt_home set home_subject=#{home_subject},home_content=#{home_content},home_price=#{home_price},big_name=#{big_name},kindof=#{kindof},home_thumbnail=#{home_thumbnail},loc=#{loc} where home_no=#{home_no}
+	 
+	</update>
  
  <select id = "getHomeList" parameterType = "HashMap" resultType="adopt_homeVO">
 	<![CDATA[
-      select home_no,home_nick,home_email,loc,home_date,home_readcount, home_img, home_subject, home_price, home_content, big_name, kindof,Home_thumbnail
-      from (select rownum rnum,home_no,home_nick,home_email,loc,home_date, home_readcount, home_img,home_subject, home_price, home_content, big_name, kindof ,Home_thumbnail
-         from (select * from adopt_home))
-      where rnum>=#{startrow} and rnum<=#{endrow}
+      select * from (select rownum rnum,home_no,home_nick,home_subject,home_content,home_date,home_readcount,home_price,big_name,kindof,home_thumbnail,loc,replycount 
+	  from (select * from adopt_home order by home_no desc)) where rnum>=#{startrow} and rnum<=#{endrow}
       ]]>
  </select>
  
@@ -26,11 +31,23 @@
  		update adopt_home set home_readcount=home_readcount+1 where home_no=#{num}
  </update>
  
+ <update id="ReplycountService" parameterType="adopt_homereplyVO"> 
+	 	update adopt_home set replycount=replycount+1 where home_no =#{home_no}	
+</update>
+ 
  <select id = "adopt_homeinfo" parameterType = "int" resultType="adopt_homeVO">
  	select * from adopt_home where home_no = #{num}
  </select>
  
  
+ <delete id="homeDelete"  parameterType="adopt_homeVO">
+	 
+		DELETE FROM adopt_home WHERE HOME_NO = #{home_no}
+ </delete>
+  
+ <delete id="HomeDeleteComment"  parameterType="adopt_homeVO">
+		DELETE FROM adopt_home_reply WHERE HOME_NO = #{home_no}	
+</delete>
  
  
  
@@ -117,6 +134,10 @@
  <update id = "adopthomereplyupdate" parameterType ="adopt_homereplyVO">
  	UPDATE adopt_home_reply SET HOME_CCONTENT = #{home_ccontent},HOME_CSECRET =#{home_csecret} where HOME_CNO = #{home_cno}
  </update>
+ 
+ <update id="replycountupdate" parameterType="adopt_homereplyVO">
+	 update adopt_home set replycount=replycount-1 where home_no = #{home_no}
+</update>
 
  
 </mapper>
