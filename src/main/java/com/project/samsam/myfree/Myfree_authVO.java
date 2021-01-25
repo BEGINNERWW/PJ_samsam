@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Myfree_authVO {
 	
-	private int fadoc_no;			// 글번호
+	private int doc_no;			// 글번호
 	private String fadoc_r_email;	// 피분양자
 	private String fadoc_confirm_no;	// 확정번호
 	private String fadoc_s_email;	// 분양자
@@ -13,14 +13,11 @@ public class Myfree_authVO {
 	private Date fadoc_date;		// 작성일
 	private int fadoc_readcount;	// 조회수
 	private String fadoc_check;		// 검수상태
+	private String fadoc_nick;		// 닉네임
+	private int doc_comment;		// 댓글 수
 	
 	
-	public int getFadoc_no() {
-		return fadoc_no;
-	}
-	public void setFadoc_no(int fadoc_no) {
-		this.fadoc_no = fadoc_no;
-	}
+	
 	public String getFadoc_r_email() {
 		return fadoc_r_email;
 	}
@@ -68,6 +65,24 @@ public class Myfree_authVO {
 	}
 	public void setFadoc_check(String fadoc_check) {
 		this.fadoc_check = fadoc_check;
+	}
+	public String getFadoc_nick() {
+		return fadoc_nick;
+	}
+	public void setFadoc_nick(String fadoc_nick) {
+		this.fadoc_nick = fadoc_nick;
+	}
+	public int getDoc_no() {
+		return doc_no;
+	}
+	public void setDoc_no(int doc_no) {
+		this.doc_no = doc_no;
+	}
+	public int getDoc_comment() {
+		return doc_comment;
+	}
+	public void setDoc_comment(int doc_comment) {
+		this.doc_comment = doc_comment;
 	}
 	
 }

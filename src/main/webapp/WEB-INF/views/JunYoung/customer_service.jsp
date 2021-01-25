@@ -8,8 +8,6 @@
 <%
 	String email = (String)session.getAttribute("email");
 	//email.toUpperCase();
-	Member_listVO member_listVO = (Member_listVO)request.getAttribute("member_listVO");
-	Myfree_doc_confirmVO myfree_doc_confirm_write = (Myfree_doc_confirmVO)request.getAttribute("myfree_doc_confirm_write");
 %>
 
 <!DOCTYPE html>
@@ -90,7 +88,7 @@ body {
 
 #header {
     width: 100%;
-    height: 190px;
+    height: 189px;
     box-sizing: content-box;
     display: flex;
     flex-direction: column;
@@ -398,34 +396,39 @@ h5 {
 <div class ="body_content">
 <header id = "header">
 
-	<div class ="inout_gocen">
-			<a href="loginForm.me"><input type="button" class= "header_btn" id="login" value="로그인"></a>
-			<a href="logout.me"><input type="button" class= "header_btn" id="logout" value="로그아웃"></a>
-			<a href="joinform.me"><input type="button" class= "header_btn" id="signin" value="회원가입"></a>
-			<a href="mypage.me"><input type="button" class= "header_btn" id="mypage" value="마이페이지"></a>
-			<a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
-		</div>
+		<div class ="inout_gocen">
+         <%if(email != null){ %>
+         
+         <input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='logout.me'">
+         <input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='mypage.me'">
+         <%}else{ %>
+         <input  type="button" class= "header_btn" value="로그인" onclick="location.href='loginForm.me'">
+         <input  type="button" class= "header_btn" value="회원가입" onclick="location.href='joinform.me'">
+         <%} %>
+         <a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
+      </div>
 	
 	
-		 <div class="nav-menu">
+		<div class="nav-menu">
             <ul class="sticky-wrapper">
                <li class="dropdown"><a href="home.me">HOME</a></li>
                <li class="dropdown"><a href="home_list.bo">분양</a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu board">
                      <li><a href="home_list.bo">&nbsp;&nbsp;가정분양</a></li>
                      <li><a href="fdoclist.bo">책임분양</a></li>
                      <li><a href="selladopt_list.bo">업체분양</a></li>
                   </ul></li>
-               <li class="dropdown"><a href="/SJ/pet_list">보호소</a>
+               <li class="dropdown"><a href="SJ/pet_list">보호소</a>
                   <ul class="dropdown-menu">
-                     <li><a href="/SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
-                     <li><a href="/SJ/payang/list">파양</a></li>
-                     <li><a href="/SJ/missing/list">실종</a></li>
+                     <li><a href="SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
+                     <li><a href="SJ/payang/list">파양</a></li>
+                     <li><a href="SJ/missing/list">실종</a></li>
                   </ul></li>
                <li class="dropdown"><a href="doclist.bo">커뮤니티</a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu commu">
                      <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
                      <li><a href="auth_fdoc.bo">책임분양인증</a></li>
+                     <li><a href="hospital_map.me">동물병원</a></li>
                   </ul></li>
             </ul>
 				

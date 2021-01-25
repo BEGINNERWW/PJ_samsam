@@ -107,6 +107,10 @@ a:hover {
     color: #0056b3;
     text-decoration: none;
 }
+h1 > a:hover {
+    color: #A8A9B4;
+    text-decoration: none;
+}
 .btn > a:hover {
     color: white;
     text-decoration: none;
@@ -138,59 +142,56 @@ button, input, optgroup, select, textarea {
     font-family: inherit;
 }
 .content {
-    margin-left: 50px;
-}
-
-.btn {
-    border-style: solid;
-    border-width: 0 1px 4px 1px;
-    text-transform: uppercase;
+    margin-top: 40px;
+    margin-left: 115px;
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 .btn:not(:disabled):not(.disabled) {
     cursor: pointer;
 }
-.btn:not(.disabled):hover {
-    margin-top: 1px;
-    border-bottom-width: 3px;
-}
-/* 인증 버튼 */
 .btn-primary {
-    border-color: #127ba3;
+    border-color:  #00BCD4;
 }
+
 .btn-primary {
     color: #fff;
-    background-color: #158cba;
+    background-color:  #00BCD4;
 }
+
 .btn-primary:hover {
     color: #fff;
-    background-color: #117298;
-    border-color: #106a8c;
+    background-color: #009eb3;
+    border-color: #009eb3;
 }
-/* 반려, 인증취소 버튼 */
+
 .btn-danger {
-    border-color: #ff291d;
+    border-color: #ed457d;
 }
 .btn-danger {
     color: #fff;
-    background-color: #ff4136;
+    background-color: #ed457d;
 }
 .btn-danger:hover {
     color: #fff;
-    background-color: #ff1d10;
-    border-color: #ff1103;
+    background-color: #e8175d;
+    border-color: #e8175d;
 }
 /* 재검토 버튼 */
 .btn-warning {
-    border-color: #ff7702;
+    border-color: #ff851a;
 }
 .btn-warning {
     color: #fff;
-    background-color: #ff851b;
+    background-color: #ff851a;
 }
 .btn-warning:hover {
     color: #fff;
-    background-color: #f47100;
-    border-color: #e76b00;
+    background-color: #e66b00;
+    border-color: #e66b00;
 }
 
 
@@ -202,9 +203,9 @@ button, input, optgroup, select, textarea {
 <header id = "header">
 	<div class="d-flex flex-column">
 		<div class ="profile">
-			<img src = "resources/img/ssong.PNG" class = "img-circle">
+			<img src = "resources/img/samsam2.png" class = "img-circle">
 			<h1 class = "text-light">
-				<a href = "#" class = "onMember">  email </a>
+				<a href = "#" class = "onMember">ADMIN</a>
 			</h1>
 		</div>
 		<div class ="admin_inout">
@@ -233,8 +234,8 @@ button, input, optgroup, select, textarea {
 <!-- 메인컨텐트 -->
 <div class = "content">
 
-			<br> <br> <br> <br>
-			<h2>책임분양 인증글</h2>
+			
+			<h3>책임분양 인증글</h3>
 			<br>
 			<table class="table table-lg">
 				<thead>
@@ -254,10 +255,10 @@ button, input, optgroup, select, textarea {
 				%>
 					<tr>
 						<td class="text-center"><a
-							href="free_auth_datail.me?fadoc_no=<%=auth_list.getFadoc_no() %>">
+							href="free_auth_datail.me?doc_no=<%=auth_list.getDoc_no() %>">
 								<%=auth_list.getFadoc_confirm_no() %></a></td>
 						<td><a
-							href="free_auth_view.me?fadoc_no=<%=auth_list.getFadoc_no() %>"
+							href="free_auth_view.me?doc_no=<%=auth_list.getDoc_no() %>"
 							onclick="window.open(this.href, '_blanck', 'height='+popupHeight + ',width=' + popupWidth + ',left=' + popupX + ',top=' + popupY); return false">
 								&nbsp;&nbsp;&nbsp;<%=auth_list.getFadoc_subject() %></a></td>
 						<td class="text-center"><%=auth_list.getFadoc_r_email() %></td>
@@ -268,7 +269,7 @@ button, input, optgroup, select, textarea {
 						<td class="text-center"><%=auth_list.getFadoc_check() %>
 							<button type="button" class="btn btn-danger btn-sm"
 								id="free_auth_re">
-								<a href="free_auth_re.me?fadoc_no=<%=auth_list.getFadoc_no()%>">인증취소</a>
+								<a href="free_auth_re.me?doc_no=<%=auth_list.getDoc_no()%>">인증취소</a>
 							</button></td>
 						<%
 							}
@@ -277,7 +278,7 @@ button, input, optgroup, select, textarea {
 						<td class="text-center"><%=auth_list.getFadoc_check() %>
 							<button type="button" class="btn btn-warning btn-sm"
 								id="free_auth_re">
-								<a href="free_auth_re.me?fadoc_no=<%=auth_list.getFadoc_no()%>">재검토</a>
+								<a href="free_auth_re.me?doc_no=<%=auth_list.getDoc_no()%>">재검토</a>
 							</button></td>
 						<%
 						}
@@ -286,11 +287,11 @@ button, input, optgroup, select, textarea {
 						<td class="text-center">
 							<button type="button" class="btn btn-primary btn-sm"
 								id="free_auth_ok">
-								<a href="free_auth_ok.me?fadoc_no=<%=auth_list.getFadoc_no()%>">인증</a>
+								<a href="free_auth_ok.me?doc_no=<%=auth_list.getDoc_no()%>">인증</a>
 							</button>
 							<button type="button" class="btn btn-danger btn-sm"
 								id="free_auth_no">
-								<a href="free_auth_no.me?fadoc_no=<%=auth_list.getFadoc_no()%>">반려</a>
+								<a href="free_auth_no.me?doc_no=<%=auth_list.getDoc_no()%>">반려</a>
 							</button>
 						</td>
 						<%
@@ -354,11 +355,11 @@ button, input, optgroup, select, textarea {
       <input type="text" placeholder="Add A Task" class ="txt"> 
     <!-- to do list -->
       <div class="notdone">
-        <h3>To Do List</h3>
+        <h3 style="margin-left: 15px;">To Do List</h3>
       </div>
 	<!-- done list -->      
       <div class="done">
-        <h3>Done</h3>
+        <h3 style="margin-left: 15px;">Done</h3>
       </div>
      </div>
 

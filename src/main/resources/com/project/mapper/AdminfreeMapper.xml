@@ -11,9 +11,9 @@
 	
 	<select id="getAuthList" parameterType="HashMap" resultType="Myfree_authVO">
 		<![CDATA[
-		SELECT * FROM (SELECT rownum rnum, fadoc_no, fadoc_r_email, fadoc_confirm_no, fadoc_s_email, fadoc_subject, 
-			fadoc_content, fadoc_date, fadoc_readcount, fadoc_check
-			from (SELECT * FROM free_auth order by fadoc_check asc, fadoc_no desc))
+		SELECT * FROM (SELECT rownum rnum, doc_no, fadoc_r_email, fadoc_confirm_no, fadoc_s_email, fadoc_subject, 
+			fadoc_content, fadoc_date, fadoc_readcount, fadoc_check,fadoc_nick, doc_comment
+			from (SELECT * FROM free_auth order by fadoc_check asc, doc_no desc))
 			WHERE rnum>=#{startrow} and rnum<=#{endrow} 
 		]]>
 	</select>
@@ -24,41 +24,34 @@
 	</select>
 	
 	<select id="selectAuth_detail" parameterType="String" resultType="Myfree_authVO">
-		SELECT * FROM free_auth WHERE fadoc_confirm_no=#{confirm_no} order by fadoc_check asc, fadoc_no desc
+		SELECT * FROM free_auth WHERE fadoc_confirm_no=#{confirm_no} order by fadoc_check asc, doc_no desc
 	</select>
 	
-	<select id="selectDoc" parameterType="String" resultType="Myfree_DocVO">
-		SELECT * FROM free_doc WHERE fdoc_code=#{fdoc_confirm_code}
-	</select>
 	
 	<!-- 상세보기 페이지 redirect할 때 사용 -->
 	<select id="selectAuth_detail_re_re" parameterType="int" resultType="Myfree_authVO">
-		SELECT * FROM free_auth WHERE fadoc_no=#{fadoc_no} order by fadoc_check asc, fadoc_no desc
+		SELECT * FROM free_auth WHERE doc_no=#{doc_no} order by fadoc_check asc, doc_no desc
 	</select>
 	
 	<select id="selectAuth_detail_re" parameterType="String" resultType="Myfree_authVO">
-		SELECT * FROM free_auth WHERE fadoc_confirm_no=#{confirm_no} order by fadoc_check asc, fadoc_no desc
+		SELECT * FROM free_auth WHERE fadoc_confirm_no=#{confirm_no} order by fadoc_check asc, doc_no desc
 	</select>
 	
 	<select id="selectConfirm_detail_re" parameterType="String" resultType="Myfree_doc_confirmVO">
 		SELECT * FROM free_doc_confirm WHERE confirm_no=#{confirm_no}
 	</select>
 	
-	<select id="selectDoc_detail_re" parameterType="String" resultType="Myfree_docVO">
-		SELECT * FROM free_doc WHERE fdoc_code=#{confirm_fdoc_code}
-	</select>
-	
 	<!-- 책임인증글 인증 상태 -->
 	<update id="update_auth_ok" parameterType="int">
-		UPDATE free_auth set fadoc_check='인증완료' where fadoc_no=#{fadoc_no}
+		UPDATE free_auth set fadoc_check='인증완료' where doc_no=#{doc_no}
 	</update>
 	
 	<update id="update_auth_re" parameterType="int">
-		UPDATE free_auth set fadoc_check='검토중' where fadoc_no=#{fadoc_no}
+		UPDATE free_auth set fadoc_check='검토중' where doc_no=#{doc_no}
 	</update>
 	
 	<update id="update_auth_no" parameterType="int">
-		UPDATE free_auth set fadoc_check='인증실패' where fadoc_no=#{fadoc_no}
+		UPDATE free_auth set fadoc_check='인증실패' where doc_no=#{doc_no}
 	</update>
 	 
 	

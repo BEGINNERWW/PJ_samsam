@@ -10,7 +10,6 @@
 	//email.toUpperCase();
 	Myfree_doc_confirmVO myfree_doc_confirm_detail = (Myfree_doc_confirmVO)request.getAttribute("myfree_doc_confirm_detail");
 	List<Myfree_authVO> myfree_auth_detail = (List<Myfree_authVO>)request.getAttribute("myfree_auth_detail");
-	Myfree_docVO myfree_docVO = (Myfree_docVO)request.getAttribute("myfree_docVO");
 %>
 
 <!DOCTYPE html>
@@ -44,6 +43,9 @@
 
 
 <style>
+body {
+	overflow: scroll;
+}
 header, #header {
 	height: 210vh;
 }
@@ -165,63 +167,56 @@ button, input, optgroup, select, textarea {
     font-family: inherit;
 }
 .content {
-    margin-left: 50px;
-    margin-bottom: 30px;
-}
-
-.btn {
-    border-style: solid;
-    border-width: 0 1px 4px 1px;
-    text-transform: uppercase;
+    margin-top: 40px;
+    margin-left: 115px;
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 .btn:not(:disabled):not(.disabled) {
     cursor: pointer;
 }
-.btn:not(.disabled):hover {
-    margin-top: 1px;
-    border-bottom-width: 3px;
+.btn-primary {
+    border-color:  #00BCD4;
 }
 
-/* 인증 버튼 */
-.btn-primary {
-    border-color: #127ba3;
-}
 .btn-primary {
     color: #fff;
-    background-color: #158cba;
+    background-color:  #00BCD4;
 }
+
 .btn-primary:hover {
     color: #fff;
-    background-color: #117298;
-    border-color: #106a8c;
+    background-color: #009eb3;
+    border-color: #009eb3;
 }
 
-/* 반려, 인증취소 버튼 */
 .btn-danger {
-    border-color: #ff291d;
+    border-color: #ed457d;
 }
 .btn-danger {
     color: #fff;
-    background-color: #ff4136;
+    background-color: #ed457d;
 }
 .btn-danger:hover {
     color: #fff;
-    background-color: #ff1d10;
-    border-color: #ff1103;
+    background-color: #e8175d;
+    border-color: #e8175d;
 }
-
 /* 재검토 버튼 */
 .btn-warning {
-    border-color: #ff7702;
+    border-color: #ff851a;
 }
 .btn-warning {
     color: #fff;
-    background-color: #ff851b;
+    background-color: #ff851a;
 }
 .btn-warning:hover {
     color: #fff;
-    background-color: #f47100;
-    border-color: #e76b00;
+    background-color: #e66b00;
+    border-color: #e66b00;
 }
 
 /*책임분양 현황*/
@@ -361,7 +356,7 @@ p.card-text {
     justify-content: center;
     color: #fff;
     text-align: center;
-    background-color: #158cba;
+    background-color: #00BCD4;
     transition: width .6s ease;
     border-radius: 0.25rem;
 }
@@ -374,7 +369,7 @@ p.card-text {
 <header id = "header">
 	<div class="d-flex flex-column">
 		<div class ="profile">
-			<img src = "resources/img/ssong.PNG" class = "img-circle">
+			<img src = "resources/img/samsam2.png" class = "img-circle">
 			<h1 class = "text-light">
 				<a href = "#" class = "onMember">  <%= email.toUpperCase()%> </a>
 			</h1>
@@ -405,8 +400,7 @@ p.card-text {
 <!-- 메인컨텐트 -->
 <div class = "content">
 	
-	<br><br><br><br>
-		<h2>책임분양 현황</h2>
+		<h3>책임분양 현황</h3>
 			<table>
 				<tr height="300px">
 					<td width="770px">
@@ -415,8 +409,11 @@ p.card-text {
 								
 								<%if (myfree_doc_confirm_detail.getConfirm_fdoc_img()==null||myfree_doc_confirm_detail.getConfirm_fdoc_img()=="") { %>
 								<div class="auth_img">
-									<img src="<%=myfree_docVO.getFdoc_thumbnail() %>"
-										class="card-img mt-1 ml-1 mx-1 my-1" alt="...">
+									<center>
+											<img src="resources/img/auth_basic_img.png"
+												class="card-img mt-1 ml-1 mx-1 my-1" alt="..."
+												style="width: 250px">
+									</center>
 								</div>
 								<%}
 								else { %>
@@ -474,7 +471,7 @@ p.card-text {
 			<br>
 			
 			<span id="location"></span>
-			<h2>책임분양 인증현황</h2>
+			<h3>책임분양 인증현황</h3>
 						<table  align="center">
 							<tr height="100px">
 								<td width="870px">
@@ -515,7 +512,7 @@ p.card-text {
 						</table>
 						<br>
 				
-					<h2>책임분양 인증글 신청현황</h2>
+					<h3>책임분양 인증글 신청현황</h3>
 
 
 					<table>
@@ -535,15 +532,15 @@ p.card-text {
 									if (auth_list.getFadoc_check().equals("검토중")) {
 								%>
 									<tr>
-										<td><a href="free_auth_view.me?fadoc_no=<%=auth_list.getFadoc_no() %>"
+										<td><a href="free_auth_view.me?doc_no=<%=auth_list.getDoc_no() %>"
 											onclick="window.open(this.href, '_blanck', 'height='+popupHeight + ',width=' + popupWidth + ',left=' + popupX + ',top=' + popupY); return false">
 											&nbsp;&nbsp;&nbsp;<%=auth_list.getFadoc_subject() %></a></td>
 										<td class="text-center"><%=auth_list.getFadoc_date() %></td>
 										<td class="text-center">
 										<button type="button" class="btn btn-primary btn-sm" id="free_auth_ok">
-											<a href="free_auth_detail_ok.me?fadoc_no=<%=auth_list.getFadoc_no()%>#location">인증</a></button>
+											<a href="free_auth_detail_ok.me?doc_no=<%=auth_list.getDoc_no()%>#location">인증</a></button>
 										<button type="button" class="btn btn-danger btn-sm" id="free_auth_no">
-											<a href="free_auth_detail_no.me?fadoc_no=<%=auth_list.getFadoc_no()%>#location">반려</a></button>
+											<a href="free_auth_detail_no.me?doc_no=<%=auth_list.getDoc_no()%>#location">반려</a></button>
 										</td>
 									</tr>
 								<%
@@ -551,13 +548,13 @@ p.card-text {
 									else if (auth_list.getFadoc_check().equals("인증실패")) {
 								%>
 									<tr>
-										<td><a href="free_auth_view.me?fadoc_no=<%=auth_list.getFadoc_no() %>"
+										<td><a href="free_auth_view.me?doc_no=<%=auth_list.getDoc_no() %>"
 											onclick="window.open(this.href, '_blanck', 'height='+popupHeight + ',width=' + popupWidth + ',left=' + popupX + ',top=' + popupY); return false">
 											&nbsp;&nbsp;&nbsp;<%=auth_list.getFadoc_subject() %></a></td>
 										<td class="text-center"><%=auth_list.getFadoc_date() %></td>
 										<td class="text-center"><%=auth_list.getFadoc_check() %>
 											<button type="button" class="btn btn-warning btn-sm" id="free_auth_re">
-										<a href="free_auth_detail_re.me?fadoc_no=<%=auth_list.getFadoc_no()%>#location">재검토</a></button>
+										<a href="free_auth_detail_re.me?doc_no=<%=auth_list.getDoc_no()%>#location">재검토</a></button>
 										</td>
 									</tr>
 								<%
@@ -573,7 +570,7 @@ p.card-text {
 					
 					<br>
 				<br>
-					<h2>인증완료 내역</h2>
+					<h3>인증완료 내역</h3>
 					<table class="table table-sm">
 						<thead>
 							<tr>
@@ -590,13 +587,13 @@ p.card-text {
 								if (free_auth_list.getFadoc_check().equals("인증완료")) {
 							%>
 								<tr>
-									<td><a href="free_auth_view.me?fadoc_no=<%=free_auth_list.getFadoc_no() %>"
+									<td><a href="free_auth_view.me?doc_no=<%=free_auth_list.getDoc_no() %>"
 										onclick="window.open(this.href, '_blanck', 'height='+popupHeight + ',width=' + popupWidth + ',left=' + popupX + ',top=' + popupY); return false">
 										&nbsp;&nbsp;&nbsp;<%=free_auth_list.getFadoc_subject() %></a></td>
 									<td class="text-center"><%=free_auth_list.getFadoc_date() %></td>
 									<td class="text-center"><%=free_auth_list.getFadoc_check() %>
 									<button type="button" class="btn btn-danger btn-sm" id="free_auth_re">
-										<a href="free_auth_detail_re.me?fadoc_no=<%=free_auth_list.getFadoc_no()%>#location">인증취소</a></button>
+										<a href="free_auth_detail_re.me?doc_no=<%=free_auth_list.getDoc_no()%>#location">인증취소</a></button>
 									</td>
 								</tr>
 							<%
@@ -643,12 +640,12 @@ p.card-text {
 	<div class = "todolist">
       <input type="text" placeholder="Add A Task" class ="txt"> 
     <!-- to do list -->
-      <div class="notdone">
-        <h3>To Do List</h3>
+     <div class="notdone">
+        <h3 style="margin-left: 15px;">To Do List</h3>
       </div>
 	<!-- done list -->      
       <div class="done">
-        <h3>Done</h3>
+        <h3 style="margin-left: 15px;">Done</h3>
       </div>
      </div>
 

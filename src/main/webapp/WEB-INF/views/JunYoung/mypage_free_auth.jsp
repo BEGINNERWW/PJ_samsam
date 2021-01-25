@@ -13,7 +13,18 @@
 	List<Myfree_doc_confirmVO> myfree_doc_confirmVO = (List<Myfree_doc_confirmVO>)request.getAttribute("myfree_doc_confirmVO");
 	List<Myfree_authVO> myfree_authVO = (List<Myfree_authVO>)request.getAttribute("myfree_authVO");
 	List<Myfree_docVO> myfree_docVO = (List<Myfree_docVO>)request.getAttribute("myfree_docVO");
-		
+	
+	int listcount=((Integer)request.getAttribute("listcount")).intValue();
+	int nowpage=((Integer)request.getAttribute("page")).intValue();
+	int maxpage=((Integer)request.getAttribute("maxpage")).intValue();
+	int startpage=((Integer)request.getAttribute("startpage")).intValue();
+	int endpage=((Integer)request.getAttribute("endpage")).intValue();
+	
+	int listcount_doc=((Integer)request.getAttribute("listcount_doc")).intValue();
+	int nowpage_doc=((Integer)request.getAttribute("page_doc")).intValue();
+	int maxpage_doc=((Integer)request.getAttribute("maxpage_doc")).intValue();
+	int startpage_doc=((Integer)request.getAttribute("startpage_doc")).intValue();
+	int endpage_doc=((Integer)request.getAttribute("endpage_doc")).intValue();
 %>
 
 <!DOCTYPE html>
@@ -94,7 +105,7 @@ body {
 
 #header {
     width: 100%;
-    height: 190px;
+    height: 189px;
     box-sizing: content-box;
     display: flex;
     flex-direction: column;
@@ -355,30 +366,6 @@ p{
 }
 
 /* 각각의 페이지에서 사용할 CSS */
-.btn:not(:disabled):not(.disabled) {
-    cursor: pointer;
-}
-.btn-primary {
-    border-color: #127ba3;
-}
-.btn {
-    border-style: solid;
-    border-width: 0 1px 4px 1px;
-    text-transform: uppercase;
-}
-.btn-primary {
-    color: #fff;
-    background-color: #158cba;
-}
-.btn:not(.disabled):hover {
-    margin-top: 1px;
-    border-bottom-width: 3px;
-}
-.btn-primary:hover {
-    color: #fff;
-    background-color: #117298;
-    border-color: #106a8c;
-}
 
 .list-group {
 	border-bottom: 1px solid rgba(0,0,0,.125);
@@ -527,7 +514,7 @@ input#fdoc_img {
     justify-content: center;
     color: #fff;
     text-align: center;
-    background-color: #158cba;
+    background-color: #00BCD4;
     transition: width .6s ease;
 }
 form.input-account {
@@ -536,18 +523,35 @@ form.input-account {
 
 
 
+.btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+.btn-primary {
+    border-color:  #00BCD4;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color:  #00BCD4;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #009eb3;
+    border-color: #009eb3;
+}
 
 .btn-danger {
-    border-color: #ff291d;
+    border-color: #ed457d;
 }
 .btn-danger {
     color: #fff;
-    background-color: #ff4136;
+    background-color: #ed457d;
 }
 .btn-danger:hover {
     color: #fff;
-    background-color: #ff1d10;
-    border-color: #ff1103;
+    background-color: #e8175d;
+    border-color: #e8175d;
 }
 
 .row.account-auth {
@@ -648,6 +652,12 @@ form.input-account {
     margin-bottom: 25px;
 }
 
+/* 페이징 버튼  */
+td.paging > a {
+	color : black;
+	text-decoration: none;
+}
+
 
 </style>
 
@@ -656,34 +666,38 @@ form.input-account {
 <div class ="body_content">
 <header id = "header">
 
-	<div class ="inout_gocen">
-			<a href="loginForm.me"><input type="button" class= "header_btn" id="login" value="로그인"></a>
-			<a href="logout.me"><input type="button" class= "header_btn" id="logout" value="로그아웃"></a>
-			<a href="joinform.me"><input type="button" class= "header_btn" id="signin" value="회원가입"></a>
-			<a href="mypage.me"><input type="button" class= "header_btn" id="mypage" value="마이페이지"></a>
-			<a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
-		</div>
-	
-	
+		<div class ="inout_gocen">
+         <%if(email != null){ %>
+         
+         <input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='logout.me'">
+         <input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='mypage.me'">
+         <%}else{ %>
+         <input  type="button" class= "header_btn" value="로그인" onclick="location.href='loginForm.me'">
+         <input  type="button" class= "header_btn" value="회원가입" onclick="location.href='joinform.me'">
+         <%} %>
+         <a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
+      </div>
+		
 		 <div class="nav-menu">
             <ul class="sticky-wrapper">
                <li class="dropdown"><a href="home.me">HOME</a></li>
                <li class="dropdown"><a href="home_list.bo">분양</a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu board">
                      <li><a href="home_list.bo">&nbsp;&nbsp;가정분양</a></li>
                      <li><a href="fdoclist.bo">책임분양</a></li>
                      <li><a href="selladopt_list.bo">업체분양</a></li>
                   </ul></li>
-               <li class="dropdown"><a href="/SJ/pet_list">보호소</a>
-                  <ul class="dropdown-menu">
-                     <li><a href="/SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
-                     <li><a href="/SJ/payang/list">파양</a></li>
-                     <li><a href="/SJ/missing/list">실종</a></li>
+              <li class="dropdown"><a href="SJ/pet_list">보호소</a>
+                  <ul class="dropdown-menu care">
+                     <li><a href="SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
+                     <li><a href="SJ/payang/list">파양</a></li>
+                     <li><a href="SJ/missing/list">실종</a></li>
                   </ul></li>
                <li class="dropdown"><a href="doclist.bo">커뮤니티</a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu commu">
                      <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
                      <li><a href="auth_fdoc.bo">책임분양인증</a></li>
+                     <li><a href="hospital_map.me">동물병원</a></li>
                   </ul></li>
             </ul>
 				
@@ -719,25 +733,26 @@ form.input-account {
 			</ul>
 			</div>
 			
-			<!-- 오른쪽. 내용이 들어갈 부분 -->
+				<!-- 오른쪽. 내용이 들어갈 부분 -->
 			<div class="content-section">
-				<h2>책임분양 관리</h2>
+				<h5>책임분양 관리</h5>
 				<%if (myfree_doc_confirmVO.isEmpty()) { %>
-			<br><br><br><br><br><br>
-			<h3>책임분양 받은 내역이 없습니다.</h3>
-			<br><br><br><hr width="100%">
+			<br><br><br>
+			<center>
+			<h5>책임분양 받은 내역이 없습니다.</h5>
+			</center>
+			<br><br><br>
 		
 		<%
 		}
-		else { 
+		else {
 			for (int i=0; i < myfree_doc_confirmVO.size(); i++) 
 			{
 				Myfree_doc_confirmVO confirm_list = (Myfree_doc_confirmVO)myfree_doc_confirmVO.get(i);
-				Myfree_docVO doc_list=(Myfree_docVO)myfree_docVO.get(i);
-				
 			%>
+			
 			<br><br>	
-			<h3>나의 <%=i+1 + "번째"%> 책임분양내역</h3>
+			<h5>나의 <%=nowpage %>번째 책임분양내역</h5>
 			
 			<table>
 				<tr height="250px">
@@ -747,8 +762,11 @@ form.input-account {
 								
 								<%if (confirm_list.getConfirm_fdoc_img()==null||confirm_list.getConfirm_fdoc_img()=="") { %>
 								<div class="auth_img">
-									<img src="<%=doc_list.getFdoc_thumbnail() %>"
-										class="card-img mt-1 ml-1 mx-1 my-1" alt="...">
+									<center>
+											<img src="resources/img/auth_basic_img.png"
+												class="card-img mt-1 ml-1 mx-1 my-1" alt="..."
+												style="width: 250px">
+									</center>
 								</div>
 								<%}
 								else { %>
@@ -779,21 +797,33 @@ form.input-account {
 										<p class="card-text" style="font-size:16px;margin-left: 20px;"><%=confirm_list.getConfirm_fdoc_price() %></p>
 											</div>
 										
-										<form id="fdoc_img_form" action="fileUpload.me#location" method="post" enctype="multipart/form-data">
+										<form id="fdoc_img_form fdoc_img_form<%=i %>" action="fileUpload.me#location" method="post" enctype="multipart/form-data">
 											<input type="hidden" name="confirm_no" value=<%=confirm_list.getConfirm_no() %>>
 											
 											<div class="textbox preview-image" name="button_1">
 											<input class="upload-name" name="biz_img" value="사진 선택" disabled="disabled">
-											<label for="fdoc_img">첨부</label>
-											
-											<input type="file" id="fdoc_img" name="file" multiple="multiple" accept="img/*" class="upload-hidden"/>
-														<button type="submit" id="register_Btn"
+											<label for="fdoc_img<%=i %>" style="display: inline-block;
+																			    padding: .5em .75em;
+																			    color: #999;
+																			    font-size: inherit;
+																			    line-height: normal;
+																			    vertical-align: middle;
+																			    background-color: #fdfdfd;
+																			    cursor: pointer;
+																			    border: 1px solid #ebebeb;
+																			    border-bottom-color: #e2e2e2;
+																			    border-radius: .25em;
+																			    width: 50px;
+																			    height: 38px;
+																			    margin: 0;
+																			    text-align: center;
+																			    margin-left: 5px;">첨부</label>
+											<input type="file" id="fdoc_img<%=i %>" name="file" multiple="multiple" accept="img/*" class="upload-hidden"/>
+														<button type="submit" id="register_Btn register_Btn<%=i %>"
 															class="btn btn-primary auth-btn btn-sm"
 															style="width: 50px; height: 37px; margin-left: 5px;">
 															등록</button>
 													</div>
-										
-										
 										</form>
 									</div>
 								</div>
@@ -804,7 +834,7 @@ form.input-account {
 
 			<br><br><br>
 			<span id="write"></span>
-			<h3><%=i+1 + "번째 "%> 책임분양 인증현황</h3>
+			<h5><%=nowpage %>번째 책임분양 인증현황</h5>
 			<table class="auth-confirm">
 				<tr>
 					<td width=832px>
@@ -856,7 +886,7 @@ form.input-account {
 							<label for="confirm_account">환급계좌번호&nbsp;</label>
 							<input type="text" name="confirm_account" id="confirm_account">&nbsp;
 							<a href="javascript:update_Account()"><input type="button" value="등록" id="update_Account" class="btn btn-primary btn-sm" 
-							style="width:45px; height:28px;"></a>
+							style="width:45px; height:28px; margin-bottom: 3px;"></a>
 							</form>
 							
 							<%}
@@ -870,7 +900,7 @@ form.input-account {
 							<% } %>
 							
 							<%if (confirm_list.getConfirm_fdoc_expiry()>checknum) { %>
-							<button type="button" class="btn btn-primary btn-sm" style="width:120px; height:28px; margin-right:20px; margin-bottom:2px">
+							<button type="button" class="btn btn-primary btn-sm" style="width:120px; height:28px; margin-right:20px; margin-bottom:2px" id="write_auth">
 								<a href="write_auth_form.me?confirm_no=<%=confirm_list.getConfirm_no()%>" 
 								style="color:white;">책임인증글 작성</a>
 							</button>
@@ -901,7 +931,7 @@ form.input-account {
 							%>
 							<tbody>
 								<tr>
-									<td width="500px"><a href="free_auth_view.me?fadoc_no=<%=auth_list.getFadoc_no() %>"
+									<td width="500px"><a href="free_auth_view.me?doc_no=<%=auth_list.getDoc_no() %>"
 									onclick="window.open(this.href, '_blanck', 'height='+popupHeight + ',width=' + popupWidth + ',left=' + popupX + ',top=' + popupY); return false">
 										&nbsp;&nbsp;<%=auth_list.getFadoc_subject() %></a></td>
 									<td class="text-center"><%=auth_list.getFadoc_date() %></td>
@@ -920,10 +950,26 @@ form.input-account {
 			}
 		}
 						%>
-					
-			
+						<%if (myfree_doc_confirmVO.isEmpty()) {} else { %>
+						
+					<table>
+						<tr align=center height="50px">
+						<td colspan=5 class="paging">
+							<%if(nowpage<=1){ %> <!-- 이전페이지가 존재하지 않을 때 --> [이전]&nbsp; <!-- 이전 버튼 비활성화 -->
+							<%}else{ %> <!-- 이전페이지가 존재할 때 --> <a
+							href="./myfree_auth.me?page=<%=nowpage-1 %>" >[이전]&nbsp;</a> <%} %>
+
+							<%for(int a=startpage;a<=endpage;a++){
+							if(a==nowpage){%> [<%=a %>] <%}else{ %> <!-- 현재 페이지가 nowpage가 아닐 때 -->
+							<a href="./myfree_auth.me?page=<%=a %>">[<%=a %>]
+						</a> <%} %> <%} %> <%if(nowpage>=maxpage){ %> &nbsp;[다음] <%}else{ %> <a
+							href="./myfree_auth.me?page=<%=nowpage+1 %>">&nbsp;[다음]</a> <%} %>
+						</td>
+					</tr>
+					</table>
+				<%} %>
 			<br>
-			<h3>작성한 책임분양글</h3>
+			<h5>작성한 책임분양글</h5>
 
 			<table class="doc_table">
 				<tr>
@@ -944,10 +990,10 @@ form.input-account {
 								
 								%>
 								<tr>
-									<td width="84px" class="text-center" scope="row"><%=doc_list.getFdoc_no() %></td>
-									<td width="416px"><a href="/"><%=doc_list.getFdoc_subject() %></a></td>
-									<td width="188px" class="text-center"><%=doc_list.getFdoc_date() %></td>
-									<td width="143px" class="text-center"><%=doc_list.getFdoc_code() %></td>
+									<td width="84px" class="text-center" scope="row"><%=doc_list.getDoc_no() %></td>
+									<td width="416px"><a href="/"><%=doc_list.getDoc_subject() %></a></td>
+									<td width="188px" class="text-center"><%=doc_list.getDoc_date() %></td>
+									<td width="143px" class="text-center"><%=doc_list.getDoc_code() %></td>
 								</tr>
 								<%
 								}
@@ -957,6 +1003,26 @@ form.input-account {
 					</td>
 				</tr>
 			</table>
+			<br><br>
+				<%if (myfree_docVO.isEmpty()) {} else { %>
+						
+					<table>
+						<tr align=center height="50px">
+						<td colspan=5 class="paging">
+							<%if(nowpage_doc<=1){ %> <!-- 이전페이지가 존재하지 않을 때 --> [이전]&nbsp; <!-- 이전 버튼 비활성화 -->
+							<%}else{ %> <!-- 이전페이지가 존재할 때 --> <a
+							href="./myfree_auth.me?page_doc=<%=nowpage_doc-1 %>" >[이전]&nbsp;</a> <%} %>
+
+							<%for(int a=startpage_doc;a<=endpage_doc;a++){
+							if(a==nowpage_doc){%> [<%=a %>] <%}else{ %> <!-- 현재 페이지가 nowpage가 아닐 때 -->
+							<a href="./myfree_auth.me?page_doc=<%=a %>">[<%=a %>]
+						</a> <%} %> <%} %> <%if(nowpage_doc>=maxpage_doc){ %> &nbsp;[다음] <%}else{ %> <a
+							href="./myfree_auth.me?page_doc=<%=nowpage_doc+1 %>">&nbsp;[다음]</a> <%} %>
+						</td>
+					</tr>
+					</table>
+				<%} %>
+			
 		
 			
 		  </div> <!-- content-section -->
@@ -987,12 +1053,14 @@ form.input-account {
 	
 		
 
+<script>
 
 
-
+</script>
 <script>
 $(document).ready(function(){
     console.log("<%= email %>") 
+	
     var session = '<%= email %>'
     console.log(session);
     if(session == "null" ){
@@ -1038,6 +1106,10 @@ $(document).ready(function(){
 function update_Account() {
 	document.forms["account_form"].submit();
 }
+</script>
+
+
+
 </script>
 
 <script>
@@ -1102,6 +1174,13 @@ setCookie("scroll_position", "");
 }
 
 ﻿</script>
+
+<script>
+//새로고침
+function redirect() {
+	location.reload();
+} 
+</script>
 
 </body>
 </html>

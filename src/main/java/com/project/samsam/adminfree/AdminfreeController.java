@@ -39,8 +39,10 @@ public class AdminfreeController {
 		
 		//총 페이지 수
 	int maxpage=(int)((double)listcount/limit+0.95); //0.95를 더해서 올림 처리. 글이 1개라도 있으면 1페이지이기 때문에.
+	
 	//현재 페이지에 보여줄 시작 페이지 수(1, 11, 21 등...)
 	int startpage = (((int) ((double)page / 10 + 0.9)) - 1) * 10 + 1;
+	
 	//현재 페이지에 보여줄 마지막 페이지 수(10, 20, 30 등...)
 	int endpage = maxpage;
 	
@@ -61,8 +63,8 @@ public class AdminfreeController {
 	//관리자 페이지 상세보기
 	@RequestMapping("/free_auth_datail.me")
 	public String free_auth_detail(Model model, Myfree_authVO auth_list) throws Exception {
-		int fadoc_no = auth_list.getFadoc_no();
-		Myfree_authVO myfree_auth_detail_re_re = AdminfreeService.selectAuth_detail_re_re(fadoc_no);
+		int doc_no = auth_list.getDoc_no();
+		Myfree_authVO myfree_auth_detail_re_re = AdminfreeService.selectAuth_detail_re_re(doc_no);
 		
 		String confirm_no = myfree_auth_detail_re_re.getFadoc_confirm_no();
 
@@ -70,13 +72,9 @@ public class AdminfreeController {
 		
 		List<Myfree_authVO> myfree_auth_detail = AdminfreeService.selectAuth_detail(confirm_no);
 		
-		String confirm_fdoc_code = myfree_doc_confirm_detail.getConfirm_fdoc_code();
-		
-		Myfree_docVO myfree_docVO = AdminfreeService.selectDoc(confirm_fdoc_code);
 		
 		model.addAttribute("myfree_doc_confirm_detail", myfree_doc_confirm_detail);
 		model.addAttribute("myfree_auth_detail", myfree_auth_detail);
-		model.addAttribute("myfree_docVO", myfree_docVO);
 		
 		return "JunYoung/admin_free_auth_detail";
 	}
@@ -84,8 +82,8 @@ public class AdminfreeController {
 	//책임글 인증 완료
 	@RequestMapping("/free_auth_ok.me")
 	public String update_auth_ok(Myfree_authVO myfree_authVO) throws Exception {
-		int fadoc_no = myfree_authVO.getFadoc_no();
-		int res = AdminfreeService.update_auth_ok(fadoc_no);
+		int doc_no = myfree_authVO.getDoc_no();
+		int res = AdminfreeService.update_auth_ok(doc_no);
 		
 		return "redirect:/adminfree_auth.me";
 	}
@@ -93,8 +91,8 @@ public class AdminfreeController {
 	//책임글 재인증 필요
 	@RequestMapping("/free_auth_re.me")
 	public String update_auth_re(Myfree_authVO myfree_authVO) throws Exception {
-		int fadoc_no = myfree_authVO.getFadoc_no();
-		int res = AdminfreeService.update_auth_re(fadoc_no);
+		int doc_no = myfree_authVO.getDoc_no();
+		int res = AdminfreeService.update_auth_re(doc_no);
 		
 		return "redirect:/adminfree_auth.me";
 	}
@@ -102,8 +100,8 @@ public class AdminfreeController {
 	//책임글 반려
 	@RequestMapping("/free_auth_no.me")
 	public String update_auth_no(Myfree_authVO myfree_authVO) throws Exception {
-		int fadoc_no = myfree_authVO.getFadoc_no();
-		int res = AdminfreeService.update_auth_no(fadoc_no);
+		int doc_no = myfree_authVO.getDoc_no();
+		int res = AdminfreeService.update_auth_no(doc_no);
 		
 		return "redirect:/adminfree_auth.me";
 	}
@@ -113,21 +111,18 @@ public class AdminfreeController {
 	public ModelAndView update_auth_detail_ok(Myfree_authVO myfree_authVO) throws Exception {
 		ModelAndView result = new ModelAndView();
 		
-		int fadoc_no = myfree_authVO.getFadoc_no();
-		int res = AdminfreeService.update_auth_ok(fadoc_no);
+		int doc_no = myfree_authVO.getDoc_no();
+		int res = AdminfreeService.update_auth_ok(doc_no);
 		
-		Myfree_authVO myfree_auth_detail_re_re = AdminfreeService.selectAuth_detail_re_re(fadoc_no);	//myfree_doc_confirmVO 조회하기위해 필요
+		Myfree_authVO myfree_auth_detail_re_re = AdminfreeService.selectAuth_detail_re_re(doc_no);	//myfree_doc_confirmVO 조회하기위해 필요
 		String confirm_no = myfree_auth_detail_re_re.getFadoc_confirm_no();
 		
 		List<Myfree_authVO> myfree_auth_detail_re = AdminfreeService.selectAuth_detail_re(confirm_no);
 		Myfree_doc_confirmVO myfree_doc_confirm_detail_re = AdminfreeService.selectConfirm_detail_re(confirm_no);
 		
-		String confirm_fdoc_code = myfree_doc_confirm_detail_re.getConfirm_fdoc_code();	//myfree_docVO 조회하기위해 필요
-		Myfree_docVO myfree_docVO = AdminfreeService.selectDoc_detail_re(confirm_fdoc_code);
 		
 		result.addObject("myfree_doc_confirm_detail", myfree_doc_confirm_detail_re);
 		result.addObject("myfree_auth_detail", myfree_auth_detail_re);
-		result.addObject("myfree_docVO", myfree_docVO);
 		result.setViewName("admin_free_auth_detail");
 		
 		return result;
@@ -138,21 +133,18 @@ public class AdminfreeController {
 	public ModelAndView update_auth_detail_re(Myfree_authVO myfree_authVO) throws Exception {
 		ModelAndView result = new ModelAndView();
 		
-		int fadoc_no = myfree_authVO.getFadoc_no();
-		int res = AdminfreeService.update_auth_re(fadoc_no);
+		int doc_no = myfree_authVO.getDoc_no();
+		int res = AdminfreeService.update_auth_re(doc_no);
 		
-		Myfree_authVO myfree_auth_detail_re_re = AdminfreeService.selectAuth_detail_re_re(fadoc_no);	//myfree_doc_confirmVO 조회하기위해 필요
+		Myfree_authVO myfree_auth_detail_re_re = AdminfreeService.selectAuth_detail_re_re(doc_no);	//myfree_doc_confirmVO 조회하기위해 필요
 		String confirm_no = myfree_auth_detail_re_re.getFadoc_confirm_no();
 		
 		List<Myfree_authVO> myfree_auth_detail_re = AdminfreeService.selectAuth_detail_re(confirm_no);
 		Myfree_doc_confirmVO myfree_doc_confirm_detail_re = AdminfreeService.selectConfirm_detail_re(confirm_no);
 		
-		String confirm_fdoc_code = myfree_doc_confirm_detail_re.getConfirm_fdoc_code();	//myfree_docVO 조회하기위해 필요
-		Myfree_docVO myfree_docVO = AdminfreeService.selectDoc_detail_re(confirm_fdoc_code);
 		
 		result.addObject("myfree_doc_confirm_detail", myfree_doc_confirm_detail_re);
 		result.addObject("myfree_auth_detail", myfree_auth_detail_re);
-		result.addObject("myfree_docVO", myfree_docVO);
 		result.setViewName("admin_free_auth_detail");
 		
 		return result;
@@ -163,21 +155,18 @@ public class AdminfreeController {
 	public ModelAndView update_auth_detail_no(Myfree_authVO myfree_authVO) throws Exception {
 		ModelAndView result = new ModelAndView();
 		
-		int fadoc_no = myfree_authVO.getFadoc_no();
-		int res = AdminfreeService.update_auth_no(fadoc_no);
+		int doc_no = myfree_authVO.getDoc_no();
+		int res = AdminfreeService.update_auth_no(doc_no);
 		
-		Myfree_authVO myfree_auth_detail_re_re = AdminfreeService.selectAuth_detail_re_re(fadoc_no);	//myfree_doc_confirmVO 조회하기위해 필요
+		Myfree_authVO myfree_auth_detail_re_re = AdminfreeService.selectAuth_detail_re_re(doc_no);	//myfree_doc_confirmVO 조회하기위해 필요
 		String confirm_no = myfree_auth_detail_re_re.getFadoc_confirm_no();
 		
 		List<Myfree_authVO> myfree_auth_detail_re = AdminfreeService.selectAuth_detail_re(confirm_no);
 		Myfree_doc_confirmVO myfree_doc_confirm_detail_re = AdminfreeService.selectConfirm_detail_re(confirm_no);
 		
-		String confirm_fdoc_code = myfree_doc_confirm_detail_re.getConfirm_fdoc_code();	//myfree_docVO 조회하기위해 필요
-		Myfree_docVO myfree_docVO = AdminfreeService.selectDoc_detail_re(confirm_fdoc_code);
 		
 		result.addObject("myfree_doc_confirm_detail", myfree_doc_confirm_detail_re);
 		result.addObject("myfree_auth_detail", myfree_auth_detail_re);
-		result.addObject("myfree_docVO", myfree_docVO);
 		result.setViewName("admin_free_auth_detail");
 		
 		return result;
