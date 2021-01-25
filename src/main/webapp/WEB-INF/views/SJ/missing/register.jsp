@@ -928,23 +928,23 @@ select, input, button, textarea {
 	
 	<div class="nav-menu">
 				<ul class="sticky-wrapper">
-					<li class="dropdown"><a href="main.me">HOME</a></li>
-					<li class="dropdown"><a href="board.me">분양</a>
+					<li class="dropdown"><a href="home.me">HOME</a></li>
+					<li class="dropdown"><a href="home_list.bo">분양</a>
 						<ul class="dropdown-menu">
-							<li><a href="#">&nbsp;&nbsp;가정분양</a></li>
-							<li><a href="#">책임분양</a></li>
-							<li><a href="#">업체분양</a></li>
+							<li><a href="home_list.bo">&nbsp;&nbsp;가정분양</a></li>
+							<li><a href="fdoclist.bo">책임분양</a></li>
+							<li><a href="selladopt_list.bo">업체분양</a></li>
 						</ul></li>
 					<li class="dropdown"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a>
 						<ul class="dropdown-menu">
-					<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
+				<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
+				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
+				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
 						</ul></li>
-					<li class="dropdown"><a href="community.me">커뮤니티</a>
+					<li class="dropdown"><a href="doclist.bo">커뮤니티</a>
 						<ul class="dropdown-menu">
-							<li><a href="#">&nbsp;자유게시판</a></li>
-							<li><a href="#">책임분양인증</a></li>
+							<li><a href="doclist.bo">&nbsp;자유게시판</a></li>
+							<li><a href="auth_fdoc.bo">책임분양인증</a></li>
 						</ul></li>
 				</ul>
 	
@@ -976,19 +976,18 @@ select, input, button, textarea {
 			
 			<!-- 오른쪽. 내용이 들어갈 부분 -->
 			<div class="content-section">
-				<h6>파양게시판 > 수정</h6>
-				<h2>파양을 되도록 지양해주세요.</h2>
+				<h6>실종게시판 > 글쓰기</h6>
+				<h2>가족의 품으로 돌려보내주세요.</h2>
 				<form id="board" action="register"  method="POST">
 					<input type="text" name="doc_nick" />
 					<input type="text" name="doc_email" />
-<%-- 					<input type="text" name="doc_email" value="<%=email %>" /> --%>
+<%-- 				<input type="text" name="doc_email" value="<%=email %>" /> --%>
 					
-					<textarea name="doc_subject" placeholder="제목을 입력해 주세요." class="textarea_input" style="height: 40px;">${payang.doc_subject}</textarea>
+					<textarea name="doc_subject" placeholder="제목을 입력해 주세요." class="textarea_input" style="height: 40px;"></textarea>
 					<div class="option_box">
 						<div class="">
 							<span class="option_lable">이름</span>
-							<input type="text" name="doc_name" class="form-control" style="width:200px; display:inline-block;"
-									value="${payang.doc_name}" />
+							<input type="text" name="doc_name" class="form-control" style="width:200px; display:inline-block;" />
 	  	            	</div>
 	  	            	
 						<div class="">
@@ -999,12 +998,12 @@ select, input, button, textarea {
 							
 						<div class="">
 							<span class="option_lable">축종</span>
-							<select id="doc_big_name" name="doc_big_name" class="form-control" style="width:200px; display:inline-block;">
+							<select name="doc_big_name" class="form-control" style="width:200px; display:inline-block;">
 								<option value="개">개</option>
 								<option value="고양이">고양이</option>
 								<option value="기타">기타</option>
 			   				 </select>		
-						     <select id="doc_kind" name="doc_kind" class="form-control" style="width:200px; display:inline-block;">
+						     <select name="doc_kind" class="form-control" style="width:200px; display:inline-block;">
 								<option value="개">개</option>
 								<option value="고양이">고양이</option>
 								<option value="기타">기타</option>
@@ -1013,8 +1012,7 @@ select, input, button, textarea {
 						
 						<div class="">
 							<span class="option_lable">나이</span>
-							<input type="text" name="doc_age" class="form-control" style="width:200px; display:inline-block;"
-									value="${payang.doc_age }" /> <br>
+							<input type="text" name="doc_age" class="form-control" style="width:200px; display:inline-block;" /> <br>
 						</div>
 					
 						<div class="">
@@ -1026,12 +1024,61 @@ select, input, button, textarea {
 								<option value="강남구">강남구</option>
 			   				 </select> 
 			   				 <br>
-			   				 <input type="text" name="doc_address" class="form-control" style="width:600px; display:inline-block; margin: 10px 50px 0px;"
-			   				 		value="${payang.doc_address}" />	
+			   				 <input type="text" name="doc_address" class="form-control" style="width:600px; display:inline-block; margin: 10px 50px 0px;" />	
 						</div>
 					
 					</div>
-					 <textarea id="summernote" name="doc_content">${payang.doc_content}</textarea>
+				<%--
+					<input type="hidden" name="email" />
+					<table>
+						<tr>
+							<td>제목</td>
+							<td><input type="text" name="doc_subject"  /></td>
+						</tr>
+						<tr>
+							<td>작성자</td>
+							<td><input type="text" name="doc_nick"  /></td>
+						</tr>
+						<tr>
+							<td>정보</td>
+							<td>
+								이름 : <input type="text" name="doc_name" /> <br>
+								성별 : <input id="male" type="radio" name="doc_gender" value="남" /> <label for="male">남</label>
+									 <input id="female" type="radio" name="doc_gender" value="여" /> <label for="female">여</label>
+									 <br>
+								축종 : <select name="doc_big_name" >
+										<option value="개">개</option>
+										<option value="고양이">고양이</option>
+										<option value="기타">기타</option>
+					   				 </select>		
+								     <select name="doc_kind" >
+										<option value="개">개</option>
+										<option value="고양이">고양이</option>
+										<option value="기타">기타</option>
+					   				 </select>		
+					   				 <br>
+					   			나이 : <input type="text" name="doc_age" /> <br>
+					   			지역 : <select name="doc_sido" >
+										<option value="서울">서울</option>
+					   				 </select> 
+					   				 <select name="doc_sigungu" >
+										<option value="강남구">강남구</option>
+					   				 </select> 
+					   				 <br>
+					   				 <input type="text" name="doc_address" /> <br>	
+							</td>
+						</tr>
+						<tr>
+							<td>Content</td>
+							<td>
+								<div class="SmartEditor">
+									<textarea id="summernote" name="doc_content" rows="10" cols="150" ></textarea>
+								</div>
+							</td>
+						</tr>
+					</table>
+				 --%>
+					 <textarea id="summernote" name="doc_content"></textarea>
 					
 					<div class="btn-box">
 						<input type="submit" value="등록" class="btn btn-sm" />
@@ -1068,28 +1115,6 @@ select, input, button, textarea {
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script> -->
 <script>
 	$(document).ready(function(){
-		
-		// 성별, 축종, 지역 초기화
-		var doc_gender = "${payang.doc_gender}";
-		var doc_big_name = "${payang.doc_big_name}";
-		var doc_kind = "${payang.doc_kind}";
-		var doc_sido = "${payang.doc_sido}";
-		var doc_sigungu = "${payang.doc_sigungu}";
-		
-		if( doc_gender == '남' )	$("#male").attr("checked", "checked");
-		if( doc_gender == '여' )	$("#female").attr("checked", "checked");
-		
-		$("#doc_big_name option[value='" + doc_big_name + "']").attr("selected","selected");
-		$("#doc_kind option[value='" + doc_kind + "']").attr("selected","selected");
-		$("#doc_sido option[value='" + doc_sido + "']").attr("selected","selected");
-		$("#doc_sigungu option[value='" + doc_sigungu + "']").attr("selected","selected");
-		
-		
-		
-		
-		
-		
-		
 		$('#login').on('click', function(e){
 		      $('#logout').show();
 			  $('#mypage').show();
@@ -1105,7 +1130,7 @@ select, input, button, textarea {
 		});//헤더 상단 로그아웃 체인지
 		
 		$('#btnCancel').on('click', function(){
-			location.href = "/samsam/SJ/payang/list";
+			location.href = "/samsam/SJ/missing/list";
 		});
 		
 		
@@ -1144,24 +1169,27 @@ select, input, button, textarea {
 		
 	}); 
 	
-	// 파일업로드
+
+
 	function sendFile(file, el) {
-	       var form_data = new FormData();
-	       form_data.append('file', file);
-	   
-	       $.ajax({
-	         data: form_data,
-	         type: "post",
-	         url: 'image.bo',
-	         cache: false,
-	         contentType: false,
-	         enctype: 'multipart/form-data',
-	         processData: false,
-	         success: function(url) {
-	               $(el).summernote('editor.insertImage', url);
-	         }
-	       });
-	     }
+	    var form_data = new FormData();
+	    form_data.append('file', file);
+		
+	    $.ajax({
+	      
+	      data: form_data,
+	      type: "post",
+	      url: '${pageContext.request.contextPath}/SJ/missing/send_image',
+	      cache: false,
+	      contentType: false,
+	      enctype: 'multipart/form-data',
+	      processData: false,
+	      success: function(url) {
+	     		 $(el).summernote('editor.insertImage', url);
+	     		 
+	      }
+	    });
+	}
 
 </script>
 

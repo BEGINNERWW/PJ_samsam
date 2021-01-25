@@ -13,13 +13,19 @@ public interface PayangService {
 	public void register(PayangVO payang) throws Exception;
 	
 	// 게시글 읽기
-	public PayangVO read(Integer p_no) throws Exception;
+	public PayangVO read(Integer doc_no) throws Exception;
 	
 	// 게시글 수정
 	public void modify(PayangVO payang) throws Exception;
 	
 	// 게시글 삭제
-	public void remove(Integer p_no) throws Exception;
+	public void remove(Integer doc_no) throws Exception;
+	
+	// 댓글 쓰기
+	public int replyRegister(PayangReplyVO reply) throws Exception;
+	
+	// 댓글 목록 조회
+	public List<PayangReplyVO> replyList(Integer doc_no) throws Exception;
 	
 	
 }

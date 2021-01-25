@@ -1,19 +1,15 @@
 package com.project.samsam.api;
 
 public class Sigungu {
-	private Integer sigunguCode;
-	private String sigunguNm;
-	
-	public Sigungu(Integer sigunguCode, String sigunguNm) {
-		this.sigunguCode = sigunguCode;
-		this.sigunguNm = sigunguNm;
-	}
+	private String sigunguCode; // 시군구코드
+	private String sigunguNm; // 시군구명
+	private String uprCd; // 상위분류코드
 
-	public Integer getSigunguCode() {
+	public String getSigunguCode() {
 		return sigunguCode;
 	}
 
-	public void setSigunguCode(Integer sigunguCode) {
+	public void setSigunguCode(String sigunguCode) {
 		this.sigunguCode = sigunguCode;
 	}
 
@@ -23,5 +19,13 @@ public class Sigungu {
 
 	public void setSigunguNm(String sigunguNm) {
 		this.sigunguNm = sigunguNm;
+	}
+
+	public String getUprCd() {
+		return uprCd;
+	}
+
+	public void setUprCd(String uprCd) {
+		this.uprCd = uprCd;
 	}
 }

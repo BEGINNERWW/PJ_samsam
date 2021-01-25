@@ -1,16 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
 <%@ page import="java.util.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>보호소</title>
+  <title>실종게시판</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <!-- 템플릿  CSS -->
 
-<link rel="stylesheet" href="./resources/fonts/icomoon/style.css">
+<link rel="stylesheet" href="../../resources/fonts/icomoon/style.css">
 
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
@@ -20,74 +21,61 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
 
 <!-- 부트스트랩 4.0 CSS -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	
-<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>  -->
-
-<!-- include libraries(jQuery, bootstrap) -->
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-
-<!-- include summernote css/js-->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
-
-<!-- modal -->
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <style>
 
 @charset "utf-8";
-
 * {
-   margin:0;
-   padding: 0;
+	margin:0;
+	padding: 0;
 }
 html{
-   margin:0 auto;
-   width : 100%;
-   height: 100%;
-    overflow: auto;
-}
-
-
-body {
-   margin: 0;
-   height: auto;
-    min-height : 600px;
-    box-sizing : content-box;
-   line-height: 1.7;
-    color: gray;
-      font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 300;
-    font-size: .9rem;
-}
-
-
-a{
-   text-decoration : none;
-   color : #9494b8;
+	margin:0 auto;
+	width : 100%;
+	height: 100%;
+    overflow: hidden;
 }
 a:hover {
     color: #0056b3;
     text-decoration: none;
 }
-
 body {
-   text-align: -webkit-center;
-   display : flex;
-   flex-direction : column;
-   justify-content : space-between;
+	margin: 0;
+	height: 100vh;
+    min-height : 600px;
+    box-sizing : content-box;
+	line-height: 1.7;
+    color: gray;
+   	font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    font-size: .9rem;
+   
 }
 
-.body_content{
-     margin : 0;
-     padding : 0;
-     width : 100%;
-     height:100vh;
-    display : flex;
-    flex-direction : column;
+
+a{
+	text-decoration : none;
+	color : #9494b8;
+}
+
+body {
+	text-align: -webkit-center;
+}
+
+.body_content {
+	margin: 0;
+	height: 100vh;
+    min-height : 600px;
+    box-sizing : content-box;
+	line-height: 1.7;
+    color: gray;
+   	font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    font-size: .9rem;
+    overflow:scroll;
 }
 
 #header {
@@ -97,79 +85,68 @@ body {
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid #efefef;
-    padding-bottom: 18px;
-    background-color : #fff;
-    position : fixed;
-    z-index : 10000;
-    top : 0;
-    left : 0;
-    right : 0;
+    padding-bottom: 20px;
+}
+.inout_gocen{
+	position: fixed; 
+	top : 20px;
+	right : 390px;
 }
 
-.inout_gocen{
-   position : inline;
-   display : flex;
-   justify-content : flex-end;
-   margin-top : 20px;
-   margin-right : 340px;
-   background-color : #fff;
-}
-.fixinner{
-   position: fixed; 
-}
 .header-top {
-   margin-top : -10px;
-   display : flex;
-   justify-content : flex-start;
-   margin-right: auto;
+	margin-top : 40px;
+	display : flex;
+	justify-content : flex-start;
+	margin-right: auto;
 }
 .header_btn{
-   width : 70px;
-   height : 30px;
-   background-color : #fff;
-   color : #9494b8;
+	width : 70px;
+	height : 30px;
+	background-color : #fff;
+	color : #9494b8;
     border-radius: 5px;
     border : none;
     outline : 0;
 }
 .header_btn:hover{
-   color : #6200cc;
-   font-weight: 700;
+	color : #6200cc;
+	font-weight: 700;
 }
 #logout, #mypage{
-   display : none;
+	display : none;
 }
 .img-circle{
-   width : 450px;
-   height : 150px;
-   display: block;
-   margin : 0 auto;
+	width : 450px;
+	height : 150px;
+	display: block;
+	margin : 0 auto;
 }
 .nav-menu{
-   margin : 0 auto;
-   display : flex;
-   justify-content : space-around;
-   align-items: baseline;
-   width: 1200px;
+	margin : 0 auto;
+	display : flex;
+	justify-content : space-around;
+	align-items: baseline;
+	width: 1200px;
 }
 .sticky-wrapper{
-   width: 400px;
-   height: 50px;
-   margin : 0;
-   margin-left: 0;
-     position: sticky;
-     list-style : none;
+	width: 400px;
+	height: 50px;
+	margin : 0;
+	margin-left: 0;
+  	position: sticky;
+  	list-style : none;
     display : flex;
     padding: 0;
+    line-height:1.6;
 }
 
 .sticky-wrapper > li{
-   padding : 8px 8px;
-   list-style-type:none;
-   float: left;
+	padding : 8px 8px;
+	list-style-type:none;
+	float: left;
 }
 .sticky-wrapper > ul{
-   padding : 8px 8px;
+	padding : 8px 8px;
 }
 
 li.dropdown {
@@ -182,46 +159,28 @@ li.dropdown {
 }
 
 .sticky-wrapper.active{
-   position: fixed;
+	position: fixed;
     top: 0px;
 }
 
 /* dropdown */
-.dropdown-menu {
-   display: none;
-      justify-content : flex-start;
-   position: absolute;
-   list-style : none;
+.dropdown-menu{
+	display: none;
+   	justify-content : flex-start;
+	position: absolute;
+	list-style : none;
     visibility: visible;
-    background-color: #fff;
-   width: 1200px;
-   top : 48px;
-   margin-left : -30px;
-   border: none;
-   border-top: 1px solid #efefef;
+    background-color: rgb(0,0,0,0);
+	width: 350px;
+	top : 48px;
+	padding: 5px;
+	border: none;
 }
-
-.board {
-	padding-left: 46px;
-}
-.care {
-	padding-left: 30px;
-}
-.commu {
-	padding-left: 35px;
-}
-
-li.dropdown > a {
-    text-decoration: none;
-}
-
 .dropdown-menu li{
-   margin-right : 40px;
+	margin-right : 40px;
 }
-.dropdown:hover .dropdown-menu { 
-   display: flex; 
-   visibility: visible; 
-}
+.dropdown:hover .dropdown-menu { display: flex; visibility: visible;}
+
 
 /* search-wrapper */
 .search-wrapper {
@@ -235,10 +194,20 @@ li.dropdown > a {
   border-radius: 10px;
 }
 .search-box {
+  color: #9494b8;
+  text-align: left;
   height : 100%;
   padding: 0;
   border: none;
   background: #fff;
+  display: inline-block;
+  font-weight: 400;
+  white-space: nowrap;
+  vertical-align: middle;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: .25rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 .search-box.input {
   width : 80%;
@@ -254,40 +223,46 @@ li.dropdown > a {
 
 /* search-wrqpper */
 
-.main-content{
-   width : 100%;
-   height : auto;
-   margin : 0 auto;
+
+
+/* footer */
+#footer {
+	position: relative;
+    margin: -15px auto;
+    width: 100%;
+    bottom: 0px;
+    padding-bottom:10px;
+    padding-top: 35px;
+    z-index: -1;
+    border-top: 1px solid #efefef;
+    
 }
-
-
 p{
-   text-align : center;
+	text-align : center;
 }
 .fa-heart{
-   color : red;
+	color : red;
 }
 
 /* pageup button */
 .back-to-top{
-   width : 40px;
-   height : 40px;
-   margin : 0 auto;
-   font-size : 24px;
-   color : white;
-   background-color : #149DDD;
-   border-radius : 50%;
-   visibility : visible;
-   position: fixed; 
-   bottom: 45px; 
-   right: 30px;
-   text-align : center;
+	width : 40px;
+	height : 40px;
+	margin : 0 auto;
+	font-size : 24px;
+	color : white;
+	background-color : #149DDD;
+	border-radius : 50%;
+	visibility : visible;
+	position: fixed; 
+	bottom: 45px; 
+	right: 30px;
+	text-align : center;
 }
 /* pageup button */
 *, ::after, ::before {
     box-sizing: border-box;
 }
-
 
 /*카카오톡 톡상담*/
 .kakaoChat {
@@ -296,6 +271,7 @@ p{
     margin-right: 28px;
     bottom: 90px;
     right: 0;
+
 }
 .kakao_btn {
 	border-radius: 1rem!important;
@@ -303,56 +279,45 @@ p{
 
 /* side menu와 내용 묶음 */
 .content-wrap {
-	width: 1200px;
-	min-height: 100%;
-	margin: 0 auto;
-	position: relative;
-	top: 50px;
-	
-}
-/* side menu 틀*/
-.sidemenu-section {
-    width: 200px;
-    font-size: 18px;
-    text-align: left;
-    min-height: 740px;
-    border-right-color: darkblue;
-    border-right: 1px solid #efefef;
-    padding: 0px 0px 0 0;
-    margin-left: 0;
-    margin-top: 210px;
-    position: fixed;
+    width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    top: 50px;
+    overflow: visible;
+    margin-bottom: 100px;
+
 }
 
+
+/* side menu 틀*/
+.sidemenu-section {
+  width: 200px;
+	position: absolute;
+	font-size: 18px;
+	text-align: left;
+	height: 100%;
+	padding: 0px 0px 0 0;
+	margin-left: 0;
+}
 
 /* 내용 틀*/
 .content-section {
-    width: 1001px;
-    height: max-content;
-    position: relative;
-    left: 100px;
-    text-align: left;
-    font-size: 14px;
-    margin-top: 0px;
-    color: black;
-    margin-left: 0;
-    padding-bottom: 100px;
-    border-left-color: darkblue;
-    border-left: 1px solid #efefef;
-    padding-left: 50px;
-    padding-right: 0;
-    min-height: 940px;
-    padding-top: 200px;
-}
-
-#footer {
-    margin: 0 auto;
-    width: fit-content;
-    bottom: 20px;
-    position: relative;
+	width: 1000px;
+	position: relative;
+	left: 200px;
+	text-align: left;
+	font-size: 14px;
+	margin-top: 3px;
+	color: black;
+	padding-left: 50px;
+	border-left: 1px solid #efefef;
 }
 
 /* 각각의 페이지에서 사용할 CSS */
+.list-group{
+	margin-block-start: 0;
+	line-height:1.6;
+}
 .list-group-item {
     position: relative;
     display: block;
@@ -558,7 +523,6 @@ select, input, button, textarea {
     width: 110px;
     margin-left: 10px;
 }
-/*
 .btn.btn-sm {
     min-width: 110px;
     height: 38px;
@@ -594,7 +558,6 @@ select, input, button, textarea {
     font-size: 14px;
     letter-spacing: -.7px;
 }
-*/
 .prod-category-smart-search .smart-search-result .keyword-wrap .title-box {
     width: 260px;
 }
@@ -604,7 +567,7 @@ select, input, button, textarea {
     margin: 0 auto;
     width: 18px;
     height: 15px;
-    background: url(./resources/images/m_merged.png) 0 0 no-repeat;
+    background: url(../../resources/img/m_merged.png) 0 0 no-repeat;
    
 }
 .prod-category-smart-search.active .smart-search-toggle:after {
@@ -1065,7 +1028,7 @@ ol, ul {
     height: 20px;
     margin-left: 8px;
     border: 1px solid #e5e5e5;
-    background: url(./resources/images/free-icon-x-mark-482641.png) center no-repeat;
+    background: url(../../resources/img/free-icon-x-mark-482641.png) center no-repeat;
     vertical-align: top;
 }
 .btn-filter-del{
@@ -1091,11 +1054,9 @@ ol, ul {
 	
 	padding:15px 15px;
 }
-.list_wrap{
-	border:1px solid #ededed;
-}
+
 .comment_icon{
-	 background: url(./resources/images/free-icon-speech-bubble-2462719.png) center no-repeat;
+	 background: url(../../resources/img/free-icon-speech-bubble-2462719.png) center no-repeat;
 
 	 display: inline-block;
     width: 16px;
@@ -1103,7 +1064,7 @@ ol, ul {
    
 }
 .recount_icon{
-	background: url(./resources/images/free-icon-eye-660022.png) center no-repeat;
+	background: url(../../resources/img/free-icon-eye-660022.png) center no-repeat;
 
 	 display: inline-block;
     width: 16px;
@@ -1129,6 +1090,8 @@ ol, ul {
     background-size: cover;
     background-position: center;
     width: 30%;
+    border: 1px solid #CCC;
+    box-sizing: border-box;
    
 }
 .order-md-2 {
@@ -1161,450 +1124,23 @@ ol, ul {
 }
 .post-entry-1, .post-entry-2 {
     font-size: .9rem;
-    margin-bottom: 30px;
+    margin-bottom: 18px;
+    padding-bottom:18px;
+    border-bottom: 1px solid #efefef;
 }
-
-
-/*  */
-.btn-box {
-	text-align : center;
-	padding: 20px;
+.tag{
+	
+	
+	color:#5c5c8a;
 }
-
-
-/* summernote */
-.FlexableTextArea .textarea_input {
-    display: block;
-    width: 100%;
-    min-height: 40px;
-    padding: 11px 12px 10px;
-    border: 1px solid #ebecef;
-    box-sizing: border-box;
-    overflow: hidden;
-    resize: none;
-    word-break: break-all;
-    font-size: 15px;
-    letter-spacing: -.23px;
-    line-height: 17px;
-    outline: none;
-}
-
-.SmartEditor {
-    margin-top: 12px;
-    border: 1px solid #ebecef;
-    border-bottom: 0;
-    background: #fff;
-}
-
-
-.SmartEditor button {
-	
-}
-	.tab-left, .tab-right {
-		display: inline-block;
-	    border: 1px solid black;
-	    padding: 10px 20px;
-	    width: 50%;
-	    box-sizing: border-box;
-	    position: relative;
-	    text-align: center;
-	    cursor: pointer;
-	}
-	
-	.tab-left {
-		float: left;
-	}
-	
-	.tab-right {
-		float: right;
-	}
-
-
-	.`-search-option {
-	    clear: both;
-	    height: 65px;
-	    text-align: center;
-		border: 1px solid black;
-	}
-	
-	.pet-search-option div {
-		padding: 20px;
-	}
-	
-	.pet-search-option .condition {
-		position: absolute;
-	    right: 0;
-		cursor: pointer;
-	}
-	
-	
-	
-	
-	/* model */
-	.modal-container{
-		
-	}
-	
-	.w3-modal {
-		padding-top: 300px;
-		z-index: 20000;
-	}
-	
-	
-	@media (min-width: 993px){
-		.w3-modal-content {
-			width: 600px;
-		}
-		
-		.w3-container, .w3-panel {
-			padding: 3.01em 16px;
-		}
-	}
-	
-	.condition-header {
-		text-align: center;
-	    padding: 20px;
-	    font-size: 24px;
-	    font-weight: bold;
-	    margin-bottom: 25px;
-	}
-	
-	.condition-btn {
-		background: #2F9D27;
-	    text-align: center;
-	    padding: 20px;
-	    font-size: 20px;
-	    color: white;
-	    cursor: pointer;
-    }
-
-	/* 펫 리스트 */
-	.pet-empty {
-	    border: 1px solid black;
-	    padding: 10px;
-	    text-align: center;
-	}
-	
-	
-	.pet-box {
-	    border: 1px solid black;
-    	height: 245px;
-    	cursor: pointer;
-	}
-	
-	.pet-img {
-		padding:  20px;
-		float: left;
-	}
-	
-	
-	.pet-box .pet-img, .pet-box .pet-content {
-		display: inline-block;
-	}
-	
-	.pet-box .pet-img img {
-		width: 350px;
-		height: 200px;
-	}
-	
-	.pet-content {
-		padding: 20px;
-	}
-	
-	.pet-content span {
-		display: block;
-		padding: 8px 3px;
-	}
-	
-	
-	.select-box  {
-		display: inline;
-	}
-	
-	.select-box select {
-		width: 160px;
-	}
-	
-	.pet-search-option div {
-		display: inline-block;
-		
-	} 
-	<!--보호소 리스트 -->
-	.shelter-box{
-		display: inline-block;
-	}
-	
-	<!-- 유기동물 상세정보 -->
-	.animal-box {
-		width: 100%;
-	    height: 400px;
-	    padding: 20px;
-	    border: 1px solid black;
-	}
-	
-	.animal-box img {
-		height: 360px;
-		max-width: 400px;
-	}
-	
-	.box-left {
-		float: left;
-	    width: 50%;
-		height: 360px;
-/* 	    border: 1px solid lightgreen; */
-	    text-align: center;
-		height: 360px;
-	}
-	
-	.box-right {
-		float: right;
-	    width: 50%;
-		height: 360px;
-/* 	    border: 1px solid lightgreen; */
-	}
-	
-	.animal-box-title {
-		font-size : 24px;
-		padding: 5px 10px;
-	}
-	
-	.animal-box-subtitle {
-		font-size : 18px;
-		padding: 5px 10px;
-		margin-bottom: 5px;
-	}
 
 </style>
 </head>
-<script type="text/javascript">
-	
-	// 시/도 코드
-	sidoCode = 0;
-	// 상위축종 코드
-	upKindCode = 0;
-	
-	//
-	bgnde = '', endde = '';
-	sido = '', siGunGu = '';
-	upKind = '', kind = '';
-	
-	// 유기동물 상세정보
-	age  = '';
-	careAddr = '';
-	careNm = '';
-	careTel = '';
-	chargeNm = '';
-	colorCd = '';
-	desertionNo = '';
-	filename = '';
-	happenDt = '';
-	happenPlace = '';
-	kindCd = '';			
-	neuterYn = '';
-	noticeEdt = '';
-	noticeNo = '';
-	noticeSdt = '';
-	officetel = '';
-	orgNm = '';
-	popfile = '';
-	processState = '';
-	sexCd = '';
-	specialMark = '';
-	weight = '';
-	
-	$(document).ready(function(){
-		console.log("ready!!!");
-		
-		// 시도 변경 시, 이벤트
-		$('#sido').on('change', function() {
-			sidoCode = $("#sido").val();
-			console.log(sidoCode);
-			
-			getSiGunGu();
-			
-		});
-		
-		
-		// 축종 변경 시, 이벤트
-		$('#upKind').on('change', function() {
-			upKindCode = $("#upKind").val();
-			console.log(upKindCode);
-			
-			getKind();
-			
-		});
-		
-		
-		// 검색 조건 클릭 이벤트
-		$('#condition').on('click',function() {
-			$('#modal').show();
-		});
-		
-		// 검색하기 클릭 이벤트
-		$('#condition-btn').on('click', function() {
-			bgnde = $('#bgnde').val();
-			endde = $('#endde').val();
-			sido = $('#sido').val();
-			siGunGu = $('#sigungu').val();
-			upKind = $('#upKind').val();
-			kind = $('#kind').val();
-			
-			console.log(bgnde + "," + endde+ "," + sido+ "," + siGunGu+ "," + upKind+ "," + kind)
-			
-			getAbandonment();			
-			
-		});
-		
-		$('.pet-box').on('click', function() {
-			var box = $(this);
-			var content = box.children(".pet-content");
-			var hidden = box.children(".pet-hidden");
-			
-			console.log(content);
-			console.log(hidden);
-			
-			kindCd = content.children(".animal-kindCd").text() ;
-			sexCd = content.children(".animal-sexCd").text() ;
-			happenDt = content.children(".animal-happenDt").text() ;
-			orgNm = content.children(".animal-orgNm").text() ;
-			happenPlace = content.children(".animal-happenPlace").text() ;
-			
-			
-			age = hidden.children(".animal-age").text() ;
-			careAddr = hidden.children(".animal-careAddr").text() ;
-			careNm = hidden.children(".animal-careNm").text() ;
-			careTel = hidden.children(".animal-careTel").text() ;
-			chargeNm = hidden.children(".animal-chargeNm").text() ;
-			colorCd = hidden.children(".animal-colorCd").text() ;
-			desertionNo = hidden.children(".animal-desertionNo").text() ;
-			neuterYn = hidden.children(".animal-neuterYn").text() ;
-			noticeEdt = hidden.children(".animal-noticeEdt").text() ;
-			noticeNo = hidden.children(".animal-noticeNo").text() ;
-			noticeSdt = hidden.children(".animal-noticeSdt").text() ;
-			officetel = hidden.children(".animal-officetel").text() ;
-			popfile = hidden.children(".animal-popfile").text() ;
-			processState = hidden.children(".animal-processState").text() ;
-			specialMark = hidden.children(".animal-specialMark").text() ;
-			weight = hidden.children(".animal-weight").text() ;
-			
-			location.href = "/samsam/SJ/pet_detail?"
-					+ "kindCd=" + kindCd
-					+ "&sexCd=" + sexCd
-					+ "&happenDt=" + happenDt
-					+ "&orgNm=" + orgNm
-					+ "&age=" + age
-					+ "&careAddr=" + careAddr
-					+ "&careNm=" + careNm
-					+ "&careTel=" + careTel
-					+ "&chargeNm=" + chargeNm
-					+ "&colorCd=" + colorCd
-					+ "&desertionNo=" + desertionNo
-					+ "&neuterYn=" + neuterYn
-					+ "&noticeEdt=" + noticeEdt
-					+ "&noticeNo=" + noticeNo
-					+ "&noticeSdt=" + noticeSdt
-					+ "&officetel=" + officetel
-					+ "&popfile=" + popfile
-					+ "&processState=" + processState
-					+ "&specialMark=" + specialMark
-					+ "&weight=" + weight;
-			
-		});
-		
-		
-	});
-	
-	// 시군구 가져오기
-	function getSiGunGu() {
-		
-		$.ajax({
-			type: "POST"
-			, url: "/samsam/SJ/SiGunGu"
-			, data: {
-				  sidoCode: sidoCode,
-				  requestType : '01'
-				}  
-			 , dataType: "html"
-			, success: function( data ){
-				console.log(data);
-				$('#sigungu-select').empty();
-				$('#sigungu-select').append(data);
-				
-			}	
-			, error: function(request, status, error){
-				alert("code : " + request.status + "\n" + "message : " + request.responseText + "\n" + "error : " + error);
-				console.log("실패"); 
-			}
-		});
-		
-	}
-	
-	// 축종 가져오기
-	function getKind() {
-		
-		$.ajax({
-			type: "POST"
-			, url: "/samsam/SJ/animalKind"
-			, data: {
-					upKindCode: upKindCode
-				}  
-			 , dataType: "html"
-			, success: function( data ){
-				console.log(data);
-				$('#kind-select').empty();
-				$('#kind-select').append(data);
-			}	
-			, error: function(request, status, error){
-				alert("code : " + request.status + "\n" + "message : " + request.responseText + "\n" + "error : " + error);
-				console.log("실패"); 
-			}
-		});
-		
-	}
-	
-	// 유기동물 정보 가져오기
-	function getAbandonment() {
-		
-		$.ajax({
-			type: "POST"
-			, url: "/samsam/SJ/animalInfoList"
-			, data: {
-				bgnde : bgnde,
-				endde : endde,
-				sido : sido,
-				siGunGu : siGunGu,
-				upKind : upKind,
-				kind : kind 
-				}  
-			, dataType: "html"
-			, success: function( data ){
-				// 동물리스트 초기화
-				$('.pet-list').empty();
-				
-				// 동물리스트 추가
-				$('.pet-list').append(data);
-				
-				console.log(data);
-				
-				// 모달 종료
-				$('#modal').hide();
-			}	
-			, error: function(request, status, error){
-				alert("code : " + request.status + "\n" + "message : " + request.responseText + "\n" + "error : " + error);
-				console.log("실패"); 
-			}
-		});
-		
-	}
-	
-	
-</script>
-
 <body>
-<div class="body_content">
-<header id="header">
+<div class ="body_content">
+<header id = "header">
 
-	<div class="inout_gocen">
+	<div class ="inout_gocen">
 			<input type="button" class= "header_btn" id="login" value="로그인">
 			<input type="button" class= "header_btn" id="logout" value="로그아웃">
 			<input type="button" class= "header_btn" id="signin" value="회원가입">
@@ -1651,122 +1187,76 @@ ol, ul {
 		<div class="main-content">
 			<div class="content-wrap">
 			
-			
 			<!-- 왼쪽. 서브메뉴가 들어갈 부분 -->
 			<div class="sidemenu-section">
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
-				</ul>
-				</div>
-				
-				
-				<!-- 오른쪽. 내용이 들어갈 부분 -->
-				<div class="content-section">
-					
-					<div class="animal-box" style="width: 100%;    height: 400px;    padding: 20px;    border: 1px solid black;">
-						<div class="box-left">
-							<img src="${animalInfo.popfile}" alt=""  />
-						</div>
-						<div class="box-right">
-							<div class="animal-box-title">
-								${animalInfo.kindCd}
-							</div>
-							<div class="animal-box-subtitle">
-								성별/${animalInfo.sexCd}
-								중성화여부/${animalInfo.neuterYn}
-								색/${animalInfo.colorCd}
-								체중/${animalInfo.weight}
-							</div>
-							<div>
-								<table>
-									<tr>
-										<th>공고번호 : </th>
-										<td>
-											${animalInfo.noticeNo}
-										</td>
-									</tr>
-									<tr>
-										<th>공고기간 : </th>
-										<td>
-											${animalInfo.noticeSdt} ~
-											${animalInfo.noticeEdt}
-										</td>
-									</tr>
-									<tr>
-										<th>발견장소 : </th>
-										<td>
-											${animalInfo.happenPlace}
-										</td>
-									</tr>
-									<tr>
-										<th>특이사항 : </th>
-										<td>
-											${animalInfo.specialMark}
-										</td>
-									</tr>
-									<tr>
-										<th>보호센터 : </th>
-										<td>
-											${animalInfo.careNm}
-										</td>
-									</tr>
-									<tr>
-										<th>담당부서 : </th>
-										<td>
-											${animalInfo.orgNm}
-										</td>
-									</tr>
-	
-								</table>
-							</div>							
-								
-						</div>
-					</div>
-					<div class="shelter-box" style="width: 100%;    height: 400px;    padding: 20px;">
-					<table>
-									<tr>
-										<th>보호센터 전화번호 : </th>
-										<td>
-											${animalInfo.careTel}
-										</td>
-									</tr>
-									<tr>
-										<th>담당자 이름 : </th>
-										<td>
-											${animalInfo.chargeNm}
-										</td>
-									</tr>
-									<tr>
-										<th>담당자 전화번호 : </th>
-										<td>
-											${animalInfo.officetel}
-										</td>
-									</tr>
-									<tr>
-										<th>공고 상태 : </th>
-										<td>
-											${animalInfo.processState}
-										</td>
-										
-										
-									</tr>
-					 </table>
-					</div>
-					
-				
-				</div>				
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
+				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
+				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
+			</ul>
 			</div>
-	</div>
-</div>
+			
+			<!-- 오른쪽. 내용이 들어갈 부분 -->
+			<div class="content-section">
+					 <div style="margin-top:20px;">
+				          <div class="col-lg-12">
+				            <div class="section-title">
+				              <span class="caption d-block small">Categories</span>
+				              <h2>실종</h2>
+				            </div>
+				            <div class="list_wrap">
+				            <div class="list_content">
+				          	<%-- --%>
+				          	<c:if test="${empty list}">
+								<div class="post-entry-2 d-flex">
+									<center><span>조회된 데이터가 없습니다.</span></center>
+								</div>
+							</c:if>
+				          	<c:forEach var="board" items="${list}" varStatus="status">
+				          	
+				            <div class="post-entry-2 d-flex">
+				              <div class="thumbnail order-md-2" style="background-image: url('${board.thumbnail}');"></div>
+				              <div class="contents order-md-1 pl-0">
+				               
+				                <h2><a class="a_1" href="/samsam/SJ/missing/read?doc_no=${board.doc_no}">${board.doc_subject}</a></h2>
+				                <p class="mb-3 tag">#${board.doc_big_name} #${board.doc_sido} #${board.doc_age}</p>
+				                <div class="post-meta">
+				                  <span class="d-block"><a class="a_1" href="#">${board.doc_nick}</a></span>
+				                  <span class="date-read">
+				                  	<%-- 여기를 참고해서 게시글 상세의 날짜 포멧 지정하기 --%>
+				                  	<fmt:formatDate value="${board.doc_date}" pattern="yy/MM/dd"/>
+				                  </span>
+				                  <span class="detail-read">&nbsp;&nbsp;&nbsp;&nbsp;
+				                  <span class="recount_icon"></span>&nbsp;&nbsp;&nbsp;
+				                  <span class="comment_icon">
+				                  </span>&nbsp;</span>
+				                </div>
+				              </div>
+				            </div>
+				            </c:forEach>
+				            
+				            <%-- --%>
+				            </div>
+				            <div style="text-align: right;">
+				            	<a href="${pageContext.request.contextPath}/SJ/missing/register">
+				            		<button class="btn btn-sm" >글쓰기</button> 
+					            </a>
+				            </div>
+				          </div>
+				       </div>
+			        </div>
+		
+				
+			</div>
+	
+
 
 	<!-- 카카오톡 채널 상담 -->
-	<div class="kakaoChat">
+	<span class="kakaoChat">
 	<a href="javascript:void plusFriendChat()">
     <img src="${pageContext.request.contextPath}/resources/img/kakaolink_btn_medium.png" width="45px" height="45px" class="kakao_btn">
 	</a>
-	</div>
+	</span>
 	
 	<!-- pageup button -->
 	<div class ="back-to-top">
@@ -1785,91 +1275,34 @@ ol, ul {
 
 
 <!-- 제이쿼리 -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 <script>
-	$(document).ready(function(){
-		$('#login').on('click', function(e){
-		      $('#logout').show();
-			  $('#mypage').show();
-			  $('#login').hide();
-			  $('#signin').hide();
-		  });//헤더 상단 로그인 체인지
-		
-		$('#logout').on('click', function(e){
-		       $('#logout').hide();
-			   $('#mypage').hide();
-			   $('#login').show();
-			   $('#signin').show();
-		});//헤더 상단 로그아웃 체인지
-		
-		$('#btnCancel').on('click', function(){
-			location.href = "/samsam/SJ/payang/list";
-		});
-		
-		
-		// summernote
-		$('#summernote').summernote({
-		       toolbar: [
-		            // [groupName, [list of button]]
-		            ['fontname', ['fontname']],
-		            ['fontsize', ['fontsize']],
-		            ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-		            ['color', ['forecolor','color']],
-		            ['table', ['table']],
-		            ['para', ['ul', 'ol', 'paragraph']],
-		            ['height', ['height']],
-		            ['insert',['picture','link','video']],
-		            ['view', ['fullscreen', 'help']]
-		          ],
-		        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
-		        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
-		        height: 300,                 // 에디터 높이
-		        minHeight: null,             // 최소 높이
-		        maxHeight: null,             // 최대 높이
-		        focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-		        lang: "ko-KR",               // 한글 설정
-		        placeholder: '최대 2048자까지 쓸 수 있습니다',   //placeholder 설정
-		          callbacks: {
-		               onImageUpload: function(files, editor, welEditable) {
-		                     for (var i = files.length - 1; i >= 0; i--) {
-		                        sendFile(files[i], this);
-		                     }
-		                 }
-		            }
-		          
-		});
-		
-		
-	}); 
-	
-	// 파일업로드
-	function sendFile(file, el) {
-	       var form_data = new FormData();
-	       form_data.append('file', file);
-	   
-	       $.ajax({
-	         data: form_data,
-	         type: "post",
-	         url: 'image.bo',
-	         cache: false,
-	         contentType: false,
-	         enctype: 'multipart/form-data',
-	         processData: false,
-	         success: function(url) {
-	               $(el).summernote('editor.insertImage', url);
-	         }
-	       });
-	     }
+$(document).ready(function(){
+	$('#login').on('click', function(e){
+	      $('#logout').show();
+		  $('#mypage').show();
+		  $('#login').hide();
+		  $('#signin').hide();
+	  });
+	}) //헤더 상단 로그인 체인지
 
+	$(document).ready(function(){
+	$('#logout').on('click', function(e){
+	       $('#logout').hide();
+		   $('#mypage').hide();
+		   $('#login').show();
+		   $('#signin').show();
+		});
+	}) //헤더 상단 로그아웃 체인지
 </script>
 
 <!-- 부트스트랩 4.0 js -->
-<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 <!-- 카카오톡 채널 상담 js -->
-<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type='text/javascript'>
   //<![CDATA[
     // 사용할 앱의 JavaScript 키를 설정해 주세요.

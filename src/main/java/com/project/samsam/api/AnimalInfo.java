@@ -4,25 +4,25 @@ public class AnimalInfo {
 	
 	private String age;
 	private String careAddr;
-	private String careNm;
+	private String careNm;			// 보호소 이름
 	private String careTel;
 	private String chargeNm;
 	private String colorCd;
 	private String desertionNo;
 	private String filename;
 	private String happenDt;
-	private String happenPlace;
-	private String kindCd;			
+	private String happenPlace;		// 발견장소
+	private String kindCd;				
 	private String neuterYn;
-	private String noticeEdt;
-	private String noticeNo;
-	private String noticeSdt;
+	private String noticeEdt;		// 공고종료일
+	private String noticeNo;		// 공고번호
+	private String noticeSdt;		// 공고 시작일
 	private String officetel;
 	private String orgNm;
 	private String popfile;
 	private String processState;
 	private String sexCd;
-	private String specialMark;
+	private String specialMark;		// 특이사항
 	private String weight;
 	
 	

@@ -928,23 +928,23 @@ select, input, button, textarea {
 	
 	<div class="nav-menu">
 				<ul class="sticky-wrapper">
-					<li class="dropdown"><a href="main.me">HOME</a></li>
-					<li class="dropdown"><a href="board.me">분양</a>
+					<li class="dropdown"><a href="home.me">HOME</a></li>
+					<li class="dropdown"><a href="home_list.bo">분양</a>
 						<ul class="dropdown-menu">
-							<li><a href="#">&nbsp;&nbsp;가정분양</a></li>
-							<li><a href="#">책임분양</a></li>
-							<li><a href="#">업체분양</a></li>
+							<li><a href="home_list.bo">&nbsp;&nbsp;가정분양</a></li>
+							<li><a href="fdoclist.bo">책임분양</a></li>
+							<li><a href="selladopt_list.bo">업체분양</a></li>
 						</ul></li>
 					<li class="dropdown"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a>
 						<ul class="dropdown-menu">
-					<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
+				<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
+				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
+				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
 						</ul></li>
-					<li class="dropdown"><a href="community.me">커뮤니티</a>
+					<li class="dropdown"><a href="doclist.bo">커뮤니티</a>
 						<ul class="dropdown-menu">
-							<li><a href="#">&nbsp;자유게시판</a></li>
-							<li><a href="#">책임분양인증</a></li>
+							<li><a href="doclist.bo">&nbsp;자유게시판</a></li>
+							<li><a href="auth_fdoc.bo">책임분양인증</a></li>
 						</ul></li>
 				</ul>
 	
@@ -976,19 +976,19 @@ select, input, button, textarea {
 			
 			<!-- 오른쪽. 내용이 들어갈 부분 -->
 			<div class="content-section">
-				<h6>파양게시판 > 수정</h6>
-				<h2>파양을 되도록 지양해주세요.</h2>
+				<h6>실종게시판 > 수정</h6>
+				<h2>가족의 품으로 돌려보내 주세요.</h2>
 				<form id="board" action="register"  method="POST">
 					<input type="text" name="doc_nick" />
 					<input type="text" name="doc_email" />
-<%-- 					<input type="text" name="doc_email" value="<%=email %>" /> --%>
+<%-- 					<input type="text" name="doc_email" value="<%=email %>" /> 세션만넣으면오류가..--%>
 					
-					<textarea name="doc_subject" placeholder="제목을 입력해 주세요." class="textarea_input" style="height: 40px;">${payang.doc_subject}</textarea>
+					<textarea name="doc_subject" placeholder="제목을 입력해 주세요." class="textarea_input" style="height: 40px;">${missing.doc_subject}</textarea>
 					<div class="option_box">
 						<div class="">
 							<span class="option_lable">이름</span>
 							<input type="text" name="doc_name" class="form-control" style="width:200px; display:inline-block;"
-									value="${payang.doc_name}" />
+									value="${missing.doc_name}" />
 	  	            	</div>
 	  	            	
 						<div class="">
@@ -1014,7 +1014,7 @@ select, input, button, textarea {
 						<div class="">
 							<span class="option_lable">나이</span>
 							<input type="text" name="doc_age" class="form-control" style="width:200px; display:inline-block;"
-									value="${payang.doc_age }" /> <br>
+									value="${missing.doc_age }" /> <br>
 						</div>
 					
 						<div class="">
@@ -1027,11 +1027,11 @@ select, input, button, textarea {
 			   				 </select> 
 			   				 <br>
 			   				 <input type="text" name="doc_address" class="form-control" style="width:600px; display:inline-block; margin: 10px 50px 0px;"
-			   				 		value="${payang.doc_address}" />	
+			   				 		value="${missing.doc_address}" />	
 						</div>
 					
 					</div>
-					 <textarea id="summernote" name="doc_content">${payang.doc_content}</textarea>
+					 <textarea id="summernote" name="doc_content">${missing.doc_content}</textarea>
 					
 					<div class="btn-box">
 						<input type="submit" value="등록" class="btn btn-sm" />
@@ -1070,11 +1070,11 @@ select, input, button, textarea {
 	$(document).ready(function(){
 		
 		// 성별, 축종, 지역 초기화
-		var doc_gender = "${payang.doc_gender}";
-		var doc_big_name = "${payang.doc_big_name}";
-		var doc_kind = "${payang.doc_kind}";
-		var doc_sido = "${payang.doc_sido}";
-		var doc_sigungu = "${payang.doc_sigungu}";
+		var doc_gender = "${missing.doc_gender}";
+		var doc_big_name = "${missing.doc_big_name}";
+		var doc_kind = "${missing.doc_kind}";
+		var doc_sido = "${missing.doc_sido}";
+		var doc_sigungu = "${missing.doc_sigungu}";
 		
 		if( doc_gender == '남' )	$("#male").attr("checked", "checked");
 		if( doc_gender == '여' )	$("#female").attr("checked", "checked");
@@ -1105,7 +1105,7 @@ select, input, button, textarea {
 		});//헤더 상단 로그아웃 체인지
 		
 		$('#btnCancel').on('click', function(){
-			location.href = "/samsam/SJ/payang/list";
+			location.href = "/samsam/SJ/missing/list";
 		});
 		
 		
