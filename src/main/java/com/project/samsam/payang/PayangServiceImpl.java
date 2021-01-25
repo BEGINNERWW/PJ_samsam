@@ -30,8 +30,8 @@ public class PayangServiceImpl implements PayangService {
 	}
 
 	@Override
-	public PayangVO read(Integer p_no) throws Exception {
-		return mapper.read(p_no);
+	public PayangVO read(Integer doc_no) throws Exception {
+		return mapper.read(doc_no);
 	}
 
 	@Override
@@ -40,8 +40,16 @@ public class PayangServiceImpl implements PayangService {
 	}
 
 	@Override
-	public void remove(Integer p_no) throws Exception {
-		mapper.delete(p_no);
+	public void remove(Integer doc_no) throws Exception {
+		mapper.delete(doc_no);
+	}
+	@Override
+	public int replyRegister(PayangReplyVO reply) throws Exception {
+		return mapper.replyCreate(reply);
+	}
+	@Override
+	public List<PayangReplyVO> replyList(Integer doc_no) throws Exception {
+		return mapper.replyList(doc_no);
 	}
 
 }

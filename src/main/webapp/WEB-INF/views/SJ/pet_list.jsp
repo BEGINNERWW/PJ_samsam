@@ -1211,6 +1211,11 @@ ol, ul {
 	    cursor: pointer;
 	}
 	
+	.tab-left.on, .tab-right.on {
+		color: #0056b3;
+		font-weight: 700;
+	}
+	
 	.tab-left {
 		float: left;
 	}
@@ -1222,13 +1227,13 @@ ol, ul {
 
 	.pet-search-option {
 	    clear: both;
-	    height: 65px;
+	    height: 100%;
 	    text-align: center;
 		border: 1px solid black;
 	}
 	
 	.pet-search-option div {
-		padding: 20px;
+		padding: 2px 5px;
 	}
 	
 	.pet-search-option .condition {
@@ -1325,11 +1330,19 @@ ol, ul {
 		width: 160px;
 	}
 	
-	.pet-search-option div {
+	.pet-search-option .inline-block {
 		display: inline-block;
 		
-	} 
+	}
 	
+	.pet-search-option input, select {
+		width: 200px;
+    	font-size: 14px;
+	}
+	
+	.pet-search-option table, th, td {
+		border: none !important;
+	}
 
 </style>
 </head>
@@ -1372,6 +1385,11 @@ ol, ul {
 	$(document).ready(function(){
 		console.log("ready!!!");
 		
+		/* 시작 */
+		sidoCode = $("#sido").val();
+		siGunGuCode = $("#sigungu").val();
+		getAnimalInfo(1);
+		
 		// 시도 변경 시, 이벤트
 		$('#sido').on('change', function() {
 			sidoCode = $("#sido").val();
@@ -1412,65 +1430,6 @@ ol, ul {
 			
 		});
 		
-		$('.pet-box').on('click', function() {
-			var box = $(this);
-			var content = box.children(".pet-content");
-			var hidden = box.children(".pet-hidden");
-			
-			console.log(content);
-			console.log(hidden);
-			
-			kindCd = content.children(".animal-kindCd").text() ;
-			sexCd = content.children(".animal-sexCd").text() ;
-			happenDt = content.children(".animal-happenDt").text() ;
-			orgNm = content.children(".animal-orgNm").text() ;
-			happenPlace = content.children(".animal-happenPlace").text() ;
-			
-			
-			age = hidden.children(".animal-age").text() ;
-			careAddr = hidden.children(".animal-careAddr").text() ;
-			careNm = hidden.children(".animal-careNm").text() ;
-			careTel = hidden.children(".animal-careTel").text() ;
-			chargeNm = hidden.children(".animal-chargeNm").text() ;
-			colorCd = hidden.children(".animal-colorCd").text() ;
-			desertionNo = hidden.children(".animal-desertionNo").text() ;
-			neuterYn = hidden.children(".animal-neuterYn").text() ;
-			noticeEdt = hidden.children(".animal-noticeEdt").text() ;
-			noticeNo = hidden.children(".animal-noticeNo").text() ;
-			noticeSdt = hidden.children(".animal-noticeSdt").text() ;
-			officetel = hidden.children(".animal-officetel").text() ;
-			popfile = hidden.children(".animal-popfile").text() ;
-			processState = hidden.children(".animal-processState").text() ;
-			specialMark = hidden.children(".animal-specialMark").text() ;
-			weight = hidden.children(".animal-weight").text() ;
-			
-			kindCd = kindCd.replace("[", "");
-			kindCd = kindCd.replace("]", "");
-			
-			location.href = "/samsam/SJ/pet_detail?"
-					+ "kindCd=" + kindCd
-					+ "&sexCd=" + sexCd
-					+ "&happenDt=" + happenDt
-					+ "&orgNm=" + orgNm
-					+ "&age=" + age
-					+ "&careAddr=" + careAddr
-					+ "&careNm=" + careNm
-					+ "&careTel=" + careTel
-					+ "&chargeNm=" + chargeNm
-					+ "&colorCd=" + colorCd
-					+ "&desertionNo=" + desertionNo
-					+ "&neuterYn=" + neuterYn
-					+ "&noticeEdt=" + noticeEdt
-					+ "&noticeNo=" + noticeNo
-					+ "&noticeSdt=" + noticeSdt
-					+ "&officetel=" + officetel
-					+ "&popfile=" + popfile
-					+ "&processState=" + processState
-					+ "&specialMark=" + specialMark
-					+ "&weight=" + weight;
-			
-		});
-		
 		
 	});
 	
@@ -1481,7 +1440,8 @@ ol, ul {
 			type: "POST"
 			, url: "/samsam/SJ/SiGunGu"
 			, data: {
-				  sidoCode: sidoCode
+				  sidoCode: sidoCode,
+				  requestType : '01'
 				}  
 			 , dataType: "html"
 			, success: function( data ){
@@ -1521,6 +1481,7 @@ ol, ul {
 		
 	}
 	
+	// 필터
 	// 유기동물 정보 가져오기
 	function getAbandonment() {
 		
@@ -1538,10 +1499,10 @@ ol, ul {
 			, dataType: "html"
 			, success: function( data ){
 				// 동물리스트 초기화
-				$('.pet-list').empty();
+				$('.pet-list-wrap').empty();
 				
 				// 동물리스트 추가
-				$('.pet-list').append(data);
+				$('.pet-list-wrap').append(data);
 				
 				console.log(data);
 				
@@ -1557,75 +1518,42 @@ ol, ul {
 	}
 	
 	
+	// 페이지
+	// 유기동물 리스트 가져오기
+	function getAnimalInfo(pageNo) {
+		
+		$.ajax({
+			type: "GET"
+			, url: "/samsam/SJ/petList"
+			, data: {
+					bgnde: bgnde,
+					endde: endde,
+					sido: sido,
+					siGunGu: siGunGu,
+					upKind: upKind,
+					kind: kind,
+					pageNo: pageNo
+				}  
+			 , dataType: "html"
+			, success: function( data ){
+				console.log(data);
+				$(".pet-list-wrap").empty();
+				$(".pet-list-wrap").append(data);
+								
+			}	
+			, error: function(request, status, error){
+				alert("code : " + request.status + "\n" + "message : " + request.responseText + "\n" + "error : " + error);
+				console.log("실패"); 
+			}
+		});
+		
+	}
+	
+	
 </script>
 
 <body>
 <div class ="body_content">
-<!-- modal -->
-<div class="modal-container">
-	<div id="modal" class="w3-modal">
-	  <div class="w3-modal-content">
-	    <div class="w3-container">
-	      <span onclick="document.getElementById('modal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-	      <div class="condition-header">
-	      	<span>검색조건 설정</span>
-	      </div>
-	      
-	      <div class="condition-date">
-	      	<span>기간 :</span>
-	      	<span><input id="bgnde" type="date" name="bgnde" value="${firstDate}" /></span>
-	      	<span>~</span>
-	      	<span><input id="endde" type="date" name="endde" value="${lastDate}" /></span>
-	      </div>
-	      <hr>
-	      
-	      <div class="condition-org">
-	      	<span>지역 :</span>
-	      	<div id="sido-select" class="select-box">
-			<select name="sido" id="sido">
-					<option value="0" selected>모든 지역</option>
-					<c:forEach var="sido" items="${sido}" varStatus="status">
-					  <option value="${sido.sidoCode}">${sido.sidoNm}</option>
-					</c:forEach>
-				</select>
-			</div>
-			
-			<div id="sigungu-select" class="select-box">
-				<select name="siGunGu" id="siGunGu">
-					<option value="0" selected>전 체</option>
-				</select>
-			</div>
-	      </div>
-	      <hr>
-	      
-	      <div class="condition-org">
-	      	<span>축종 :</span>
-	      	<div id="upkind-select" class="select-box">
-				<select name="upKind" id="upKind">
-					<option value="0" selected>모든 동물</option>
-					<option value="417000" selected>개</option>
-					<option value="422400" selected>고양이</option>
-					<option value="429900" selected>기타</option>
-				</select>
-			</div>
-			
-	      	<div id="kind-select" class="select-box">
-				<select name="kind" id="kind">
-					<option value="0" selected>전체</option>
-				</select>
-			</div>
-	      </div>
-	      <hr>
-	      
-	      <div id="condition-btn" class="condition-btn">
-	      	<span>검색하기</span>
-	      </div>
-	      
-	      
-	    </div>
-	  </div>
-	</div>
-</div>
 <header id = "header">
 
 	<div class ="inout_gocen">
@@ -1638,23 +1566,23 @@ ol, ul {
 	
 	<div class="nav-menu">
 				<ul class="sticky-wrapper">
-					<li class="dropdown"><a href="main.me">HOME</a></li>
-					<li class="dropdown"><a href="board.me">분양</a>
+					<li class="dropdown"><a href="home.me">HOME</a></li>
+					<li class="dropdown"><a href="home_list.bo">분양</a>
 						<ul class="dropdown-menu">
-							<li><a href="#">&nbsp;&nbsp;가정분양</a></li>
-							<li><a href="#">책임분양</a></li>
-							<li><a href="#">업체분양</a></li>
+							<li><a href="home_list.bo">&nbsp;&nbsp;가정분양</a></li>
+							<li><a href="fdoclist.bo">책임분양</a></li>
+							<li><a href="selladopt_list.bo">업체분양</a></li>
 						</ul></li>
-					<li class="dropdown"><a href="/SJ/pet_list">보호소</a>
+					<li class="dropdown"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a>
 						<ul class="dropdown-menu">
-							<li><a href="/SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
-							<li><a href="/SJ/payang">파양</a></li>
-							<li><a href="/SJ/missing">실종</a></li>
+				<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
+				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
+				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
 						</ul></li>
-					<li class="dropdown"><a href="community.me">커뮤니티</a>
+					<li class="dropdown"><a href="doclist.bo">커뮤니티</a>
 						<ul class="dropdown-menu">
-							<li><a href="#">&nbsp;자유게시판</a></li>
-							<li><a href="#">책임분양인증</a></li>
+							<li><a href="doclist.bo">&nbsp;자유게시판</a></li>
+							<li><a href="auth_fdoc.bo">책임분양인증</a></li>
 						</ul></li>
 				</ul>
 	
@@ -1679,9 +1607,9 @@ ol, ul {
 			<!-- 왼쪽. 서브메뉴가 들어갈 부분 -->
 			<div class="sidemenu-section">
 				<ul class="list-group list-group-flush">
-					<li class="list-group-item click"><a href="/">보호소</a></li>
-					<li class="list-group-item"><a href="/">파양</a></li>
-					<li class="list-group-item"><a href="/">실종</a></li>
+					<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
 				</ul>
 				</div>
 				
@@ -1692,7 +1620,7 @@ ol, ul {
 					
 					<!-- 검색 카테고리 탭 -->
 					<div class="tab">
-						<div class="tab-left">
+						<div class="tab-left on">
 							<a href="/samsam/SJ/pet_list" alt="보호 동물">보호 동물</a>
 						</div>
 						<div class="tab-right">
@@ -1704,14 +1632,74 @@ ol, ul {
 					<!-- 보호 동물 검색 조건 팝업 -->
 					<!-- 디자인 보류 -->
 					<div class="pet-search-option">
-						<div class="location">
-							<span>모든 지역</span>
-						</div>
-						<div class="kind">
-							<span>모든 동물</span>
-						</div>
-						<div id="condition" class="condition">
-							<span>검색 조건</span>
+						<div class="">
+							<div class="inline-block">
+							
+							<div class="inline-block">
+							<table>
+								<tr>
+									<td>
+										<span>기간 :</span>
+									</td>
+									<td align="left">
+										<div>
+											<span><input id="bgnde" type="date" name="bgnde" value="${formatFirstDate}"></input></span>
+											<span>~</span>
+											<span><input id="endde" type="date" name="endde" value="${formatLastDate}"></input></span>
+										</div>
+									</td>
+									<td>
+									</td>
+								</tr>
+								<tr>
+									<td>
+								      	<span>지역 :</span>
+									</td>
+									<td align="left">
+										<div id="sido-select" class="inline-block">
+											<select name="sido" id="sido">
+												<option value="" selected>모든 지역</option>
+												<c:forEach var="sido" items="${sido}" varStatus="status">
+												  <option value="${sido.sidoCode}">${sido.sidoNm}</option>
+												</c:forEach>
+											</select>
+										</div>
+										<div id="sigungu-select" class="inline-block">
+											<select name="siGunGu" id="siGunGu">
+												<option value="" selected>전 체</option>
+											</select>
+										</div>
+									</td>
+									<td>
+									</td>
+								</tr>
+								<tr>
+									<td>
+								      	<span>축종 :</span>
+									</td>
+									<td align="left">
+										<div id="upkind-select" class="inline-block">
+											<select name="upKind" id="upKind">
+												<option value="" selected>모든 동물</option>
+												<option value="417000">개</option>
+												<option value="422400">고양이</option>
+												<option value="429900">기타</option>
+											</select>
+										</div>
+										
+										<div id="kind-select" class="inline-block">
+											<select name="kind" id="kind">
+												<option value="" selected>전체</option>
+											</select>
+										</div>
+									</td>
+									<td>
+							      		<span id="condition-btn" class="btn btn-primary">검색하기</span>
+									</td>
+								</tr>
+							</table>
+      						</div>
+					    	</div>
 						</div>
 					</div>
 					
@@ -1719,6 +1707,7 @@ ol, ul {
 					<div class="pet-list-wrap">
 					
 						<div class="pet-list">
+							<%--
 							<c:forEach var="animal" items="${animalList}" varStatus="status">
 								<div class="pet-box">
 									<div class="pet-img">
@@ -1751,6 +1740,7 @@ ol, ul {
 									</div>
 								</div>
 							</c:forEach>
+							 --%>
 						</div>
 		
 					</div>
@@ -1776,12 +1766,6 @@ ol, ul {
 	</div>
 	
 </div><!-- 바디컨텐트 -->
-	
-		
-<footer id="footer">
-<p>Copyright ©2021 All rights reserved | This template is made with <i class="fas fa-heart"></i> by SamSam
-
-</footer>
 
 
 <!-- 제이쿼리 -->
@@ -1859,7 +1843,9 @@ ol, ul {
 	               $(el).summernote('editor.insertImage', url);
 	         }
 	       });
-	     }
+     }
+	
+	
 
 </script>
 

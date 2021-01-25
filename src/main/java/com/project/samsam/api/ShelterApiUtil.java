@@ -45,7 +45,7 @@ public class ShelterApiUtil implements ShelterApi {
 		// ArrayList<ShelterInfo> shelterIList = new ArrayList<ShelterInfo>();
 		
 		// 보호소 번호
-		shelter.setCareRecNo(care_rec_cd);
+		shelter.setCareRegNo(care_rec_cd);
 		
 		if( result.contains("<careAddr>") ) {
 			String careAddr = result.split("<careAddr>|</careAddr>")[1];
@@ -91,9 +91,6 @@ public class ShelterApiUtil implements ShelterApi {
 		
 		return shelter;
 	}
-	
-	
-
 
 	// 보호소 상세정보 전체 조회
 	@Override

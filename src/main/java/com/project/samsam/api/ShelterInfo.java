@@ -1,7 +1,7 @@
 package com.project.samsam.api;
 
 public class ShelterInfo {
-	private String careRecNo;	// 보호소 번호
+	private String careRegNo;	// 보호소 번호
 	private String careNm;
 	private String careAddr;
 	private String careTel;
@@ -11,11 +11,11 @@ public class ShelterInfo {
 	private String orgNm; 
 	private String rnum; 
 	
-	public String getCareRecNo() {
-		return careRecNo;
+	public String getCareRegNo() {
+		return careRegNo;
 	}
-	public void setCareRecNo(String careRecNo) {
-		this.careRecNo = careRecNo;
+	public void setCareRegNo(String careRegNo) {
+		this.careRegNo = careRegNo;
 	}
 	public String getCareNm() {
 		return careNm;
@@ -67,7 +67,7 @@ public class ShelterInfo {
 	}
 	@Override
 	public String toString() {
-		return "ShelterInfo [careRecNo=" + careRecNo + ", careNm=" + careNm + ", careAddr=" + careAddr + ", careTel="
+		return "ShelterInfo [careRegNo=" + careRegNo + ", careNm=" + careNm + ", careAddr=" + careAddr + ", careTel="
 				+ careTel + ", dataStdDt=" + dataStdDt + ", divisionNm=" + divisionNm + ", jibunAddr=" + jibunAddr
 				+ ", orgNm=" + orgNm + "]";
 	}
