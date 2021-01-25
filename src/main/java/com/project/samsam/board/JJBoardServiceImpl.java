@@ -16,7 +16,7 @@ public class JJBoardServiceImpl implements JJBoardService {
 
 	@Autowired // Myb atis(ibatis) ���̺귯���� �����ϴ� Ŭ����
 	private SqlSession sqlSession;
-
+ 
 	 @Override  
 	  public List<JJBoardVO> getSearch_free_auth(String keyword){
 	    JJBoardMapper boardMapper = sqlSession.getMapper(JJBoardMapper.class);

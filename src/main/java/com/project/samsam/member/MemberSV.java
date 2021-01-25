@@ -34,4 +34,4 @@ public interface MemberSV {
 	public int idCheck(String email);
 	public int nickCheck(String nick);
 
-}
+} 

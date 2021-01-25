@@ -10,7 +10,7 @@ public class JJCommentVO {
 	private int doc_secret;
 	private int doc_rev;
 	private int doc_deq;
-	
+	 
 	private int co_count;
 	
 	

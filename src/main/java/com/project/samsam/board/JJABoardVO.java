@@ -7,7 +7,7 @@ public class JJABoardVO {
 	private String category;
 	private String co_category;
 	private String keyword;
-	
+	 
 	public String getStartDate() {
 		return startDate;
 	}

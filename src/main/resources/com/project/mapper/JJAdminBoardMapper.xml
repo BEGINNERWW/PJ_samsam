@@ -18,7 +18,7 @@
 		 order by doc_date desc
 		</select>
 		<!-- 어드민 게시글 리스트 -->
-		
+		 
 			<select id="find_w_List" parameterType = "JJABoardVO" resultType="BoardDetailVO">
 			select c.doc_no,c.doc_email,c.doc_nick, c.doc_subject, c.doc_content,c.doc_date,c.doc_readcount,w.w_status
 			from ${category} c, ${kind} w

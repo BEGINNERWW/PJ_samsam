@@ -35,7 +35,7 @@ biz_email / biz_no / biz_com/ biz_name / biz_add / biz_img / free_coupon/ pay_co
 	SELECT count(*) FROM member_list WHERE nick=#{check, jdbcType=VARCHAR}
 	</select>
 		
-<!-- 회원가입 -->
+<!-- 회원가입 --> 
 <insert id = "joinMember" parameterType="MemberVO">
 	insert into member_list (email, pw, name, nick,phone,local, grade, authkey,status, signdate)
 	values (#{email}, #{pw}, #{name},#{nick}, #{phone}, #{local}, #{grade}, #{authkey},#{status},sysdate)
@@ -55,7 +55,7 @@ biz_email / biz_no / biz_com/ biz_name / biz_add / biz_img / free_coupon/ pay_co
 <select id="getMemberlist" resultType="MemberVO">
 	select * from member_list order by email
 </select>
-
+ 
 <!-- 회원정보수정 -->
 <update id = "updateMember" parameterType="MemberVO">
 	update member_list set pw=#{pw},nick=#{nick},phone=#{phone},local=#{local} where email= #{email}

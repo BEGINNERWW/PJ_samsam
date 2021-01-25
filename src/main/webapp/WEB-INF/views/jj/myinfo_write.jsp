@@ -21,7 +21,7 @@
 	ArrayList<BoardlistVO> boardlist = (ArrayList<BoardlistVO>)request.getAttribute("b_list");
 	ArrayList<CommentListVO> commentlist = (ArrayList<CommentListVO>)request.getAttribute("c_list");
 
-%>
+%> 
 
 <!DOCTYPE html>
 <html>

@@ -17,7 +17,7 @@ System.out.println("main : " + (String) session.getAttribute("email"));
 	List<JJBoardVO> missing =(List<JJBoardVO>)request.getAttribute("missing");
 
    //email.toUpperCase();
-%>
+%> 
 
 <!DOCTYPE html>
 <html>

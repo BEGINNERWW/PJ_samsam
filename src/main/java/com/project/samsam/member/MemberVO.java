@@ -12,7 +12,7 @@ public class MemberVO {
 	private String status;	
 	private String signdate;
 	private int wcount;
-	
+	 
 	public String getAuthkey() {
 		return authkey;
 	}

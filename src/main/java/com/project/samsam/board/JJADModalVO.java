@@ -4,7 +4,7 @@ public class JJADModalVO {
 	private String number;
 	private String category;
 	private String co_category;
-	
+	 
 	public String getNumber() {
 		return number;
 	}

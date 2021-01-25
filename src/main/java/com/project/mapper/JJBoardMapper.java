@@ -17,7 +17,7 @@ public interface JJBoardMapper {
 	public List<JJBoardVO> getSearch_missing(String keyword);
 	
 	public JJBoardVO getSDetail (int num);
-	
+	 
 	//myinfo_write handler
 		public List<JJABoardVOto> my_boardList (String email);
 		public List<JJCommentVO> my_commenList (String email);

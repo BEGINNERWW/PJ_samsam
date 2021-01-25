@@ -22,7 +22,7 @@ h5{
 	align-self: center;
 }
 #check1:hover, #check2:hover, #check3:hover {
-	color: white;
+	color: white; 
 	background-color: skyblue;
 }
 table{

@@ -22,7 +22,7 @@ public interface JJAdminBoardMapper {
     public JJABoardVOto ad_board (JJADModalVO movo);
     
     public List<JJCommentVO> ad_cList (JJADModalVO movo);
-    public JJCommentVO ad_cccount (JJADModalVO movo);
+    public JJCommentVO ad_cccount (JJADModalVO movo); 
     
     public List<JJWarningVO> w_docList (JJADModalVO movo);
     public List<JJWarningVO> w_coList (JJADModalVO movo);

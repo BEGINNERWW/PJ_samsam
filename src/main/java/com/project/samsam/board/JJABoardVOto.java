@@ -11,7 +11,7 @@ public class JJABoardVOto {
 	private String category;
 	private int doc_comment;
 	
-	
+	 
 	
 	public int getDoc_no() {
 		return doc_no;

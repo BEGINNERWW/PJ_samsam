@@ -40,7 +40,7 @@ public class JJMemberController {
 
 		return "jj/loginForm";
 	}
-	
+	 
 	@RequestMapping(value = "/myinfo_write.me")
 	public String cominfo_list(HttpSession session, Model model) {
 		String email = (String)session.getAttribute("email");

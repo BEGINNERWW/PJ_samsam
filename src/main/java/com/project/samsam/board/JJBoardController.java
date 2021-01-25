@@ -73,7 +73,7 @@ public class JJBoardController {
 	      }
 	      else{
 	        System.out.println("adopt_home");
-	      }
+	      } 
 	    }
 	    catch(Exception e) {
 	      System.out.println("search error(home) : " + e.getMessage());

@@ -12,7 +12,7 @@ public class JJWarningVO {
 	private String w_category;
 	private String w_note;
 	
-	
+	 
 	private String w_count;
 	
 	public int getW_no() {

@@ -11,7 +11,7 @@ public class BoardDetailVO {
 	private String w_reason;
 	private String w_category;
 	private String w_note;
-	
+	 
 	private int doc_no; 
 	private String doc_email;
 	private String doc_nick;

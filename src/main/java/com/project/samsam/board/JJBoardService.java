@@ -13,7 +13,7 @@ public interface JJBoardService {
 	  public List<JJBoardVO> getSearch_adopt_home(String keyword);
 	  public List<JJBoardVO> getSearch_payang(String keyword);
 	  public List<JJBoardVO> getSearch_missing(String keyword);
-	  
+	   
 	  
 	  public JJBoardVO getSDetail(int num);
 	  //홈페이지 메인 검색 함수

@@ -26,7 +26,7 @@
 					console.log(authObj);
 					Kakao.API.request({
 						url: '/v2/user/me', //v1/user/me api는 종료
-						success: function(res) {
+			 			success: function(res) {
 						    console.log(res);
 						    						    
 						  	$('.email').val(res.kakao_account.email);

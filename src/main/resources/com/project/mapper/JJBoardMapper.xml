@@ -16,7 +16,7 @@
         where fadoc_subject like '%' || #{keyword}|| '%' or fadoc_content like '%' ||#{keyword} || '%'
         order by fadoc_date desc
     </select>
-  
+   
      <select id="getSearch_commu_List" parameterType="String" resultType="JJBoardVO">
         select doc_no as num, doc_nick as nick, doc_subject as subject, doc_date as c_date,doc_readcount as readcount 
         from community 
