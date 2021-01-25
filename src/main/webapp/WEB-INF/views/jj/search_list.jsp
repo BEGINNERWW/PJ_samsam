@@ -77,7 +77,14 @@ a:hover {
     color: #0056b3;
     text-decoration: none;
 }
-
+.detailview{
+   text-decoration : none;
+   color : #000000;
+}
+.detailview:hover {
+    color: #595959;
+    text-decoration: none;
+}
 body {
    text-align: -webkit-center;
    display : flex;
@@ -597,13 +604,13 @@ li.list-group-item.click > a {
                     	%>
                     	
                     	<tr class="community">
-                    	<a href="#">
-                    		<td><%=c_list.getNum()%></td>
-                    		<td> <%=c_list.getSubject()%></td>
-                    		<td> <%=c_list.getNick() %></td>
+                    	<tr class="community">
+                    		<td><a class ="detailview" href="docdetail.bo?doc_no=<%=c_list.getNum()%>"><%=c_list.getNum()%></a></td>
+                    		<td><a class ="detailview" href="docdetail.bo?doc_no=<%=c_list.getNum()%>"> <%=c_list.getSubject()%></a></td>
+                    		<td><a class ="detailview" href="docdetail.bo?doc_no=<%=c_list.getNum()%>"> <%=c_list.getNick() %></a></td>
                     		<fmt:formatDate var="formatDate" value="<%=c_list.getC_date()%>" pattern="yyyy-MM-dd"/>
-    						<td>${formatDate}</td>
-                    	</a>
+    						<td><a class ="detailview" href="docdetail.bo?doc_no=<%=c_list.getNum()%>">${formatDate}</a></td>
+                    	</tr>
                     	</tr>
                     	
                     	<% }} %>

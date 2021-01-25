@@ -16,6 +16,8 @@
 <meta charset="utf-8" />
 <link href="resources/img/title.png" rel="shortcut icon" type="image/x-icon">
 <title>삼삼하개</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+
 <head profile="http://www.w3.org/2005/10/profile">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 <link href="resources/css/join_form.css"rel="stylesheet"/>
@@ -42,7 +44,9 @@
 *, ::after, ::before {
     box-sizing: border-box;
 }
-
+.fas fa-home, i{
+    margin-top: 6px;
+}
 
 /*카카오톡 톡상담*/
 .kakaoChat {
@@ -384,8 +388,8 @@ function email_check(emailt) {
 	
 	<!-- pageup button -->
 	<div class ="back-to-top">
-	<a href="#" class ="back-to-top" style="display: inline;">
-	<i class = "fas fa-angle-up"></i>
+	<a href="home.me" class ="back-to-top" style="display: inline;">
+	<i class = "fas fa-home"></i>
 	</a>
 	</div>
 </div>

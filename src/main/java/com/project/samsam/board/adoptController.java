@@ -115,25 +115,6 @@ private AdoptService adoptservice;
  }
  
  
-	
- 
- @ResponseBody
- @PostMapping("/image.bo")
- public void summer_image(MultipartFile file, HttpServletRequest request,
-       HttpServletResponse response) throws Exception {
-    response.setContentType("text/html;charset=utf-8");
-    String uploadPath = "C:\\Project\\upload\\";
-    PrintWriter out = response.getWriter();
-    String originalFileExtension = file.getOriginalFilename();
-    String storedFileName = UUID.randomUUID().toString().replaceAll("-", "") + originalFileExtension;
-    System.out.println("storedFileName : " + storedFileName);
-    file.transferTo(new File(uploadPath+storedFileName));
-    out.println("/springfileupload1/upload/"+storedFileName);
-    out.close();
-    
- }
- 
- 
  
  	//리스트 생성
 	@RequestMapping(value = "/home_listAjax.bo",method=RequestMethod.POST,produces="application/json;charset=UTF-8") //�������� ����Ʈ�� �ҷ����� ����

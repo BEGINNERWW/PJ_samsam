@@ -568,7 +568,7 @@ li.list-group-item.click > a {
    			<% }}%>
    			<% 
     	 		if(boardlist_m != null){
-    			for(BoardlistVO b_list : boarboardlist_m){	
+    			for(BoardlistVO b_list : boardlist_m){	
     		%>
     		<tr class = "boardlist tr">
     		<a href="">
@@ -604,7 +604,7 @@ li.list-group-item.click > a {
     			for(CommentListVO c_list : commentlist_fd){	
     		%>
     			<tr class = "commentlist">
-    			<a href="fdocdetail.bo?doc_no=<%= b_list.getNum()%>">
+    			<a href="fdocdetail.bo?doc_no=<%= c_list.getDoc_no()%>">
     				<td><%=c_list.getContent() %></td>
     				<td><%=c_list.getWrite_date() %></td>
     			</a>
@@ -615,7 +615,7 @@ li.list-group-item.click > a {
     			for(CommentListVO c_list : commentlist_fa){	
     		%>
     			<tr class = "commentlist">
-    			<a href="fadocdetail.bo?doc_no=<%= b_list.getNum()%>">
+    			<a href="fadocdetail.bo?doc_no=<%=c_list.getDoc_no()%>">
     				<td><%=c_list.getContent() %></td>
     				<td><%=c_list.getWrite_date() %></td>
     			</a>
@@ -626,7 +626,7 @@ li.list-group-item.click > a {
     			for(CommentListVO c_list : commentlist_ah){	
     		%>
     			<tr class = "commentlist">
-    			<a href="adopthomeview.bo?num='+<%=b_list.getNum() %>+'">
+    			<a href="adopthomeview.bo?num='+<%=c_list.getDoc_no() %>+'">
     				<td><%=c_list.getContent() %></td>
     				<td><%=c_list.getWrite_date() %></td>
     			</a>
@@ -637,7 +637,7 @@ li.list-group-item.click > a {
     			for(CommentListVO c_list : commentlist_co){	
     		%>
     			<tr class = "commentlist">
-    			<a href="docdetail.bo?doc_no=<%= b_list.getNum()%>">
+    			<a href="docdetail.bo?doc_no=<%=c_list.getDoc_no()%>">
     				<td><%=c_list.getContent() %></td>
     				<td><%=c_list.getWrite_date() %></td>
     			</a>

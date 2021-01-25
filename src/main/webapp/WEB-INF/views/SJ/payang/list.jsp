@@ -2,6 +2,9 @@
 <%@ page import="java.util.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
+<%
+String email = (String) session.getAttribute("email");
+%>
 <!DOCTYPE html>
 <html>
 <head>

@@ -210,8 +210,8 @@
 	 <select id="getConfirmList" parameterType="hashmap" resultType="ConfirmVO">
 	
 	 <![CDATA[
-	 select * from (select rownum rnum,doc_no,fadoc_nick,fadoc_subject,fadoc_content,fadoc_date,fadoc_readcount,doc_comment,confirm_fdoc_img,fadoc_r_email
-	 from (select * from free_auth,free_doc_confirm where confirm_no = fadoc_confirm_no and fadoc_check='인증완료' order by doc_no desc)) where rnum>=#{startrow} and rnum<=#{endrow}
+	 select * from (select rownum rnum,fadoc_no,fadoc_nick,fadoc_subject,fadoc_content,fadoc_date,fadoc_readcount,doc_comment,confirm_fdoc_img,fadoc_r_email
+	 from (select * from free_auth,free_doc_confirm where confirm_no = fadoc_confirm_no and fadoc_check='인증완료' order by fadoc_no desc)) where rnum>=#{startrow} and rnum<=#{endrow}
 	 ]]>
 	 
 	 </select>

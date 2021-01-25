@@ -411,8 +411,8 @@ li.list-group-item.click > a {
 	
 	<!-- pageup button -->
 	<div class ="back-to-top">
-	<a href="#" class ="back-to-top" style="display: inline;">
-	<i class = "fas fa-angle-up"></i>
+	<a href="home.me" class ="back-to-top" style="display: inline;">
+	<i class = "fas fa-home"></i>
 	</a>
 	</div>
 	

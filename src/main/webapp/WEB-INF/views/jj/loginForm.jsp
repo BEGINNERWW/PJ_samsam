@@ -8,6 +8,8 @@
 <meta charset="UTF-8">
 <link href="resources/img/title.png" rel="shortcut icon" type="image/x-icon">
 <title>삼삼하개</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+
 	<link href="resources/css/login_form.css"rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 	<script src="resources/js/login_form.js"></script>
@@ -33,8 +35,9 @@
 *, ::after, ::before {
     box-sizing: border-box;
 }
-
-
+.fas fa-home, i{
+    margin-top: 6px;
+}
 /*카카오톡 톡상담*/
 .kakaoChat {
     text-align: right;
@@ -43,8 +46,10 @@
     bottom: 90px;
     right: 0;
 }
-.kakao_btn {
+.kakao_button {
 	border-radius: 1rem!important;
+	width : 45px;
+	height : 45px;
 }
 </style>	
 
@@ -154,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function(){
     <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
   </button>
   <div class="login-item">
- 	 <a href ="joinform.me">비밀번호찾기</a>
+ 	 <a href ="pw_find.me">비밀번호찾기</a>
 	<a href ="joinform.me">회원가입</a>
 	</div>
 </form>
@@ -178,14 +183,14 @@ document.addEventListener("DOMContentLoaded", function(){
 	<!-- 카카오톡 채널 상담 -->
 	<div class="kakaoChat">
 	<a href="javascript:void plusFriendChat()">
-    <img src="resources/img/kakaolink_btn_medium.png" width="45px" height="45px" class="kakao_btn">
+    <img src="resources/img/kakaolink_btn_medium.png" width="45px" height="45px" class="kakao_button">
 	</a>
 	</div>
 	
 	<!-- pageup button -->
 	<div class ="back-to-top">
-	<a href="#" class ="back-to-top" style="display: inline;">
-	<i class = "fas fa-angle-up"></i>
+	<a href="home.me" class ="back-to-top" style="display: inline;">
+	<i class="fas fa-home"></i>
 	</a>
 	</div>
 </body>

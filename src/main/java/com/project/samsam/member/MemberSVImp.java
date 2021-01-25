@@ -177,4 +177,116 @@ public class MemberSVImp implements MemberSV {
 			}
 		return list;
 	}
+	@Override
+	public ArrayList<BoardlistVO> getWriteList1(String email) {
+		ArrayList<BoardlistVO> list = mapper.getWriteList1(email);
+		if(list!=null) {
+		System.out.println("��ȸ �� �Խñ�");
+		}
+		return list;
+	}
+	@Override
+	public ArrayList<BoardlistVO> getWriteList2(String email) {
+		ArrayList<BoardlistVO> list = mapper.getWriteList2(email);
+		if(list!=null) {
+		System.out.println("��ȸ �� �Խñ�");
+		}
+		return list;
+	}
+	@Override
+	public ArrayList<BoardlistVO> getWriteList3(String email) {
+		ArrayList<BoardlistVO> list = mapper.getWriteList3(email);
+		if(list!=null) {
+		System.out.println("��ȸ �� �Խñ�");
+		}
+		return list;
+	}
+	@Override
+	public ArrayList<BoardlistVO> getWriteList4(String email) {
+		ArrayList<BoardlistVO> list = mapper.getWriteList4(email);
+		if(list!=null) {
+		System.out.println("��ȸ �� �Խñ�");
+		}
+		return list;
+	}
+	@Override
+	public ArrayList<BoardlistVO> getWriteList5(String email) {
+		ArrayList<BoardlistVO> list = mapper.getWriteList5(email);
+		if(list!=null) {
+		System.out.println("��ȸ �� �Խñ�");
+		}
+		return list;
+	}
+	@Override
+	public ArrayList<BoardlistVO> getWriteList6(String email) {
+		ArrayList<BoardlistVO> list = mapper.getWriteList6(email);
+		if(list!=null) {
+		System.out.println("��ȸ �� �Խñ�");
+		}
+		return list;
+	}
+	@Override
+	public ArrayList<BoardlistVO> getWriteList7(String email) {
+		ArrayList<BoardlistVO> list = mapper.getWriteList7(email);
+		if(list!=null) {
+		System.out.println("��ȸ �� �Խñ�");
+		}
+		return list;
+	}
+	@Override
+	public ArrayList<CommentListVO> getWriteComment1(String email) {
+		ArrayList<CommentListVO> list = mapper.getWriteComment1(email);
+		if(list!=null) {
+			System.out.println("��ȸ �� ���");
+			}
+		return list;
+	}
+	@Override
+	public ArrayList<CommentListVO> getWriteComment2(String email) {
+		ArrayList<CommentListVO> list = mapper.getWriteComment2(email);
+		if(list!=null) {
+			System.out.println("��ȸ �� ���");
+			}
+		return list;
+	}
+	@Override
+	public ArrayList<CommentListVO> getWriteComment3(String email) {
+		ArrayList<CommentListVO> list = mapper.getWriteComment3(email);
+		if(list!=null) {
+			System.out.println("��ȸ �� ���");
+			}
+		return list;
+	}
+	@Override
+	public ArrayList<CommentListVO> getWriteComment4(String email) {
+		ArrayList<CommentListVO> list = mapper.getWriteComment4(email);
+		if(list!=null) {
+			System.out.println("��ȸ �� ���");
+			}
+		return list;
+	}
+	@Override
+	public ArrayList<CommentListVO> getWriteComment5(String email) {
+		ArrayList<CommentListVO> list = mapper.getWriteComment5(email);
+		if(list!=null) {
+			System.out.println("��ȸ �� ���");
+			}
+		return list;
+	}
+	@Override
+	public ArrayList<CommentListVO> getWriteComment6(String email) {
+		ArrayList<CommentListVO> list = mapper.getWriteComment6(email);
+		if(list!=null) {
+			System.out.println("��ȸ �� ���");
+			}
+		return list;
+	}
+	@Override
+	public ArrayList<CommentListVO> getWriteComment7(String email) {
+		ArrayList<CommentListVO> list = mapper.getWriteComment7(email);
+		if(list!=null) {
+			System.out.println("��ȸ �� ���");
+			}
+		return list;
+	}
 }

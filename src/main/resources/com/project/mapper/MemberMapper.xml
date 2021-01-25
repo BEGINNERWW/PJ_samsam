@@ -110,6 +110,44 @@ biz_email / biz_no / biz_com/ biz_name / biz_add / biz_img / free_coupon/ pay_co
 </select>
 
 <!-- 내 작성글 리스트 -->
+<select id="getWriteList" parameterType="String" resultType="BoardlistVO">
+select * from (
+	select doc_no as num, doc_subject as subject, doc_date as write_date from adopt_list where doc_email = #{email}
+	union all
+	select doc_no as num, doc_subject as subject, doc_date as write_date from free_doc where doc_email = #{email}
+	union all
+	select doc_no as num, fadoc_subject as subject, fadoc_date as write_date from free_auth where fadoc_r_email = #{email}
+	union all
+	select doc_no as num, doc_subject as subject, doc_date as write_date from adopt_home where doc_email = #{email}
+	union all
+	select doc_no as num, doc_subject as subject, doc_date as write_date from community where doc_email = #{email}
+	union all
+	select doc_no as num, doc_subject as subject, doc_date as write_date from payang where doc_email = #{email}
+	union all
+	select doc_no as num, doc_subject as subject, doc_date as write_date from missing where doc_email = #{email}
+) order by doc_date desc
+</select>
+
+<!-- 내 댓글 리스트 -->
+<select id="getWriteComment" parameterType="String" resultType="CommentListVO">
+select * from (
+	select doc_content as content, doc_date as write_date, doc_no from adopt_reply where doc_email = #{email}
+	union all
+	select doc_content as content, doc_date as write_date, doc_no from fdoc_reply where doc_email = #{email}
+	union all
+	select doc_content as content, doc_date as write_date, doc_no from free_auth_reply where doc_email = #{email}
+	union all
+	select doc_content as content, doc_date as write_date, doc_no from adopt_home_reply where doc_email = #{email}
+	union all
+	select doc_content as content, doc_date as write_date, doc_no from doc_comment where doc_email = #{email}
+	union all
+	select doc_content as content, doc_date as write_date, doc_no from payang_reply where doc_email = #{email}
+	union all		
+	select doc_content as content, doc_date as write_date, doc_no from missing_reply where doc_email = #{email}
+) order by doc_date desc
+</select>
+
+<!-- 내 작성글 리스트 -->
 <select id="getWriteList1" parameterType="String" resultType="BoardlistVO">
 	select doc_no as num, doc_subject as subject, doc_date as write_date from adopt_list where doc_email = #{email} order by doc_date desc
 </select>
@@ -134,25 +172,25 @@ biz_email / biz_no / biz_com/ biz_name / biz_add / biz_img / free_coupon/ pay_co
 
 <!-- 내 댓글 리스트 -->
 <select id="getWriteComment1" parameterType="String" resultType="CommentListVO">
-	select doc_content as content, doc_date as write_date from adopt_reply where doc_email = #{email} order by doc_date desc
+	select doc_content as content, doc_date as write_date, doc_no from adopt_reply where doc_email = #{email} order by doc_date desc
 </select>
 <select id="getWriteComment2" parameterType="String" resultType="CommentListVO">
-	select doc_content as content, doc_date as write_date from fdoc_refly where doc_email = #{email} order by doc_date desc
+	select doc_content as content, doc_date as write_date, doc_no from fdoc_refly where doc_email = #{email} order by doc_date desc
 </select>
 <select id="getWriteComment3" parameterType="String" resultType="CommentListVO">
-	select doc_content as content, doc_date as write_date from free_auth_reply where doc_email = #{email} order by doc_date desc
+	select doc_content as content, doc_date as write_date, doc_no from free_auth_reply where doc_email = #{email} order by doc_date desc
 </select>
 <select id="getWriteComment4" parameterType="String" resultType="CommentListVO">
-	select doc_content as content, doc_date as write_date from adopt_home_reply where doc_email = #{email} order by doc_date desc
+	select doc_content as content, doc_date as write_date, doc_no from adopt_home_reply where doc_email = #{email} order by doc_date desc
 </select>
 <select id="getWriteComment5" parameterType="String" resultType="CommentListVO">
-	select doc_content as content, doc_date as write_date from doc_comment where doc_email = #{email} order by doc_date desc
+	select doc_content as content, doc_date as write_date, doc_no from doc_comment where doc_email = #{email} order by doc_date desc
 </select>
 <select id="getWriteComment6" parameterType="String" resultType="CommentListVO">
-	select doc_content as content, doc_date as write_date from payang_reply where doc_email = #{email} order by doc_date desc
+	select doc_content as content, doc_date as write_date, doc_no from payang_reply where doc_email = #{email} order by doc_date desc
 </select>
 <select id="getWriteComment7" parameterType="String" resultType="CommentListVO">
-	select doc_content as content, doc_date as write_date from missing_reply where doc_email = #{email} order by doc_date desc
+	select doc_content as content, doc_date as write_date, doc_no from missing_reply where doc_email = #{email} order by doc_date desc
 </select>
 
 <!-- 이용권 결제내역 추가 -->

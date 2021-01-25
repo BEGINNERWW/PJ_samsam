@@ -160,7 +160,7 @@ public class HomeController {
 
 			model.addAttribute("MemberVO", res);
 			return "YM/myinfo_member";
-			else {
+		}else {
 			      return "YM/myinfo_check";
 			    }
 	}	
