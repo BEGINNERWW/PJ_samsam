@@ -43,7 +43,7 @@ public class MemberSVImp implements MemberSV {
 	@Override
 	public int userCheck(MemberVO memberVO) {
 		int res = mapper.userCheck(memberVO);
-		return res;
+	 	return res;
 	}
 	
 	//jj 0119 

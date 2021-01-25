@@ -22,7 +22,7 @@
       );
       naverLogin.init();
       
-     
+      
       window.addEventListener('load', function () {
          naverLogin.getLoginStatus(function (status) {
 

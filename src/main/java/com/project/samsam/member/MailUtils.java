@@ -35,7 +35,7 @@ public class MailUtils {
 	public void setTo(String email)throws MessagingException{
 		messageHelper.setTo(email);
 	}
-	
+	 
 	public void addInline(String contentId, DataSource dataSource)throws MessagingException{
 		messageHelper.addInline(contentId, dataSource);
 	}

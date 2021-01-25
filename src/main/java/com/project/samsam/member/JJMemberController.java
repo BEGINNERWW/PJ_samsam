@@ -1,6 +1,7 @@
 package com.project.samsam.member;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,12 +40,29 @@ public class JJMemberController {
 
 		return "jj/loginForm";
 	}
+	 
+	@RequestMapping(value = "/myinfo_write.me")
+	public String cominfo_list(HttpSession session, Model model) {
+		String email = (String)session.getAttribute("email");
+		System.out.println("email "+ email );
+		
+		ArrayList<BoardlistVO> b_list = new ArrayList<BoardlistVO>();
+		ArrayList<CommentListVO> c_list = new ArrayList<CommentListVO>();
+		b_list = memberSV.getWriteList(email);
+		c_list = memberSV.getWriteComment(email);
+		
+		model.addAttribute("b_list", b_list);
+		model.addAttribute("c_list", c_list);
+		
+		return "jj/myinfo_write";
 	
+	}
 	//email overlap check
 		@RequestMapping(value="/idcheckajax.do",
 				produces="application/json;charset=utf-8")
 		@ResponseBody
 		public  Map<String , Object> idcheck(@RequestBody   Map<String , Object> map) throws Exception{
+			System.out.println("join id ajax check");
 			String email =(String) map.get("email");
 			int checkid = memberSV.idCheck(email);	
 			if(checkid == 0 ) {
@@ -89,7 +107,7 @@ public class JJMemberController {
 		if(memberSV.selectMember(mvo.getEmail()) == null) {
 			mvo.setGrade("카카오");
 			model.addAttribute("MemberVO", mvo);
-			return "jj/k_joinForm";
+			return "jj/joinForm";
 		}
 		else {
 			redi_attr.addAttribute("email", mvo.getEmail());
@@ -116,7 +134,7 @@ public class JJMemberController {
 		if(memberSV.selectMember(mvo.getEmail()) == null) {
 			mvo.setGrade("네이버");
 			model.addAttribute("MemberVO", mvo);
-			return "jj/k_joinForm";
+			return "jj/joinForm";
 		} 
 		else {
 			redi_attr.addAttribute("email", mvo.getEmail());
@@ -144,7 +162,7 @@ public class JJMemberController {
 			return "jj/loginForm";
 		}
 		else {
-			return "jj/k_joinform";
+			return "jj/joinform";
 		}
 	}
 
@@ -213,6 +231,7 @@ public class JJMemberController {
 	@RequestMapping("/signUp.me")
 	public String signUp(@ModelAttribute MemberVO memberVO) {
 		System.out.println(memberVO.getNick());
+		System.out.println("grade : " + memberVO.getGrade());
 		 // DB에 기본정보 insert
 		int res= memberSV.joinMember(memberVO);
 		System.out.println("insert compl"+res);
@@ -227,7 +246,7 @@ public class JJMemberController {
 		
 		//DB에 authKey업데이트
 		memberSV.updateAuthkey(map);
-		return "jj/email_check";
+		return "jj/loginForm";
 	}
 	
 	 @GetMapping("/signUpConfirm.me")

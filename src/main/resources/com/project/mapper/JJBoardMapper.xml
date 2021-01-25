@@ -3,25 +3,52 @@
 	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.mapper.JJBoardMapper">
 	
-	<!-- 홈 검색 리스트 -->
-		<select id="getSearch_free_List" parameterType="String" resultType="JJBoardVO">
-		select fdoc_no as num ,nick,subject,c_date,readcount
-		from free_doc where subject like '%'||#{keyword}||'%' or c_content like '%'||#{keyword}||'%'
-		order by c_date desc
-		
-		</select>
-	
- 		<select id="getSearch_commu_List" parameterType="String" resultType="JJBoardVO">
-  		select num,nick,subject,c_date,readcount
-		from community where subject like '%' || #{keyword}|| '%' or c_content like '%' ||#{keyword} || '%'
-		order by c_date desc
-		</select>
-		
-		<select id="getSearch_adopt_List" parameterType="String" resultType="JJBoardVO">	
-		select num,nick,subject,c_date,readcount
-		from adopt_list where subject like '%' ||#{keyword}|| '%' or c_content like '%' ||#{keyword}|| '%'
-		order by c_date desc
-		</select>
+		<!-- 홈 검색 리스트 -->
+    <select id="getSearch_free_List" parameterType="String" resultType="JJBoardVO">
+     select doc_no as num, doc_nick as nick, doc_subject as subject, doc_date as c_date,doc_readcount as readcount 
+        from  free_doc
+        where doc_subject like '%' || #{keyword}|| '%' or doc_content like '%' ||#{keyword} || '%'
+        order by doc_date desc
+    </select>
+    <select id="getSearch_free_auth" parameterType="String" resultType="JJBoardVO">
+     select fadoc_no as num, fadoc_r_nick as nick, fadoc_subject as subject, fadoc_date as c_date,fadoc_readcount as readcount 
+        from  free_auth
+        where fadoc_subject like '%' || #{keyword}|| '%' or fadoc_content like '%' ||#{keyword} || '%'
+        order by fadoc_date desc
+    </select>
+   
+     <select id="getSearch_commu_List" parameterType="String" resultType="JJBoardVO">
+        select doc_no as num, doc_nick as nick, doc_subject as subject, doc_date as c_date,doc_readcount as readcount 
+        from community 
+        where doc_subject like '%' || #{keyword}|| '%' or doc_content like '%' ||#{keyword} || '%'
+        order by doc_date desc
+    </select>
+    
+    <select id="getSearch_adopt_List" parameterType="String" resultType="JJBoardVO">  
+      select doc_no as num, doc_nick as nick, doc_subject as subject, doc_date as c_date,doc_readcount as readcount 
+        from adopt_list 
+        where doc_subject like '%' || #{keyword}|| '%' or doc_content like '%' ||#{keyword} || '%'
+        order by doc_date desc
+    </select>
+    <select id="getSearch_adopt_home" parameterType="String" resultType="JJBoardVO">  
+      select doc_no as num, doc_nick as nick, doc_subject as subject, doc_date as c_date,doc_readcount as readcount 
+        from adopt_home
+        where doc_subject like '%' || #{keyword}|| '%' or doc_content like '%' ||#{keyword} || '%'
+        order by doc_date desc
+    </select>
+    
+    <select id="getSearch_payang" parameterType="String" resultType="JJBoardVO">  
+      select doc_no as num, doc_nick as nick, doc_subject as subject, doc_date as c_date,doc_readcount as readcount 
+        from payang
+        where doc_subject like '%' || #{keyword}|| '%' or doc_content like '%' ||#{keyword} || '%'
+        order by doc_date desc
+    </select>
+    <select id="getSearch_missing" parameterType="String" resultType="JJBoardVO">  
+      select doc_no as num, doc_nick as nick, doc_subject as subject, doc_date as c_date,doc_readcount as readcount 
+        from missing
+        where doc_subject like '%' || #{keyword}|| '%' or doc_content like '%' ||#{keyword} || '%'
+        order by doc_date desc
+    </select>
 		
 	
 		
@@ -49,31 +76,8 @@
 
 	</select>
 <!--  홈페이지 검색 SQL 끝 -->
-<!--  수정필요
-	<selet id="getmyBList" parameterType="String" resultType="BoardVO2">
-		 select b_no,b_subject,b_date
-		from (
-		select
-		b_no,b_subject,b_date
-		from doc_c where b_subject like '%' || #{keyword}|| '%' or b_content like '%' ||#{keyword} || '%'
-		
-		union all
-		
-		select
-		b_no,b_subject,b_date
-		from doc_b where b_subject like '%'||#{keyword}||'%' or b_content like '%'||#{keyword}||'%'
-		
-		union all
-		
-		select
-		b_no,b_subject,b_date
-		from doc_bh where b_subject like '%'||#{keyword}||'%' or b_content like '%'||#{keyword}||'%'
-		)order by b_date desc
-		
-	</selet>
- -->
 
-	
+
 	
 	<select id="getListCount" resultType="int">
 		select count(*) from smemberboard2
@@ -108,67 +112,12 @@
 	<!-- num  은 인서트에서 2개의 넘에 사용된다/ 넘의 타입은 인트-->
 	
 	
-	<!-- VER 2 -->
-	<!-- 특정컬럼의 값이 null인지 아닌지 체크하는 방법 -->
-	<!--  if test="num==''">에서 num==''는num이 null인지 검사 -->
-	<!-- 
-	<insert id ="boardInsert" parameterType="BoardVO" >
-		<if test="num==''">
-			insert into smemberboard2 values (1,#{id},#{subject},#{content},#{org_file},#{up_file},#{re_ref },#{ re_lev},#{ re_req},#{ readcount},sysdate)
-			 </if>
-		<if test="num!=''">
-			insert into smemberboard2 values(
-			(select max(num)+1 as num from smemberboard2),#{id},#{subject},#{content},#{org_file},#{up_file},#{re_ref },#{ re_lev},#{ re_req},#{ readcount},sysdate)
-			</if>
-	</insert>
-	 -->
-	 
-	 <!-- VER 3 -->
-	 <!-- 
-	<insert id ="boardInsert" parameterType="BoardVO" >
-		<selectKey keyProperty="num" order="BEFORE" resultType="int">
-			<if test="num==''">select 1 from dual</if>
-			<if test="num !=''">select max(num)+1 from smemberboard2</if>
-		</selectKey>	
-			insert into smemberboard2 values (#{num},#{id},#{subject},#{content},#{org_file},#{up_file},#{re_ref },#{ re_lev},#{ re_req},#{readcount}, sysdate)
-		<if test="num!=''">
-			insert into smemberboard2 values(
-			(select max(num)+1 as num from smemberboard2),#{id},#{subject},#{content},#{org_file},#{up_file},#{re_ref },#{ re_lev},#{ re_req},#{ readcount},sysdate)
-			</if>
-	</insert>
-	 -->
-	 
-	<update id="boardReplyupdate" parameterType="JJBoardVO" >
-		update smemberboard2 set re_seq= re_seq+1 where re_ref =#{re_ref} and re_seq=#{re_seq}
-	</update>
-	
-	<insert id="boardReply" parameterType="JJBoardVO">
-		 <!--  <selectKey>는 insert구문에만 사용 가능-->
-		 <!--  order같은 "BEFORE|AFTER" 대문자 사용할것-->
-		<!--  keyProperty="num"에서 numm은 컬럼 명이다-->
-		<selectKey keyProperty="num" order="BEFORE" resultType="int">
-			select nvl(max(num),0)+1 from smemberboard2
-		</selectKey>
-			
-			insert into smemberboard2 values(num,id,subject,content,re_ref,re_lev,
-			re_seq,readcount,boarddate)
-			values (#{num},#{id},#{subject},#{content},#{re_ref},#{re_lev},
-			#{re_seq},#{readcount},sysdate)
-	</insert>
-	<update id="boardModify" parameterType="JJBoardVO">
-		update smemberboard2 set subject=#{subject},content=#{content}
-		where num=#{num}
-	</update>
-	
-	<delete id="boardDelete" parameterType="int">
-	delete from smemberboard2 where num =#{num}
-	</delete>
-	
-	<update id="setReadCountUpdate" parameterType="int">
-	update smemberboard2 set readcount=readcount+1 where num=#{num}
-	</update>
-	<select id ="isBoardWriter" parameterType="HashMap" resultType="int">
-	select count(*) from smemberboard2 where num=#{num} and id=#{id}
+	<!-- myinfo_write -->
+	<select id="my_boardList" parameterType="String" resultType="JJABoardVOto" >
+	select * from community where doc_email =#{email}
+	</select>
+	<select id="my_commenList" parameterType="String" resultType="JJCommentVO">
+	select * from doc_comment where doc_email=#{email}
 	</select>
 	
 

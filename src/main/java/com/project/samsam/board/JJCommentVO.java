@@ -1,58 +1,72 @@
 package com.project.samsam.board;
 
 public class JJCommentVO {
-	private int co_no;
-	private int co_doc_no;
-	private String co_email;
-	private String co_nick;
-	private String co_content;
-	private String co_date;
-	private int co_secret;
-	
+	private int doc_cno;
+	private int doc_no;
+	private String doc_email;
+	private String doc_nick;
+	private String doc_date;
+	private String doc_content;
+	private int doc_secret;
+	private int doc_rev;
+	private int doc_deq;
+	 
 	private int co_count;
 	
 	
-	public int getCo_no() {
-		return co_no;
+	public int getDoc_cno() {
+		return doc_cno;
 	}
-	public void setCo_no(int co_no) {
-		this.co_no = co_no;
+	public void setDoc_cno(int doc_cno) {
+		this.doc_cno = doc_cno;
 	}
-	public int getCo_doc_no() {
-		return co_doc_no;
+	public int getDoc_no() {
+		return doc_no;
 	}
-	public void setCo_doc_no(int co_doc_no) {
-		this.co_doc_no = co_doc_no;
+	public void setDoc_no(int doc_no) {
+		this.doc_no = doc_no;
 	}
-	public String getCo_email() {
-		return co_email;
+	public String getDoc_email() {
+		return doc_email;
 	}
-	public void setCo_email(String co_email) {
-		this.co_email = co_email;
+	public void setDoc_email(String doc_email) {
+		this.doc_email = doc_email;
 	}
-	public String getCo_nick() {
-		return co_nick;
+	public String getDoc_nick() {
+		return doc_nick;
 	}
-	public void setCo_nick(String co_nick) {
-		this.co_nick = co_nick;
+	public void setDoc_nick(String doc_nick) {
+		this.doc_nick = doc_nick;
 	}
-	public String getCo_content() {
-		return co_content;
+	public String getDoc_date() {
+		return doc_date;
 	}
-	public void setCo_content(String co_content) {
-		this.co_content = co_content;
+	public void setDoc_date(String doc_date) {
+		this.doc_date = doc_date;
 	}
-	public String getCo_date() {
-		return co_date;
+	public String getDoc_content() {
+		return doc_content;
 	}
-	public void setCo_date(String co_date) {
-		this.co_date = co_date;
+	public void setDoc_content(String doc_content) {
+		this.doc_content = doc_content;
 	}
-	public int getCo_secret() {
-		return co_secret;
+	public int getDoc_secret() {
+		return doc_secret;
 	}
-	public void setCo_secret(int co_secret) {
-		this.co_secret = co_secret;
+	public void setDoc_secret(int doc_secret) {
+		this.doc_secret = doc_secret;
+	}
+	public int getDoc_rev() {
+		return doc_rev;
+	}
+	public void setDoc_rev(int doc_rev) {
+		this.doc_rev = doc_rev;
+	}
+	public int getDoc_deq() {
+		return doc_deq;
+	}
+	public void setDoc_deq(int doc_deq) {
+		this.doc_deq = doc_deq;
 	}
 	public int getCo_count() {
 		return co_count;
@@ -60,5 +74,5 @@ public class JJCommentVO {
 	public void setCo_count(int co_count) {
 		this.co_count = co_count;
 	}
-
+	
 }
