@@ -7,113 +7,116 @@ import java.sql.Date;
 import java.util.List;
 
 public class FdocVO {
-	private int fdoc_no;
-	private String fdoc_email;
-	private String fdoc_nick;
-	private String fdoc_subject;
-	private String fdoc_content;
-	private Date fdoc_date;
-	private int fdoc_readcount;
-	private int fdoc_expiry;
-	private String fdoc_code;
-	private int fdoc_price;
-	private String fdoc_big;
-	private String fdoc_kindof;
+	private int doc_no;
+	private String doc_email;
+	private String doc_nick;
+	private String doc_subject;
+	private String doc_content;
+	private Date doc_date;
+	private int doc_readcount;
+	private int doc_expiry;
+	private String doc_code;
+	private int doc_price;
+	private String doc_big;
+	private String doc_kindof;
 	private List<String> kind_search;
 	//private MultipartFile fdoc_Image;
-	private String fdoc_thumbnail;
-	private String fdoc_loc;
+	private String doc_thumbnail;
+	private String doc_loc;
 	private List<String> fdoc_search;
 	private List<String> kind_loc;
 	private int startrow;
 	private int endrow;
-	private int fdoc_comment;
-	public int getFdoc_no() {
-		return fdoc_no;
+	private int doc_comment;
+	public int getDoc_no() {
+		return doc_no;
 	}
-	public void setFdoc_no(int fdoc_no) {
-		this.fdoc_no = fdoc_no;
+	public void setDoc_no(int doc_no) {
+		this.doc_no = doc_no;
 	}
-	public String getFdoc_nick() {
-		return fdoc_nick;
+	public String getDoc_email() {
+		return doc_email;
 	}
-	public void setFdoc_nick(String fdoc_nick) {
-		this.fdoc_nick = fdoc_nick;
+	public void setDoc_email(String doc_email) {
+		this.doc_email = doc_email;
 	}
-	public String getFdoc_subject() {
-		return fdoc_subject;
+	public String getDoc_nick() {
+		return doc_nick;
 	}
-	public void setFdoc_subject(String fdoc_subject) {
-		this.fdoc_subject = fdoc_subject;
+	public void setDoc_nick(String doc_nick) {
+		this.doc_nick = doc_nick;
 	}
-	public String getFdoc_content() {
-		return fdoc_content;
+	public String getDoc_subject() {
+		return doc_subject;
 	}
-	public void setFdoc_content(String fdoc_content) {
-		this.fdoc_content = fdoc_content;
+	public void setDoc_subject(String doc_subject) {
+		this.doc_subject = doc_subject;
 	}
-	public Date getFdoc_date() {
-		return fdoc_date;
+	public String getDoc_content() {
+		return doc_content;
 	}
-	public void setFdoc_date(Date fdoc_date) {
-		this.fdoc_date = fdoc_date;
+	public void setDoc_content(String doc_content) {
+		this.doc_content = doc_content;
 	}
-	public int getFdoc_readcount() {
-		return fdoc_readcount;
+	public Date getDoc_date() {
+		return doc_date;
 	}
-	public void setFdoc_readcount(int fdoc_readcount) {
-		this.fdoc_readcount = fdoc_readcount;
+	public void setDoc_date(Date doc_date) {
+		this.doc_date = doc_date;
 	}
-	public int getFdoc_expiry() {
-		return fdoc_expiry;
+	public int getDoc_readcount() {
+		return doc_readcount;
 	}
-	public void setFdoc_expiry(int fdoc_expiry) {
-		this.fdoc_expiry = fdoc_expiry;
+	public void setDoc_readcount(int doc_readcount) {
+		this.doc_readcount = doc_readcount;
 	}
-	public String getFdoc_code() {
-		return fdoc_code;
+	public int getDoc_expiry() {
+		return doc_expiry;
 	}
-	public void setFdoc_code(String fdoc_code) {
-		this.fdoc_code = fdoc_code;
+	public void setDoc_expiry(int doc_expiry) {
+		this.doc_expiry = doc_expiry;
 	}
-	public int getFdoc_price() {
-		return fdoc_price;
+	public String getDoc_code() {
+		return doc_code;
 	}
-	public void setFdoc_price(int fdoc_price) {
-		this.fdoc_price = fdoc_price;
+	public void setDoc_code(String doc_code) {
+		this.doc_code = doc_code;
 	}
-	public String getFdoc_big() {
-		return fdoc_big;
+	public int getDoc_price() {
+		return doc_price;
 	}
-	public void setFdoc_big(String fdoc_big) {
-		this.fdoc_big = fdoc_big;
+	public void setDoc_price(int doc_price) {
+		this.doc_price = doc_price;
 	}
-
-	public String getFdoc_kindof() {
-		return fdoc_kindof;
+	public String getDoc_big() {
+		return doc_big;
 	}
-	public void setFdoc_kindof(String fdoc_kindof) {
-		this.fdoc_kindof = fdoc_kindof;
+	public void setDoc_big(String doc_big) {
+		this.doc_big = doc_big;
 	}
-
-	public String getFdoc_thumbnail() {
-		return fdoc_thumbnail;
+	public String getDoc_kindof() {
+		return doc_kindof;
 	}
-	public void setFdoc_thumbnail(String fdoc_thumbnail) {
-		this.fdoc_thumbnail = fdoc_thumbnail;
+	public void setDoc_kindof(String doc_kindof) {
+		this.doc_kindof = doc_kindof;
 	}
-	public String getFdoc_loc() {
-		return fdoc_loc;
-	}
-	public void setFdoc_loc(String fdoc_loc) {
-		this.fdoc_loc = fdoc_loc;
-	}
-
 	public List<String> getKind_search() {
 		return kind_search;
 	}
 	public void setKind_search(List<String> kind_search) {
 		this.kind_search = kind_search;
+	}
+	public String getDoc_thumbnail() {
+		return doc_thumbnail;
+	}
+	public void setDoc_thumbnail(String doc_thumbnail) {
+		this.doc_thumbnail = doc_thumbnail;
+	}
+	public String getDoc_loc() {
+		return doc_loc;
+	}
+	public void setDoc_loc(String doc_loc) {
+		this.doc_loc = doc_loc;
 	}
 	public List<String> getFdoc_search() {
 		return fdoc_search;
@@ -139,18 +142,12 @@ public class FdocVO {
 	public void setEndrow(int endrow) {
 		this.endrow = endrow;
 	}
-	public String getFdoc_email() {
-		return fdoc_email;
+	public int getDoc_comment() {
+		return doc_comment;
 	}
-	public void setFdoc_email(String fdoc_email) {
-		this.fdoc_email = fdoc_email;
+	public void setDoc_comment(int doc_comment) {
+		this.doc_comment = doc_comment;
 	}
-	public int getFdoc_comment() {
-		return fdoc_comment;
-	}
-	public void setFdoc_comment(int fdoc_comment) {
-		this.fdoc_comment = fdoc_comment;
-	}
-	
+
 	
 }

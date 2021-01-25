@@ -118,7 +118,7 @@
 	 
 	  <delete id="DocDeleteComment"  parameterType="DocVO">
 	 
-		DELETE FROM doc_comment WHERE CO_DOC_NO = #{doc_no}
+		DELETE FROM doc_comment WHERE DOC_NO = #{doc_no}
 	 	
 	 </delete>
 	 

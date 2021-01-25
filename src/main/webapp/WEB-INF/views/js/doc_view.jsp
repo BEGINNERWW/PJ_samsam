@@ -6,10 +6,13 @@
 <%
 	DocVO vo = (DocVO)request.getAttribute("vo");
 	int nowpage=((Integer)request.getAttribute("page")).intValue();
-	String id = request.getParameter("id");
-	String email = request.getParameter("email");
-	id = "2";
-	email = "456@gmail.com";
+	String id = (String) session.getAttribute("nick");
+	String email = (String) session.getAttribute("email");
+	String table = "doc_comment";
+	String doc_table = "community";
+
+	
+	
 %>
 	<link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -17,35 +20,339 @@
 	crossorigin="anonymous">
 
 <style>
-html, body {
-	margin: 0;
-	padding: 0;
-	height: 100%;
-	overflow: hidden;
+@charset "utf-8";
+
+* {
+   margin:0;
+   padding: 0;
 }
-.body_content {
-	margin: 0;
-	height: 100vh;
-    min-height : 600px;
-    box-sizing : content-box;
-	line-height: 1.7;
-    color: gray;
-   	font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 300;
-    font-size: .9rem;
-    overflow:scroll;
-}
-table {
-	margin: auto;
-	width: 60%;
-	border-top: 1px solid #444444;
-	border-collapse: collapse;
+html{
+   margin:0 auto;
+   width : 100%;
+   height: 100%;
+    overflow: auto;
 }
 
-th, td {
-	border-bottom: 1px solid #444444;
-	padding: 10px;
+
+body {
+   margin: 0;
+   height: auto;
+    min-height : 600px;
+    box-sizing : content-box;
+   line-height: 1.7;
+    color: gray;
+      font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    font-size: .9rem;
 }
+
+
+a{
+   text-decoration : none;
+   color : #9494b8;
+}
+a:hover {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+body {
+   text-align: -webkit-center;
+   display : flex;
+   flex-direction : column;
+   justify-content : space-between;
+}
+
+.body_content{
+     margin : 0;
+     padding : 0;
+     width : 100%;
+     height:100vh;
+    display : flex;
+    flex-direction : column;
+}
+
+#header {
+    width: 100%;
+    height: 189px;
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #efefef;
+    padding-bottom: 18px;
+    background-color : #fff;
+    position : fixed;
+    z-index : 100;
+    top : 0;
+    left : 0;
+    right : 0;
+}
+
+.inout_gocen{
+   position : inline;
+   display : flex;
+   justify-content : flex-end;
+   margin-top : 20px;
+   margin-right : 340px;
+   background-color : #fff;
+}
+.fixinner{
+   position: fixed; 
+}
+.header-top {
+   margin-top : -10px;
+   display : flex;
+   justify-content : flex-start;
+   margin-right: auto;
+}
+.header_btn{
+   width : 70px;
+   height : 30px;
+   background-color : #fff;
+   color : #9494b8;
+    border-radius: 5px;
+    border : none;
+    outline : 0;
+}
+.header_btn:hover{
+   color : #6200cc;
+   font-weight: 700;
+}
+#logout, #mypage{
+   display : none;
+}
+.img-circle{
+   width : 450px;
+   height : 150px;
+   display: block;
+   margin : 0 auto;
+}
+.nav-menu{
+   margin : 0 auto;
+   display : flex;
+   justify-content : space-around;
+   align-items: baseline;
+   width: 1200px;
+}
+.sticky-wrapper{
+   width: 400px;
+   height: 50px;
+   margin : 0;
+   margin-left: 0;
+     position: sticky;
+     list-style : none;
+    display : flex;
+    padding: 0;
+}
+
+.sticky-wrapper > li{
+   padding : 8px 8px;
+   list-style-type:none;
+   float: left;
+}
+.sticky-wrapper > ul{
+   padding : 8px 8px;
+}
+
+li.dropdown {
+    color: #9494b8;
+    background: #fff;
+    transition: .3s all ease;
+    font-size: 20px;
+    width: 90px;
+    height: 50px;
+}
+
+.sticky-wrapper.active{
+   position: fixed;
+    top: 0px;
+}
+
+/* dropdown */
+.dropdown-menu {
+   display: none;
+      justify-content : flex-start;
+   position: absolute;
+   list-style : none;
+    visibility: visible;
+    background-color: #fff;
+   width: 1200px;
+   top : 48px;
+   margin-left : -30px;
+   border: none;
+   border-top: 1px solid #efefef;
+}
+
+.board {
+	padding-left: 46px;
+}
+.care {
+	padding-left: 30px;
+}
+.commu {
+	padding-left: 35px;
+}
+
+li.dropdown > a {
+    text-decoration: none;
+}
+
+.dropdown-menu li{
+   margin-right : 40px;
+}
+.dropdown:hover .dropdown-menu { 
+   display: flex; 
+   visibility: visible; 
+}
+
+/* search-wrapper */
+.search-wrapper {
+  padding : 5px;
+  width: 280px;
+  height: 38px;
+  display: flex;
+  justify-content : space-betwwen;
+  background: #fff;
+  border: 2px solid #9494b8;
+  border-radius: 10px;
+}
+.search-box {
+  height : 100%;
+  padding: 0;
+  border: none;
+  background: #fff;
+}
+.search-box.input {
+  width : 80%;
+  margin-left : 15px;
+  font-size : .9rem;
+}
+.search-box.input:focus {outline:none;}
+
+.search-box.btn1 {
+  color : #9494b8;
+  text-align : left; 
+}
+
+/* search-wrqpper */
+
+.main-content{
+   width : 100%;
+   height : auto;
+   margin : 0 auto;
+}
+
+
+/* footer */
+#footer {
+    margin: 0 auto;
+    width: fit-content;
+    bottom: 20px;
+    position: relative;
+}
+
+.fa-heart{
+   color : red;
+}
+
+/* pageup button */
+.back-to-top{
+   width : 40px;
+   height : 40px;
+   margin : 0 auto;
+   font-size : 24px;
+   color : white;
+   background-color : #149DDD;
+   border-radius : 50%;
+   visibility : visible;
+   position: fixed; 
+   bottom: 45px; 
+   right: 30px;
+   text-align : center;
+}
+/* pageup button */
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+
+/*카카오톡 톡상담*/
+.kakaoChat {
+    text-align: right;
+    position: fixed;
+    margin-right: 28px;
+    bottom: 90px;
+    right: 0;
+}
+.kakao_btn {
+	border-radius: 1rem!important;
+}
+
+/* side menu와 내용 묶음 */
+.content-wrap {
+	width: 1200px;
+	min-height: 100%;
+	margin: 0 auto;
+	position: relative;
+	top: 50px;
+	
+}
+/* side menu 틀*/
+.sidemenu-section {
+    width: 200px;
+    font-size: 18px;
+    text-align: left;
+    min-height: 740px;
+    border-right-color: darkblue;
+    border-right: 1px solid #efefef;
+    padding: 0px 0px 0 0;
+    margin-left: 0;
+    margin-top: 210px;
+    position: fixed;
+}
+
+
+/* 내용 틀*/
+.content-section {
+    width: 1001px;
+    height: max-content;
+    position: relative;
+    left: 100px;
+    text-align: left;
+    font-size: 14px;
+    margin-top: 0px;
+    color: black;
+    margin-left: 0;
+    padding-bottom: 100px;
+    border-left-color: darkblue;
+    border-left: 1px solid #efefef;
+    padding-left: 50px;
+    padding-right: 0;
+    min-height: 940px;
+    padding-top: 200px;
+}
+.list-group {
+	border-bottom: 1px solid rgba(0,0,0,.125);
+}
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: .75rem 1.25rem;
+    margin-bottom: -1px;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,.125);
+}
+/* 현재 페이지의 서브메뉴 */
+li.list-group-item.click > a {
+    font-weight: bold;
+    color: #5c5c8a;
+}
+
+
+.list-group-item > a {
+	text-decoration : none;
+	}
+/* 각각의 페이지에서 사용할 CSS */
 
 textarea {
 	-webkit-writing-mode: horizontal-tb !important;
@@ -103,360 +410,8 @@ a {
 	margin-bottom: 35px;
 }
 
-@charset "utf-8";
-
-* {
-	margin: 0;
-	padding: 0;
-}
-
-html {
-	margin: 0 auto;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-}
-
-a:hover {
-	color: #0056b3;
-	text-decoration: none;
-}
-
-body {
-	margin: 0;
-	height: 100vh;
-	min-height: 600px;
-	box-sizing: content-box;
-	line-height: 1.7;
-	color: gray;
-	font-family: 'Noto Sans KR', sans-serif;
-	font-weight: 300;
-	font-size: .9rem;
-}
-
-a {
-	text-decoration: none;
-	color: #9494b8;
-}
-
-body {
-	text-align: -webkit-center;
-}
-
-.body_content {
-	margin: 0;
-	padding: 0;
-	width: 100%;
-	height: 100vh;
-	display: flex;
-	flex-direction: column;
-	overflow: auto;
-}
-
-#header {
-	width: 100%;
-	height: 190px;
-	box-sizing: content-box;
-	display: flex;
-	flex-direction: column;
-	border-bottom: 1px solid #efefef;
-	padding-bottom: 20px;
-}
-
-.inout_gocen {
-	position: fixed;
-	top: 20px;
-	right: 390px;
-}
-
-.header-top {
-	margin-top: 40px;
-	display: flex;
-	justify-content: flex-start;
-	margin-right: auto;
-}
-
-.header_btn {
-	width: 70px;
-	height: 30px;
-	background-color: #fff;
-	color: #9494b8;
-	border-radius: 5px;
-	border: none;
-	outline: 0;
-}
-
-.header_btn:hover {
-	color: #6200cc;
-	font-weight: 700;
-}
-
-#logout, #mypage {
-	display: none;
-}
-
-.img-circle {
-	width: 450px;
-	height: 150px;
-	display: block;
-	margin: 0 auto;
-}
-
-.nav-menu {
-	margin: 0 auto;
-	display: flex;
-	justify-content: space-around;
-	align-items: baseline;
-	width: 1200px;
-}
-
-.sticky-wrapper {
-	width: 400px;
-	height: 50px;
-	margin: 0;
-	margin-left: 0;
-	position: sticky;
-	list-style: none;
-	display: flex;
-	padding: 0;
-}
-
-.sticky-wrapper>li {
-	padding: 8px 8px;
-	list-style-type: none;
-	float: left;
-}
-
-.sticky-wrapper>ul {
-	padding: 8px 8px;
-}
-
-li.dropdown {
-	color: #9494b8;
-	background: #fff;
-	transition: .3s all ease;
-	font-size: 20px;
-	width: 90px;
-	height: 50px;
-	text-align: -webkit-center;
-}
-
-.sticky-wrapper.active {
-	position: fixed;
-	top: 0px;
-}
-
-/* dropdown */
-.dropdown-menu {
-	display: none;
-	justify-content: flex-start;
-	position: absolute;
-	list-style: none;
-	visibility: visible;
-	background-color: rgb(0, 0, 0, 0);
-	width: 350px;
-	top: 48px;
-	padding: 5px;
-	border: none;
-}
-.dropdown_1{
-	backgrond-color:transparent !important;
-	border:0px;
-	
-}
 
 
-.dropdown-menu li {
-	margin-right: 40px;
-	text-decoration: none;
-    color: #9494b8;
-}
-
-.dropdown:hover .dropdown-menu {
-	display: flex;
-	visibility: visible;
-}
-
-/* search-wrapper */
-.search-wrapper {
-	padding: 5px;
-	width: 280px;
-	height: 38px;
-	display: flex;
-	justify-content: space-betwwen;
-	background: #fff;
-	border: 2px solid #9494b8;
-	border-radius: 10px;
-}
-
-.search-box {
-	height: 100%;
-	padding: 0;
-	border: none;
-	background: #fff;
-}
-
-.search-box.input {
-	width: 80%;
-	margin-left: 15px;
-	font-size: .9rem;
-}
-
-.search-box.input:focus {
-	outline: none;
-}
-
-.search-box.btn {
-	color: #9494b8;
-	text-align: left;
-}
-
-/* search-wrqpper */
-.main-content {
-	width: 100%;
-	height: 100%;
-	margin: 0 auto;
-}
-
-/* footer */
-#footer {
-
-	position: relative;
-    margin: -15px auto;
-    width: 100%;
-    bottom: 35px;
-    padding-top: 35px;
-    z-index: -1;
-    border-top: 1px solid #efefef;
-    
-}
-
-
-
-
-p {
-	text-align: left;
-}
-
-.fa-heart {
-	color: red;
-}
-
-/* pageup button */
-.back-to-top {
-	width: 40px;
-	height: 40px;
-	margin: 0 auto;
-	font-size: 24px;
-	color: white;
-	background-color: #149DDD;
-	border-radius: 50%;
-	visibility: visible;
-	position: fixed;
-	bottom: 45px;
-	right: 30px;
-	text-align: center;
-}
-/* pageup button */
-*, ::after, ::before {
-	box-sizing: border-box;
-}
-
-/*카카오톡 톡상담*/
-.kakaoChat {
-	width: 44px;
-	height: 100px;
-	margin: 0 auto;
-	font-size: 24px;
-	color: white;
-	border-radius: 50%;
-	visibility: visible;
-	position: fixed;
-	bottom: 45px;
-	right: 30px;
-	text-align: center;
-}
-
-.kakao_btn {
-	border-radius: 1rem !important;
-}
-
-/* side menu와 내용 묶음 */
-.content-wrap {
-    width: 1200px;
-    margin: 0 auto;
-    position: relative;
-    top: 50px;
-    overflow: visible;
-    margin-bottom: 100px;
-    
-
-}
-
-.cont_comment {
-	margin-top: 35px;
-}
-
-.content-wrap::-webkit-scrollbar {
-	display: none;
-}
-
-.sidemenu-section {
-	width: 200px;
-	position: absolute;
-	font-size: 18px;
-	text-align: left;
-	height: 100%;
-	padding: 0px 0px 0 0;
-	margin-left: 0;
-}
-
-.content-section {
-	width: 1000px;
-	position: relative;
-	left: 200px;
-	text-align: left;
-	font-size: 14px;
-	margin-top: 3px;
-	color: black;
-	padding-left: 50px;
-	border-left: 1px solid #efefef;
-}
-
-.content-section::-webkit-scrollbar {
-	display: none;
-}
-
-.list-group-item {
-	position: relative;
-	display: block;
-	padding: .75rem 1.25rem;
-	margin-bottom: -1px;
-	background-color: white;
-	border: 1px solid rgba(0, 0, 0, .125);
-}
-
-li.list-group-item.click>a {
-	font-weight: bold;
-	color: #5c5c8a;
-}
-
-.list-group-item>a {
-	text-decoration: none;
-}
-
-.dropdown-menu {
-	display: none;
-	justify-content: flex-start;
-	position: absolute;
-	list-style: none;
-	visibility: visible;
-	background-color: rgb(0, 0, 0, 0);
-	width: 350px;
-	top: 48px;
-	padding: 5px;
-	border: none;
-}
 
 a {
 	text-decoration: none;
@@ -474,6 +429,7 @@ a {
 
 .comment_view {
 	padding-top: 10px;
+	background-color:white;
 }
 
 .comment_section .comment_info .comment_post .opt_more_g {
@@ -527,20 +483,7 @@ a {
 	color: #666;
 }
 
-ul {
-	display: block;
-	list-style-type: disc;
-	margin-block-start: 1em;
-	margin-block-end: 1em;
-	margin-inline-start: 0px;
-	margin-inline-end: 0px;
-	padding-inline-start: 40px;
-}
 
-li {
-	display: list-item;
-	text-align: -webkit-match-parent;
-}
 
 .all dd, .all dl, .all dt, .all p, li, ul {
 	list-style: none;
@@ -585,15 +528,7 @@ body, button, div, input, select, table, td, textarea, th {
 	-webkit-font-smoothing: antialiased;
 }
 
-body, div, table, td, th, tr {
-	line-height: 1.6;
-}
 
-body {
-	margin: 0;
-	padding: 0;
-	font-size: 13px;
-}
 
 .comment_section .comment_info .comment_post .ico_bbs.ico_new,
 	.comment_section .comment_info .comment_post .ico_role,
@@ -809,9 +744,16 @@ textarea {
 }
 
 .btn_g.full_type1 {
-	background-color: #ff5656;
+	background-color: #ed457d;
 	color: #fff;
 	border: 0;
+}
+.btn_g.full_type2{
+	background-color: #bd4242;
+	color:white;
+	border:0;
+	height:30px;
+
 }
 
 .btn_g {
@@ -832,7 +774,7 @@ display:inline-block;
 float:right;
 margin-right:40px;
 }
-select, input, button, textarea {
+select, button, textarea {
     display: inline-block;
     font-family: "Malgun Gothic", 'MalgunGothic', '맑은고딕', sans-serif;
     font-size: 12px;
@@ -846,6 +788,7 @@ select, input, button, textarea {
 	color:#94969b;
 }
 .headsubject{
+	display:inline-block;
 	font-size: 24px;
     line-height: 32px;
     font-weight: 700;
@@ -855,7 +798,6 @@ select, input, button, textarea {
 padding: 0 0 29px;
     border-bottom: 1px solid #eee;
 }
-
 
 
 </style>
@@ -883,7 +825,9 @@ padding: 0 0 29px;
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <script>
-
+var table = '<%=table%>';
+var doc_table = '<%=doc_table%>';
+var email ='<%=email%>';
 function warning(cno,dno,cnick,content){
 	event.preventDefault();
 	$('#ex7').empty();
@@ -941,7 +885,7 @@ function warning_submit(){
 		return false;
 	}
 	$.ajax({
-		url : 'doc_warning.bo',
+		url : 'fdoc_warning.bo',
 		type : 'POST',
 		data :  data,
 		success: function(data){
@@ -963,19 +907,25 @@ function warning_submit(){
 		var a = '';
 		
 		a += '<div class="text_write_g comment_write"><div class="inner_text_write"><div class="box_textarea">';
-		a += '<textarea id="doc_ccontent" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height: 86px;"></textarea>';
+		a += '<textarea id="doc_content" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height: 86px;"></textarea>';
 		a += '</div><div class="wrap_menu"><div class="area_r"><button id="secretcheck" class="btn_g_ico btn_item secret_button" data-is-hidden=""><span class="ico_bbs ico_lock_state">비밀글</span></button>';
-		a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="commentInsert();" id="doc_submit" style="font-size: 13px;">등록</button>';
+		a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="commentInsert();" id="fdoc_submit" style="font-size: 13px;">등록</button>';
 		a += '</div></div></div></div></div>';
 		
-		$("#doc_refly").html(a);
+		$("#fdoc_refly").html(a);
 		
 	}
 	
     
     function commentInsert(){
-    	var doc_ccontent = $('#doc_ccontent').val();
-    	doc_ccontent = doc_ccontent.replace(/(?:\r\n|\r|\n)/g, '<br />');
+    	
+    	
+    	var doc_content = $('#doc_content').val();
+    	if(doc_content == ''){
+			alert("내용을 입력해주세요");
+			return false;
+    	}
+    	doc_content = doc_content.replace(/(?:\r\n|\r|\n)/g, '<br />');
     	var doc_no =<%=vo.getDoc_no()%>
     	var updateSecret ='';
     	if($('#secretcheck').attr('class')== 'btn_g_ico btn_item secret_button ico_on'){
@@ -985,9 +935,9 @@ function warning_submit(){
     	}
     	
     	$.ajax({
-    		url : 'doccomment_insert.bo',
+    		url : 'comment_insert.bo',
     		type : 'POST',
-    		data :  {'co_doc_no' : doc_no,'co_content' : doc_ccontent , 'co_secret' : updateSecret },
+    		data :  {'doc_no' : doc_no,'doc_content' : doc_content , 'doc_secret' : updateSecret,'table': table , 'doc_table' : doc_table },
     		success: function(data){
     			if(data ==1){
     				commentList();
@@ -1008,81 +958,82 @@ function warning_submit(){
     	
     	var doc_no =<%=vo.getDoc_no()%>
     	var id = '<%=id%>'
-    	var writer = '<%=vo.getDoc_nick()%>'
+    	var writer = '<%=vo.getDoc_email()%>'
     	
     	$.ajax({
-    		url : 'doccomment_list.bo',
+    		url : 'comment_list.bo',
     		type : 'post',
-    		data : { 'co_doc_no' : doc_no},
+    		data : { 'doc_no' : doc_no ,'table' : table},
     		dataType : 'json',
     		contentType : 'application/x-www-form-urlencoded;charset=utf-8',
     		success : function(data){
     			
     			var a = '';
     			$.each(data, function(key,value){
-    				var date = new Date(value.co_date);
     				
-    				if(value.co_lev == 0){
+    				var date = new Date(value.doc_date);
+    				
+    				if(value.doc_lev == 0){
     					//원글
     					
     				
-    				if(value.co_secret == 0){
+    				if(value.doc_secret == 0){
     					//비밀글 x
     				
-    				if(id!=value.co_nick &id !='null'){
+    				if(email!=value.doc_email &email !='null'){
     					//작성자인지 아닌지 확인
     				
-    				a += '<li style="background-color:#F8F8F8;" id="refly'+value.co_no+'"><div class="comment_section"><div class="comment_info">';
-    				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    				a += '<li style="background-color:#F8F8F8;" id="refly'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+    				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
     				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-    				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.co_content+'</span></p></div>';
-    				a += '<div class="comment_more"><a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
-    				a += '<a class="link_write" href="#" onclick="warning('+value.co_no+','+doc_no+',\''+value.co_nick+'\',\''+value.co_content+'\');">신고</a>';
+    				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.doc_content+'</span></p></div>';
+    				a += '<div class="comment_more"><a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+    				a += '<a class="link_write" href="#" onclick="warning('+value.doc_cno+','+doc_no+',\''+value.doc_nick+'\',\''+value.doc_content+'\');">신고</a>';
     				a += '</div></div></div></li>';
     				}else if(id=='null'){
     					
-    					a += '<li style="background-color:#F8F8F8;" id="refly'+value.co_no+'"><div class="comment_section"><div class="comment_info">';
-        				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    					a += '<li style="background-color:#F8F8F8;" id="refly'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+        				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
         				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-        				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.co_content+'</span></p></div>';
+        				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.doc_content+'</span></p></div>';
         				a += '<div class="comment_more">';
         				a += '</div></div></div></li>';
     					
     				}
     				else{
     				
-    					a += '<li style="background-color:#EFF3F7;" id="refly'+value.co_no+'"><div class="comment_section"><div class="comment_info">';
-        				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    					a += '<li style="background-color:#EFF3F7;" id="refly'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+        				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
         				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-        				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.co_content+'</span></p></div>';
+        				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.doc_content+'</span></p></div>';
         				a += '<div class="comment_more">';
-        				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
-        				a += '<a class="link_write" href="#" onclick="commentDelete('+value.co_no+','+value.co_lev+');">삭제</a>';
-        				a += '<a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+        				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
+        				a += '<a class="link_write" href="#" onclick="commentDelete('+value.doc_cno+','+value.doc_lev+');">삭제</a>';
+        				a += '<a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
         				a += '</div></div></div></li>';
     					
     				}
     				
     				}else{
     					
-    					if(id!=value.co_nick & id!=writer){
+    					if(email!=value.doc_email & email!=writer){
     						
-    						a+= '<li style="background-color:#F8F8F8;" id="refly"'+value.co_no+'"><div class="comment_section"><div class="comment_info">';
+    						a+= '<li style="background-color:#F8F8F8;" id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
     						a+= '<div class="comment_post"><div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span>';
     						a+= '&nbsp;&nbsp;&nbsp;해당 댓글은 작성자와 운영자만 볼 수 있습니다.';
     						a+= '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></p></div></div></div></div></li>';
     						
-    					}else if(id == value.co_nick){
+    					}else if(email==value.doc_email){
     					
     						
-    						a += '<li style="background-color:#EFF3F7;" id="refly'+value.co_no+'"><div class="comment_section"><div class="comment_info">';
-            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    						a += '<li style="background-color:#EFF3F7;" id="refly'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
             				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.co_content+'</span></p></div>';
+            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.doc_content+'</span></p></div>';
             				a += '<div class="comment_more">';
-            				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
-            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.co_no+','+value.co_lev+');">삭제</a>';
-            				a += '<a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+            				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
+            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.doc_cno+','+value.doc_lev+');">삭제</a>';
+            				a += '<a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
             				a += '</div></div></div></li>';
     						
     						
@@ -1090,22 +1041,22 @@ function warning_submit(){
     						
     					
     	    				
-    						a += '<li style="background-color:#F8F8F8;" id="refly'+value.co_no+'"><div class="comment_section"><div class="comment_info">';
-            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    						a += '<li style="background-color:#F8F8F8;" id="refly'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
             				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.co_content+'</span></p></div>';
+            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.doc_content+'</span></p></div>';
             				a += '<div class="comment_more">';
-            				a += '<a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
-            				a += '<a class="link_write" href="#" onclick="warning('+value.co_no+','+doc_no+',\''+value.co_nick+'\',\''+value.co_content+'\');">신고</a>';
+            				a += '<a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+            				a += '<a class="link_write" href="#" onclick="warning('+value.doc_cno+','+doc_no+',\''+value.doc_nick+'\',\''+value.doc_content+'\');">신고</a>';
             				a += '</div></div></div></li>';
     					
     					}
     						
     					}
     				
-    				}else if(value.co_lev == 2){
+    				}else if(value.doc_lev == 2){
     					
-    					a+= '<li style="background-color:#F8F8F8;" id="refly"'+value.co_no+'"><div class="comment_section"><div class="comment_info">';
+    					a+= '<li style="background-color:#F8F8F8;" id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
 						a+= '<div class="comment_post"><div class="box_post"><p class="desc_info">';
 						a+= '&nbsp;&nbsp;&nbsp;삭제된 댓글입니다.';
 						a+= '</p></div></div></div></div></li>';
@@ -1116,41 +1067,41 @@ function warning_submit(){
     				else{
     					
     					//댓글
-    					if(value.co_secret == 0){
+    					if(value.doc_secret == 0){
         					
     	    				
-    	    				if(id!=value.co_nick & id!='null'){
+    	    				if(email!=value.doc_email & email!='null'){
     	    			
     	    				
-    	    					a += '<li class="refly_section" style="background-color:#F8F8F8;" id="refly'+value.co_no+'"><div class="comment_re"><div class="comment_info">';
-    	        				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    	    					a += '<li class="refly_section" style="background-color:#F8F8F8;" id="refly'+value.doc_cno+'"><div class="comment_re"><div class="comment_info">';
+    	        				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
     	        				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-    	        				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.co_content+'</span></p></div>';
+    	        				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.doc_content+'</span></p></div>';
     	        				a += '<div class="comment_more">';
-    	        				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
-    	        				a += '<a class="link_write" href="#" onclick="warning('+value.co_no+','+doc_no+',\''+value.co_nick+'\',\''+value.co_content+'\');">신고</a>';
+    	        				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+    	        				a += '<a class="link_write" href="#" onclick="warning('+value.doc_cno+','+doc_no+',\''+value.doc_nick+'\',\''+value.doc_content+'\');">신고</a>';
     	        				a += '</div></div></div></li>';
     	    				
     	    				
-    	    				}else if(id == 'null'){
-    	    					a += '<li class="refly_section" style="background-color:#F8F8F8;" id="refly'+value.co_no+'"><div class="comment_re"><div class="comment_info">';
-    	        				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    	    				}else if(email == 'null'){
+    	    					a += '<li class="refly_section" style="background-color:#F8F8F8;" id="refly'+value.doc_cno+'"><div class="comment_re"><div class="comment_info">';
+    	        				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
     	        				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-    	        				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.co_content+'</span></p></div>';
+    	        				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.doc_content+'</span></p></div>';
     	        				a += '<div class="comment_more">';
     	        				a += '</div></div></div></li>';
     	    					
     	    				}
     	    				else{
     	    				
-    	    					a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.co_no+'"><div class="comment_re"><div class="comment_info">';
-    	        				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    	    					a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.doc_cno+'"><div class="comment_re"><div class="comment_info">';
+    	        				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
     	        				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-    	        				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.co_content+'</span></p></div>';
+    	        				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.doc_content+'</span></p></div>';
     	        				a += '<div class="comment_more">';
-    	        				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
-    	        				a += '<a class="link_write" href="#" onclick="commentDelete('+value.co_no+','+value.co_lev+');">삭제</a>';
-    	        				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+    	        				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
+    	        				a += '<a class="link_write" href="#" onclick="commentDelete('+value.doc_cno+','+value.doc_lev+');">삭제</a>';
+    	        				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
     	        				a += '</div></div></div></li>';
     	    					
     	    				}
@@ -1158,36 +1109,36 @@ function warning_submit(){
     	    				}else{
     	    					//비밀글
     	    					
-    	    					if(id!=value.co_nick && id!=writer ){
+    	    					if(email!=value.doc_email && email!=writer ){
     	    						
     	    						
-    	    						a+= '<li class="refly_section" style="background-color:#F8F8F8;" id="refly"'+value.co_no+'"><div class="comment_re"><div class="comment_info">';
+    	    						a+= '<li class="refly_section" style="background-color:#F8F8F8;" id="refly"'+value.doc_cno+'"><div class="comment_re"><div class="comment_info">';
     	    						a+= '<div class="comment_post"><div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span>';
     	    						a+= '&nbsp;&nbsp;&nbsp;해당 댓글은 작성자와 운영자만 볼 수 있습니다.';
     	    						a+= '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></p></div></div></div></div></li>';
     	    						
-    	    					}else if(id == value.co_nick){
+    	    					}else if(email==value.doc_email){
     	    						
     	    						
-    	    						a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.co_no+'"><div class="comment_re"><div class="comment_info">';
-    	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    	    						a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.doc_cno+'"><div class="comment_re"><div class="comment_info">';
+    	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
     	            				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-    	            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.co_content+'</span></p></div>';
+    	            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.doc_content+'</span></p></div>';
     	            				a += '<div class="comment_more">';
-    	            				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
-    	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.co_no+','+value.co_lev+');">삭제</a>';
-    	            				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+    	            				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
+    	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.doc_cno+','+value.doc_lev+');">삭제</a>';
+    	            				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
     	            				a += '</div></div></div></li>';
     	    						
     	    					}else{
     	    					
-    	    						a += '<li class="refly_section" style="background-color:#F8F8F8;" id="refly'+value.co_no+'"><div class="comment_re"><div class="comment_info">';
-    	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    	    						a += '<li class="refly_section" style="background-color:#F8F8F8;" id="refly'+value.doc_cno+'"><div class="comment_re"><div class="comment_info">';
+    	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
     	            				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-    	            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.co_content+'</span></p></div>';
+    	            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.doc_content+'</span></p></div>';
     	            				a += '<div class="comment_more">';
-    	            				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
-    	            				a += '<a class="link_write" href="#" onclick="warning('+value.co_no+','+doc_no+',\''+value.co_nick+'\',\''+value.co_content+'\');">신고</a>';
+    	            				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+    	            				a += '<a class="link_write" href="#" onclick="warning('+value.doc_cno+','+doc_no+',\''+value.doc_nick+'\',\''+value.doc_content+'\');">신고</a>';
     	            				a += '</div></div></div></li>';
     	    	    				
     	    	    				
@@ -1231,65 +1182,65 @@ function warning_submit(){
     	
     	var doc_no =<%=vo.getDoc_no()%>
     	var id = '<%=id%>'
-    	var writer = '<%=vo.getDoc_nick()%>'
+    	var writer = '<%=vo.getDoc_email()%>'
     	
     	$.ajax({
-    		url : 'doccomment_list.bo',
+    		url : 'comment_list.bo',
     		type : 'post',
-    		data : { 'co_doc_no' : doc_no},
+    		data : { 'doc_no' : doc_no ,'table' : table },
     		dataType : 'json',
     		contentType : 'application/x-www-form-urlencoded;charset=utf-8',
     		success : function(data){
     			
     			var a = '';
     			$.each(data, function(key,value){
-    				var date = new Date(value.co_date);
+    				var date = new Date(value.doc_date);
     				
-    				if(value.co_lev == 0){
+    				if(value.doc_lev == 0){
     					
-    					if(value.co_secret == 0){
+    					if(value.doc_secret == 0){
         					
     	    				
-    	    				if(id!=value.co_nick){
+    	    				if(email!=value.doc_email){
     	    					//작성자 x ,원글, 비밀긅x
-    	    					a += '<li style="background-color:#F8F8F8;" id="refly'+value.co_no+'"><div class="comment_section"><div class="comment_info">';
-    	    	    			a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    	    					a += '<li style="background-color:#F8F8F8;" id="refly'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+    	    	    			a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
     	    	    			a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-    	    	    			a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.co_content+'</span></p></div>';
-    	    	    			a += '<div class="comment_more"><a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+    	    	    			a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.doc_content+'</span></p></div>';
+    	    	    			a += '<div class="comment_more"><a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
     	    	    			a += '</div></div></div></li>';
     	    				
     	    				}
     	    				
     	    				else{
     	    					//작성자
-    	    					if(cno != value.co_no){
+    	    					if(cno != value.doc_cno){
     	    					
-    	    						a += '<li style="background-color:#EFF3F7;" id="refly'+value.co_no+'"><div class="comment_section"><div class="comment_info">';
-    	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    	    						a += '<li style="background-color:#EFF3F7;" id="refly'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+    	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
     	            				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-    	            				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.co_content+'</span></p></div>';
+    	            				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.doc_content+'</span></p></div>';
     	            				a += '<div class="comment_more">';
-    	            				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
-    	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.co_no+','+value.co_lev+');">삭제</a>';
-    	            				a += '<a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+    	            				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
+    	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.doc_cno+','+value.doc_lev+');">삭제</a>';
+    	            				a += '<a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
     	            				a += '</div></div></div></li>';
     	    					
     	    					}else{
     	    						//작성자 수정폼
-    	    						a += '<li style="background-color:#EFF3F7;" id="refly'+value.co_no+'"><div class="comment_section"><div class="comment_info">';
-    	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    	    						a += '<li style="background-color:#EFF3F7;" id="refly'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+    	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
     	            				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-    	            				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.co_content+'</span></p></div>';
+    	            				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.doc_content+'</span></p></div>';
     	            				a += '<div class="comment_more">';
     	            				a += '<a class="link_write" href="#" onclick="commentList();">접기</a>';
-    	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.co_no+','+value.co_lev+');">삭제</a>';
-    	            				a += '<a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+    	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.doc_cno+','+value.doc_lev+');">삭제</a>';
+    	            				a += '<a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
     	            				a += '</div></div>';
     	            				a += '<div class="text_write_g comment_write"><div class="inner_text_write">';
     	            				a += '<div class="box_textarea"><textarea name="content_'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
-    	            				a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.co_no+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
-    	            				a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="commentUpdate('+value.co_no+')">수정</button></div>';
+    	            				a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.doc_cno+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
+    	            				a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="commentUpdate('+value.doc_cno+')">수정</button></div>';
     	            				a += '</div></div></div></div></div></div></li>';
     	    						
     	    						
@@ -1300,63 +1251,63 @@ function warning_submit(){
     	    				
     	    				}else{
     	    					//비밀글
-    	    					if(id!=value.co_nick && id!=writer ){
+    	    					if(email!=value.doc_email && email!=writer ){
     	    						
-    	    						a+= '<li style="background-color:#F8F8F8;" id="refly"'+value.co_no+'"><div class="comment_section"><div class="comment_info">';
+    	    						a+= '<li style="background-color:#F8F8F8;" id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
     	    						a+= '<div class="comment_post"><div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span>';
     	    						a+= '&nbsp;&nbsp;&nbsp;해당 댓글은 작성자와 운영자만 볼 수 있습니다.';
     	    						a+= '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></p></div></div></div></div></li>';
     	    						
-    	    					}else if(id == value.co_nick){
+    	    					}else if(email==value.doc_email){
     	    						
-    	    						if(cno != value.co_no){
+    	    						if(cno != value.doc_cno){
     	    						
-    	    							a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.co_no+'"><div class="comment_section"><div class="comment_info">';
-    		            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    	    							a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+    		            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
     		            				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-    		            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.co_content+'</span></p></div>';
+    		            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.doc_content+'</span></p></div>';
     		            				a += '<div class="comment_more">';
-    		            				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
-    		            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.co_no+','+value.co_lev+');">삭제</a>';
-    		            				a += '<a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+    		            				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
+    		            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.doc_cno+','+value.doc_lev+');">삭제</a>';
+    		            				a += '<a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
     		            				a += '</div></div></div></li>';
     	    						
     	    						}else{
     	    							
-    	    							a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.co_no+'"><div class="comment_section"><div class="comment_info">';
-    		            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    	    							a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+    		            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
     		            				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-    		            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.co_content+'</span></p></div>';
+    		            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.doc_content+'</span></p></div>';
     		            				a += '<div class="comment_more">';
     		            				a += '<a class="link_write" href="#" onclick="commentList();">접기</a>';
-        	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.co_no+','+value.co_lev+');">삭제</a>';
-        	            				a += '<a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+        	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.doc_cno+','+value.doc_lev+');">삭제</a>';
+        	            				a += '<a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
     		            				a += '</div></div>';
     		            				a += '<div class="text_write_g comment_write"><div class="inner_text_write">';
     		            				a += '<div class="box_textarea"><textarea name="content_'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
-    		            				a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.co_no+'" class="btn_g_ico btn_item secret_button ico_on" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
-    		            				a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="commentUpdate('+value.co_no+')">수정</button></div>';
+    		            				a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.doc_cno+'" class="btn_g_ico btn_item secret_button ico_on" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
+    		            				a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="commentUpdate('+value.doc_cno+')">수정</button></div>';
     		            				a += '</div></div></div></div></div></div></li>';
     	    							
     	    						}
     	    						
     	    					}else{
     	    						
-    	    						a += '<li style="background-color:#F8F8F8;" id="refly'+value.co_no+'"><div class="comment_section"><div class="comment_info">';
-    	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    	    						a += '<li style="background-color:#F8F8F8;" id="refly'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+    	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
     	            				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-    	            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.co_content+'</span></p></div>';
+    	            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.doc_content+'</span></p></div>';
     	            				a += '<div class="comment_more">';
-    	            				a += '<a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+    	            				a += '<a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
     	            				a += '</div></div></div></li>';
     	    						
     	    					}
     	    				
     	    				}
     			
-    				}else if(value.co_lev == 2){
+    				}else if(value.doc_lev == 2){
     					
-    					a+= '<li style="background-color:#F8F8F8;" id="refly"'+value.co_no+'"><div class="comment_section"><div class="comment_info">';
+    					a+= '<li style="background-color:#F8F8F8;" id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
 						a+= '<div class="comment_post"><div class="box_post"><p class="desc_info">';
 						a+= '&nbsp;&nbsp;&nbsp;삭제된 댓글입니다.';
 						a+= '</p></div></div></div></div></li>';
@@ -1364,52 +1315,52 @@ function warning_submit(){
     				}
     				else{
     					
-    					if(value.co_secret == 0){
+    					if(value.doc_secret == 0){
         					
     	    				
-    	    				if(id!=value.co_nick){
+    	    				if(email!=value.doc_email){
     	    					
-    	    					a += '<li class="refly_section" style="background-color:#F8F8F8;" id="refly'+value.co_no+'"><div class="comment_re"><div class="comment_info">';
-    	        				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    	    					a += '<li class="refly_section" style="background-color:#F8F8F8;" id="refly'+value.doc_cno+'"><div class="comment_re"><div class="comment_info">';
+    	        				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
     	        				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-    	        				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.co_content+'</span></p></div>';
+    	        				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.doc_content+'</span></p></div>';
     	        				a += '<div class="comment_more">';
-    	        				a += '<a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+    	        				a += '<a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
     	        				a += '</div></div></div></li>';
     	    				
     	    				}
     	    				
     	    				else{
     	    					
-    	    					if(cno != value.co_no){
+    	    					if(cno != value.doc_cno){
     	    					
     	    					
     	    					
-    	    						a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.co_no+'"><div class="comment_re"><div class="comment_info">';
-        	        				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    	    						a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.doc_cno+'"><div class="comment_re"><div class="comment_info">';
+        	        				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
         	        				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-        	        				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.co_content+'</span></p></div>';
+        	        				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.doc_content+'</span></p></div>';
         	        				a += '<div class="comment_more">';
-        	        				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
-    	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.co_no+','+value.co_lev+');">삭제</a>';
-    	            				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+        	        				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
+    	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.doc_cno+','+value.doc_lev+');">삭제</a>';
+    	            				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
     	            				a += '</div></div></div></li>';
     	    					
     	    					}else{
     	    						
-    	    						a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.co_no+'"><div class="comment_re"><div class="comment_info">';
-    	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    	    						a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.doc_cno+'"><div class="comment_re"><div class="comment_info">';
+    	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
     	            				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-    	            				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.co_content+'</span></p></div>';
+    	            				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.doc_content+'</span></p></div>';
     	            				a += '<div class="comment_more">';
     	            				a += '<a class="link_write" href="#" onclick="commentList();">접기</a>';
-    	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.co_no+','+value.co_lev+');">삭제</a>';
-    	            				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+    	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.doc_cno+','+value.doc_lev+');">삭제</a>';
+    	            				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
     	            				a += '</div></div>';
     	            				a += '<div class="text_write_g comment_write"><div class="inner_text_write">';
     	            				a += '<div class="box_textarea"><textarea name="content_'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
-    	            				a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.co_no+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
-    	            				a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="commentUpdate('+value.co_no+')">수정</button></div>';
+    	            				a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.doc_cno+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
+    	            				a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="commentUpdate('+value.doc_cno+')">수정</button></div>';
     	            				a += '</div></div></div></div></div></div></li>';
     	    						
     	    						
@@ -1420,53 +1371,53 @@ function warning_submit(){
     	    				}else{
     	    					//비밀글
     	    					
-    	    					if(id!=value.co_nick && id!=writer ){
-    	    						a+= '<li class="refly_section" style="background-color:#F8F8F8;" id="refly"'+value.co_no+'"><div class="comment_re"><div class="comment_info">';
+    	    					if(email!=value.doc_email && email!=writer ){
+    	    						a+= '<li class="refly_section" style="background-color:#F8F8F8;" id="refly"'+value.doc_cno+'"><div class="comment_re"><div class="comment_info">';
     	    						a+= '<div class="comment_post"><div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span>';
     	    						a+= '&nbsp;&nbsp;&nbsp;해당 댓글은 작성자와 운영자만 볼 수 있습니다.';
     	    						a+= '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></p></div></div></div></div></li>';
   						
-    	    					}else if(id == value.co_nick){
+    	    					}else if(email==value.doc_email){
     	    						
-    	    						if(cno != value.co_no){
+    	    						if(cno != value.doc_cno){
     	    						
-    	    							a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.co_no+'"><div class="comment_re"><div class="comment_info">';
-        	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    	    							a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.doc_cno+'"><div class="comment_re"><div class="comment_info">';
+        	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
         	            				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-        	            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.co_content+'</span></p></div>';
+        	            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.doc_content+'</span></p></div>';
         	            				a += '<div class="comment_more">';
-        	            				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
-        	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.co_no+','+value.co_lev+');">삭제</a>';
-        	            				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+        	            				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
+        	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.doc_cno+','+value.doc_lev+');">삭제</a>';
+        	            				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
         	            				a += '</div></div></div></li>';
     	    						
     	    						}else{
  	
-    	    							a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.co_no+'"><div class="comment_re"><div class="comment_info">';
-        	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    	    							a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.doc_cno+'"><div class="comment_re"><div class="comment_info">';
+        	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
         	            				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-        	            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.co_content+'</span></p></div>';
+        	            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.doc_content+'</span></p></div>';
         	            				a += '<div class="comment_more">';
         	            				a += '<a class="link_write" href="#" onclick="commentList();">접기</a>';
-        	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.co_no+','+value.co_lev+');">삭제</a>';
-        	            				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+        	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.doc_cno+','+value.doc_lev+');">삭제</a>';
+        	            				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
         	            				a += '</div></div>';
         	            				a += '<div class="text_write_g comment_write"><div class="inner_text_write">';
         	            				a += '<div class="box_textarea"><textarea name="content_'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
-        	            				a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.co_no+'" class="btn_g_ico btn_item secret_button ico_on" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
-        	            				a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="commentUpdate('+value.co_no+')">수정</button></div>';
+        	            				a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.doc_cno+'" class="btn_g_ico btn_item secret_button ico_on" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
+        	            				a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="commentUpdate('+value.doc_cno+')">수정</button></div>';
         	            				a += '</div></div></div></div></div></div></li>';
     	    							
     	    						}
     	    						
     	    					}else{
     	    						
-    	    						a += '<li class="refly_section" style="background-color:#F8F8F8;" id="refly'+value.co_no+'"><div class="comment_re"><div class="comment_info">';
-    	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    	    						a += '<li class="refly_section" style="background-color:#F8F8F8;" id="refly'+value.doc_cno+'"><div class="comment_re"><div class="comment_info">';
+    	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
     	            				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-    	            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.co_content+'</span></p></div>';
+    	            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.doc_content+'</span></p></div>';
     	            				a += '<div class="comment_more">';
-    	            				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+    	            				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
     	            				a += '</div></div></div></li>';
     	    	    				
     	    					}
@@ -1492,6 +1443,10 @@ function warning_submit(){
     
     function commentUpdate(cno){
     	var updateContent = $('[name=content_'+cno+']').val();
+    	if(updateContent == ''){
+    		alert('수정하실 내용을 입력해주세요');
+    		return false;
+    	}
     	updateContent = updateContent.replace(/(?:\r\n|\r|\n)/g, '<br />');
     	var updateSecret ='';
     	if($('#secretcheck'+cno).attr('class')== 'btn_g_ico btn_item secret_button ico_on'){
@@ -1501,10 +1456,10 @@ function warning_submit(){
     	}
     	
     	$.ajax({
-    		url: 'doccomment_update.bo',
+    		url: 'comment_update.bo',
     		//type: 'post',
     		dataType : 'json',
-    		data:{'co_content' : updateContent, 'co_no' : cno , 'co_secret' : updateSecret},
+    		data:{'doc_content' : updateContent, 'doc_cno' : cno , 'doc_secret' : updateSecret , 'table' : table},
     		contentType : 'application/x-www-form-urlencoded;charset=utf-8',
     		success : function(data){
     			if(data == 1) commentList();
@@ -1520,54 +1475,54 @@ function warning_submit(){
     	
     	var doc_no =<%=vo.getDoc_no()%>
     	var id = '<%=id%>'
-    	var writer = '<%=vo.getDoc_nick()%>'
+    	var writer = '<%=vo.getDoc_email()%>'
     	
     	
     	$.ajax({
-    		url : 'doccomment_list.bo',
+    		url : 'comment_list.bo',
     		type : 'post',
-    		data : { 'co_doc_no' : doc_no},
+    		data : { 'doc_no' : doc_no , 'table' : table },
     		dataType : 'json',
     		contentType : 'application/x-www-form-urlencoded;charset=utf-8',
     		success : function(data){
     			
     			var a = '';
     			$.each(data, function(key,value){
-    				var date = new Date(value.co_date);
+    				var date = new Date(value.doc_date);
     				
-    				if(value.co_lev == 0){
+    				if(value.doc_lev == 0){
     				
-    				if(value.co_secret == 0){
+    				if(value.doc_secret == 0){
     					
     				
-    				if(id!=value.co_nick){
+    				if(email!=value.doc_email){
     					//작성자가 아닐경우
     					
-    					if(cno != value.co_no){
+    					if(cno != value.doc_cno){
     						
     				
     					
-    					a += '<li style="background-color:#F8F8F8;" id="refly'+value.co_no+'"><div class="comment_section"><div class="comment_info">';
-    	    			a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    					a += '<li style="background-color:#F8F8F8;" id="refly'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+    	    			a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
     	    			a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-    	    			a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.co_content+'</span></p></div>';
-    	    			a += '<div class="comment_more"><a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+    	    			a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.doc_content+'</span></p></div>';
+    	    			a += '<div class="comment_more"><a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
     	    			a += '</div></div></div></li>';
     					
     					}else{
     					
     				
-    						a += '<li style="background-color:#F8F8F8;" id="refly'+value.co_no+'"><div class="comment_section"><div class="comment_info">';
-            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    						a += '<li style="background-color:#F8F8F8;" id="refly'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
             				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-            				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.co_content+'</span></p></div>';
+            				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.doc_content+'</span></p></div>';
             				a += '<div class="comment_more">';
             				a += '<a class="link_write" href="#" onclick="commentList();">답글접기</a>';
             				a += '</div></div>';
             				a += '<div class="text_write_g comment_write"><div class="inner_text_write">';
             				a += '<div class="box_textarea"><textarea wrap="hard" name="content_'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
-            				a += '<div class="wrap_menu"><div class="area_r"><button  id="secretcheck'+value.co_no+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
-            				a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="reflyInsert('+value.co_no+')">등록</button></div>';
+            				a += '<div class="wrap_menu"><div class="area_r"><button  id="secretcheck'+value.doc_cno+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
+            				a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="reflyInsert('+value.doc_cno+')">등록</button></div>';
             				a += '</div></div></div></div></div></div></li>';
     					
     					}
@@ -1576,34 +1531,34 @@ function warning_submit(){
     				
     				else{
     					
-    					if(cno != value.co_no){
+    					if(cno != value.doc_cno){
     				
-    						a += '<li style="background-color:#EFF3F7;" id="refly'+value.co_no+'"><div class="comment_section"><div class="comment_info">';
-            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    						a += '<li style="background-color:#EFF3F7;" id="refly'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
             				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-            				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.co_content+'</span></p></div>';
+            				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.doc_content+'</span></p></div>';
             				a += '<div class="comment_more">';
-            				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
-            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.co_no+','+value.co_lev+');">삭제</a>';
-            				a += '<a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+            				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
+            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.doc_cno+','+value.doc_lev+');">삭제</a>';
+            				a += '<a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
             				a += '</div></div></div></li>';
         				
     					}
     					else{
     						
-    						a += '<li style="background-color:#EFF3F7;" id="refly'+value.co_no+'"><div class="comment_section"><div class="comment_info">';
-            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    						a += '<li style="background-color:#EFF3F7;" id="refly'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
             				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-            				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.co_content+'</span></p></div>';
+            				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.doc_content+'</span></p></div>';
             				a += '<div class="comment_more">';
-            				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
-            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.co_no+','+value.co_lev+');">삭제</a>';
+            				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
+            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.doc_cno+','+value.doc_lev+');">삭제</a>';
             				a += '<a class="link_write" href="#" onclick="commentList();">답글접기</a>';
             				a += '</div></div>';
             				a += '<div class="text_write_g comment_write"><div class="inner_text_write">';
             				a += '<div class="box_textarea"><textarea wrap="hard" name="content_'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
-            				a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.co_no+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
-            				a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="reflyInsert('+value.co_no+')">등록</button></div>';
+            				a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.doc_cno+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
+            				a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="reflyInsert('+value.doc_cno+')">등록</button></div>';
             				a += '</div></div></div></div></div></div></li>';
     						
     					}
@@ -1612,73 +1567,73 @@ function warning_submit(){
     				}else{
     					//비밀글일 경우
     					
-    					if(id!=value.co_nick && id!=writer ){
+    					if(email!=value.doc_email && email!=writer ){
     						
-    						a+= '<li style="background-color:#F8F8F8;" id="refly"'+value.co_no+'"><div class="comment_section"><div class="comment_info">';
+    						a+= '<li style="background-color:#F8F8F8;" id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
     						a+= '<div class="comment_post"><div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span>';
     						a+= '&nbsp;&nbsp;&nbsp;해당 댓글은 작성자와 운영자만 볼 수 있습니다.';
     						a+= '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></p></div></div></div></div></li>';
     						
-    					}else if(id == value.co_nick){
+    					}else if(email==value.doc_email){
     						//비밀글 작성자일 경우
     						
-    						if(cno != value.co_no){
+    						if(cno != value.doc_cno){
     						
-    							a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.co_no+'"><div class="comment_section"><div class="comment_info">';
-	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    							a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
 	            				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-	            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.co_content+'</span></p></div>';
+	            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.doc_content+'</span></p></div>';
 	            				a += '<div class="comment_more">';
-	            				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
-	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.co_no+','+value.co_lev+');">삭제</a>';
-	            				a += '<a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+	            				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
+	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.doc_cno+','+value.doc_lev+');">삭제</a>';
+	            				a += '<a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
 	            				a += '</div></div></div></li>';
             				
     						}else{
     							
-    							a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.co_no+'"><div class="comment_section"><div class="comment_info">';
-	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    							a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
 	            				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-	            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.co_content+'</span></p></div>';
+	            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.doc_content+'</span></p></div>';
 	            				a += '<div class="comment_more">';
-	            				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
-	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.co_no+','+value.co_lev+');;">삭제</a>';
+	            				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
+	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.doc_cno+','+value.doc_lev+');;">삭제</a>';
 	            				a += '<a class="link_write" href="#" onclick="commentList();">답글접기</a>';
 	            				a += '</div></div>';
 	            				a += '<div class="text_write_g comment_write"><div class="inner_text_write">';
 	            				a += '<div class="box_textarea"><textarea wrap="hard" name="content_'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
-	            				a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.co_no+'" class="btn_g_ico btn_item secret_button ico_on" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
-	            				a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="reflyInsert('+value.co_no+')">등록</button></div>';
+	            				a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.doc_cno+'" class="btn_g_ico btn_item secret_button ico_on" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
+	            				a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="reflyInsert('+value.doc_cno+')">등록</button></div>';
 	            				a += '</div></div></div></div></div></div></li>';
     							
     						}
     					}else{
     						
-    						if(cno != value.co_no){
+    						if(cno != value.doc_cno){
     							
     						
     	    				
-    							a += '<li style="background-color:#F8F8F8;" id="refly'+value.co_no+'"><div class="comment_section"><div class="comment_info">';
-                				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    							a += '<li style="background-color:#F8F8F8;" id="refly'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+                				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
                 				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-                				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.co_content+'</span></p></div>';
+                				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.doc_content+'</span></p></div>';
                 				a += '<div class="comment_more">';
-                				a += '<a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+                				a += '<a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
                 				a += '</div></div></div></li>';
     	    				
     						}else{
     							
-    							a += '<li style="background-color:#F8F8F8;" id="refly'+value.co_no+'"><div class="comment_section"><div class="comment_info">';
-                				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    							a += '<li style="background-color:#F8F8F8;" id="refly'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+                				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
                 				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-                				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.co_content+'</span></p></div>';
+                				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.doc_content+'</span></p></div>';
                 				a += '<div class="comment_more">';
                 				a += '<a class="link_write" href="#" onclick="commentList();">답글접기</a>';
 	            				a += '</div></div>';
 	            				a += '<div class="text_write_g comment_write"><div class="inner_text_write">';
 	            				a += '<div class="box_textarea"><textarea wrap="hard" name="content_'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
-	            				a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.co_no+'" class="btn_g_ico btn_item secret_button ico_on" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
-	            				a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="reflyInsert('+value.co_no+')">등록</button></div>';
+	            				a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.doc_cno+'" class="btn_g_ico btn_item secret_button ico_on" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
+	            				a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="reflyInsert('+value.doc_cno+')">등록</button></div>';
 	            				a += '</div></div></div></div></div></div></li>';
     							
     							
@@ -1687,9 +1642,9 @@ function warning_submit(){
     						
     					}
     				
-    				}else if(value.co_lev == 2){
+    				}else if(value.doc_lev == 2){
     					
-    					a+= '<li style="background-color:#F8F8F8;" id="refly"'+value.co_no+'"><div class="comment_section"><div class="comment_info">';
+    					a+= '<li style="background-color:#F8F8F8;" id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
 						a+= '<div class="comment_post"><div class="box_post"><p class="desc_info">';
 						a+= '&nbsp;&nbsp;&nbsp;삭제된 댓글입니다.';
 						a+= '</p></div></div></div></div></li>';
@@ -1700,38 +1655,38 @@ function warning_submit(){
     				
     				else{
     					
-    					if(value.co_secret == 0){
+    					if(value.doc_secret == 0){
         					
     	    				
-    	    				if(id!=value.co_nick){
+    	    				if(email!=value.doc_email){
     	    					//작성자가 아닐경우
     	    					
-    	    					if(cno != value.co_no){
+    	    					if(cno != value.doc_cno){
     	    						
     	    				
-    	    						a += '<li class="refly_section" style="background-color:#F8F8F8;" id="refly'+value.co_no+'"><div class="comment_re"><div class="comment_info">';
-        	        				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    	    						a += '<li class="refly_section" style="background-color:#F8F8F8;" id="refly'+value.doc_cno+'"><div class="comment_re"><div class="comment_info">';
+        	        				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
         	        				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-        	        				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.co_content+'</span></p></div>';
+        	        				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.doc_content+'</span></p></div>';
         	        				a += '<div class="comment_more">';
-        	        				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+        	        				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
         	        				a += '</div></div></div></li>';
     	    					
     	    					}
     	    					
     	    					else{
     	    				
-    	    						a += '<li class="refly_section" style="background-color:#F8F8F8;" id="refly'+value.co_no+'"><div class="comment_re"><div class="comment_info">';
-    	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    	    						a += '<li class="refly_section" style="background-color:#F8F8F8;" id="refly'+value.doc_cno+'"><div class="comment_re"><div class="comment_info">';
+    	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
     	            				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-    	            				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.co_content+'</span></p></div>';
+    	            				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.doc_content+'</span></p></div>';
     	            				a += '<div class="comment_more">';
     	            				a += '<a class="link_write" href="#" onclick="commentList();">답글접기</a>';
     	            				a += '</div></div>';
     	            				a += '<div class="text_write_g comment_write"><div class="inner_text_write">';
     	            				a += '<div class="box_textarea"><textarea wrap="hard" name="content_'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
-    	            				a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.co_no+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
-    	            				a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="reflyInsert('+value.co_no+')">등록</button></div>';
+    	            				a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.doc_cno+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
+    	            				a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="reflyInsert('+value.doc_cno+')">등록</button></div>';
     	            				a += '</div></div></div></div></div></div></li>';
     	    						
     	    						
@@ -1742,35 +1697,35 @@ function warning_submit(){
     	    				else{
     	    					//작성자일 경우
     	    					
-    	    					if(cno != value.co_no){
+    	    					if(cno != value.doc_cno){
     	    					
-    	    						a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.co_no+'"><div class="comment_re"><div class="comment_info">';
-        	        				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    	    						a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.doc_cno+'"><div class="comment_re"><div class="comment_info">';
+        	        				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
         	        				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-        	        				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.co_content+'</span></p></div>';
+        	        				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.doc_content+'</span></p></div>';
         	        				a += '<div class="comment_more">';
-        	        				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
-    	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.co_no+','+value.co_lev+');">삭제</a>';
-    	            				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+        	        				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
+    	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.doc_cno+','+value.doc_lev+');">삭제</a>';
+    	            				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
     	            				a += '</div></div></div></li>';
     	        				
     	    					}
     	    					
     	    					else{
     	    					
-    	    						a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.co_no+'"><div class="comment_re"><div class="comment_info">';
-    	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    	    						a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.doc_cno+'"><div class="comment_re"><div class="comment_info">';
+    	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
     	            				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-    	            				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.co_content+'</span></p></div>';
+    	            				a += '<div class="box_post"><p class="desc_info"><span class="original_comment">'+value.doc_content+'</span></p></div>';
     	            				a += '<div class="comment_more">';
-    	            				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
-    	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.co_no+','+value.co_lev+');">삭제</a>';
+    	            				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
+    	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.doc_cno+','+value.doc_lev+');">삭제</a>';
     	            				a += '<a class="link_write" href="#" onclick="commentList();">답글접기</a>';
     	            				a += '</div></div>';
     	            				a += '<div class="text_write_g comment_write"><div class="inner_text_write">';
     	            				a += '<div class="box_textarea"><textarea wrap="hard" name="content_'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
-    	            				a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.co_no+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
-    	            				a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="reflyInsert('+value.co_no+')">등록</button></div>';
+    	            				a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.doc_cno+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
+    	            				a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="reflyInsert('+value.doc_cno+')">등록</button></div>';
     	            				a += '</div></div></div></div></div></div></li>';
     	    						
     	    					}
@@ -1780,60 +1735,60 @@ function warning_submit(){
     	    				}else{
     	    					//비밀글일 경우
     	    					
-    	    					if(id!=value.co_nick && id!=writer ){
+    	    					if(email!=value.doc_email && email!=writer ){
     	    						
-    	    						a+= '<li class="refly_section" style="background-color:#F8F8F8;" id="refly"'+value.co_no+'"><div class="comment_re"><div class="comment_info">';
+    	    						a+= '<li class="refly_section" style="background-color:#F8F8F8;" id="refly"'+value.doc_cno+'"><div class="comment_re"><div class="comment_info">';
     	    						a+= '<div class="comment_post"><div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span>';
     	    						a+= '&nbsp;&nbsp;&nbsp;해당 댓글은 작성자와 운영자만 볼 수 있습니다.';
     	    						a+= '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></p></div></div></div></div></li>';
     	    						
-    	    					}else if(id == value.co_nick){
+    	    					}else if(email!=value.doc_email){
     	    						//비밀글 작성자일 경우
     	   						
-    	    						if(cno != value.co_no){
+    	    						if(cno != value.doc_cno){
     	    					
-    	    							a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.co_no+'"><div class="comment_re"><div class="comment_info">';
-        	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    	    							a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.doc_cno+'"><div class="comment_re"><div class="comment_info">';
+        	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
         	            				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-        	            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.co_content+'</span></p></div>';
+        	            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.doc_content+'</span></p></div>';
         	            				a += '<div class="comment_more">';
-        	            				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
-        	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.co_no+','+value.co_lev+');">삭제</a>';
-        	            				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+        	            				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
+        	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.doc_cno+','+value.doc_lev+');">삭제</a>';
+        	            				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
         	            				a += '</div></div></div></li>';
     	            				
     	    						}
     	    						
     	    						else{
     	    						
-    	    							a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.co_no+'"><div class="comment_re"><div class="comment_info">';
-        	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    	    							a += '<li class="refly_section" style="background-color:#EFF3F7;" id="refly'+value.doc_cno+'"><div class="comment_re"><div class="comment_info">';
+        	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
         	            				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-        	            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.co_content+'</span></p></div>';
+        	            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.doc_content+'</span></p></div>';
         	            				a += '<div class="comment_more">';
-        	            				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
-        	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.co_no+','+value.co_lev+');">삭제</a>';
+        	            				a += '<a class="link_write" href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">수정</a>';
+        	            				a += '<a class="link_write" href="#" onclick="commentDelete('+value.doc_cno+','+value.doc_lev+');">삭제</a>';
         	            				a += '<a class="link_write" href="#" onclick="commentList();">답글접기</a>';
         	            				a += '</div></div>';
         	            				a += '<div class="text_write_g comment_write"><div class="inner_text_write">';
         	            				a += '<div class="box_textarea"><textarea wrap="hard" name="content_'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
-        	            				a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.co_no+'" class="btn_g_ico btn_item secret_button ico_on" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
-        	            				a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="reflyInsert('+value.co_no+')">등록</button></div>';
+        	            				a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.doc_cno+'" class="btn_g_ico btn_item secret_button ico_on" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
+        	            				a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="reflyInsert('+value.doc_cno+')">등록</button></div>';
         	            				a += '</div></div></div></div></div></div></li>';
     	    							
     	    						}
     	    						
     	    					}else{
     	    						
-    	    						if(cno != value.co_no){
+    	    						if(cno != value.doc_cno){
     	    							
     	    					
-    	    							a += '<li class="refly_section" style="background-color:#F8F8F8;" id="refly'+value.co_no+'"><div class="comment_re"><div class="comment_info">';
-        	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    	    							a += '<li class="refly_section" style="background-color:#F8F8F8;" id="refly'+value.doc_cno+'"><div class="comment_re"><div class="comment_info">';
+        	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
         	            				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-        	            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.co_content+'</span></p></div>';
+        	            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.doc_content+'</span></p></div>';
         	            				a += '<div class="comment_more">';
-        	            				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.co_no+',\''+value.co_content+'\',\''+value.co_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
+        	            				//a += '<a class="link_write" href="#" onclick="commentRefly('+value.doc_cno+',\''+value.doc_content+'\',\''+value.doc_nick+'\',\''+getFormatDate(date)+'\');">답글</a>';
         	            				a += '</div></div></div></li>';
     	    	    				
     	    	    				
@@ -1841,17 +1796,17 @@ function warning_submit(){
     	    						
     	    						else{
     	    							
-    	    							a += '<li class="refly_section" style="background-color:#F8F8F8;" id="refly'+value.co_no+'"><div class="comment_re"><div class="comment_info">';
-        	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.co_nick+'</b></div>';
+    	    							a += '<li class="refly_section" style="background-color:#F8F8F8;" id="refly'+value.doc_cno+'"><div class="comment_re"><div class="comment_info">';
+        	            				a += '<div class="comment_post"><div class="profile_info"><div class="opt_more_g"><b>'+value.doc_nick+'</b></div>';
         	            				a += '<span class="txt_date">&nbsp;&nbsp;&nbsp;'+getFormatDate(date)+'</span></div>';
-        	            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.co_content+'</span></p></div>';
+        	            				a += '<div class="box_post"><p class="desc_info"><span class="ico_bbs ico_lock">비밀글(이미지)</span><span class="original_comment">&nbsp;&nbsp;&nbsp;'+value.doc_content+'</span></p></div>';
         	            				a += '<div class="comment_more">';
         	            				a += '<a class="link_write" href="#" onclick="commentList();">답글접기</a>';
         	            				a += '</div></div>';
         	            				a += '<div class="text_write_g comment_write"><div class="inner_text_write">';
         	            				a += '<div class="box_textarea"><textarea wrap="hard" name="content_'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
-        	            				a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.co_no+'" class="btn_g_ico btn_item secret_button ico_on" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
-        	            				a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="reflyInsert('+value.co_no+')">등록</button></div>';
+        	            				a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.doc_cno+'" class="btn_g_ico btn_item secret_button ico_on" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
+        	            				a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="reflyInsert('+value.doc_cno+')">등록</button></div>';
         	            				a += '</div></div></div></div></div></div></li>';
     	    							
     	    						}
@@ -1885,6 +1840,10 @@ function warning_submit(){
     function reflyInsert(cno){
     	
     	var updateContent = $('[name=content_'+cno+']').val();
+    	if(updateContent == ''){
+    		alert('내용을 입력해주세요');
+    		return false;
+    	}
     	updateContent = updateContent.replace(/(?:\r\n|\r|\n)/g, '<br />');
     	var updateSecret ='';
     	if($('#secretcheck'+cno).attr('class')== 'btn_g_ico btn_item secret_button ico_on'){
@@ -1897,10 +1856,10 @@ function warning_submit(){
     	
     	
     	$.ajax({
-    		url: 'doccomment_refly.bo',
+    		url: 'comment_refly.bo',
     		//type: 'post',
     		dataType : 'json',
-    		data:{'co_content' : updateContent, 'co_no' : cno , 'co_secret' : updateSecret ,'co_ref' : cno , 'co_lev' : 1 ,'co_doc_no' : doc_no},
+    		data:{'doc_content' : updateContent, 'doc_cno' : cno , 'doc_secret' : updateSecret ,'doc_ref' : cno , 'doc_lev' : 1 ,'doc_no' : doc_no , 'table' : table , 'doc_table' : doc_table },
     		contentType : 'application/x-www-form-urlencoded;charset=utf-8',
     		success : function(data){
     			if(data == 1) commentList();
@@ -1917,9 +1876,9 @@ function warning_submit(){
     	var doc_no =<%=vo.getDoc_no()%>
     	
     	$.ajax({
-    		url: 'doccomment_delete.bo',
+    		url: 'comment_delete.bo',
     		//type: 'post',
-    		data : {'co_no' : cno , 'co_lev' : lev , 'co_doc_no' : doc_no},
+    		data : {'doc_cno' : cno , 'doc_lev' : lev , 'doc_no' : doc_no ,'table' : table , 'doc_table' : doc_table },
     		dataType : 'json',
     		contentType : 'application/x-www-form-urlencoded;charset=utf-8',
     		success :function(data){
@@ -2043,8 +2002,8 @@ $(document).ready(function() {
 		$('#ex7').modal('show');
 	}
 	
-$("#doc_agree").change(function(){
-	doc_check();   
+$("#fdoc_agree").change(function(){
+	fdoc_check();   
 	
 });
 $(document).on("change","input[name='w_reason']",function(){
@@ -2062,76 +2021,82 @@ $(document).on("change","input[name='w_reason']",function(){
 
 
 
+
 	
 	
 </script>
 <body>
+<div class ="body_content">
+<header id = "header">
 
-	<div class="body_content">
-
-		<header id="header">
-
-			<div class="inout_gocen">
-				<a href="loginForm.me"><input type="button" class= "header_btn" id="login" value="로그인"></a>
-				<a href="logout.me"><input type="button" class= "header_btn" id="logout" value="로그아웃"></a>
-				<a href="joinform.me"><input type="button" class= "header_btn" id="signin" value="회원가입"></a>
-				<a href="mypage.me"><input type="button" class= "header_btn" id="mypage" value="마이페이지"></a>
-				<a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
-			</div>
-
-				 <div class="nav-menu">
+	<div class ="inout_gocen">
+		<%if(email != null){ %>
+			
+			<input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='logout.me'">
+			<input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='mypage.me'">
+			<%}else{ %>
+			<input  type="button" class= "header_btn" value="로그인" onclick="location.href='loginForm.me'">
+			<input  type="button" class= "header_btn" value="회원가입" onclick="location.href='joinform.me'">
+			<%} %>
+			<a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
+		</div>
+	
+	
+		<div class="nav-menu">
             <ul class="sticky-wrapper">
                <li class="dropdown"><a href="home.me">HOME</a></li>
                <li class="dropdown"><a href="home_list.bo">분양</a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu board">
                      <li><a href="home_list.bo">&nbsp;&nbsp;가정분양</a></li>
                      <li><a href="fdoclist.bo">책임분양</a></li>
                      <li><a href="selladopt_list.bo">업체분양</a></li>
                   </ul></li>
-               <li class="dropdown"><a href="/SJ/pet_list">보호소</a>
-                  <ul class="dropdown-menu">
-                     <li><a href="/SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
-                     <li><a href="/SJ/payang/list">파양</a></li>
-                     <li><a href="/SJ/missing/list">실종</a></li>
+             <li class="dropdown"><a href="SJ/pet_list">보호소</a>
+                  <ul class="dropdown-menu care">
+                     <li><a href="SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
+                     <li><a href="SJ/payang/list">파양</a></li>
+                     <li><a href="SJ/missing/list">실종</a></li>
                   </ul></li>
                <li class="dropdown"><a href="doclist.bo">커뮤니티</a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu commu">
                      <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
                      <li><a href="auth_fdoc.bo">책임분양인증</a></li>
                   </ul></li>
             </ul>
-
-				<div class="header-top">
-					<div class="mainlogo">
-						<a href="home.me"> <img src="./resources/img/mainlogo.png"
-							class="img-circle">
-						</a>
-					</div>
-				</div>
-				<div class="search-wrapper">
-					<input class="search-box input" type="text" placeholder="Search">
-					<button class="search-box btn" type="button">
-						<i class="fas fa-search"></i>
-					</button>
-				</div>
-			</div>
-			<!-- nav-menu -->
-		</header>
-
-
-		<div class="content-wrap">
-
+				
+	<div class="header-top">
+		<div class="mainlogo">
+		<a href="home.me">
+		<img src = "resources/img/mainlogo.png" class = "img-circle">
+		</a>
+		</div>
+	</div>
+	
+	
+	<div class= "search-wrapper">
+      <input class="search-box input" type="text" placeholder="Search">
+      <button class="search-box btn1" type="button"><i class="fas fa-search"></i></button>
+	</div>
+	
+	</div><!-- nav-menu -->
+</header>
+		
+		<div class="main-content">
+			<div class="content-wrap">
+			
 			<!-- 왼쪽. 서브메뉴가 들어갈 부분 -->
-			<div class="sidemenu-section" id="left">
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item click"><a href="doclist.bo">자유게시판</a></li>
-					<li class="list-group-item"><a href="auth_fdoc.bo">책임분양 인증</a></li>
-				</ul>
+			<div class="sidemenu-section">
+				
+			
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item click"><a href="doclist.bo">자유게시판</a></li>
+				<li class="list-group-item"><a href="auth_fdoc.bo">책임분양인증</a></li>
+				<li class="list-group-item"><a href="#">[개발중]</a></li>
+			</ul>
 			</div>
-
+			
 			<!-- 오른쪽. 내용이 들어갈 부분 -->
-
-			<div class="content-section" id="right">
+			<div class="content-section">
 				<!-- 수정시작 -->
 				<div class="contents">
 					<div class="article-head">
@@ -2162,13 +2127,14 @@ $(document).on("change","input[name='w_reason']",function(){
 						</div>
 						</div>
 					</div>
-					<div class="article-view-content">
+					<div class="article-view-content" style="min-height:400px;">
 						<div class="article-content">
 							<%=vo.getDoc_content()%>
 						</div>
 						
 
 					</div>
+				
 						<div class="cont_comment" style="background-color: #f8f8f8;">
 							<div style="width: 100%; margin: 0;">
 								<div class="comment_view">
@@ -2176,13 +2142,9 @@ $(document).on("change","input[name='w_reason']",function(){
 								</div>
 							</div>
 							<div style="margin: 0; width: 100%; background-color: #F8F8F8;">
-								<%
-									if (id != null) {
-								%>
-								<div id="doc_refly"></div>
-								<%
-									}
-								%>
+								<%if(email != null){ %>
+								<div id="fdoc_refly"></div>
+								<%} %>
 							</div>
 
 						</div>
@@ -2217,6 +2179,7 @@ $(document).on("change","input[name='w_reason']",function(){
 					class="fas fa-heart"></i> by SamSam
 		</footer>
 
+	</div>
 	</div>
 	<!-- 바디컨텐트 -->
 
@@ -2273,3 +2236,9 @@ $(document).on("change","input[name='w_reason']",function(){
 
 
 </body>
+<style>
+.blocker {
+z-index:200;
+}
+
+</style>

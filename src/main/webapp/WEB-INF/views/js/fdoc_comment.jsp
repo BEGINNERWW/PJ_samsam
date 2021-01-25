@@ -7,8 +7,8 @@
  	String fdoc_Nick =request.getParameter("fdoc_Nick");
  	String id = request.getParameter("id");
  	id = "1";
- 	String email = request.getParameter("email");
- 	email = "gmail.com";
+ 	String email = (String) session.getAttribute("email");
+
  	
     %>
 <head>

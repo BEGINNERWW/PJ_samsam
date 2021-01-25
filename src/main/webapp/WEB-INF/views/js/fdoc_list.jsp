@@ -13,7 +13,7 @@
 	SimpleDateFormat date = new SimpleDateFormat("yy/MM/dd");
 	DecimalFormat form = new DecimalFormat("###,###,###");
 	FdocVO searchVO = (FdocVO)request.getAttribute("vo");
-	
+	String email = (String) session.getAttribute("email"); 
 	
 %>
 <!DOCTYPE html>
@@ -197,130 +197,183 @@ function search_submit(a){
 	sessionStorage.setItem('default_option',default_option);
 }
 
+function onKeyDown()
+{
+     if(event.keyCode == 13)
+     {
+    	 var fdoc_search =$('#default_search').val();
+ 		if(fdoc_search != ''){
+ 		var a = '';
+          a += '<li id="li_'+fdoc_search+'" class="smart-search-selected-condition-item option-type-brand">';
+          a += '<span class="filter-item"><span class="filter-title">'+fdoc_search+'</span>';
+          a += '<button class="btn-filter-del smart-search-selected-condition-delete-btn option-type-brand"></button>';
+          a += '<input type="hidden" name="fdoc_search" value="'+fdoc_search+'"></span></li>';
+          
+          $(".filter-list").append(a);
+          $('#default_search').val('');
+ 		}
+ 		event.preventDefault();
+     }
+}
+
+function onKeyDown1()
+{
+     if(event.keyCode == 13)
+     {
+    	 var fdoc_search =$('#detail_search').val();
+ 		if(fdoc_search != ''){
+ 		var a = '';
+         a += '<li id="li_'+fdoc_search+'" class="smart-search-selected-condition-item option-type-brand">';
+         a += '<span class="filter-item"><span class="filter-title">'+fdoc_search+'</span>';
+         a += '<button class="btn-filter-del smart-search-selected-condition-delete-btn option-type-brand"></button>';
+         a += '<input type="hidden" name="fdoc_search" value="'+fdoc_search+'"></span></li>';
+         
+         $(".filter-list").append(a);
+         $('#detail_search').val('');
+ 		}
+ 		event.preventDefault();
+     }
+}
+
+
+
+
 
 </script>
 <style>
 
 @charset "utf-8";
+
 * {
-	margin:0;
-	padding: 0;
+   margin:0;
+   padding: 0;
 }
 html{
-	margin:0 auto;
-	width : 100%;
-	height: 100%;
-    overflow: hidden;
+   margin:0 auto;
+   width : 100%;
+   height: 100%;
+    overflow: auto;
+}
+
+
+body {
+   margin: 0;
+   height: auto;
+    min-height : 600px;
+    box-sizing : content-box;
+   line-height: 1.7;
+    color: gray;
+      font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    font-size: .9rem;
+}
+
+
+a{
+   text-decoration : none;
+   color : #9494b8;
 }
 a:hover {
     color: #0056b3;
     text-decoration: none;
 }
-body {
-	margin: 0;
-	height: 100vh;
-    min-height : 600px;
-    box-sizing : content-box;
-	line-height: 1.7;
-    color: gray;
-   	font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 300;
-    font-size: .9rem;
-   
-}
-
-
-a{
-	text-decoration : none;
-	color : #9494b8;
-}
 
 body {
-	text-align: -webkit-center;
+   text-align: -webkit-center;
+   display : flex;
+   flex-direction : column;
+   justify-content : space-between;
 }
 
-.body_content {
-	margin: 0;
-	height: 100vh;
-    min-height : 600px;
-    box-sizing : content-box;
-	line-height: 1.7;
-    color: gray;
-   	font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 300;
-    font-size: .9rem;
-    overflow:scroll;
+.body_content{
+     margin : 0;
+     padding : 0;
+     width : 100%;
+     height:100vh;
+    display : flex;
+    flex-direction : column;
 }
 
 #header {
     width: 100%;
-    height: 190px;
+    height: 189px;
     box-sizing: content-box;
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid #efefef;
-    padding-bottom: 20px;
-}
-.inout_gocen{
-	position: fixed; 
-	top : 20px;
-	right : 390px;
+    padding-bottom: 18px;
+    background-color : #fff;
+    position : fixed;
+    z-index : 100;
+    top : 0;
+    left : 0;
+    right : 0;
 }
 
+.inout_gocen{
+   position : inline;
+   display : flex;
+   justify-content : flex-end;
+   margin-top : 20px;
+   margin-right : 340px;
+   background-color : #fff;
+}
+.fixinner{
+   position: fixed; 
+}
 .header-top {
-	margin-top : 40px;
-	display : flex;
-	justify-content : flex-start;
-	margin-right: auto;
+   margin-top : -10px;
+   display : flex;
+   justify-content : flex-start;
+   margin-right: auto;
 }
 .header_btn{
-	width : 70px;
-	height : 30px;
-	background-color : #fff;
-	color : #9494b8;
+   width : 70px;
+   height : 30px;
+   background-color : #fff;
+   color : #9494b8;
     border-radius: 5px;
     border : none;
     outline : 0;
 }
 .header_btn:hover{
-	color : #6200cc;
-	font-weight: 700;
+   color : #6200cc;
+   font-weight: 700;
 }
 #logout, #mypage{
-	display : none;
+   display : none;
 }
 .img-circle{
-	width : 450px;
-	height : 150px;
-	display: block;
-	margin : 0 auto;
+   width : 450px;
+   height : 150px;
+   display: block;
+   margin : 0 auto;
 }
 .nav-menu{
-	margin : 0 auto;
-	display : flex;
-	justify-content : space-around;
-	align-items: baseline;
-	width: 1200px;
+   margin : 0 auto;
+   display : flex;
+   justify-content : space-around;
+   align-items: baseline;
+   width: 1200px;
 }
 .sticky-wrapper{
-	width: 400px;
-	height: 50px;
-	margin : 0;
-	margin-left: 0;
-  	position: sticky;
-  	list-style : none;
+   width: 400px;
+   height: 50px;
+   margin : 0;
+   margin-left: 0;
+     position: sticky;
+     list-style : none;
     display : flex;
     padding: 0;
-    line-height:1.6;
 }
 
 .sticky-wrapper > li{
-	padding : 8px 8px;
-	list-style-type:none;
-	float: left;
+   padding : 8px 8px;
+   list-style-type:none;
+   float: left;
 }
 .sticky-wrapper > ul{
-	padding : 8px 8px;
+   padding : 8px 8px;
 }
 
 li.dropdown {
@@ -333,28 +386,46 @@ li.dropdown {
 }
 
 .sticky-wrapper.active{
-	position: fixed;
+   position: fixed;
     top: 0px;
 }
 
 /* dropdown */
-.dropdown-menu{
-	display: none;
-   	justify-content : flex-start;
-	position: absolute;
-	list-style : none;
+.dropdown-menu {
+   display: none;
+      justify-content : flex-start;
+   position: absolute;
+   list-style : none;
     visibility: visible;
-    background-color: rgb(0,0,0,0);
-	width: 350px;
-	top : 48px;
-	padding: 5px;
-	border: none;
+    background-color: #fff;
+   width: 1200px;
+   top : 48px;
+   margin-left : -30px;
+   border: none;
+   border-top: 1px solid #efefef;
 }
-.dropdown-menu li{
-	margin-right : 40px;
-}
-.dropdown:hover .dropdown-menu { display: flex; visibility: visible;}
 
+.board {
+	padding-left: 46px;
+}
+.care {
+	padding-left: 30px;
+}
+.commu {
+	padding-left: 35px;
+}
+
+li.dropdown > a {
+    text-decoration: none;
+}
+
+.dropdown-menu li{
+   margin-right : 40px;
+}
+.dropdown:hover .dropdown-menu { 
+   display: flex; 
+   visibility: visible; 
+}
 
 /* search-wrapper */
 .search-wrapper {
@@ -368,20 +439,10 @@ li.dropdown {
   border-radius: 10px;
 }
 .search-box {
-  color: #9494b8;
-  text-align: left;
   height : 100%;
   padding: 0;
   border: none;
   background: #fff;
-  display: inline-block;
-  font-weight: 400;
-  white-space: nowrap;
-  vertical-align: middle;
-  font-size: 1rem;
-  line-height: 1.5;
-  border-radius: .25rem;
-  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 .search-box.input {
   width : 80%;
@@ -390,53 +451,52 @@ li.dropdown {
 }
 .search-box.input:focus {outline:none;}
 
-.search-box.btn {
+.search-box.btn1 {
   color : #9494b8;
   text-align : left; 
 }
 
 /* search-wrqpper */
 
+.main-content{
+   width : 100%;
+   height : auto;
+   margin : 0 auto;
+}
 
 
 /* footer */
 #footer {
-	position: relative;
-    margin: -15px auto;
-    width: 100%;
-    bottom: 0px;
-    padding-bottom:10px;
-    padding-top: 35px;
-    z-index: -1;
-    border-top: 1px solid #efefef;
-    
+    margin: 0 auto;
+    width: fit-content;
+    bottom: 20px;
+    position: relative;
 }
-p{
-	text-align : center;
-}
+
 .fa-heart{
-	color : red;
+   color : red;
 }
 
 /* pageup button */
 .back-to-top{
-	width : 40px;
-	height : 40px;
-	margin : 0 auto;
-	font-size : 24px;
-	color : white;
-	background-color : #149DDD;
-	border-radius : 50%;
-	visibility : visible;
-	position: fixed; 
-	bottom: 45px; 
-	right: 30px;
-	text-align : center;
+   width : 40px;
+   height : 40px;
+   margin : 0 auto;
+   font-size : 24px;
+   color : white;
+   background-color : #149DDD;
+   border-radius : 50%;
+   visibility : visible;
+   position: fixed; 
+   bottom: 45px; 
+   right: 30px;
+   text-align : center;
 }
 /* pageup button */
 *, ::after, ::before {
     box-sizing: border-box;
 }
+
 
 /*카카오톡 톡상담*/
 .kakaoChat {
@@ -445,7 +505,6 @@ p{
     margin-right: 28px;
     bottom: 90px;
     right: 0;
-
 }
 .kakao_btn {
 	border-radius: 1rem!important;
@@ -453,44 +512,49 @@ p{
 
 /* side menu와 내용 묶음 */
 .content-wrap {
-    width: 1200px;
-    margin: 0 auto;
-    position: relative;
-    top: 50px;
-    overflow: visible;
-    margin-bottom: 100px;
-
+	width: 1200px;
+	min-height: 100%;
+	margin: 0 auto;
+	position: relative;
+	top: 50px;
+	
 }
-
-
 /* side menu 틀*/
 .sidemenu-section {
-  width: 200px;
-	position: absolute;
-	font-size: 18px;
-	text-align: left;
-	height: 100%;
-	padding: 0px 0px 0 0;
-	margin-left: 0;
+    width: 200px;
+    font-size: 18px;
+    text-align: left;
+    min-height: 740px;
+    border-right-color: darkblue;
+    border-right: 1px solid #efefef;
+    padding: 0px 0px 0 0;
+    margin-left: 0;
+    margin-top: 210px;
+    position: fixed;
 }
+
 
 /* 내용 틀*/
 .content-section {
-	width: 1000px;
-	position: relative;
-	left: 200px;
-	text-align: left;
-	font-size: 14px;
-	margin-top: 3px;
-	color: black;
-	padding-left: 50px;
-	border-left: 1px solid #efefef;
+    width: 1001px;
+    height: max-content;
+    position: relative;
+    left: 100px;
+    text-align: left;
+    font-size: 14px;
+    margin-top: 0px;
+    color: black;
+    margin-left: 0;
+    padding-bottom: 100px;
+    border-left-color: darkblue;
+    border-left: 1px solid #efefef;
+    padding-left: 50px;
+    padding-right: 0;
+    min-height: 940px;
+    padding-top: 200px;
 }
-
-/* 각각의 페이지에서 사용할 CSS */
-.list-group{
-	margin-block-start: 0;
-	line-height:1.6;
+.list-group {
+	border-bottom: 1px solid rgba(0,0,0,.125);
 }
 .list-group-item {
     position: relative;
@@ -505,6 +569,7 @@ li.list-group-item.click > a {
     font-weight: bold;
     color: #5c5c8a;
 }
+
 
 .list-group-item > a {
 	text-decoration : none;
@@ -526,23 +591,6 @@ ul {
 }
 
 /* header, footer 이외 css */
-
-
-
-
-table {
-
-    width: 100%;
-    border-top: 1px solid #444444;
-    border-collapse: collapse;
- 
-  }
-  
-th, td {
-    border-bottom: 1px solid #444444;
-    padding: 10px;
-  }
-  
 
 
 .a_1{
@@ -648,7 +696,7 @@ button {
     background-image:none;
     border:2px solid black;
 }
-select, input, button, textarea {
+select, button, textarea {
     display: inline-block;
     font-family: "Malgun Gothic", 'MalgunGothic', '맑은고딕', sans-serif;
     font-size: 12px;
@@ -1054,20 +1102,7 @@ select, input, button, textarea {
     font-weight: 500;
     color: #333;
 }
-ul {
-    display: block;
-    list-style-type: disc;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    padding-inline-start: 0px;
-    
-}
-ol, ul {
-    list-style: none;
-    line-height:130%;
-}
+
 .smart-search-wrap .search-item-wrap .search-item .filter-content .brand-list li .item input {
     position: absolute;
     width: 1px;
@@ -1306,65 +1341,75 @@ ol, ul {
 	color:#5c5c8a;
 }
 
+
 </style>
 </head>
 <body>
 <div class ="body_content">
 <header id = "header">
 
-		<div class ="inout_gocen">
-			<input type="button" class= "header_btn" id="login" value="로그인" onclick = "location.href='loginForm.me'">
-			<input type="button" class= "header_btn" id="logout" value="로그아웃" onclick ="location.href='logout.me'">
-			<input type="button" class= "header_btn" id="signin" value="회원가입" onclick = "location.href='joinform.me'">
-			<input type="button" class= "header_btn" id="mypage" value="마이페이지" onclick = "location.href='mypage.me'">
-			<input type="button" class= "header_btn" id="gocen" value="고객센터" onclick ="location.href='customer_service.me'">
+	<div class ="inout_gocen">
+			<%if(email != null){ %>
+			
+			<input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='logout.me'">
+			<input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='mypage.me'">
+			<%}else{ %>
+			<input  type="button" class= "header_btn" value="로그인" onclick="location.href='loginForm.me'">
+			<input  type="button" class= "header_btn" value="회원가입" onclick="location.href='joinform.me'">
+			<%} %>
+			<a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
 		</div>
-
-		 <div class="nav-menu">
+	
+	
+		<div class="nav-menu">
             <ul class="sticky-wrapper">
                <li class="dropdown"><a href="home.me">HOME</a></li>
                <li class="dropdown"><a href="home_list.bo">분양</a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu board">
                      <li><a href="home_list.bo">&nbsp;&nbsp;가정분양</a></li>
                      <li><a href="fdoclist.bo">책임분양</a></li>
                      <li><a href="selladopt_list.bo">업체분양</a></li>
                   </ul></li>
-               <li class="dropdown"><a href="/SJ/pet_list">보호소</a>
-                  <ul class="dropdown-menu">
-                     <li><a href="/SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
-                     <li><a href="/SJ/payang/list">파양</a></li>
-                     <li><a href="/SJ/missing/list">실종</a></li>
+             <li class="dropdown"><a href="SJ/pet_list">보호소</a>
+                  <ul class="dropdown-menu care">
+                     <li><a href="SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
+                     <li><a href="SJ/payang/list">파양</a></li>
+                     <li><a href="SJ/missing/list">실종</a></li>
                   </ul></li>
                <li class="dropdown"><a href="doclist.bo">커뮤니티</a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu commu">
                      <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
                      <li><a href="auth_fdoc.bo">책임분양인증</a></li>
                   </ul></li>
             </ul>
-
-
-				<div class="header-top">
-					<div class="mainlogo">
-						<a href="home.me"> <img src="resources/img/mainlogo.png"
-							class="img-circle">
-						</a>
-					</div>
-				</div>
+				
+	<div class="header-top">
+		<div class="mainlogo">
+		<a href="home.me">
+		<img src = "resources/img/mainlogo.png" class = "img-circle">
+		</a>
+		</div>
+	</div>
+	
+	
 	<div class= "search-wrapper">
       <input class="search-box input" type="text" placeholder="Search">
-      <button class="search-box" type="button"><i class="fas fa-search"></i></button>
+      <button class="search-box btn1" type="button"><i class="fas fa-search"></i></button>
 	</div>
+	
 	</div><!-- nav-menu -->
 </header>
 		
-		
+		<div class="main-content">
 			<div class="content-wrap">
 			
 			<!-- 왼쪽. 서브메뉴가 들어갈 부분 -->
 			<div class="sidemenu-section">
+				
+			
 			<ul class="list-group list-group-flush">
 				<li class="list-group-item"><a href="home_list.bo">가정분양</a></li>
-				<li class="list-group-item click"><a href="fdoclist.bo">책임분양</a></li>
+				<li class="list-group-item  click"><a href="fdoclist.bo">책임분양</a></li>
 				<li class="list-group-item"><a href="selladopt_list.bo">업체분양</a></li>
 			</ul>
 			</div>
@@ -1381,7 +1426,7 @@ ol, ul {
 				<span class="title-desc">함께 찾고 싶은 검색어를 입력해주세요.</span>
 			</div>
 			<div class="keyword-input-box input-wrap">
-				<input id="default_search" type="text" class="ui-input filter-search-word" placeholder="검색어를 입력해주세요" title="검색어 입력" onsubmit="return false;">
+				<input id="default_search" type="text" class="ui-input filter-search-word" placeholder="검색어를 입력해주세요" title="검색어 입력" onsubmit="return false;" onKeyDown="onKeyDown();">
 				<button id="default_button" type="button" class="btn btn-sm add-filter-search-word-btn">추가</button>
 			</div>
 		</div>
@@ -1949,7 +1994,7 @@ ol, ul {
 					<span class="title-desc">함께 찾고 싶은 검색어를 입력해주세요.</span>
 				</div>
 				<div class="keyword-input-box input-wrap">
-					<input id="detail_search" type="text" class="ui-input filter-search-word" placeholder="검색어를 입력해주세요" title="검색어 입력">
+					<input id="detail_search" type="text" class="ui-input filter-search-word" placeholder="검색어를 입력해주세요" title="검색어 입력" onKeyDown="onKeyDown1();">
 					<button id="detail_button" type="button" class="btn btn-sm add-filter-search-word-btn">추가</button>
 				</div>
 			</div>
@@ -1986,14 +2031,18 @@ ol, ul {
           %>
           
             <div class="post-entry-2 d-flex">
-              <div class="thumbnail order-md-2" style="background-image: url('/springfileupload1/upload/<%=vo.getFdoc_thumbnail().toString() %>');"></div>
+              <div class="thumbnail order-md-2" style="background-image: url('/springfileupload1/upload/<%=vo.getDoc_thumbnail().toString() %>');"></div>
               <div class="contents order-md-1 pl-0">
                 
-                <h2><a class="a_1" href="./fdocdetail.bo?fdoc_no=<%=vo.getFdoc_no()%>&page=<%=nowpage%>"><%=vo.getFdoc_subject() %></a></h2>
-                <p class="mb-3 tag">#<%=vo.getFdoc_big() %> #<%=vo.getFdoc_loc() %> #<%=vo.getFdoc_kindof() %> #<%=vo.getFdoc_expiry() %>개월 #책임비 <%=form.format(vo.getFdoc_price()) %>원</p>
+                <h2>
+                <%if(vo.getDoc_code().equals("완료")){ %>
+                <font style="color:#a6a6a6;">[완료]</font>
+                <%} %>
+                <a class="a_1" href="./fdocdetail.bo?doc_no=<%=vo.getDoc_no()%>&page=<%=nowpage%>"><%=vo.getDoc_subject() %></a></h2>
+                <p class="mb-3 tag">#<%=vo.getDoc_big() %> #<%=vo.getDoc_loc() %> #<%=vo.getDoc_kindof() %> #<%=vo.getDoc_expiry() %>개월 #책임비 <%=form.format(vo.getDoc_price()) %>원</p>
                 <div class="post-meta">
-                  <span class="d-block"><a class="a_1" href="#"><%=vo.getFdoc_nick() %></a></span>
-                  <span class="date-read"><%=date.format(vo.getFdoc_date()) %></span><span class="detail-read">&nbsp;&nbsp;&nbsp;&nbsp;<span class="recount_icon"></span>&nbsp;<%=vo.getFdoc_readcount() %>&nbsp;&nbsp;<span class="comment_icon"></span>&nbsp;<%=vo.getFdoc_comment() %></span>
+                  <span class="d-block"><a class="a_1" href="#"><%=vo.getDoc_nick() %></a></span>
+                  <span class="date-read"><%=date.format(vo.getDoc_date()) %></span><span class="detail-read">&nbsp;&nbsp;&nbsp;&nbsp;<span class="recount_icon"></span>&nbsp;<%=vo.getDoc_readcount() %>&nbsp;&nbsp;<span class="comment_icon"></span>&nbsp;<%=vo.getDoc_comment() %></span>
                 </div>
               </div>
             </div>
@@ -2046,11 +2095,11 @@ ol, ul {
 			<a onclick="search_submit(<%=nowpage+1 %>);" href="#">[다음]</a>
 			<%}} %>
 		</div>
-	
+	<%if(email!=null){ %>
 	<div style="display:inline-block; float:right;margin-right:25px;">
 	   		<a href="./fdocform.bo">[글쓰기]</a>
 	</div>
-	
+	<%} %>
 </div>
 </div></div>
 			
@@ -2081,7 +2130,7 @@ ol, ul {
 
 </footer>
 </div><!-- 바디컨텐트 -->
-	
+	</div>
 		
 
 
@@ -2090,8 +2139,8 @@ ol, ul {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 <script>
 $(document).ready(function(){
-    console.log("<%= email %>") 
-    var session = '<%= email %>'
+	 console.log("<%=email%>") 
+     var session = '<%=email %>'
     console.log(session);
     if(session == "null" ){
         $('#logout').hide();
