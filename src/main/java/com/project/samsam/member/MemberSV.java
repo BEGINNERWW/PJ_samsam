@@ -11,7 +11,7 @@ public interface MemberSV {
 	public int updateBiz_Member(Biz_memberVO vo);
 	public int pwUpdate_M(MemberVO vo);
 	public int pwUpdate_BM(Biz_memberVO vo);
-	public String check_auth(Biz_memberVO vo);
+	public Biz_memberVO check_auth(Biz_memberVO vo);
 	public int pre_insertBiz(Biz_memberVO vo);
 	public int pre_updateBiz(String vo);
 	public Biz_memberVO selectBizMember(String email);

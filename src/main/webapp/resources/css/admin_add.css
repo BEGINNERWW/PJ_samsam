@@ -61,7 +61,7 @@ input[type="checkbox"]{
 	width : 80px;
 	height : 50px;
 	margin-left : 35px;
-	border : 1px solid skyblue;
+	border : 1px solid #00BCD4;
 	background-color : rgba(0,0,0,0);
 	color : skyblue;
 	border-radius : 5px;
@@ -71,7 +71,7 @@ input[type="checkbox"]{
 }
 #check:hover{
 	color : white;
-	background-color: skyblue;
+	background-color: #00BCD4;
 }
 
 /* 검색결과 테이블 */

@@ -27,7 +27,6 @@ id = "user";
    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
    crossorigin="anonymous">
-<title>Insert title here</title>
 
 <style>
 	
@@ -845,6 +844,17 @@ border-bottom: 1px solid #eee;
 <link rel="stylesheet"
    href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 
+<script>
+    $('.search-box btn').click(function(){
+      
+    });
+    $('#keyword').keypress(function(event){
+      if(event.which == 13){
+        $('.search-box btn').click();
+        return false;
+      }
+    });
+</script>
 
 
 
@@ -904,10 +914,6 @@ border-bottom: 1px solid #eee;
          <a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
       </div>
 		
-		
-		
-		
-	
 	
 		<div class="nav-menu">
             <ul class="sticky-wrapper">
@@ -940,10 +946,14 @@ border-bottom: 1px solid #eee;
 	</div>
 	
 	
-	<div class= "search-wrapper">
-      <input class="search-box input" type="text" placeholder="Search">
-      <button class="search-box btn1" type="button"><i class="fas fa-search"></i></button>
-	</div>
+	 <form action="home_search.me" method="post" name="home_search">
+            <div class="search-wrapper">
+               <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
+               <button class="search-box btn" type="submit">
+                  <i class="fas fa-search"></i>
+               </button>
+            </div>
+      </form>
 	
 	</div><!-- nav-menu -->
 </header>

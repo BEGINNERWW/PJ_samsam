@@ -124,7 +124,23 @@ public class HomeController {
 			return "YM/pw_new";
 		}
 	}
-		
+	@RequestMapping(value = "/mypage.me")
+	  public String mypage(HttpSession session) {
+	    String biz_email = (String)session.getAttribute("email");
+	    System.out.println("마이페이지 분류 :" + memberSV.selectMember(biz_email).getGrade());
+	    if(memberSV.selectMember(biz_email).getGrade().equals("관리자")) {
+	      System.out.println("관리잔데!!!");
+
+	      return "redirect:/admin_main.me";
+	    }
+	    else if(memberSV.selectBizMember(biz_email) == null) {
+	      System.out.println("bizcheck selectBizmemeber : " + null);
+	      return "redirect:/myfree_auth.me";
+	    }
+	    else {
+	      return "redirect:/cominfo_main.do";
+	    }
+	}	
 	@RequestMapping(value = "/myinfo_check.me")
 	public String myinfo_check() {
 
@@ -144,9 +160,9 @@ public class HomeController {
 
 			model.addAttribute("MemberVO", res);
 			return "YM/myinfo_member";
-		}else {
-			return "jj/loginForm";
-		}
+			else {
+			      return "YM/myinfo_check";
+			    }
 	}	
 	
 	@RequestMapping(value = "/myinfo_update.do" , produces="application/json; charset=UTF-8")
@@ -183,10 +199,10 @@ public class HomeController {
 		System.out.println("biz no : "+ bo.getBiz_no());
 		int res = 0;
 		try {
-				String biz_com1 = memberSV.check_auth(bo);
+				Biz_memberVO biz_com1 = memberSV.check_auth(bo);
 				String biz_com = bo.getBiz_com();
 				
-				if(biz_com1.equals(biz_com)) {
+				if(biz_com1.getBiz_name().equals(biz_com)) {
 					System.out.println("biz_com : "+ biz_com1 + "입력한사업장 :"+bo.getBiz_com());
 					res = memberSV.selectBiz_no(bo.getBiz_no());
 					if(res == 0) {
@@ -280,13 +296,63 @@ public class HomeController {
 		String email = (String)session.getAttribute("email");
 		System.out.println("email "+ email );
 		
-		ArrayList<BoardlistVO> b_list = new ArrayList<BoardlistVO>();
-		ArrayList<CommentListVO> c_list = new ArrayList<CommentListVO>();
-		b_list = memberSV.getWriteList(email);
-		c_list = memberSV.getWriteComment(email);
 		
-		model.addAttribute("b_list", b_list);
-		model.addAttribute("c_list", c_list);
+		ArrayList<BoardlistVO> b_listal = memberSV.getWriteList1(email);
+		if(b_listal != null ) {
+			model.addAttribute("b_listal", b_listal);
+		}
+		ArrayList<CommentListVO> c_listal = memberSV.getWriteComment1(email);
+		if(c_listal != null ) {
+			model.addAttribute("c_listal", c_listal);
+		}
+		ArrayList<BoardlistVO> b_listfd = memberSV.getWriteList2(email);
+		if(b_listfd != null ) {
+			model.addAttribute("b_listfd", b_listfd);
+		}
+		ArrayList<CommentListVO> c_listfd = memberSV.getWriteComment2(email);
+		if(c_listfd != null ) {
+			model.addAttribute("c_listfd", c_listfd);
+		}
+		ArrayList<BoardlistVO> b_listfa = memberSV.getWriteList3(email);
+		if(b_listfa != null ) {
+			model.addAttribute("b_listfa", b_listfa);
+		}
+		ArrayList<CommentListVO> c_listfa = memberSV.getWriteComment3(email);
+		if(c_listfa != null ) {
+			model.addAttribute("c_listfa", c_listfa);
+		}
+		ArrayList<BoardlistVO> b_listah = memberSV.getWriteList4(email);
+		if(b_listah != null ) {
+			model.addAttribute("b_listah", b_listah);
+		}
+		ArrayList<CommentListVO> c_listah = memberSV.getWriteComment4(email);
+		if(c_listah != null ) {
+			model.addAttribute("c_listah", c_listah);
+		}
+		ArrayList<BoardlistVO> b_listco = memberSV.getWriteList5(email);
+		if(b_listco != null ) {
+			model.addAttribute("b_listco", b_listco);
+		}
+		ArrayList<CommentListVO> c_listco = memberSV.getWriteComment5(email);
+		if(c_listco != null ) {
+			model.addAttribute("c_listco", c_listco);
+		}
+		ArrayList<BoardlistVO> b_listp = memberSV.getWriteList6(email);
+		if(b_listp != null ) {
+			model.addAttribute("b_listp", b_listp);
+		}
+		ArrayList<CommentListVO> c_listp = memberSV.getWriteComment6(email);
+		if(c_listp != null ) {
+			model.addAttribute("c_listp", c_listp);
+		}
+		ArrayList<BoardlistVO> b_listm = memberSV.getWriteList7(email);
+		if(b_listm != null ) {
+			model.addAttribute("b_listm", b_listm);
+		}
+		ArrayList<CommentListVO> c_listm = memberSV.getWriteComment7(email);
+		if(c_listm != null ) {
+			model.addAttribute("c_listm", c_listm);
+		}
 		
 		return "YM/cominfo_write";
 	}

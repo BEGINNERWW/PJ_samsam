@@ -391,40 +391,83 @@ li.list-group-item.click > a {
  
  $(document).ready(function(){
  var start =5;
- $(".free_adopt").slice(5).hide();
+ $(".community").slice(5).hide();
  $("#check1").click(function(e){
 	 e.preventDefault();
 	 start +=5;
-	 $(".free_adopt").slice(0, start).show();
+	 $(".community").slice(0, start).show();
 	 
-	 if($(".free_adopt").length <= start){
+	 if($(".community").length <= start){
 		 $(".error1").html("더이상 표시할 내용이 없습니다.");
 	 };
 		 
  });
- $(".community").slice(5).hide();
+ $(".adopt_list").slice(5).hide();
  $("#check2").click(function(e){
 	 e.preventDefault();
 	 start += 5;
-	 $(".community").slice(0, start).show();
+	 $(".adopt_list").slice(0, start).show();
 	 
-	 if($(".community").length <= start){
+	 if($(".adopt_list").length <= start){
 		 $(".error2").html("더이상 표시할 내용이 없습니다.");
 	 };
 		 
  });
- $(".adopt_list").slice(5).hide();
+ $(".adopt_home").slice(5).hide();
  $("#check3").click(function(e){
 	 e.preventDefault();
 	 start +=5;
-	 $(".adopt_list").slice(0, start).show();
+	 $(".adopt_home").slice(0, start).show();
 	 
-	 if($(".adopt_list").length <= start){
+	 if($(".adopt_home").length <= start){
 		 $(".error3").html("더이상 표시할 내용이 없습니다.");
 	 };
 		 
  });
- 
+ $(".free_doc").slice(5).hide();
+ $("#check4").click(function(e){
+	 e.preventDefault();
+	 start +=5;
+	 $(".free_doc").slice(0, start).show();
+	 
+	 if($(".free_doc").length <= start){
+		 $(".error4").html("더이상 표시할 내용이 없습니다.");
+	 };
+		 
+ });
+ $(".free_auth").slice(5).hide();
+ $("#check5").click(function(e){
+	 e.preventDefault();
+	 start +=5;
+	 $(".free_auth").slice(0, start).show();
+	 
+	 if($(".free_auth").length <= start){
+		 $(".error5").html("더이상 표시할 내용이 없습니다.");
+	 };
+		 
+ });
+ $(".payang").slice(5).hide();
+ $("#check6").click(function(e){
+	 e.preventDefault();
+	 start +=5;
+	 $(".payang").slice(0, start).show();
+	 
+	 if($(".payang").length <= start){
+		 $(".error6").html("더이상 표시할 내용이 없습니다.");
+	 };
+		 
+ });
+ $(".missing").slice(5).hide();
+ $("#check7").click(function(e){
+	 e.preventDefault();
+	 start +=5;
+	 $(".missing").slice(0, start).show();
+	 
+	 if($(".missing").length <= start){
+		 $(".error7").html("더이상 표시할 내용이 없습니다.");
+	 };
+		 
+ });
  }); 
  
  </script>
@@ -454,11 +497,11 @@ li.list-group-item.click > a {
                      <li><a href="fdoclist.bo">책임분양</a></li>
                      <li><a href="selladopt_list.bo">업체분양</a></li>
                   </ul></li>
-               <li class="dropdown"><a href="/SJ/pet_list">보호소</a>
+               <li class="dropdown"><a href="SJ/pet_list">보호소</a>
                   <ul class="dropdown-menu care">
-                     <li><a href="/SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
-                     <li><a href="/SJ/payang/list">파양</a></li>
-                     <li><a href="/SJ/missing/list">실종</a></li>
+                     <li><a href="SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
+                     <li><a href="SJ/payang/list">파양</a></li>
+                     <li><a href="SJ/missing/list">실종</a></li>
                   </ul></li>
                <li class="dropdown"><a href="doclist.bo">커뮤니티</a>
                   <ul class="dropdown-menu commu">

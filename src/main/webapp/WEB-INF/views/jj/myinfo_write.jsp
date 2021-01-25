@@ -18,8 +18,20 @@
 		out.println("</script>");
 	}
 	
-	ArrayList<BoardlistVO> boardlist = (ArrayList<BoardlistVO>)request.getAttribute("b_list");
-	ArrayList<CommentListVO> commentlist = (ArrayList<CommentListVO>)request.getAttribute("c_list");
+	ArrayList<BoardlistVO> boardlist_al = (ArrayList<BoardlistVO>)request.getAttribute("b_listal");
+	ArrayList<CommentListVO> commentlist_al = (ArrayList<CommentListVO>)request.getAttribute("c_listal");
+	ArrayList<BoardlistVO> boardlist_fd = (ArrayList<BoardlistVO>)request.getAttribute("b_listfd");
+	ArrayList<CommentListVO> commentlist_fd = (ArrayList<CommentListVO>)request.getAttribute("c_listfd");
+	ArrayList<BoardlistVO> boardlist_fa = (ArrayList<BoardlistVO>)request.getAttribute("b_listfa");
+	ArrayList<CommentListVO> commentlist_fa = (ArrayList<CommentListVO>)request.getAttribute("c_listfa");
+	ArrayList<BoardlistVO> boardlist_ah = (ArrayList<BoardlistVO>)request.getAttribute("b_listah");
+	ArrayList<CommentListVO> commentlist_ah = (ArrayList<CommentListVO>)request.getAttribute("c_listah");
+	ArrayList<BoardlistVO> boardlist_co = (ArrayList<BoardlistVO>)request.getAttribute("b_listco");
+	ArrayList<CommentListVO> commentlist_co = (ArrayList<CommentListVO>)request.getAttribute("c_listco");
+	ArrayList<BoardlistVO> boardlist_p = (ArrayList<BoardlistVO>)request.getAttribute("b_listp");
+	ArrayList<CommentListVO> commentlist_p = (ArrayList<CommentListVO>)request.getAttribute("c_listp");
+	ArrayList<BoardlistVO> boardlist_m = (ArrayList<BoardlistVO>)request.getAttribute("b_listm");
+	ArrayList<CommentListVO> commentlist_m = (ArrayList<CommentListVO>)request.getAttribute("c_listm");
 
 %> 
 
@@ -42,6 +54,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous" type="text/javascript"></script>
 
 <link href="resources/css/com_write.css" rel="stylesheet">
+<script>
+    $('.search-box btn').click(function(){
+      
+    });
+    $('#keyword').keypress(function(event){
+      if(event.which == 13){
+        $('.search-box btn').click();
+        return false;
+      }
+    });
+</script>
 <style>
 /* 공통으로 사용하는 CSS */
 @charset "utf-8";
@@ -405,19 +428,19 @@ li.list-group-item.click > a {
             <ul class="sticky-wrapper">
                <li class="dropdown"><a href="home.me">HOME</a></li>
                <li class="dropdown"><a href="home_list.bo">분양</a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu board">
                      <li><a href="home_list.bo">&nbsp;&nbsp;가정분양</a></li>
                      <li><a href="fdoclist.bo">책임분양</a></li>
                      <li><a href="selladopt_list.bo">업체분양</a></li>
                   </ul></li>
-               <li class="dropdown"><a href="/SJ/pet_list">보호소</a>
-                  <ul class="dropdown-menu">
-                     <li><a href="/SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
-                     <li><a href="/SJ/payang/list">파양</a></li>
-                     <li><a href="/SJ/missing/list">실종</a></li>
+               <li class="dropdown"><a href="SJ/pet_list">보호소</a>
+                  <ul class="dropdown-menu care">
+                     <li><a href="SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
+                     <li><a href="SJ/payang/list">파양</a></li>
+                     <li><a href="SJ/missing/list">실종</a></li>
                   </ul></li>
                <li class="dropdown"><a href="doclist.bo">커뮤니티</a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu commu">
                      <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
                      <li><a href="auth_fdoc.bo">책임분양인증</a></li>
                   </ul></li>
@@ -430,10 +453,14 @@ li.list-group-item.click > a {
 		</a>
 		</div>
 	</div>
-	<div class= "search-wrapper">
-      <input class="search-box input" type="text" placeholder="Search">
-      <button class="search-box btn" type="button"><i class="fas fa-search"></i></button>
-	</div>
+	 <form action="home_search.me" method="post" name="home_search">
+            <div class="search-wrapper">
+               <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
+               <button class="search-box btn" type="submit">
+                  <i class="fas fa-search"></i>
+               </button>
+            </div>
+      </form>
 	</div><!-- nav-menu -->
 	<div class ="blank"></div>
 </header>
@@ -468,13 +495,87 @@ li.list-group-item.click > a {
   				</thead>
   			<tbody>
     		<% 
-    	 		if(boardlist != null){
-    			for(BoardlistVO b_list : boardlist){	
+    	 		if(boardlist_al != null){
+    			for(BoardlistVO b_list : boardlist_al){	
     		%>
-    		<tr class = "boardlist">
+    		<tr class = "boardlist tr">
+    		<a href="">
     			<td><%=b_list.getNum() %></td>
     			<td><%=b_list.getSubject() %></td>
     			<td><%=b_list.getWrite_date() %></td>
+    		</a>
+    		</tr>
+   			<% }}%>
+   			<% 
+    	 		if(boardlist_fd != null){
+    			for(BoardlistVO b_list : boardlist_fd){	
+    		%>
+    		<tr class = "boardlist tr">
+    		<a href="fdocdetail.bo?doc_no=<%= b_list.getNum()%>">
+    			<td><%=b_list.getNum() %></td>
+    			<td><%=b_list.getSubject() %></td>
+    			<td><%=b_list.getWrite_date() %></td>
+    		</a>
+    		</tr>
+   			<% }}%>
+   			<% 
+    	 		if(boardlist_fa != null){
+    			for(BoardlistVO b_list : boardlist_fa){	
+    		%>
+    		<tr class = "boardlist tr">
+    		<a href="fadocdetail.bo?doc_no=<%= b_list.getNum()%>">
+    			<td><%=b_list.getNum() %></td>
+    			<td><%=b_list.getSubject() %></td>
+    			<td><%=b_list.getWrite_date() %></td>
+    		</a>
+    		</tr>
+   			<% }}%>
+   			<% 
+    	 		if(boardlist_ah != null){
+    			for(BoardlistVO b_list : boardlist_ah){	
+    		%>
+    		<tr class = "boardlist tr">
+    		<a href="adopthomeview.bo?num='+<%=b_list.getNum() %>+'">
+    			<td><%=b_list.getNum() %></td>
+    			<td><%=b_list.getSubject() %></td>
+    			<td><%=b_list.getWrite_date() %></td>
+    		</a>
+    		</tr>
+   			<% }}%>
+   			<% 
+    	 		if(boardlist_co != null){
+    			for(BoardlistVO b_list : boardlist_co){	
+    		%>
+    		<tr class = "boardlist tr">
+    		<a href="docdetail.bo?doc_no=<%= b_list.getNum()%>">
+    			<td><%=b_list.getNum() %></td>
+    			<td><%=b_list.getSubject() %></td>
+    			<td><%=b_list.getWrite_date() %></td>
+    		</a>
+    		</tr>
+   			<% }}%>
+   			<% 
+    	 		if(boardlist_p != null){
+    			for(BoardlistVO b_list : boardlist_p){	
+    		%>
+    		<tr class = "boardlist tr">
+    		<a href="">
+    			<td><%=b_list.getNum() %></td>
+    			<td><%=b_list.getSubject() %></td>
+    			<td><%=b_list.getWrite_date() %></td>
+    		</a>
+    		</tr>
+   			<% }}%>
+   			<% 
+    	 		if(boardlist_m != null){
+    			for(BoardlistVO b_list : boarboardlist_m){	
+    		%>
+    		<tr class = "boardlist tr">
+    		<a href="">
+    			<td><%=b_list.getNum() %></td>
+    			<td><%=b_list.getSubject() %></td>
+    			<td><%=b_list.getWrite_date() %></td>
+    		</a>
     		</tr>
    			<% }}%>
     		</tbody>
@@ -490,8 +591,70 @@ li.list-group-item.click > a {
   			</thead>
   			<tbody>
     		<% 
-    			if(commentlist != null){
-    			for(CommentListVO c_list : commentlist){	
+    			if(commentlist_al != null){
+    			for(CommentListVO c_list : commentlist_al){	
+    		%>
+    			<tr class = "commentlist">
+    				<td><%=c_list.getContent() %></td>
+    				<td><%=c_list.getWrite_date() %></td>
+    			</tr>
+    		<% }}%>
+    		<% 
+    			if(commentlist_fd != null){
+    			for(CommentListVO c_list : commentlist_fd){	
+    		%>
+    			<tr class = "commentlist">
+    			<a href="fdocdetail.bo?doc_no=<%= b_list.getNum()%>">
+    				<td><%=c_list.getContent() %></td>
+    				<td><%=c_list.getWrite_date() %></td>
+    			</a>
+    			</tr>
+    		<% }}%>
+    		<% 
+    			if(commentlist_fa != null){
+    			for(CommentListVO c_list : commentlist_fa){	
+    		%>
+    			<tr class = "commentlist">
+    			<a href="fadocdetail.bo?doc_no=<%= b_list.getNum()%>">
+    				<td><%=c_list.getContent() %></td>
+    				<td><%=c_list.getWrite_date() %></td>
+    			</a>
+    			</tr>
+    		<% }}%>
+    		<% 
+    			if(commentlist_ah != null){
+    			for(CommentListVO c_list : commentlist_ah){	
+    		%>
+    			<tr class = "commentlist">
+    			<a href="adopthomeview.bo?num='+<%=b_list.getNum() %>+'">
+    				<td><%=c_list.getContent() %></td>
+    				<td><%=c_list.getWrite_date() %></td>
+    			</a>
+    			</tr>
+    		<% }}%>
+    		<% 
+    			if(commentlist_co != null){
+    			for(CommentListVO c_list : commentlist_co){	
+    		%>
+    			<tr class = "commentlist">
+    			<a href="docdetail.bo?doc_no=<%= b_list.getNum()%>">
+    				<td><%=c_list.getContent() %></td>
+    				<td><%=c_list.getWrite_date() %></td>
+    			</a>
+    			</tr>
+    		<% }}%>
+    		<% 
+    			if(commentlist_p != null){
+    			for(CommentListVO c_list : commentlist_p){	
+    		%>
+    			<tr class = "commentlist">
+    				<td><%=c_list.getContent() %></td>
+    				<td><%=c_list.getWrite_date() %></td>
+    			</tr>
+    		<% }}%>
+    		<% 
+    			if(commentlist_m != null){
+    			for(CommentListVO c_list : commentlist_m){	
     		%>
     			<tr class = "commentlist">
     				<td><%=c_list.getContent() %></td>

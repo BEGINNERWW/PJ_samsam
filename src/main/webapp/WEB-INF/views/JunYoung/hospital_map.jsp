@@ -28,7 +28,17 @@
 
 <!-- 제이쿼리 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-
+<script>
+    $('.search-box btn').click(function(){
+      
+    });
+    $('#keyword').keypress(function(event){
+      if(event.which == 13){
+        $('.search-box btn').click();
+        return false;
+      }
+    });
+</script>
 
 <style>
 /* 공통으로 사용하는 CSS */
@@ -495,10 +505,14 @@ div::-webkit-scrollbar {
 	</div>
 	
 	
-	<div class= "search-wrapper">
-      <input class="search-box input" type="text" placeholder="Search">
-      <button class="search-box btn1" type="button"><i class="fas fa-search"></i></button>
-	</div>
+	 <form action="home_search.me" method="post" name="home_search">
+            <div class="search-wrapper">
+               <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
+               <button class="search-box btn" type="submit">
+                  <i class="fas fa-search"></i>
+               </button>
+            </div>
+      </form>
 	
 	</div><!-- nav-menu -->
 </header>
@@ -561,29 +575,6 @@ div::-webkit-scrollbar {
 	</div>
 	
 </div><!-- 바디컨텐트 -->
-
-
-<script>
-$(document).ready(function(){
-	$('#login').on('click', function(e){
-	      $('#logout').show();
-		  $('#mypage').show();
-		  $('#login').hide();
-		  $('#signin').hide();
-	  });
-	}) //헤더 상단 로그인 체인지
-
-	$(document).ready(function(){
-	$('#logout').on('click', function(e){
-	       $('#logout').hide();
-		   $('#mypage').hide();
-		   $('#login').show();
-		   $('#signin').show();
-		});
-	}) //헤더 상단 로그아웃 체인지
-
-</script>
-
 
 <!-- 부트스트랩 4.0 js -->
 <script type ="text/javascript" src = "https://code.jquery.com/jquery-3.4.1.min.js"></script>

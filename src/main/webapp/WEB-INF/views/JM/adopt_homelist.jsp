@@ -31,7 +31,8 @@
 
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-<title>가정분양 게시판</title>
+<link href="resources/img/title.png" rel="shortcut icon" type="image/x-icon">
+<title>삼삼하개</title>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -1150,6 +1151,17 @@ select, button, textarea {
 </style>
 <script type ="text/javascript" src = "https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
+    $('.search-box btn').click(function(){
+      
+    });
+    $('#keyword').keypress(function(event){
+      if(event.which == 13){
+        $('.search-box btn').click();
+        return false;
+      }
+    });
+</script>
+<script>
 function getFormatDate(date){
 	
 	var year = date.getFullYear();function getFormatDate(date){
@@ -1557,37 +1569,41 @@ function search_submit(a){
    
    <div class="nav-menu">
             <ul class="sticky-wrapper">
-               <li class="dropdown"><a href="main.me">HOME</a></li>
-               <li class="dropdown"><a href="board.me">분양</a>
-                  <ul class="dropdown-menu">
-                     <li><a href="#">&nbsp;&nbsp;가정분양</a></li>
-                     <li><a href="#">책임분양</a></li>
-                     <li><a href="#">업체분양</a></li>
+               <li class="dropdown"><a href="home.me">HOME</a></li>
+               <li class="dropdown"><a href="home_list.bo">분양</a>
+                  <ul class="dropdown-menu board">
+                     <li><a href="home_list.bo">&nbsp;&nbsp;가정분양</a></li>
+                     <li><a href="fdoclist.bo">책임분양</a></li>
+                     <li><a href="selladopt_list.bo">업체분양</a></li>
                   </ul></li>
-               <li class="dropdown"><a href="care.me">보호소</a>
-                  <ul class="dropdown-menu">
-                     <li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
-                     <li><a href="#">파양</a></li>
-                     <li><a href="#">실종</a></li>
+               <li class="dropdown"><a href="SJ/pet_list">보호소</a>
+                  <ul class="dropdown-menu care">
+                     <li><a href="SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
+                     <li><a href="SJ/payang/list">파양</a></li>
+                     <li><a href="SJ/missing/list">실종</a></li>
                   </ul></li>
-               <li class="dropdown"><a href="community.me">커뮤니티</a>
-                  <ul class="dropdown-menu">
-                     <li><a href="#">&nbsp;자유게시판</a></li>
-                     <li><a href="#">책임분양인증</a></li>
+               <li class="dropdown"><a href="doclist.bo">커뮤니티</a>
+                  <ul class="dropdown-menu commu">
+                     <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
+                     <li><a href="auth_fdoc.bo">책임분양인증</a></li>
                   </ul></li>
             </ul>
    
    <div class="header-top">
       <div class="mainlogo">
-      <a href="#">
+      <a href="home.me">
       <img src = "./resources/img/mainlogo.png" class = "img-circle">
       </a>
       </div>
    </div>
-   <div class= "search-wrapper">
-      <input class="search-box input" type="text" placeholder="Search">
-      <button class="search-box" type="button"><i class="fas fa-search"></i></button>
-   </div>
+    <form action="home_search.me" method="post" name="home_search">
+            <div class="search-wrapper">
+               <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
+               <button class="search-box btn" type="submit">
+                  <i class="fas fa-search"></i>
+               </button>
+            </div>
+      </form>
    </div><!-- nav-menu -->
 </header>
       
@@ -1596,11 +1612,11 @@ function search_submit(a){
          
          <!-- 왼쪽. 서브메뉴가 들어갈 부분 -->
 	         <div class="sidemenu-section">
-	         <ul class="list-group list-group-flush">
-	            <li class="list-group-item click"><a href="home_list.bo">가정분양</a></li>
-	            <li class="list-group-item"><a href="/">책임분양</a></li>
-	            <li class="list-group-item"><a href="/">업체분양</a></li>
-	         </ul>
+	         	<ul class="list-group list-group-flush">
+				<li class="list-group-item"><a href="home_list.bo">가정분양</a></li>
+				<li class="list-group-item  click"><a href="fdoclist.bo">책임분양</a></li>
+				<li class="list-group-item"><a href="selladopt_list.bo">업체분양</a></li>
+			</ul>
 	         </div>
          
          <!-- 오른쪽. 내용이 들어갈 부분 -->
@@ -2314,26 +2330,6 @@ function search_submit(a){
 	</div>
 	
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-<script>
-$(document).ready(function(){
-	 console.log("<%=email%>") 
-     var session = '<%=email %>'
-    console.log(session);
-    if(session == "null" ){
-        $('#logout').hide();
-          $('#mypage').hide();
-          $('#login').show();
-          $('#signin').show();
-        
-     } //헤더 상단 로그인상태 일때
-     else{
-       $('#logout').show();	
-         $('#mypage').show();
-         $('#login').hide();
-         $('#signin').hide();
-     }; //헤더 상단 로그아웃상태 일때 
-  });
-</script>
 
 <!-- 부트스트랩 4.0 js -->
 

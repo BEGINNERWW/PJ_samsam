@@ -28,7 +28,7 @@ public interface MemberMapper {
 	public int updateBiz_Member(Biz_memberVO vo);
 	public int pwUpdate_M(MemberVO vo);
 	public int pwUpdate_BM(Biz_memberVO vo);
-	public String check_auth(Biz_memberVO vo);
+	public Biz_memberVO check_auth(Biz_memberVO vo);
 	public int pre_insertBiz(Biz_memberVO vo);
 	public int pre_updateBiz(String vo);
 	public Biz_memberVO selectBizMember(String email);
@@ -50,6 +50,7 @@ public interface MemberMapper {
 	public int 	auth_confirm(String email);
 	public int 	update_confirm(String email);
 	public int 	auth_return(String email);
+	public int   update_return(String email);
 	public ArrayList<Payed_listVO> 	getPay_list();
 	
 	//todolist

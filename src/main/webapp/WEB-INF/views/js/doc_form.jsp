@@ -891,7 +891,17 @@ select, input, button, textarea {
 	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 	 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet"> 
 	 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
-
+<script>
+    $('.search-box btn').click(function(){
+      
+    });
+    $('#keyword').keypress(function(event){
+      if(event.which == 13){
+        $('.search-box btn').click();
+        return false;
+      }
+    });
+</script>
 
 <script>
 
@@ -973,19 +983,19 @@ $(document).ready(function() {
             <ul class="sticky-wrapper">
                <li class="dropdown"><a href="home.me">HOME</a></li>
                <li class="dropdown"><a href="home_list.bo">분양</a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu board">
                      <li><a href="home_list.bo">&nbsp;&nbsp;가정분양</a></li>
                      <li><a href="fdoclist.bo">책임분양</a></li>
                      <li><a href="selladopt_list.bo">업체분양</a></li>
                   </ul></li>
-               <li class="dropdown"><a href="/SJ/pet_list">보호소</a>
-                  <ul class="dropdown-menu">
-                     <li><a href="/SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
-                     <li><a href="/SJ/payang/list">파양</a></li>
-                     <li><a href="/SJ/missing/list">실종</a></li>
+               <li class="dropdown"><a href="SJ/pet_list">보호소</a>
+                  <ul class="dropdown-menu care">
+                     <li><a href="SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
+                     <li><a href="SJ/payang/list">파양</a></li>
+                     <li><a href="SJ/missing/list">실종</a></li>
                   </ul></li>
                <li class="dropdown"><a href="doclist.bo">커뮤니티</a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu commu">
                      <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
                      <li><a href="auth_fdoc.bo">책임분양인증</a></li>
                   </ul></li>
@@ -998,12 +1008,14 @@ $(document).ready(function() {
 						</a>
 					</div>
 				</div>
-				<div class="search-wrapper">
-					<input class="search-box input" type="text" placeholder="Search">
-					<button class="search-box btn" type="button">
-						<i class="fas fa-search"></i>
-					</button>
-				</div>
+				 <form action="home_search.me" method="post" name="home_search">
+            <div class="search-wrapper">
+               <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
+               <button class="search-box btn" type="submit">
+                  <i class="fas fa-search"></i>
+               </button>
+            </div>
+      </form>
 			</div>
 			<!-- nav-menu -->
 		</header>
@@ -1104,24 +1116,7 @@ $(document).ready(function() {
     
   //]]>
   
-    $(document).ready(function(){
-        console.log("<%=email%>") 
-        var session = '<%=email %>'
-        console.log(session);
-        if(session == "null" ){
-            $('#logout').hide();
-              $('#mypage').hide();
-              $('#login').show();
-              $('#signin').show();
-            
-         } //헤더 상단 로그인상태 일때
-         else{
-           $('#logout').show();
-             $('#mypage').show();
-             $('#login').hide();
-             $('#signin').hide();
-         }; //헤더 상단 로그아웃상태 일때 
-      });
+
 </script>
 
 	<div id="ex7" class="modal" style="overflow: visible;"></div>

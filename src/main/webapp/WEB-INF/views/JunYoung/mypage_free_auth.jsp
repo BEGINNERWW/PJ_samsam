@@ -47,7 +47,17 @@
 
 <!-- 제이쿼리 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-
+<script>
+    $('.search-box btn').click(function(){
+      
+    });
+    $('#keyword').keypress(function(event){
+      if(event.which == 13){
+        $('.search-box btn').click();
+        return false;
+      }
+    });
+</script>
 
 <style>
 /* 공통으로 사용하는 CSS */
@@ -710,11 +720,14 @@ td.paging > a {
 	</div>
 	
 	
-	<div class= "search-wrapper">
-      <input class="search-box input" type="text" placeholder="Search">
-      <button class="search-box btn1" type="button"><i class="fas fa-search"></i></button>
-	</div>
-	
+	 <form action="home_search.me" method="post" name="home_search">
+            <div class="search-wrapper">
+               <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
+               <button class="search-box btn" type="submit">
+                  <i class="fas fa-search"></i>
+               </button>
+            </div>
+      </form>
 	</div><!-- nav-menu -->
 </header>
 		
@@ -1051,35 +1064,6 @@ td.paging > a {
 	
 </div><!-- 바디컨텐트 -->
 	
-		
-
-<script>
-
-
-</script>
-<script>
-$(document).ready(function(){
-    console.log("<%= email %>") 
-	
-    var session = '<%= email %>'
-    console.log(session);
-    if(session == "null" ){
-        $('#logout').hide();
-          $('#mypage').hide();
-          $('#login').show();
-          $('#signin').show();
-        
-     } //헤더 상단 로그인상태 일때
-     else{
-       $('#logout').show();
-         $('#mypage').show();
-         $('#login').hide();
-         $('#signin').hide();
-     }; //헤더 상단 로그아웃상태 일때 
-  });
-</script>
-
-
 <!-- 부트스트랩 4.0 js -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

@@ -39,6 +39,17 @@
 <script type="text/javascript" src="resources/js/myinfo_member.js" charset="UTF-8"></script> 
 <!-- 스윗얼럿 -->
 <script src = "https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    $('.search-box btn').click(function(){
+      
+    });
+    $('#keyword').keypress(function(event){
+      if(event.which == 13){
+        $('.search-box btn').click();
+        return false;
+      }
+    });
+</script>
 <style>
 @charset "utf-8";
 /* 공통으로 사용하는 CSS */
@@ -385,30 +396,34 @@ li.list-group-item.click > a {
 <header id = "header">
 
 	<div class ="inout_gocen">
-			<input type="button" class= "header_btn" id="login" value="로그인" onclick ="location.href='loginForm.me'">
-			<input type="button" class= "header_btn" id="logout" value="로그아웃" onclick ="location.href='logout.me'">
-			<input type="button" class= "header_btn" id="signin" value="회원가입" onclick ="location.href='joinform.me'">
-			<input type="button" class= "header_btn" id="mypage" value="마이페이지" onclick ="location.href='mypage.me'">
-			<input type="button" class= "header_btn" id="gocen" value="고객센터" onclick ="location.href='customer_service.me'">
-		</div>
+         <%if(email != null){ %>
+         
+         <input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='logout.me'">
+         <input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='mypage.me'">
+         <%}else{ %>
+         <input  type="button" class= "header_btn" value="로그인" onclick="location.href='loginForm.me'">
+         <input  type="button" class= "header_btn" value="회원가입" onclick="location.href='joinform.me'">
+         <%} %>
+         <a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
+      </div>
 	
 	 <div class="nav-menu">
             <ul class="sticky-wrapper">
                <li class="dropdown"><a href="home.me">HOME</a></li>
                <li class="dropdown"><a href="home_list.bo">분양</a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu board">
                      <li><a href="home_list.bo">&nbsp;&nbsp;가정분양</a></li>
                      <li><a href="fdoclist.bo">책임분양</a></li>
                      <li><a href="selladopt_list.bo">업체분양</a></li>
                   </ul></li>
-               <li class="dropdown"><a href="/SJ/pet_list">보호소</a>
-                  <ul class="dropdown-menu">
-                     <li><a href="/SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
-                     <li><a href="/SJ/payang/list">파양</a></li>
-                     <li><a href="/SJ/missing/list">실종</a></li>
+               <li class="dropdown"><a href="SJ/pet_list">보호소</a>
+                  <ul class="dropdown-menu care">
+                     <li><a href="SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
+                     <li><a href="SJ/payang/list">파양</a></li>
+                     <li><a href="SJ/missing/list">실종</a></li>
                   </ul></li>
                <li class="dropdown"><a href="doclist.bo">커뮤니티</a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu commu">
                      <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
                      <li><a href="auth_fdoc.bo">책임분양인증</a></li>
                   </ul></li>
@@ -420,10 +435,14 @@ li.list-group-item.click > a {
 		</a>
 		</div>
 	</div>
-	<div class= "search-wrapper">
-      <input class="search-box input" type="text" placeholder="Search">
-      <button class="search-box btn" type="button"><i class="fas fa-search"></i></button>
-	</div>
+	<form action="home_search.me" method="post" name="home_search">
+				<div class="search-wrapper">
+					<input class="search-box input" id="keyword" name="keyword" type="text" placeholder="Search">
+					<button class="search-box btn" type="submit">
+						<i class="fas fa-search"></i>
+					</button>
+				</div>
+			 </form>	
 	</div><!-- nav-menu -->
 </header>
 		
@@ -502,26 +521,6 @@ li.list-group-item.click > a {
 </div><!-- 바디컨텐트 -->
 
 <!-- 제이쿼리 -->
-<script>
-$(document).ready(function(){
-    console.log("<%= email %>") 
-    var session = '<%= email %>'
-    console.log(session);
-    if(session == "null" ){
-        $('#logout').hide();
-          $('#mypage').hide();
-          $('#login').show();
-          $('#signin').show();
-        
-     } //헤더 상단 로그인상태 일때
-     else{
-       $('#logout').show();
-         $('#mypage').show();
-         $('#login').hide();
-         $('#signin').hide();
-     }; //헤더 상단 로그아웃상태 일때 
-  });
-</script>
 
 <!-- 부트스트랩 4.0 js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

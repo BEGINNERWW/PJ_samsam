@@ -46,13 +46,62 @@ public class JJMemberController {
 		String email = (String)session.getAttribute("email");
 		System.out.println("email "+ email );
 		
-		ArrayList<BoardlistVO> b_list = new ArrayList<BoardlistVO>();
-		ArrayList<CommentListVO> c_list = new ArrayList<CommentListVO>();
-		b_list = memberSV.getWriteList(email);
-		c_list = memberSV.getWriteComment(email);
-		
-		model.addAttribute("b_list", b_list);
-		model.addAttribute("c_list", c_list);
+		ArrayList<BoardlistVO> b_listal = memberSV.getWriteList1(email);
+		if(b_listal != null ) {
+			model.addAttribute("b_listal", b_listal);
+		}
+		ArrayList<CommentListVO> c_listal = memberSV.getWriteComment1(email);
+		if(c_listal != null ) {
+			model.addAttribute("c_listal", c_listal);
+		}
+		ArrayList<BoardlistVO> b_listfd = memberSV.getWriteList2(email);
+		if(b_listfd != null ) {
+			model.addAttribute("b_listfd", b_listfd);
+		}
+		ArrayList<CommentListVO> c_listfd = memberSV.getWriteComment2(email);
+		if(c_listfd != null ) {
+			model.addAttribute("c_listfd", c_listfd);
+		}
+		ArrayList<BoardlistVO> b_listfa = memberSV.getWriteList3(email);
+		if(b_listfa != null ) {
+			model.addAttribute("b_listfa", b_listfa);
+		}
+		ArrayList<CommentListVO> c_listfa = memberSV.getWriteComment3(email);
+		if(c_listfa != null ) {
+			model.addAttribute("c_listfa", c_listfa);
+		}
+		ArrayList<BoardlistVO> b_listah = memberSV.getWriteList4(email);
+		if(b_listah != null ) {
+			model.addAttribute("b_listah", b_listah);
+		}
+		ArrayList<CommentListVO> c_listah = memberSV.getWriteComment4(email);
+		if(c_listah != null ) {
+			model.addAttribute("c_listah", c_listah);
+		}
+		ArrayList<BoardlistVO> b_listco = memberSV.getWriteList5(email);
+		if(b_listco != null ) {
+			model.addAttribute("b_listco", b_listco);
+		}
+		ArrayList<CommentListVO> c_listco = memberSV.getWriteComment5(email);
+		if(c_listco != null ) {
+			model.addAttribute("c_listco", c_listco);
+		}
+		ArrayList<BoardlistVO> b_listp = memberSV.getWriteList6(email);
+		if(b_listp != null ) {
+			model.addAttribute("b_listp", b_listp);
+		}
+		ArrayList<CommentListVO> c_listp = memberSV.getWriteComment6(email);
+		if(c_listp != null ) {
+			model.addAttribute("c_listp", c_listp);
+		}
+		ArrayList<BoardlistVO> b_listm = memberSV.getWriteList7(email);
+		if(b_listm != null ) {
+			model.addAttribute("b_listm", b_listm);
+		}
+		ArrayList<CommentListVO> c_listm = memberSV.getWriteComment7(email);
+		if(c_listm != null ) {
+			model.addAttribute("c_listm", c_listm);
+		}
 		
 		return "jj/myinfo_write";
 	
@@ -172,17 +221,19 @@ public class JJMemberController {
 		System.out.println("로그인 이메일 "+vo.getEmail());
 		System.out.println("로그인 비밀번호 "+vo.getPw());
 		
+		MemberVO res = memberSV.selectMember(vo.getEmail());
+
 		//어드민
-		if(vo.getEmail().equals("admin")) {
+		if(vo.getEmail().equals("admin") && res.getPw().equals(vo.getPw())) {
 			session.setAttribute("id", vo.getEmail());
 			session.setAttribute("email", vo.getEmail());
 			
 			return "redirect:/admin_main.me";  //어드민 페이지로 변경 필요
 		}
 		//카카오
-		MemberVO res = memberSV.selectMember(vo.getEmail());
 		if(res.getGrade().equals("카카오")) {
 			session.setAttribute("email", res.getEmail());
+			session.setAttribute("nick",  res.getNick());
 			Biz_memberVO bo = memberSV.selectBizMember(vo.getEmail());
 			if(bo != null) {
 				if(bo.getStatus() == 0) {
@@ -194,6 +245,8 @@ public class JJMemberController {
 		//네이버
 		if(res.getGrade().equals("네이버")) {
 			session.setAttribute("email", res.getEmail());
+			session.setAttribute("nick",  res.getNick());
+
 			Biz_memberVO bo = memberSV.selectBizMember(vo.getEmail());
 			if(bo != null) {
 				if(bo.getStatus() == 0) {
@@ -207,6 +260,8 @@ public class JJMemberController {
 			
 			session.setAttribute("id", res.getEmail());
 			session.setAttribute("email", res.getEmail());
+			session.setAttribute("nick",  res.getNick());
+
 			System.out.println("session id :" +session.getAttribute("id"));
 			System.out.println("session email :" +session.getAttribute("email"));
 			//사업자회원인지 확인
@@ -266,7 +321,8 @@ public class JJMemberController {
 	   System.out.println("logout");
 	   System.out.println("세션 : "+ (String)session.getAttribute("email"));
 	   session.removeAttribute("email");
-	   System.out.println("세션삭제후 : "+ (String)session.getAttribute("email"));
+	   session.invalidate();
+	   System.out.println("세션삭제후 : "+ (String)session.getAttribute("nick"));
 		              
 	   return "redirect:/home.me";
 	}

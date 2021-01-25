@@ -22,7 +22,40 @@
 <script src="resources/js/login_form.js"></script>
 <!-- 스윗얼럿 -->
 <script src = "https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<style>
+/* pageup button */
+.back-to-top{
+   width : 40px;
+   height : 40px;
+   margin : 0 auto;
+   font-size : 24px;
+   color : white;
+   background-color : #149DDD;
+   border-radius : 50%;
+   visibility : visible;
+   position: fixed; 
+   bottom: 45px; 
+   right: 30px;
+   text-align : center;
+}
+/* pageup button */
+*, ::after, ::before {
+    box-sizing: border-box;
+}
 
+
+/*카카오톡 톡상담*/
+.kakaoChat {
+    text-align: right;
+    position: fixed;
+    margin-right: 28px;
+    bottom: 90px;
+    right: 0;
+}
+.kakao_btn {
+	border-radius: 1rem!important;
+}
+</style>
 <script type="text/javascript">
  
 
@@ -342,6 +375,19 @@ function email_check(emailt) {
 			
 
 </form> 
+	<!-- 카카오톡 채널 상담 -->
+	<div class="kakaoChat">
+	<a href="javascript:void plusFriendChat()">
+    <img src="resources/img/kakaolink_btn_medium.png" width="45px" height="45px" class="kakao_btn">
+	</a>
+	</div>
+	
+	<!-- pageup button -->
+	<div class ="back-to-top">
+	<a href="#" class ="back-to-top" style="display: inline;">
+	<i class = "fas fa-angle-up"></i>
+	</a>
+	</div>
 </div>
 </body>
 </html>

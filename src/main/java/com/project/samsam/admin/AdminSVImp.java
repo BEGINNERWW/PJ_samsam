@@ -47,7 +47,12 @@ public class AdminSVImp implements AdminSV {
 		
 		return res;
 	}
-
+	  @Override
+	  public int   update_return(String email) {
+	    int res = mapper.update_return(email);
+	    
+	    return res;
+	  }
 	@Override
 	public ArrayList<Payed_listVO> getPay_list(){
 		ArrayList<Payed_listVO> plist = mapper.getPay_list();

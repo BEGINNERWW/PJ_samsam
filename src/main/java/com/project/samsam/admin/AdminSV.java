@@ -10,6 +10,7 @@ public interface AdminSV {
 	public int 	auth_confirm(String email);
 	public int 	update_confirm(String email);
 	public int 	auth_return(String email);
+	public int   update_return(String email);
 	public ArrayList<Payed_listVO> 	getPay_list();
 
 	//todolist

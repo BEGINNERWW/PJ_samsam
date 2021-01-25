@@ -27,6 +27,7 @@
 		
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/</url-pattern>
 		<url-pattern>*.me</url-pattern>
 		<url-pattern>*.do</url-pattern>
 		<url-pattern>*.bo</url-pattern>

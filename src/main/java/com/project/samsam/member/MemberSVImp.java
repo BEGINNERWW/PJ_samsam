@@ -116,7 +116,7 @@ public class MemberSVImp implements MemberSV {
 	}
 
 	@Override
-	public String check_auth(Biz_memberVO vo) {
+	public Biz_memberVO check_auth(Biz_memberVO vo) {
 		System.out.println("check_auth biz_no : "+ vo.getBiz_no());
 		String bvo = mapper.check_auth(vo); 
 		System.out.println("check_auth : bvo(biz_name)" + bvo);

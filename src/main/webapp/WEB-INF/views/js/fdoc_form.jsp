@@ -818,7 +818,17 @@ select,button, textarea {
 
 
 <!-- include libraries(jQuery, bootstrap) -->
-
+<script>
+    $('.search-box btn').click(function(){
+      
+    });
+    $('#keyword').keypress(function(event){
+      if(event.which == 13){
+        $('.search-box btn').click();
+        return false;
+      }
+    });
+</script>
 <script>
 
 $(document).ready(function() {
@@ -1041,12 +1051,14 @@ function setThumbnail(event) {
 						</a>
 					</div>
 				</div>
-				<div class="search-wrapper">
-					<input class="search-box input" type="text" placeholder="Search">
-					<button class="search-box btn" type="button">
-						<i class="fas fa-search"></i>
-					</button>
-				</div>
+				 <form action="home_search.me" method="post" name="home_search">
+            <div class="search-wrapper">
+               <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
+               <button class="search-box btn" type="submit">
+                  <i class="fas fa-search"></i>
+               </button>
+            </div>
+      </form>
 			</div>
 			<!-- nav-menu -->
 		</header>
@@ -1349,24 +1361,7 @@ function setThumbnail(event) {
     }
     
   //]]>
-    $(document).ready(function(){
-    	  console.log("<%=email%>") 
-          var session = '<%=email %>'
-        console.log(session);
-        if(session == "null" ){
-            $('#logout').hide();
-              $('#mypage').hide();
-              $('#login').show();
-              $('#signin').show();
-            
-         } //헤더 상단 로그인상태 일때
-         else{
-           $('#logout').show();
-             $('#mypage').show();
-             $('#login').hide();
-             $('#signin').hide();
-         }; //헤더 상단 로그아웃상태 일때 
-      });
+   
 </script>
 
 	<div id="ex7" class="modal" style="overflow: visible;"></div>

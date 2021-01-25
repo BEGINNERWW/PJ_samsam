@@ -154,6 +154,7 @@ public class AdminController {
 		
 		Map<String,Integer> map = new HashMap<String, Integer>(); 
 		int res = adminSV.auth_return(email);
+		int res = adminSV.auth_return(email);
 		map.put("result", res);
 		
 		return map;

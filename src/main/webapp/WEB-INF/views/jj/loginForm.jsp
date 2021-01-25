@@ -13,7 +13,40 @@
 	<script src="resources/js/login_form.js"></script>
 	<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script> <!-- 카카오톡 자바스크립트 라이브러리 -->
 	<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script> <!-- 네이버 js 라이브러리 -->
-	
+<style>
+/* pageup button */
+.back-to-top{
+   width : 40px;
+   height : 40px;
+   margin : 0 auto;
+   font-size : 24px;
+   color : white;
+   background-color : #149DDD;
+   border-radius : 50%;
+   visibility : visible;
+   position: fixed; 
+   bottom: 45px; 
+   right: 30px;
+   text-align : center;
+}
+/* pageup button */
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+
+/*카카오톡 톡상담*/
+.kakaoChat {
+    text-align: right;
+    position: fixed;
+    margin-right: 28px;
+    bottom: 90px;
+    right: 0;
+}
+.kakao_btn {
+	border-radius: 1rem!important;
+}
+</style>	
 
 	<script type="text/javascript">
 		document.addEventListener("DOMContentLoaded", function(){
@@ -142,6 +175,18 @@ document.addEventListener("DOMContentLoaded", function(){
 <input type="hidden" class="n_email" name = "email" value = "">
 <input type="hidden" class="n_name" name = "nick" value="">
 </form>
-
+	<!-- 카카오톡 채널 상담 -->
+	<div class="kakaoChat">
+	<a href="javascript:void plusFriendChat()">
+    <img src="resources/img/kakaolink_btn_medium.png" width="45px" height="45px" class="kakao_btn">
+	</a>
+	</div>
+	
+	<!-- pageup button -->
+	<div class ="back-to-top">
+	<a href="#" class ="back-to-top" style="display: inline;">
+	<i class = "fas fa-angle-up"></i>
+	</a>
+	</div>
 </body>
 </html>

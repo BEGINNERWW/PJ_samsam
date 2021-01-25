@@ -1246,7 +1246,17 @@ ol, ul {
 
 </style>
 </head>
-
+<script>
+    $('.search-box btn').click(function(){
+      
+    });
+    $('#keyword').keypress(function(event){
+      if(event.which == 13){
+        $('.search-box btn').click();
+        return false;
+      }
+    });
+</script>
 <script type="text/javascript">
 	
 	// 시/도 코드
@@ -1446,46 +1456,55 @@ ol, ul {
 <header id = "header">
 
 	<div class ="inout_gocen">
-			<a href="loginForm.me"><input type="button" class= "header_btn" id="login" value="로그인"></a>
-			<a href="logout.me"><input type="button" class= "header_btn" id="logout" value="로그아웃"></a>
-			<a href="joinform.me"><input type="button" class= "header_btn" id="signin" value="회원가입"></a>
-			<a href="mypage.me"><input type="button" class= "header_btn" id="mypage" value="마이페이지"></a>
-			<a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
-		</div>
-	
-	<div class="nav-menu">
-				<ul class="sticky-wrapper">
-					<li class="dropdown"><a href="home.me">HOME</a></li>
-					<li class="dropdown"><a href="home_list.bo">분양</a>
-						<ul class="dropdown-menu">
-							<li><a href="home_list.bo">&nbsp;&nbsp;가정분양</a></li>
-							<li><a href="fdoclist.bo">책임분양</a></li>
-							<li><a href="selladopt_list.bo">업체분양</a></li>
-						</ul></li>
-					<li class="dropdown"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a>
-						<ul class="dropdown-menu">
-				<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
-				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
-				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
-						</ul></li>
-					<li class="dropdown"><a href="doclist.bo">커뮤니티</a>
-						<ul class="dropdown-menu">
-							<li><a href="doclist.bo">&nbsp;자유게시판</a></li>
-							<li><a href="auth_fdoc.bo">책임분양인증</a></li>
-						</ul></li>
-				</ul>
-	
-	<div class="header-top">
-		<div class="mainlogo">
-		<a href="home.me">
-		<img src = "resources/img/mainlogo.png" class = "img-circle">
-		</a>
-		</div>
-	</div>
-	<div class= "search-wrapper">
-      <input class="search-box input" type="text" placeholder="Search">
-      <button class="search-box" type="button"><i class="fas fa-search"></i></button>
-	</div>
+         <%if(email != null){ %>
+         
+         <input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='logout.me'">
+         <input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='mypage.me'">
+         <%}else{ %>
+         <input  type="button" class= "header_btn" value="로그인" onclick="location.href='loginForm.me'">
+         <input  type="button" class= "header_btn" value="회원가입" onclick="location.href='joinform.me'">
+         <%} %>
+         <a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
+      </div>
+   
+   
+   <div class="nav-menu">
+            <ul class="sticky-wrapper">
+               <li class="dropdown"><a href="home.me">HOME</a></li>
+               <li class="dropdown"><a href="home_list.bo">분양</a>
+                  <ul class="dropdown-menu board">
+                     <li><a href="home_list.bo">&nbsp;&nbsp;가정분양</a></li>
+                     <li><a href="fdoclist.bo">책임분양</a></li>
+                     <li><a href="selladopt_list.bo">업체분양</a></li>
+                  </ul></li>
+               <li class="dropdown"><a href="SJ/pet_list">보호소</a>
+                  <ul class="dropdown-menu care">
+                     <li><a href="SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
+                     <li><a href="SJ/payang/list">파양</a></li>
+                     <li><a href="SJ/missing/list">실종</a></li>
+                  </ul></li>
+               <li class="dropdown"><a href="doclist.bo">커뮤니티</a>
+                  <ul class="dropdown-menu commu">
+                     <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
+                     <li><a href="auth_fdoc.bo">책임분양인증</a></li>
+                  </ul></li>
+            </ul>
+   
+   <div class="header-top">
+      <div class="mainlogo">
+      <a href="home.me">
+      <img src = "./resources/img/mainlogo.png" class = "img-circle">
+      </a>
+      </div>
+   </div>
+    <form action="home_search.me" method="post" name="home_search">
+            <div class="search-wrapper">
+               <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
+               <button class="search-box btn" type="submit">
+                  <i class="fas fa-search"></i>
+               </button>
+            </div>
+      </form>
 	</div><!-- nav-menu -->
 </header>
 		
@@ -1566,20 +1585,7 @@ ol, ul {
 <!-- 제이쿼리 -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script> -->
 <script>
-	$(document).ready(function(){
-		$('#login').on('click', function(e){
-		      $('#logout').show();
-			  $('#mypage').show();
-			  $('#login').hide();
-			  $('#signin').hide();
-		  });//헤더 상단 로그인 체인지
-		
-		$('#logout').on('click', function(e){
-		       $('#logout').hide();
-			   $('#mypage').hide();
-			   $('#login').show();
-			   $('#signin').show();
-		});//헤더 상단 로그아웃 체인지
+
 		
 		$('#btnCancel').on('click', function(){
 			location.href = "/samsam/SJ/payang/list";
