@@ -290,6 +290,7 @@ public class JJMemberController {
 		 // DB에 기본정보 insert
 		int res= memberSV.joinMember(memberVO);
 		System.out.println("insert compl"+res);
+		
 		//random authKey create & email send
 		String authkey = mss.sendAuthMail(memberVO.getEmail());
 		memberVO.setAuthkey(authkey);
@@ -301,6 +302,7 @@ public class JJMemberController {
 		
 		//DB에 authKey업데이트
 		memberSV.updateAuthkey(map);
+		
 		return "jj/loginForm";
 	}
 	
@@ -321,7 +323,8 @@ public class JJMemberController {
 	   System.out.println("logout");
 	   System.out.println("세션 : "+ (String)session.getAttribute("email"));
 	   session.removeAttribute("email");
-	   session.invalidate();
+	   session.removeAttribute("nick");
+
 	   System.out.println("세션삭제후 : "+ (String)session.getAttribute("nick"));
 		              
 	   return "redirect:/home.me";

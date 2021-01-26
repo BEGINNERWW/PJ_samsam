@@ -266,7 +266,8 @@ function email_check(emailt) {
     }
   </script>
 
-<title>회원가입</title>
+<link href="resources/img/title.png" rel="shortcut icon" type="image/x-icon">
+<title>삼삼하개</title>
 </head>
 
 <body>
@@ -277,12 +278,11 @@ function email_check(emailt) {
   <h1>SIGN UP</h1>
 </hgroup>
 </div>
+<% if (vo!= null) {%>
+<form name="input_form" action = "kkoJoin.me" method="post" class="joinform" onsubmit="return check_input();" >
+<%}else{ %>
 <form name="input_form" action = "signUp.me" method="post" class="joinform" onsubmit="return check_input();" >
-<% if(vo != null){ %>
-<input type="hidden" name = "grade" value =<%=vo.getGrade() %>>
 <%} %>
-
-
 <div class="group">
   <div class="id">
   <% if(vo != null){ %>
@@ -372,9 +372,13 @@ function email_check(emailt) {
 회원가입</button>
   </div>
 <div class="etc">
+			<% if(vo != null){ %>
+				<input type="hidden" name = "grade" value =<%=vo.getGrade() %>>
+			<%} else{%>
 			<input type="hidden" name="grade" class = "grade" value="일반">
 			<input type="hidden" name="authkey" value="">
-			<input type="hidden" name="status" value="">
+			<input type="hidden" name="status" value="0">
+			<%} %>
 		</div>
 			
 

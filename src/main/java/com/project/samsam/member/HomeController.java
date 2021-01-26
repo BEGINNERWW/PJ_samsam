@@ -278,11 +278,13 @@ public class HomeController {
 		ArrayList<Adopt_BoardVO> new_bvo = new ArrayList<Adopt_BoardVO>();
 		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
 		
+		if(bvo != null) {
 		for(Adopt_BoardVO bo : bvo) {
 			int res = memberSV.getMyAdoptReply(bo.getAdopt_no());
 			map.put(bo.getAdopt_no(), res);
 			new_bvo.add(bo);
 			}
+		}
 		model.addAttribute("MemberVO", mvo);
 		model.addAttribute("Biz_memberVO", vo);
 		model.addAttribute("Adopt_list", new_bvo);

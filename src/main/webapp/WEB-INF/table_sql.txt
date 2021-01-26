@@ -7,9 +7,9 @@ CREATE TABLE member_list (
 	nick	varchar2(50)		NULL,
 	phone	varchar2(20)		NULL,
 	local	varchar2(20)		NULL,
-	grade	varchar2(10)		default '일반',
-	authkey   varchar2(20)		not null,
-	status     varchar2(10)		not null,
+	grade	varchar2(20)		default '일반',
+	authkey   varchar2(20)		default '0',
+	status     varchar2(10)		default '0',
 	wcount   number			default 0,
 	signdate date			not null
 );
