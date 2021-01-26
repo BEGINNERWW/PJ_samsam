@@ -371,13 +371,17 @@ p.card-text {
 	<div class="d-flex flex-column">
 		<div class ="profile">
 			<img src = "resources/img/samsam2.png" class = "img-circle">
+
 			<h1 class ="text-light" style="margin-top: 14px;margin-bottom: 19px;">
+
 				<a href ="#" class = "onMember"> ADMIN  </a>
 			</h1>
 		</div>
 		<div class ="admin_inout">
+
 			<button type="button" class ="grade" onclick="location.href='home.me'" style="font:400 13.3333px Arial;">ADMIN</button>
 			<button type="button" class ="grade" onclick="location.href='logout.me'" style="font:400 13.3333px Arial;">LOGOUT</button>
+
 		</div>
 						
 		<ul>
