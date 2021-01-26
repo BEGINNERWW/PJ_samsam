@@ -3,67 +3,78 @@ package com.project.samsam.board;
 import java.sql.Date;
     
 public class adopt_homereplyVO {
-	private int home_cno;
-	private int home_no;
-	private String home_cnick;
-	private Date home_cdate;
-	private String home_ccontent;
-	private int home_csecret;
-	private int home_ref;
-	private int home_lev;
-	private int home_seq;
-	public int getHome_cno() {
-		return home_cno;
+	private int doc_cno;
+	private int doc_no;
+	private String doc_email;
+	private String doc_nick;
+	private Date doc_date;
+	private String doc_content;
+	private int doc_secret;
+	private int doc_ref;
+	private int doc_lev;
+	private int doc_seq;
+	public int getDoc_cno() {
+		return doc_cno;
 	}
-	public void setHome_cno(int home_cno) {
-		this.home_cno = home_cno;
+	public void setDoc_cno(int doc_cno) {
+		this.doc_cno = doc_cno;
 	}
-	public int getHome_no() {
-		return home_no;
+	public int getDoc_no() {
+		return doc_no;
 	}
-	public void setHome_no(int home_no) {
-		this.home_no = home_no;
+	public void setDoc_no(int doc_no) {
+		this.doc_no = doc_no;
 	}
-	public Date getHome_cdate() {
-		return home_cdate;
+	public String getDoc_email() {
+		return doc_email;
 	}
-	public void setHome_cdate(Date home_cdate) {
-		this.home_cdate = home_cdate;
+	public void setDoc_email(String doc_email) {
+		this.doc_email = doc_email;
 	}
-	public String getHome_ccontent() {
-		return home_ccontent;
+	public String getDoc_nick() {
+		return doc_nick;
 	}
-	public void setHome_ccontent(String home_ccontent) {
-		this.home_ccontent = home_ccontent;
+	public void setDoc_nick(String doc_nick) {
+		this.doc_nick = doc_nick;
 	}
-	public int getHome_csecret() {
-		return home_csecret;
+	public Date getDoc_date() {
+		return doc_date;
 	}
-	public void setHome_csecret(int home_csecret) {
-		this.home_csecret = home_csecret;
+	public void setDoc_date(Date doc_date) {
+		this.doc_date = doc_date;
 	}
-	public int getHome_ref() {
-		return home_ref;
+	public String getDoc_content() {
+		return doc_content;
 	}
-	public void setHome_ref(int home_ref) {
-		this.home_ref = home_ref;
+	public void setDoc_content(String doc_content) {
+		this.doc_content = doc_content;
 	}
-	public int getHome_lev() {
-		return home_lev;
+	public int getDoc_secret() {
+		return doc_secret;
 	}
-	public void setHome_lev(int home_lev) {
-		this.home_lev = home_lev;
+	public void setDoc_secret(int doc_secret) {
+		this.doc_secret = doc_secret;
 	}
-	public int getHome_seq() {
-		return home_seq;
+	public int getDoc_ref() {
+		return doc_ref;
 	}
-	public void setHome_seq(int home_seq) {
-		this.home_seq = home_seq;
+	public void setDoc_ref(int doc_ref) {
+		this.doc_ref = doc_ref;
 	}
-	public String getHome_cnick() {
-		return home_cnick;
+	public int getDoc_lev() {
+		return doc_lev;
 	}
-	public void setHome_cnick(String home_cnick) {
-		this.home_cnick = home_cnick;
+	public void setDoc_lev(int doc_lev) {
+		this.doc_lev = doc_lev;
 	}
+	public int getDoc_seq() {
+		return doc_seq;
+	}
+	public void setDoc_seq(int doc_seq) {
+		this.doc_seq = doc_seq;
+	}
+	
+	
+
+	
 }

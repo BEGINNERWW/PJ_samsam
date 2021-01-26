@@ -891,14 +891,14 @@ $(document).ready(function() {
        });
      }
    
-   $("input:radio[name=big_name]").click(function(){
+   $("input:radio[name=doc_big]").click(function(){
         $('#kind1').empty();
         $('#kind2').empty();
         $('#kind3').empty();
-        if($("input[name='big_name']:checked").val() =="강아지"){
+        if($("input[name='doc_big']:checked").val() =="강아지"){
            var output ='';
            output += '<div class="option1">';
-           output += '<div><select class= "form-control" style="width:250px;" size="1" id="kindof" name="kindof">';
+           output += '<div><select class= "form-control" style="width:250px;" size="1" id="doc_doc_kindof" name="doc_kindof">';
            output += '<option value="hide">선택하세요</option>';
            output += '<option value="포메라니안">포메라니안</option>';
            output += '<option value="치와와">치와와</option>';
@@ -930,10 +930,10 @@ $(document).ready(function() {
            output += '</select></div></div>';
            $('#kind1').append(output);
         }
-        else if($("input[name='big_name']:checked").val() =="고양이"){
+        else if($("input[name='doc_big']:checked").val() =="고양이"){
            var output ='';
            output += '<div class="option1">';
-           output += '<div><select class="form-control" style="width:250px;" size="1" id="kindof" name="kindof">';
+           output += '<div><select class="form-control" style="width:250px;" size="1" id="doc_kindof" name="doc_kindof">';
            output += '<option value="hide">선택하세요</option>';
            output += '<option value="노르웨이 숲 고양이">노르웨이 숲 고양이</option>';
            output += '<option value="데본렉스">데본렉스</option>';
@@ -982,7 +982,7 @@ $(document).ready(function() {
         }
         else{
            var output = '';
-           output += '<div class="option1"><input class="form-control" style="width:300px;" type="text" name="kindof" placeholder="직접 입력해주세요"></div>'
+           output += '<div class="option1"><input class="form-control" style="width:300px;" type="text" name="doc_kindof" placeholder="직접 입력해주세요"></div>'
             $('#kind3').append(output);
         }
      });
@@ -1089,13 +1089,13 @@ function setThumbnail(event) {
       
        
    <form method="post" action="home_update.bo" enctype="multipart/form-data">
-	<input type="hidden" name="home_no" value=<%=vo.getHome_no() %>>
+	<input type="hidden" name="home_no" value=<%=vo.getDoc_no() %>>
       <div><div><textarea name="home_subject" placeholder="제목을 입력해 주세요." class="textarea_input" style="height: 40px;"></textarea></div></div>
      <div class="option_box">
      
-       <div class="option1"><div style="display:inline-block;margin-right:10px;"><input type="radio" name="big_name" value="강아지">&nbsp;&nbsp;강아지&nbsp;&nbsp;&nbsp;&nbsp;<span id="kind1"></span></div>
-         <div style="display:inline-block;margin-right:10px;"><input type="radio" name="big_name" value="고양이">&nbsp;&nbsp;고양이&nbsp;&nbsp;&nbsp;&nbsp;<span id="kind2"></span></div>
-         <div style="display:inline-block;margin-right:10px;"><input type="radio" name="big_name" value="기타">&nbsp;&nbsp;기타&nbsp;&nbsp;&nbsp;&nbsp;<span id="kind3"></span></div></div>
+       <div class="option1"><div style="display:inline-block;margin-right:10px;"><input type="radio" name="doc_big" value="강아지">&nbsp;&nbsp;강아지&nbsp;&nbsp;&nbsp;&nbsp;<span id="kind1"></span></div>
+         <div style="display:inline-block;margin-right:10px;"><input type="radio" name="doc_big" value="고양이">&nbsp;&nbsp;고양이&nbsp;&nbsp;&nbsp;&nbsp;<span id="kind2"></span></div>
+         <div style="display:inline-block;margin-right:10px;"><input type="radio" name="doc_big" value="기타">&nbsp;&nbsp;기타&nbsp;&nbsp;&nbsp;&nbsp;<span id="kind3"></span></div></div>
          
         
     <div>

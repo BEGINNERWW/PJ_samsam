@@ -6,12 +6,10 @@
 
 <%
 adopt_homeVO adoptvo = (adopt_homeVO)request.getAttribute("adopt");
-String id = request.getParameter("id");
-String email = request.getParameter("email");
+String email = (String) session.getAttribute("email");
+String writer = request.getParameter("doc_email");
 
 
-email = "11";
-id = "user";
 %>
 <!DOCTYPE html>
 <html>
@@ -979,46 +977,46 @@ border-bottom: 1px solid #eee;
 					<div class="article-head">
 						<p style="font-szie:16px;font-weight:bold;">분양 &nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;가정분양 게시판</p>
 						
-						<h2 class="headsubject"><%=adoptvo.getHome_subject()%></h2>
-						<p class="name"><%=adoptvo.getHome_nick()%></p>
+						<h2 class="headsubject"><%=adoptvo.getDoc_subject()%></h2>
+						<p class="name"><%=adoptvo.getDoc_nick()%></p>
 						<div class="option-info">
 							<span class="big option"> <%
- 	if (adoptvo.getBig_name().equals("강아지")) {
+ 	if (adoptvo.getDoc_big().equals("강아지")) {
  %>
 								<i class="fas fa-dog"></i> <%
- 	} else if (adoptvo.getBig_name().equals("고양이")) {
+ 	} else if (adoptvo.getDoc_big().equals("고양이")) {
  %>
 								<i class="fas fa-cat"></i> <%
  	} else {
  %> <i class="fas fa-dove"></i>
 								<%
 									}
-								%> &nbsp;<%=adoptvo.getBig_name()%></span> <span class="kind_of option"><i
-								class="fas fa-tags"></i>&nbsp;<%=adoptvo.getKindof()%></span> <span
+								%> &nbsp;<%=adoptvo.getDoc_big()%></span> <span class="kind_of option"><i
+								class="fas fa-tags"></i>&nbsp;<%=adoptvo.getDoc_kindof()%></span> <span
 								class="local option"><i
-								class="fas fa-map-marker-alt"></i>&nbsp;<%=adoptvo.getLoc()%></span>
+								class="fas fa-map-marker-alt"></i>&nbsp;<%=adoptvo.getDoc_loc()%></span>
 					
 							
 							<span class="price option"><i class="fas fa-won-sign"
-								title="책임분양비"></i>&nbsp;<%=adoptvo.getHome_price()%>원</span>
+								title="책임분양비"></i>&nbsp;<%=adoptvo.getDoc_price()%>원</span>
 					 </div>  
 						<div class="option-info">
-							<span class="date option"><i class="far fa-clock"></i>&nbsp;<%=adoptvo.getHome_date()%></span>
-							<span class="pv option"><i class="far fa-eye"></i>&nbsp;<%=adoptvo.getHome_readcount()%></span>
-							<span class="cmt"><i class="far fa-comment"></i>&nbsp;<%=adoptvo.getReplycount()%></span>
+							<span class="date option"><i class="far fa-clock"></i>&nbsp;<%=adoptvo.getDoc_date()%></span>
+							<span class="pv option"><i class="far fa-eye"></i>&nbsp;<%=adoptvo.getDoc_readcount()%></span>
+							<span class="cmt"><i class="far fa-comment"></i>&nbsp;<%=adoptvo.getDoc_comment()%></span>
 							
 							<div class="option-wrap">
 							<%
-								if (id != null) {
+								if (email != null) {
 
-									if (!id.equals(adoptvo.getHome_nick())) {
+									if (!email.equals(adoptvo.getDoc_email())) {
 							%>
 							<span><a href="#"
-								onclick="warning_ori(<%=adoptvo.getHome_no()%>,'<%=adoptvo.getHome_nick()%>','<%=adoptvo.getHome_subject()%>');">신고하기</a></span>
+								onclick="warning_ori(<%=adoptvo.getDoc_no()%>,'<%=adoptvo.getDoc_nick()%>','<%=adoptvo.getDoc_subject()%>');">신고하기</a></span>
 							<%
 								} else {
 							%>
-							<span><a href="homeupdate.bo?num=<%=adoptvo.getHome_no()%>">수정</a>&nbsp;&nbsp;&nbsp;</span><span><a href="home_delete.bo?home_no=<%=adoptvo.getHome_no()%>">삭제</a></span>
+							<span><a href="homeupdate.bo?num=<%=adoptvo.getDoc_no()%>">수정</a>&nbsp;&nbsp;&nbsp;</span><span><a href="home_delete.bo?home_no=<%=adoptvo.getDoc_no()%>">삭제</a></span>
 							<%
 								}
 								}
@@ -1028,7 +1026,7 @@ border-bottom: 1px solid #eee;
 					</div>
 					<div class="article-view-content">
 						<div class="article-content">
-							<%=adoptvo.getHome_content()%>
+							<%=adoptvo.getDoc_content()%>
 						</div>
 								
 					
@@ -1042,7 +1040,8 @@ border-bottom: 1px solid #eee;
 						
 						
 							<jsp:include page = "./adopt_replyview.jsp">
-								<jsp:param name = "home_no" value="<%=adoptvo.getHome_no() %>"/>
+								<jsp:param name = "doc_no" value="<%=adoptvo.getDoc_no()%>"/>
+								<jsp:param name = "doc_email" value="<%=adoptvo.getDoc_email()%>"/>
 							</jsp:include>
 							
 							
@@ -1057,7 +1056,7 @@ border-bottom: 1px solid #eee;
 							
 							<div style="margin: 0; width: 100%; background-color: #F8F8F8;">
 								<%
-									if (id != null) {
+									if (email != null) {
 								%>
 								<div id="fdoc_refly"></div>
 								<%

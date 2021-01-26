@@ -4,104 +4,117 @@ import java.sql.Date;
 import java.util.List;
 
 public class adopt_homeVO {
-	private int home_no;
-	private String home_email;
-	private String home_nick;
-	private Date home_date;
-	private String loc;
-	private int home_readcount;
-	private int replycount;
-	private String home_img;
-	private String home_phone;
-	private String home_subject;
-	private String home_price;
-	private String home_content;
-	private String big_name;
-	private String kindof;
-	private String home_thumbnail;
+	private int doc_no;
+	private String doc_email;
+	private String doc_nick;
+	private Date doc_date;
+	private String doc_loc;
+	private int doc_readcount;
+	private int doc_comment;
+	private String doc_img;
+	private String doc_phone;
+	private String doc_subject;
+	private String doc_price;
+	private String doc_content;
+	private String doc_big;
+	private String doc_kindof;
+	private String doc_thumbnail;
 	private List<String>kind_search;
-	private List<String>home_search;
+	private List<String>doc_search;
 	private List<String>kind_loc;
 	private int startrow;
 	private int endrow;
-
-	public int getHome_no() {
-		return home_no;
+	
+	
+	public int getDoc_no() {
+		return doc_no;
 	}
-	public void setHome_no(int home_no) {
-		this.home_no = home_no;
+	public void setDoc_no(int doc_no) {
+		this.doc_no = doc_no;
 	}
-	public String getHome_nick() {
-		return home_nick;
+	public String getDoc_email() {
+		return doc_email;
 	}
-	public void setHome_nick(String home_nick) {
-		this.home_nick = home_nick;
+	public void setDoc_email(String doc_email) {
+		this.doc_email = doc_email;
 	}
-	public Date getHome_date() {
-		return home_date;
+	public String getDoc_nick() {
+		return doc_nick;
 	}
-	public void setHome_date(Date home_date) {
-		this.home_date = home_date;
+	public void setDoc_nick(String doc_nick) {
+		this.doc_nick = doc_nick;
 	}
-	public int getHome_readcount() {
-		return home_readcount;
+	public Date getDoc_date() {
+		return doc_date;
 	}
-	public void setHome_readcount(int home_readcount) {
-		this.home_readcount = home_readcount;
+	public void setDoc_date(Date doc_date) {
+		this.doc_date = doc_date;
 	}
-	public String getHome_img() {
-		return home_img;
+	public String getDoc_loc() {
+		return doc_loc;
 	}
-	public void setHome_img(String home_img) {
-		this.home_img = home_img;
+	public void setDoc_loc(String doc_loc) {
+		this.doc_loc = doc_loc;
 	}
-	public String getHome_phone() {
-		return home_phone;
+	public int getDoc_readcount() {
+		return doc_readcount;
 	}
-	public void setHome_phone(String home_phone) {
-		this.home_phone = home_phone;
+	public void setDoc_readcount(int doc_readcount) {
+		this.doc_readcount = doc_readcount;
 	}
-	public String getHome_subject() {
-		return home_subject;
+	public int getDoc_comment() {
+		return doc_comment;
 	}
-	public void setHome_subject(String home_subject) {
-		this.home_subject = home_subject;
+	public void setDoc_comment(int doc_comment) {
+		this.doc_comment = doc_comment;
 	}
-	public String getHome_price() {
-		return home_price;
+	public String getDoc_img() {
+		return doc_img;
 	}
-	public void setHome_price(String home_price) {
-		this.home_price = home_price;
+	public void setDoc_img(String doc_img) {
+		this.doc_img = doc_img;
 	}
-	public String getHome_content() {
-		return home_content;
+	public String getDoc_phone() {
+		return doc_phone;
 	}
-	public void setHome_content(String home_content) {
-		this.home_content = home_content;
+	public void setDoc_phone(String doc_phone) {
+		this.doc_phone = doc_phone;
 	}
-	public String getBig_name() {
-		return big_name;
+	public String getDoc_subject() {
+		return doc_subject;
 	}
-	public void setBig_name(String big_name) {
-		this.big_name = big_name;
+	public void setDoc_subject(String doc_subject) {
+		this.doc_subject = doc_subject;
 	}
-	public String getKindof() {
-		return kindof;
+	public String getDoc_price() {
+		return doc_price;
 	}
-	public void setKindof(String kindof) {
-		this.kindof = kindof;
+	public void setDoc_price(String doc_price) {
+		this.doc_price = doc_price;
 	}
-	public String getHome_thumbnail() {
-		return home_thumbnail;
+	public String getDoc_content() {
+		return doc_content;
 	}
-	public void setHome_thumbnail(String home_thumbnail) {
-		this.home_thumbnail = home_thumbnail;
+	public void setDoc_content(String doc_content) {
+		this.doc_content = doc_content;
 	}
-	public String getLoc() {
-		return loc;
+	public String getDoc_big() {
+		return doc_big;
 	}
-	public void setLoc(String loc) {
-		this.loc = loc;
+	public void setDoc_big(String doc_big) {
+		this.doc_big = doc_big;
+	}
+	public String getDoc_kindof() {
+		return doc_kindof;
+	}
+	public void setDoc_kindof(String doc_kindof) {
+		this.doc_kindof = doc_kindof;
+	}
+	public String getDoc_thumbnail() {
+		return doc_thumbnail;
+	}
+	public void setDoc_thumbnail(String doc_thumbnail) {
+		this.doc_thumbnail = doc_thumbnail;
 	}
 	public List<String> getKind_search() {
 		return kind_search;
@@ -109,23 +122,17 @@ public class adopt_homeVO {
 	public void setKind_search(List<String> kind_search) {
 		this.kind_search = kind_search;
 	}
-	public List<String> getHome_search() {
-		return home_search;
+	public List<String> getDoc_search() {
+		return doc_search;
 	}
-	public void setHome_search(List<String> home_search) {
-		this.home_search = home_search;
+	public void setDoc_search(List<String> doc_search) {
+		this.doc_search = doc_search;
 	}
 	public List<String> getKind_loc() {
 		return kind_loc;
 	}
 	public void setKind_loc(List<String> kind_loc) {
 		this.kind_loc = kind_loc;
-	}
-	public String getHome_email() {
-		return home_email;
-	}
-	public void setHome_email(String home_email) {
-		this.home_email = home_email;
 	}
 	public int getStartrow() {
 		return startrow;
@@ -139,12 +146,8 @@ public class adopt_homeVO {
 	public void setEndrow(int endrow) {
 		this.endrow = endrow;
 	}
-	public int getReplycount() {
-		return replycount;
-	}
-	public void setgetReplycount(int replycount) {
-		this.replycount = replycount;
-	}
+
+	
 	
 	
 }

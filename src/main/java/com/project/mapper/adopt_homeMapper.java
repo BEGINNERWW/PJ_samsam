@@ -29,8 +29,8 @@ public interface adopt_homeMapper {
 	public int replyDelete(adopt_homereplyVO adhome);
 	public List<adopt_homeVO> getSearchList(adopt_homeVO vo);
 	public int adopthomereplyupdate(adopt_homereplyVO comment);
-	public int DeleteCount(int home_cno);
-	public int DeleteUpdate(int home_cno);
+	public int DeleteCount(int doc_cno);
+	public int DeleteUpdate(int doc_cno);
 	public void ReplycountService(adopt_homereplyVO homereply);
 	public void HomeDeleteComment(adopt_homeVO vo);
 	public void replycountupdate(adopt_homereplyVO adhome);
