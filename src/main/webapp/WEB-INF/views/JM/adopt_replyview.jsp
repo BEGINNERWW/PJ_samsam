@@ -9,10 +9,11 @@
 <%
 
 
-String home_no = request.getParameter("home_no");
-String home_nick =request.getParameter("home_nick");
-String id = request.getParameter("id");
-id = "user";
+
+String doc_no = request.getParameter("doc_no");
+String doc_email = request.getParameter("doc_email");
+String doc_nick =request.getParameter("doc_nick");
+
 
 
 %>
@@ -33,7 +34,7 @@ id = "user";
 		
 		<div style="margin: 0; width: 100%; background-color: #F8F8F8;">
 			<%
-				if (id != null) {
+				if (doc_email != null) {
 			%>
 			<div id="fdoc_refly"></div>
 			<%
@@ -43,7 +44,7 @@ id = "user";
 	</div>
 	
 	<%
-	if(id == null){
+	if(doc_email == null){
 	%>
 	
 	<div id="fdoc_refly"></div>
@@ -57,7 +58,7 @@ id = "user";
 		<div class="inner_text_write">
 		
 			<div class="box_textarea">
-				<textarea placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." id ="home_ccontent"  maxlength="600" style="height: 86px;"></textarea>
+				<textarea placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." id ="doc_content"  maxlength="600" style="height: 86px;"></textarea>
 								
 			</div>
 
@@ -80,7 +81,7 @@ id = "user";
 	 %>
 	
 	<div style="margin:0; width:100%; background-color:#F8F8F8;">
-    <%if(id!=null){ %>
+    <%if(doc_email!=null){ %>
     <div id="fdoc_refly">   
     </div>
     <%} %>
@@ -98,8 +99,8 @@ id = "user";
 
 <script>
 
-var home_no = <%=home_no %>; 
-var home_nick ='<%=home_nick %>';
+var doc_no = <%=doc_no %>; 
+var doc_nick ='<%=doc_nick %>';
 
 	function getFormatDate(date){
 	    
@@ -120,7 +121,7 @@ var home_nick ='<%=home_nick %>';
 	       $.ajax({
 	          url: 'comment_delete.bo',
 	          //type: 'post',
-	          data : {'home_cno' : cno , 'home_lev' : lev , 'home_no' : home_no},
+	          data : {'doc_cno' : cno , 'doc_lev' : lev , 'doc_no' : doc_no},
 	          dataType : 'json',
 	          contentType : 'application/x-www-form-urlencoded;charset=utf-8',
 	          success :function(data){
@@ -143,13 +144,13 @@ var home_nick ='<%=home_nick %>';
 	event.preventDefault();
 	$('#ex7').empty();
 	var a = '';
-	var id ='<%=id %>';
+	var email ='<%=doc_email %>';
 	a += '<div class="modal-header"><h1>신고하기</h1></div>';
 	a += '<div class="modal-body">';
 	a += '<form id= "warning_form" name="warning_form" method="post" action="warning.bo">';
 	a += '<input type="hidden" name="w_fdoc_cno" value="'+cno+'">';
 	a += '<input type="hidden" name="w_fdoc_dno" value="'+dno+'">';
-	a += '<input type="hidden" name="w_fdoc_id" value="'+id+'">';
+	a += '<input type="hidden" name="w_fdoc_id" value="'+email+'">';
 	a += '<div class="warning_container"><div class="warning_report">';
 	a += '<div class="report_title">내&nbsp;&nbsp;&nbsp;용 :</div>';
 	a += '<div class="report_content">'+content+'</div>';
@@ -214,150 +215,150 @@ var home_nick ='<%=home_nick %>';
 	}
  	
 	function reply_reTextarea(cno) {//답글버튼 클릭시
-		var home_no =<%=home_no%>
-    	var id = '<%=id %>'
-    	var writer = '<%=home_nick%>'
+		var doc_no =<%=doc_no%>
+    	var email = '<%=doc_email %>'
+    	var writer = '<%=doc_email%>'
     	
 		$.ajax({ 	
 			url : 'adopt_replylist.bo',
 			type : 'post',
-			data : {'home_no':home_no},	
+			data : {'doc_no':doc_no},	
 			dataType : 'json',
 			contentType : 'application/x-www-form-urlencoded;charset=utf-8',
 			success :function(data){
 				var a= '';
 					
 		            $.each(data, function(key, value){
-		            	if(id==writer && id != value.home_cnick && id!='null'){//원글 작성자일때
-		            		if(value.home_lev !=0){	 //원글이 아닐시
+		            	if(email==writer && email != value.doc_email && email!='null'){//원글 작성자일때
+		            		if(value.doc_lev !=0){	 //원글이 아닐시
 		            			a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 0px 39px;" >';
-					            a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick +	'</strong>' + '&nbsp;&nbsp;';
-					            a += '<a href="#" onclick="commentUpdateForm('+value.home_cno+',\''+value.home_ccontent+'\' );">수정</a>';
-					            a += '<a href="#" onclick="replyDelete('+value.home_cno+',\''+value.home_lev+'\');">&nbsp;&nbsp;삭제</a></div>';
-					            a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p>';
+					            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong>' + '&nbsp;&nbsp;';
+					            a += '<a href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\' );">수정</a>';
+					            a += '<a href="#" onclick="replyDelete('+value.doc_cno+',\''+value.doc_lev+'\');">&nbsp;&nbsp;삭제</a></div>';
+					            a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 					            a += '</div></div>';
 				            }
 			            	else{
 			            		 a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
-						         a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick +	'</strong>' + '&nbsp;&nbsp;';
-						         a += '<a href="#" onclick="commentUpdateForm('+value.home_cno+',\''+value.home_ccontent+'\');">수정</a>';
-						         a += '<a href="#" onclick="replyDelete('+value.home_cno+',\''+value.home_lev+'\');">&nbsp;&nbsp;삭제</a>';
-						         a += '<a href="#" onclick="reply_reTextarea('+value.home_cno+');">&nbsp;&nbsp;답글</a></div>';
-						         a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p>';
+						         a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong>' + '&nbsp;&nbsp;';
+						         a += '<a href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\');">수정</a>';
+						         a += '<a href="#" onclick="replyDelete('+value.doc_cno+',\''+value.doc_lev+'\');">&nbsp;&nbsp;삭제</a>';
+						         a += '<a href="#" onclick="reply_reTextarea('+value.doc_cno+');">&nbsp;&nbsp;답글</a></div>';
+						         a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 						         a += '</div></div>';
-							if(value.home_cno ==cno){
-								 a += '<input type="hidden" name="home_ref" value="'+cno+'">	';
-								 a += '<input type="hidden" name="home_no" value="'+home_no+'">	';
+							if(value.doc_cno ==cno){
+								 a += '<input type="hidden" name="doc_ref" value="'+cno+'">	';
+								 a += '<input type="hidden" name="doc_no" value="'+doc_no+'">	';
 								 a += '<div class="text_write_g comment_write" style = "margin:0px 0px 15px 39px;"><div class="inner_text_write">';
-		            			 a += '<div class="box_textarea"><textarea wrap="hard" name="home_ccontent'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
-		            			 a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.home_cno+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
-		            			 a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="adoptreplyreinsert('+value.home_cno+')">등록</button></div>';
+		            			 a += '<div class="box_textarea"><textarea wrap="hard" name="doc_content'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
+		            			 a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.doc_cno+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
+		            			 a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="adoptreplyreinsert('+value.doc_cno+')">등록</button></div>';
 		            			 a += '</div></div></div></div></div></div></li>';
 							         
 			            		}
 			            	}
 		            	}
-		           	 	else if(id == value.home_cnick && id != 'null'){ //댓글 작성자일시
-			            	if(value.home_lev !=0){	 //원글이 아닐시
+		           	 	else if(email == value.doc_email && email != 'null'){ //댓글 작성자일시
+			            	if(value.doc_lev !=0){	 //원글이 아닐시
 		            			a += '<div style="border-bottom:1px solid #eee; padding:0px 45px 0px 84px; background-color:#EFF3F7;" >';
-					            a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick +	'</strong>' + '&nbsp;&nbsp;';
-					            a += '<span class="btn_box"><a href="#" onclick="commentUpdateForm('+value.home_cno+',\''+value.home_ccontent+'\');">수정</a>';
-					            a += '<a href="#" onclick="replyDelete('+value.home_cno+',\''+value.home_lev+'\');">&nbsp;&nbsp;삭제</a></span></div>';
-					            a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p>';
+					            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong>' + '&nbsp;&nbsp;';
+					            a += '<span class="btn_box"><a href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\');">수정</a>';
+					            a += '<a href="#" onclick="replyDelete('+value.doc_cno+',\''+value.doc_lev+'\');">&nbsp;&nbsp;삭제</a></span></div>';
+					            a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 					            a += '</div></div>';
 				            }
 			            	else{
 			            		 a += '<div class="commentArea" style="border-bottom:1px solid #eee; padding:0px 45px 0px 45px; background-color:#EFF3F7;"">';
-						         a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick +	'</strong>' + '&nbsp;&nbsp;';
-						         a += '<span class="btn_box"><a href="#" onclick="commentUpdateForm('+value.home_cno+',\''+value.home_ccontent+'\');">수정</a>';
-						            a += '<a href="#" onclick="replyDelete('+value.home_cno+',\''+value.home_lev+'\');">&nbsp;&nbsp;삭제</a>';
-						         a += '<a href="#" onclick="reply_reTextarea('+value.home_cno+');">&nbsp;&nbsp;답글</a></span></div>';
-						         a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p>';
+						         a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong>' + '&nbsp;&nbsp;';
+						         a += '<span class="btn_box"><a href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\');">수정</a>';
+						            a += '<a href="#" onclick="replyDelete('+value.doc_cno+',\''+value.doc_lev+'\');">&nbsp;&nbsp;삭제</a>';
+						         a += '<a href="#" onclick="reply_reTextarea('+value.doc_cno+');">&nbsp;&nbsp;답글</a></span></div>';
+						         a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 						         a += '</div></div>';
-							if(value.home_cno ==cno){
-								 a += '<input type="hidden" name="home_ref" value="'+cno+'">	';
-								 a += '<input type="hidden" name="home_no" value="'+home_no+'">	';
+							if(value.doc_cno ==cno){
+								 a += '<input type="hidden" name="doc_ref" value="'+cno+'">	';
+								 a += '<input type="hidden" name="doc_no" value="'+doc_no+'">	';
 								 a += '<div class="text_write_g comment_write" style = "padding:0px 0px 15px 84px; background-color:#EFF3F7;"><div class="inner_text_write">';
-		            			 a += '<div class="box_textarea"><textarea wrap="hard" name="home_ccontent'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
-		            			 a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.home_cno+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
-		            			 a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="adoptreplyreinsert('+value.home_cno+')">등록</button></div>';
+		            			 a += '<div class="box_textarea"><textarea wrap="hard" name="doc_content'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
+		            			 a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.doc_cno+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
+		            			 a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="adoptreplyreinsert('+value.doc_cno+')">등록</button></div>';
 		            			 a += '</div></div></div></div></div></div></li>';
 							         
 			            		}
 			            	}
 			            }
-			            else if(id != value.home_cnick && id != 'null'){//작성자가 아닐시
-			            	if(value.home_csecret == 0){//비밀글이 아닐시
-				            	if(value.home_lev !=0){ //답글일때
+			            else if(id != value.doc_nick && id != 'null'){//작성자가 아닐시
+			            	if(value.doc_secret == 0){//비밀글이 아닐시
+				            	if(value.doc_lev !=0){ //답글일때
 						            a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 15px 39px;">';
-						            a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick +	'</strong></div>';         
-						            a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p>';	           
+						            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong></div>';         
+						            a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';	           
 						            a += '</div></div>';
 					            }
 				            	else{
 				            		a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
-							        a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick +	'</strong></div>';   
-							        a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p>';
+							        a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong></div>';   
+							        a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 							        a += '</div></div>';
-							        if(value.home_cno ==cno){
-										 a += '<input type="hidden" name="home_ref" value="'+cno+'">	';
-										 a += '<input type="hidden" name="home_no" value="'+home_no+'">	';
+							        if(value.doc_cno ==cno){
+										 a += '<input type="hidden" name="doc_ref" value="'+cno+'">	';
+										 a += '<input type="hidden" name="doc_no" value="'+doc_no+'">	';
 										 a += '<div class="text_write_g comment_write" style = "padding:0px 45px 0px 84px;"><div class="inner_text_write">';
-				            			 a += '<div class="box_textarea"><textarea wrap="hard" name="home_ccontent'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
-				            			 a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.home_cno+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
-				            			 a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="adoptreplyreinsert('+value.home_cno+')">등록</button></div>';
+				            			 a += '<div class="box_textarea"><textarea wrap="hard" name="doc_content'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
+				            			 a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.doc_cno+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
+				            			 a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="adoptreplyreinsert('+value.doc_cno+')">등록</button></div>';
 				            			 a += '</div></div></div></div></div></div></li>';
 								         
 				            		}
 				            	}
 			            	}
 			            	else{//비밀글이 맞을시
-			            		if(value.home_lev !=0){
+			            		if(value.doc_lev !=0){
 						            a += '<div style="border-bottom:1px solid #eee; margin-bottom:15px;">';
-						            a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick +	'</strong></div>';
+						            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong></div>';
 						            
-						            a += '<div class="commentContent' +value.home_cno+'"> <p>해당 댓글은 작성자와 운영자만 볼 수 있습니다</p>';         
+						            a += '<div class="commentContent' +value.doc_cno+'"> <p>해당 댓글은 작성자와 운영자만 볼 수 있습니다</p>';         
 						            a += '</div></div>';
 					            }
 				            	else{
 				            		a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
-							        a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick +	'</strong></div>';
+							        a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong></div>';
 							            
-							        a += '<div class="commentContent' +value.home_cno+'"> <p>해당 댓글은 작성자와 운영자만 볼 수 있습니다</p>';
+							        a += '<div class="commentContent' +value.doc_cno+'"> <p>해당 댓글은 작성자와 운영자만 볼 수 있습니다</p>';
 							        a += '</div></div>';
 				            	}
 			            	}
 			            }
 			            else{//비로그인시
-			            	if(value.home_csecret == 0){//비밀글이 아닐시
-				            	if(value.home_lev !=0){
+			            	if(value.doc_secret == 0){//비밀글이 아닐시
+				            	if(value.doc_lev !=0){
 						            a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 15px 39px;">';
-						            a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick +	'</strong></div>';         
-						            a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p>';      
+						            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong></div>';         
+						            a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';      
 						            a += '</div></div>';
 						            
 					            }
 				            	else{
 				            		a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
-							        a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick +	'</strong></div>';   
-							        a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p>';
+							        a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong></div>';   
+							        a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 							        a += '</div></div>';
 				            	}
 			      
 			            	}
 			            	else{//비밀글이 맞을시
-			            		if(value.home_lev !=0){
+			            		if(value.doc_lev !=0){
 						            a += '<div style="border-bottom:1px solid #eee; margin-bottom:15px;">';
-						            a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick +	'</strong></div>';
+						            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong></div>';
 						            
-						            a += '<div class="commentContent' +value.home_cno+'"> <p>해당 댓글은 작성자와 운영자만 볼 수 있습니다</p>';
+						            a += '<div class="commentContent' +value.doc_cno+'"> <p>해당 댓글은 작성자와 운영자만 볼 수 있습니다</p>';
 						            a += '</div></div>';
 					            }
 				            	else{
 				            		a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
-							        a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick +	'</strong></div>';
+							        a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong></div>';
 							            
-							        a += '<div class="commentContent' +value.home_cno+'"> <p>해당 댓글은 작성자와 운영자만 볼 수 있습니다</p>';
+							        a += '<div class="commentContent' +value.doc_cno+'"> <p>해당 댓글은 작성자와 운영자만 볼 수 있습니다</p>';
 							       
 							        a += '</div></div>';
 				            	}
@@ -385,33 +386,33 @@ var home_nick ='<%=home_nick %>';
 		function adoptreplyList(){//댓글 목록
 			
 			
-			var home_no =<%=home_no%>
-	    	var id = '<%=id %>'
-	    	var writer = '<%=home_nick%>'
+			var doc_no =<%=doc_no%>
+	    	var email = '<%=doc_email %>'
+	    	var writer = '<%=doc_email%>'
 	    	
 			$.ajax({ 	
 				url : 'adopt_replylist.bo',
 				type : 'post',
-				data : {'home_no':home_no},	
+				data : {'doc_no':doc_no},	
 				dataType : 'json',
 				contentType : 'application/x-www-form-urlencoded;charset=utf-8',
 				success :function(data){
 					var a= '';
 					
 			            $.each(data, function(key, value){
-			            	var date = new Date(value.home_cdate);
-			            	if(id==writer && id != value.home_cnick && id!='null'){//원글 작성자일때
-			            		if(value.home_lev ==2){	 //원글이 아닐시
+			            	var date = new Date(value.doc_date);
+			            	if(email==writer && email != value.doc_email && email!='null'){//원글 작성자일때
+			            		if(value.doc_lev ==2){	 //원글이 아닐시
 			            			a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 15px 39px;" >';
-						            a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick +'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong>' + '&nbsp;&nbsp;';
-						            a += '<span class="btn_box"><a href="#" onclick="commentUpdateForm('+value.home_cno+',\''+value.home_ccontent+'\');">수정</a>';
-						            a += '<a href="#" onclick="replyDelete('+value.home_cno+',\''+value.home_lev+'\');">&nbsp;&nbsp;삭제</a></span></div>';
-						            a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p>';
+						            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong>' + '&nbsp;&nbsp;';
+						            a += '<span class="btn_box"><a href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\');">수정</a>';
+						            a += '<a href="#" onclick="replyDelete('+value.doc_cno+',\''+value.doc_lev+'\');">&nbsp;&nbsp;삭제</a></span></div>';
+						            a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 						            a += '</div></div>';
 					            }
-				            	else if(value.home_lev == 3){
+				            	else if(value.doc_lev == 3){
 				                    
-				                   a+= '<li style="background-color:#F8F8F8;" id="refly"'+value.home_cno+'"><div class="comment_section"><div class="comment_info">';
+				                   a+= '<li style="background-color:#F8F8F8;" id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
 				                   a+= '<div class="comment_post"><div class="box_post"><p class="desc_info">';
 				                   a+= '&nbsp;&nbsp;&nbsp;삭제된 댓글입니다.';
 				                   a+= '</p></div></div></div></div></li>';
@@ -420,120 +421,120 @@ var home_nick ='<%=home_nick %>';
 			            	
 				            	else{
 				            		 a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
-							         a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick +'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong>' + '&nbsp;&nbsp;';
-							         a += '<span class ="btn_box"><a href="#" onclick="commentUpdateForm('+value.home_cno+',\''+value.home_ccontent+'\');">수정</a>';
-							         a += '<a href="#" onclick="replyDelete('+value.home_cno+',\''+value.home_lev+'\');">&nbsp;&nbsp;삭제</a>';
-							         a += '<a href="#" onclick="reply_reTextarea('+value.home_cno+');">&nbsp;&nbsp;답글</a></span></div>';
-							         a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p>';
+							         a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong>' + '&nbsp;&nbsp;';
+							         a += '<span class ="btn_box"><a href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\');">수정</a>';
+							         a += '<a href="#" onclick="replyDelete('+value.doc_cno+',\''+value.doc_lev+'\');">&nbsp;&nbsp;삭제</a>';
+							         a += '<a href="#" onclick="reply_reTextarea('+value.doc_cno+');">&nbsp;&nbsp;답글</a></span></div>';
+							         a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 							         a += '</div></div>';
-								if(value.home_cno ==cno){
-									 a += '<input type="hidden" name="home_ref" value="'+cno+'">	';
-									 a += '<input type="hidden" name="home_no" value="'+home_no+'">	';
+								if(value.doc_cno ==cno){
+									 a += '<input type="hidden" name="doc_ref" value="'+cno+'">	';
+									 a += '<input type="hidden" name="doc_no" value="'+doc_no+'">	';
 									 a += '<div class="text_write_g comment_write" style = "margin:0px 0px 15px 39px;"><div class="inner_text_write">';
-			            			 a += '<div class="box_textarea"><textarea wrap="hard" name="home_ccontent'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
-			            			 a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.home_cno+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
-			            			 a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="adoptreplyreinsert('+value.home_cno+')">등록</button></div>';
+			            			 a += '<div class="box_textarea"><textarea wrap="hard" name="doc_content'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
+			            			 a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.doc_cno+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
+			            			 a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="adoptreplyreinsert('+value.doc_cno+')">등록</button></div>';
 			            			 a += '</div></div></div></div></div></div></li>';
 								         
 				            		}
 				            	}
 			            	}
-			            	else if(id==value.home_cnick && id!='null'){//작성자일 경우
-				            	if(value.home_lev !=0){//댓글일시
+			            	else if(email==value.doc_email && email!='null'){//작성자일 경우
+				            	if(value.doc_lev !=0){//댓글일시
 				            		 a += '<div class="replyspace" style="border-bottom:1px solid #eee; background-color:#EFF3F7; padding:0px 45px 0px 84px;">';
-							         a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong>';
-							         a += '<span class ="btn_box"><a href="#" onclick="commentUpdateForm('+value.home_cno+',\''+value.home_ccontent+'\');">수정</a>';
-							         a += '<a href="#" onclick="replyDelete('+value.home_cno+',\''+value.home_lev+'\');">&nbsp;&nbsp;삭제</a>';
+							         a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong>';
+							         a += '<span class ="btn_box"><a href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\');">수정</a>';
+							         a += '<a href="#" onclick="replyDelete('+value.doc_cno+',\''+value.doc_lev+'\');">&nbsp;&nbsp;삭제</a>';
 							     
 							         a += '</div>'; 
-							         a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p>';
+							         a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 							        
 							         a += '</div></div>';
 					            }	
 				            	else{
 				            		 a += '<div class="commentArea" style="border-bottom:1px solid #eee; background-color:#EFF3F7;">';
-							         a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong>';
-							         a += '<span class ="btn_box"><a href="#" onclick="commentUpdateForm('+value.home_cno+',\''+value.home_ccontent+'\');">수정</a>';
-							         a += '<a href="#" onclick="replyDelete('+value.home_cno+',\''+value.home_lev+'\');">&nbsp;&nbsp;삭제</a>';
-							         a += '<a href="#" onclick="reply_reTextarea('+value.home_cno+');">&nbsp;&nbsp;답글</a></span></div>';
-							         a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p>';
+							         a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong>';
+							         a += '<span class ="btn_box"><a href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\');">수정</a>';
+							         a += '<a href="#" onclick="replyDelete('+value.doc_cno+',\''+value.doc_lev+'\');">&nbsp;&nbsp;삭제</a>';
+							         a += '<a href="#" onclick="reply_reTextarea('+value.doc_cno+');">&nbsp;&nbsp;답글</a></span></div>';
+							         a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 							        
 							         a += '</div></div>';
 				            	}
 				            }
-				            else if(id!=value.home_cnick && id!='null'){//작성자가 아닐시
-				            	if(value.home_csecret == 0){ //비밀글이 아닐시
-					            	if(value.home_lev !=0){//댓글일시
+				            else if(email!=value.doc_email && email!='null'){//작성자가 아닐시
+				            	if(value.doc_secret == 0){ //비밀글이 아닐시
+					            	if(value.doc_lev !=0){//댓글일시
 							            a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 15px 39px;">';
-							            a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick +'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong>';
-							            a += '<span class= "btn_box>"<a class="link_write" href="#" onclick="warning('+value.home_cno+','+home_no+',\''+value.home_cnick+'\',\''+value.home_ccontent+'\');">신고</a></div>';
-							            a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p></span>';
+							            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong>';
+							            a += '<span class= "btn_box>"<a class="link_write" href="#" onclick="warning('+value.doc_cno+','+doc_no+',\''+value.doc_nick+'\',\''+value.doc_content+'\');">신고</a></div>';
+							            a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p></span>';
 							   
 							            a += '</div></div>';
 						            }
 					            	else{
 					            		a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
-								        a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick +'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong>';
-								        a += '<span class="btn_box>"<a class="link_write" href="#" onclick="warning('+value.home_cno+','+home_no+',\''+value.home_cnick+'\',\''+value.home_ccontent+'\');">신고</a>';
-								        a += '<a href="#" onclick="reply_reTextarea('+value.home_cno+');">&nbsp;&nbsp;답글</a><span></div>'
-								        a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p>';
+								        a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong>';
+								        a += '<span class="btn_box>"<a class="link_write" href="#" onclick="warning('+value.doc_cno+','+doc_no+',\''+value.doc_nick+'\',\''+value.doc_content+'\');">신고</a>';
+								        a += '<a href="#" onclick="reply_reTextarea('+value.doc_cno+');">&nbsp;&nbsp;답글</a><span></div>'
+								        a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 								        
 								        a += '</div></div>';
 					            	}
 				            	}
 				            	else{
 			            		//비밀글이 맞을시
-				            		if(value.home_lev !=0){
+				            		if(value.doc_lev !=0){
 							            a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 15px 39px;">';
-							            a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick +'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong></div>';	      
-							            a += '<div class="commentContent' +value.home_cno+'"> <p> 해당 댓글은 작성자와 운영자만 볼 수 있습니다 </p>';
+							            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong></div>';	      
+							            a += '<div class="commentContent' +value.doc_cno+'"> <p> 해당 댓글은 작성자와 운영자만 볼 수 있습니다 </p>';
 							          
 							            a += '</div></div>';
 						            }
 					            	else{
 					            		a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
-								        a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick +	'</strong>';
+								        a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong>';
 								        a += '</div>';
-								        a += '<div class="commentContent' +value.home_cno+'"> <p>해당 댓글은 작성자와 운영자만 볼 수 있습니다</p>';
+								        a += '<div class="commentContent' +value.doc_cno+'"> <p>해당 댓글은 작성자와 운영자만 볼 수 있습니다</p>';
 								        
 								        a += '</div></div>';
 					            	}
 				            	}
 				            }
 				            else{//비로그인일시
-				            	if(value.home_csecret == 0){ //비밀글이 아닐시
-					            	if(value.home_lev !=0){
+				            	if(value.doc_secret == 0){ //비밀글이 아닐시
+					            	if(value.doc_lev !=0){
 							            a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 15px 39px;">';
-							            a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick +	'</strong></div>';	      
-							            a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p>';
-							            a += '<div class="cdate' +value.home_cno+'"> <p style = "color:#a497a4"><small> '+getFormatDate(date) +'</small></p>';
+							            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong></div>';	      
+							            a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
+							            a += '<div class="cdate' +value.doc_cno+'"> <p style = "color:#a497a4"><small> '+getFormatDate(date) +'</small></p>';
 							            a += '</div></div></div>';
 							            $('#aa').empty();
 						            }
 					            	else{
 					            		a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
-								        a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick +	'</strong>';
-								        a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p>';
-								        a += '<div class="cdate' +value.home_cno+'"> <p style = "color:#a497a4"><small> '+getFormatDate(date) +'</small></p>';
+								        a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong>';
+								        a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
+								        a += '<div class="cdate' +value.doc_cno+'"> <p style = "color:#a497a4"><small> '+getFormatDate(date) +'</small></p>';
 								        a += '</div></div></div>';
 								        $('#aa').empty();
 					            	}
 				            	}
 				            	else{
 			            		//비밀글이 맞을시
-				            		if(value.home_lev !=0){
+				            		if(value.doc_lev !=0){
 							            a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 15px 39px;">';
-							            a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong></div>';	      
-							            a += '<div class="commentContent' +value.home_cno+'"> <p> 해당 댓글은 작성자와 운영자만 볼 수 있습니다 </p>';
-							            a += '<div class="cdate' +value.home_cno+'"> <p style = "color:#a497a4"><small> '+getFormatDate(date) +'</small></p>';
+							            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong></div>';	      
+							            a += '<div class="commentContent' +value.doc_cno+'"> <p> 해당 댓글은 작성자와 운영자만 볼 수 있습니다 </p>';
+							            a += '<div class="cdate' +value.doc_cno+'"> <p style = "color:#a497a4"><small> '+getFormatDate(date) +'</small></p>';
 							            a += '</div></div></div>';
 						            }
 					            	else{
 					            		a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
-								        a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick +'&nbsp;&nbsp;&nbsp;'+ getFormatDate(date)+'</strong>';
+								        a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +'&nbsp;&nbsp;&nbsp;'+ getFormatDate(date)+'</strong>';
 								        a += '</div>';
-								        a += '<div class="commentContent' +value.home_cno+'"> <p>해당 댓글은 작성자와 운영자만 볼 수 있습니다</p>';
-								        a += '<div class="cdate' +value.home_cno+'"> <p style = "color:#a497a4"><small> '+getFormatDate(date) +'</small></p>';
+								        a += '<div class="commentContent' +value.doc_cno+'"> <p>해당 댓글은 작성자와 운영자만 볼 수 있습니다</p>';
+								        a += '<div class="cdate' +value.doc_cno+'"> <p style = "color:#a497a4"><small> '+getFormatDate(date) +'</small></p>';
 								        a += '</div></div></div>';
 					            	}
 				            	}
@@ -551,8 +552,8 @@ var home_nick ='<%=home_nick %>';
 		
 		
 			
-			var home_no = <%=home_no %>; 
-			var home_nick ='<%=home_nick %>';
+			var doc_no = <%=doc_no %>; 
+			var doc_nick ='<%=doc_nick %>';
 			//댓글 목록
 			
 		
@@ -560,9 +561,9 @@ var home_nick ='<%=home_nick %>';
 		//댓글 등록	
 		function adoptreplyinsert(){
 				
-			var home_ccontent = $('#home_ccontent').val();
-	    	home_ccontent = home_ccontent.replace(/(?:\r\n|\r|\n)/g, '<br />');
-	    	var home_no =<%=home_no%>
+			var doc_content = $('#doc_content').val();
+	    	doc_content = doc_content.replace(/(?:\r\n|\r|\n)/g, '<br />');
+	    	var doc_no =<%=doc_no%>
 	    	var updateSecret ='';
 	    	if($('#secretcheck').attr('class')== 'btn_g_ico btn_item secret_button ico_on'){
 	    		updateSecret = 1;
@@ -573,12 +574,12 @@ var home_nick ='<%=home_nick %>';
 			$.ajax({
 				url : 'adopt_replyinsert.bo',
 				type : 'post',
-				data:{'home_ccontent' : home_ccontent,'home_csecret' : updateSecret ,'home_no' : home_no},
+				data:{'doc_content' : doc_content,'doc_secret' : updateSecret ,'doc_no' : doc_no},
 				success :function(data){
 					
 					if(data == 1){
 						adoptreplyList(); //댓글 작성후 댓글 목록 reload
-						$('[name=home_ccontent]').val('');
+						$('[name=doc_content]').val('');
 					}
 				},
 				error:function(){
@@ -589,7 +590,7 @@ var home_nick ='<%=home_nick %>';
 		
 		function adoptreplyreinsert(cno){ //대댓글 등록
 			
-			var updateContent = $('[name=home_ccontent'+cno+']').val();
+			var updateContent = $('[name=doc_content'+cno+']').val();
 	    	updateContent = updateContent.replace(/(?:\r\n|\r|\n)/g, '<br />');
 	    	var updateSecret ='';
 	    	if($('#secretcheck'+cno).attr('class') == 'btn_g_ico btn_item secret_button ico_on'){
@@ -599,16 +600,16 @@ var home_nick ='<%=home_nick %>';
 	    	}
 	    
 	    	
-	    	var home_no =<%=home_no%>
+	    	var doc_no =<%=doc_no%>
 	    	
 			$.ajax({
 				url : 'adopt_replyReinsert.bo',
 				type : 'post',
-				data : {'home_ccontent' : updateContent, 'home_cno' : cno , 'home_csecret' : updateSecret ,'home_ref' : cno , 'home_lev' : 1 ,'home_no' : home_no},	
+				data : {'doc_content' : updateContent, 'doc_cno' : cno , 'doc_secret' : updateSecret ,'home_ref' : cno , 'doc_lev' : 1 ,'doc_no' : doc_no},	
 				success :function(data){
 					if(data == 1){
 						adoptreplyList(); //댓글 작성후 댓글 목록 reload
-						$('[name=home_ccontent]').val('');
+						$('[name=doc_content]').val('');
 					}
 				},
 				error:function(){
@@ -619,161 +620,161 @@ var home_nick ='<%=home_nick %>';
 		
 		//댓글 수정 - 댓글 내용 출력을 input 폼으로 변경
 		function commentUpdateForm(cno,content){
-			var home_no =<%=home_no%>
-	    	var id = '<%=id %>'
-	    	var writer = '<%=home_nick%>'
+			var doc_no =<%=doc_no%>
+	    	var email = '<%=doc_email %>'
+	    	var writer = '<%=doc_email%>'
 	    	
 	    		$.ajax({ 	
 					url : 'adopt_replylist.bo',
 					type : 'post',
-					data : {'home_no':home_no},	
+					data : {'doc_no':doc_no},	
 					dataType : 'json',
 					contentType : 'application/x-www-form-urlencoded;charset=utf-8',
 					success :function(data){
 						var a= '';
 						
 				            $.each(data, function(key, value){
-				            	if(id==writer && id != value.home_cnick && id!='null'){//원글 작성자일때
-				            		if(value.home_lev !=0){	 //원글이 아닐시
+				            	if(email==writer && email != value.doc_email && email!='null'){//원글 작성자일때
+				            		if(value.doc_lev !=0){	 //원글이 아닐시
 				            			a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 0px 39px;" >';
-							            a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick +'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong>' + '&nbsp;&nbsp;';
-							            a += '<span class="btn_box"><a href="#" onclick="commentUpdateForm('+value.home_cno+',\''+value.home_ccontent+'\');">수정</a>';
-							            a += '<a href="#" onclick="replyDelete('+value.home_cno+',\''+value.home_lev+'\');">&nbsp;&nbsp;삭제</a></span></div>';
-							            a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p>';
+							            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong>' + '&nbsp;&nbsp;';
+							            a += '<span class="btn_box"><a href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\');">수정</a>';
+							            a += '<a href="#" onclick="replyDelete('+value.doc_cno+',\''+value.doc_lev+'\');">&nbsp;&nbsp;삭제</a></span></div>';
+							            a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 							           
 							            a += '</div></div>';
 						            }
 					            	else{
 					            		 a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
-								         a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong>' + '&nbsp;&nbsp;';
-								         a += '<span class="btn_box"><a href="#" onclick="commentUpdateForm('+value.home_cno+',\''+value.home_ccontent+'\');">수정</a>';
-								         a += '<a href="#" onclick="replyDelete('+value.home_cno+',\''+value.home_lev+'\');">&nbsp;&nbsp;삭제</a>';
-								         a += '<a href="#" onclick="reply_reTextarea('+value.home_cno+');">&nbsp;&nbsp;답글</a></span></div>';
-								         a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p>';
+								         a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong>' + '&nbsp;&nbsp;';
+								         a += '<span class="btn_box"><a href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\');">수정</a>';
+								         a += '<a href="#" onclick="replyDelete('+value.doc_cno+',\''+value.doc_lev+'\');">&nbsp;&nbsp;삭제</a>';
+								         a += '<a href="#" onclick="reply_reTextarea('+value.doc_cno+');">&nbsp;&nbsp;답글</a></span></div>';
+								         a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 								        
 								         a += '</div></div>';
-									if(value.home_cno ==cno){
-										 a += '<input type="hidden" name="home_ref" value="'+cno+'">	';
-										 a += '<input type="hidden" name="home_no" value="'+home_no+'">	';
+									if(value.doc_cno ==cno){
+										 a += '<input type="hidden" name="doc_ref" value="'+cno+'">	';
+										 a += '<input type="hidden" name="doc_no" value="'+doc_no+'">	';
 										 a += '<div class="text_write_g comment_write" style = "margin:0px 0px 15px 39px;"><div class="inner_text_write">';
-				            			 a += '<div class="box_textarea"><textarea wrap="hard" name="home_ccontent'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
-				            			 a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.home_cno+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
-				            			 a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="adoptreplyreinsert('+value.home_cno+')">등록</button></div>';
+				            			 a += '<div class="box_textarea"><textarea wrap="hard" name="doc_content'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
+				            			 a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.doc_cno+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
+				            			 a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="adoptreplyreinsert('+value.doc_cno+')">등록</button></div>';
 				            			 a += '</div></div></div></div></div></div></li>';
 									         
 					            		}
 					            	}
 				            	}
-				            	else if(id==value.home_cnick && id!='null'){//작성자일 경우
-					            	if(value.home_cno == cno){
-					            		if(value.home_lev ==0){//댓글 수정시
+				            	else if(id==value.doc_nick && id!='null'){//작성자일 경우
+					            	if(value.doc_cno == cno){
+					            		if(value.doc_lev ==0){//댓글 수정시
 					            			 a += '<div class="commentArea" style="border-bottom:1px solid #eee; background-color:#EFF3F7; padding:0px 45px 0px 39px;">';
-									         a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong>' + '&nbsp;&nbsp;';
-									         a += '<span class="btn_box"><a href="#" onclick="commentUpdateForm('+value.home_cno+',\''+value.home_ccontent+'\');">수정</a>';
-									         a += '<a href="#" onclick="replyDelete('+value.home_cno+',\''+value.home_lev+'\');">&nbsp;&nbsp;삭제</a>';
-									         a += '<a href="#" onclick="reply_reTextarea('+value.home_cno+');">&nbsp;&nbsp;답글</a></span></div>';
-									         a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p>';
+									         a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong>' + '&nbsp;&nbsp;';
+									         a += '<span class="btn_box"><a href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\');">수정</a>';
+									         a += '<a href="#" onclick="replyDelete('+value.doc_cno+',\''+value.doc_lev+'\');">&nbsp;&nbsp;삭제</a>';
+									         a += '<a href="#" onclick="reply_reTextarea('+value.doc_cno+');">&nbsp;&nbsp;답글</a></span></div>';
+									         a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 									         
 									         a += '</div></div>';
 									         
 						            		 a += '<div class="text_write_g comment_write" style = "padding:0px 45px 0px 39px; background-color:#EFF3F7;"><div class="inner_text_write">';
-					            			 a += '<div class="box_textarea"><textarea wrap="hard" name="Uhome_ccontent'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
-					            			 a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.home_cno+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
-					            			 a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="commentUpdate('+value.home_cno+')">등록</button></div>';
+					            			 a += '<div class="box_textarea"><textarea wrap="hard" name="Udoc_content'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
+					            			 a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.doc_cno+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
+					            			 a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="commentUpdate('+value.doc_cno+')">등록</button></div>';
 					            			 a += '</div></div></div></div></div></div></li>';
 					            		}
 					            		else{//대댓글
 					            			a += '<div class="commentArea" style="border-bottom:1px solid #eee; background-color:#EFF3F7; padding:0px 45px 0px 84px;">';
-									         a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong>' + '&nbsp;&nbsp;';
-									         a += '<span class="btn_box"><a href="#" onclick="commentUpdateForm('+value.home_cno+',\''+value.home_ccontent+'\');">수정</a>';
-									         a += '<a href="#" onclick="replyDelete('+value.home_cno+',\''+value.home_lev+'\');">&nbsp;&nbsp;삭제</a>';
-									         a += '<a href="#" onclick="reply_reTextarea('+value.home_cno+');">&nbsp;&nbsp;답글</a></span></div>';
-									         a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p>';
+									         a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong>' + '&nbsp;&nbsp;';
+									         a += '<span class="btn_box"><a href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\');">수정</a>';
+									         a += '<a href="#" onclick="replyDelete('+value.doc_cno+',\''+value.doc_lev+'\');">&nbsp;&nbsp;삭제</a>';
+									         a += '<a href="#" onclick="reply_reTextarea('+value.doc_cno+');">&nbsp;&nbsp;답글</a></span></div>';
+									         a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 									        
 									         a += '</div></div>';
 									        
 					            			 a += '<div class="text_write_g comment_write" style = "padding:0px 45px 0px 84px; background-color:#EFF3F7;"><div class="inner_text_write">';
-					            			 a += '<div class="box_textarea"><textarea wrap="hard" name="Uhome_ccontent'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
-					            			 a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.home_cno+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
-					            			 a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="commentUpdate('+value.home_cno+')">등록</button></div>';
+					            			 a += '<div class="box_textarea"><textarea wrap="hard" name="Udoc_content'+cno+'" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요." maxlength="600" style="height:86px;"></textarea></div>';
+					            			 a += '<div class="wrap_menu"><div class="area_r"><button id="secretcheck'+value.doc_cno+'" class="btn_g_ico btn_item secret_button" data-is-hidden="true"><span class="ico_bbs ico_lock_state">비밀글</span></button>';
+					            			 a += '<div class="btn_group"><button class="btn_g full_type1 confirm_button" onclick="commentUpdate('+value.doc_cno+')">등록</button></div>';
 					            			 a += '</div></div></div></div></div></div></li>';
 					            		}
 					            	}
 					            	else{
 					            	
-						            	if(value.home_lev !=0){//댓글일시
+						            	if(value.doc_lev !=0){//댓글일시
 						            		 a += '<div class="replyspace" style="border-bottom:1px solid #eee; padding:0px 45px 0px 84px; background-color:#EFF3F7;">';
-									         a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick + '</strong>';
-									         a += '<span class="btn_box"><a href="#" onclick="commentUpdateForm('+value.home_cno+',\''+value.home_ccontent+'\');">수정</a>';
-									         a += '<a href="#" onclick="replyDelete('+value.home_cno+',\''+value.home_lev+'\');">&nbsp;&nbsp;삭제</a></span></div>';
+									         a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick + '</strong>';
+									         a += '<span class="btn_box"><a href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\');">수정</a>';
+									         a += '<a href="#" onclick="replyDelete('+value.doc_cno+',\''+value.doc_lev+'\');">&nbsp;&nbsp;삭제</a></span></div>';
 							
-									         a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p>';
+									         a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 									         
 									         a += '</div></div>';
 							            }	
 						            	else{
 						            		 a += '<div class="commentArea" style="border-bottom:1px solid #eee; padding:0px 45px 0px 39px; background-color:#EFF3F7;">';
-									         a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong>';
-									         a += '<span class="btn_box"><a href="#" onclick="commentUpdateForm('+value.home_cno+',\''+value.home_ccontent+'\');">수정</a>';
-									         a += '<a href="#" onclick="replyDelete('+value.home_cno+',\''+value.home_lev+'\');">&nbsp;&nbsp;삭제</a>';
-									         a += '<a href="#" onclick="reply_reTextarea('+value.home_cno+');">&nbsp;&nbsp;답글</a></span></div>'; 
-									         a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p>';
+									         a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong>';
+									         a += '<span class="btn_box"><a href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\');">수정</a>';
+									         a += '<a href="#" onclick="replyDelete('+value.doc_cno+',\''+value.doc_lev+'\');">&nbsp;&nbsp;삭제</a>';
+									         a += '<a href="#" onclick="reply_reTextarea('+value.doc_cno+');">&nbsp;&nbsp;답글</a></span></div>'; 
+									         a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 									         
 									         a += '</div></div>';
 						            	}
 					            	}
 					            }
-					            else if(id!=value.home_cnick && id!='null'){//작성자가 아닐시
-					            	if(value.home_csecret == 0){ //비밀글이 아닐시
-						            	if(value.home_lev !=0){
+					            else if(email!=value.doc_email && email!='null'){//작성자가 아닐시
+					            	if(value.doc_secret == 0){ //비밀글이 아닐시
+						            	if(value.doc_lev !=0){
 								            a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 15px 39px;">';
-								            a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong></div>';	      
-								            a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p>';
+								            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong></div>';	      
+								            a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 								           
 								            a += '</div></div>';
 							            }
 						            	else{
 						            		a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
-									        a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong>';
-									        a += '<a class="link_write" href="#" onclick="warning('+value.home_cno+','+home_no+',\''+value.home_cnick+'\',\''+value.home_ccontent+'\');">신고</a>';
-									        a += '<span class="box_btn"><a href="#" onclick="reply_reTextarea('+value.home_cno+');">&nbsp;&nbsp;답글</a></span></div>'
-									        a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p>';
+									        a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong>';
+									        a += '<a class="link_write" href="#" onclick="warning('+value.doc_cno+','+doc_no+',\''+value.doc_nick+'\',\''+value.doc_content+'\');">신고</a>';
+									        a += '<span class="box_btn"><a href="#" onclick="reply_reTextarea('+value.doc_cno+');">&nbsp;&nbsp;답글</a></span></div>'
+									        a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 									       
 									        a += '</div></div>';
 						            	}
 					            	}
 					            	else{
 				            		//비밀글이 맞을시
-					            		if(value.home_lev !=0){
+					            		if(value.doc_lev !=0){
 								            a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 15px 39px;">';
-								            a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong></div>';	      
-								            a += '<div class="commentContent' +value.home_cno+'"> <p> 해당 댓글은 작성자와 운영자만 볼 수 있습니다 </p>';
+								            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong></div>';	      
+								            a += '<div class="commentContent' +value.doc_cno+'"> <p> 해당 댓글은 작성자와 운영자만 볼 수 있습니다 </p>';
 								            
 								            a += '</div></div>';
 							            }
 						            	else{
 						            		a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
-									        a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong>';
+									        a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong>';
 									        a += '</div>';
-									        a += '<div class="commentContent' +value.home_cno+'"> <p>해당 댓글은 작성자와 운영자만 볼 수 있습니다</p>';
+									        a += '<div class="commentContent' +value.doc_cno+'"> <p>해당 댓글은 작성자와 운영자만 볼 수 있습니다</p>';
 									       
 									        a += '</div></div>';
 						            	}
 					            	}
 					            }
 					            else{//비로그인일시
-					            	if(value.home_csecret == 0){ //비밀글이 아닐시
-						            	if(value.home_lev !=0){
+					            	if(value.doc_secret == 0){ //비밀글이 아닐시
+						            	if(value.doc_lev !=0){
 								            a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 15px 39px;">';
-								            a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong></div>';	      
-								            a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p>';
+								            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong></div>';	      
+								            a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 								            
 								            a += '</div></div>';
 							            }
 						            	else{
 						            		a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
-									        a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick +	'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong>';
-									        a += '<div class="commentContent' +value.home_cno+'"> <p> '+value.home_ccontent +'</p>';
+									        a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong>';
+									        a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 									       
 									        a += '</div></div>';
 						            	}
@@ -781,18 +782,18 @@ var home_nick ='<%=home_nick %>';
 					            	}
 					            	else{
 				            		//비밀글이 맞을시
-					            		if(value.home_lev !=0){
+					            		if(value.doc_lev !=0){
 								            a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 15px 39px;">';
-								            a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick +'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong></div>';	      
-								            a += '<div class="commentContent' +value.home_cno+'"> <p> 해당 댓글은 작성자와 운영자만 볼 수 있습니다 </p>';
+								            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong></div>';	      
+								            a += '<div class="commentContent' +value.doc_cno+'"> <p> 해당 댓글은 작성자와 운영자만 볼 수 있습니다 </p>';
 								            
 								            a += '</div></div>';
 							            }
 						            	else{
 						            		a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
-									        a += '<div class="commentInfo' +value.home_cno+'"><strong>'  +value.home_cnick +'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong>';
+									        a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong>';
 									        a += '</div>';
-									        a += '<div class="commentContent' +value.home_cno+'"> <p>해당 댓글은 작성자와 운영자만 볼 수 있습니다</p>';
+									        a += '<div class="commentContent' +value.doc_cno+'"> <p>해당 댓글은 작성자와 운영자만 볼 수 있습니다</p>';
 									       
 									        a += '</div></div>';
 						            	}
@@ -811,13 +812,13 @@ var home_nick ='<%=home_nick %>';
 		
 		//댓글 수정
 		function commentUpdate(cno){
-			var updateContent = $('[name=Uhome_ccontent'+cno+']').val();
+			var updateContent = $('[name=Udoc_content'+cno+']').val();
 			$.ajax({
 				
 				url : 'comment_update.bo',
 				//type : 'post',
 				dataType : 'json',
-				data : {'home_ccontent':updateContent, 'home_cno':cno},
+				data : {'doc_content':updateContent, 'doc_cno':cno},
 				contentType :'application/x-www-form-urlencoded; charset=utf-8',
 				success :function(data){
 					if(data == 1)
@@ -836,7 +837,7 @@ var home_nick ='<%=home_nick %>';
 			$.ajax({
 				url : 'homereply_delete.bo',
 				//type : 'post',
-				data : {'home_cno':cno,'home_lev':lev,'home_no':home_no},
+				data : {'doc_cno':cno,'doc_lev':lev,'doc_no':doc_no},
 				dataType : 'json',
 				contentType :'application/x-www-form-urlencoded; charset=utf-8',
 				success :function(data){

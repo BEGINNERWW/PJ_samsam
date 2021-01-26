@@ -64,8 +64,8 @@ private AdoptService adoptservice;
  
  //작성값을 인서트해주는 동작
  @RequestMapping("/adoptwrite.bo")
- public String adoptInsert(adopt_homeVO adopt)throws Exception{
-	 int res = adoptservice.adoptInsert(adopt);
+ public String adoptInsert(adopt_homeVO adopt,HttpSession session)throws Exception{
+	 int res = adoptservice.adoptInsert(adopt,session);
 	 return "redirect:/home_list.bo";
  }
  
@@ -74,7 +74,7 @@ private AdoptService adoptservice;
 	 
 	 int res = adoptservice.adoptupdateInsert(adopt);
 	 
-	 return "redirect:/adopthomeview.bo?num="+adopt.getHome_no();
+	 return "redirect:/adopthomeview.bo?num="+adopt.getDoc_no();
  }
  
  
@@ -94,7 +94,7 @@ private AdoptService adoptservice;
 	 List<adopt_homeVO>homelist = adoptservice.getHomeList(hashmap);
 	 
 	 if(homelist.size()!=0) {
-	 System.out.println(homelist.get(0).getHome_date());
+	 System.out.println(homelist.get(0).getDoc_date());
 	 }
 	 int maxpage = (int)((double)listcount/limit+0.95);
 	 
@@ -135,7 +135,7 @@ private AdoptService adoptservice;
 	 List<adopt_homeVO>homelist = adoptservice.getHomeList(hashmap);
 	 
 	 if(homelist.size()!=0) {
-	 System.out.println(homelist.get(0).getHome_date());
+	 System.out.println(homelist.get(0).getDoc_date());
 	 }
 	 int maxpage = (int)((double)listcount/limit+0.95);
 	 
@@ -177,7 +177,7 @@ private AdoptService adoptservice;
 	 List<adopt_homeVO>homelist = adoptservice.getSearchList(vo);
 	 
 	 if(homelist.size()!=0) {
-	 System.out.println(homelist.get(0).getHome_date());
+	 System.out.println(homelist.get(0).getDoc_date());
 	 }
 	 int maxpage = (int)((double)listcount/limit+0.95);
 	 
@@ -219,8 +219,8 @@ private AdoptService adoptservice;
 	@ResponseBody
 	public int adopthomepreplyinsert(adopt_homereplyVO adhome)throws Exception{
 		System.out.println(1111112);
-		System.out.println(adhome.getHome_csecret());
-		adhome.setHome_cnick("user");
+		System.out.println(adhome.getDoc_secret());
+		adhome.setDoc_nick("user");
 		return adoptservice.adoptreplyInsertService(adhome);
 	}
 	
@@ -228,7 +228,7 @@ private AdoptService adoptservice;
 	@ResponseBody
 	public int adopthomereply_re(adopt_homereplyVO adhome) throws Exception{
 		
-		adhome.setHome_cnick("user");
+		adhome.setDoc_nick("user");
 		return adoptservice.adopthomereply_re(adhome);
 		
 	}
@@ -238,7 +238,7 @@ private AdoptService adoptservice;
 	@RequestMapping("/comment_update.bo") 
 	@ResponseBody
 	public int adopthomereplyupdate(adopt_homereplyVO adhome) throws Exception{
-		System.out.println(adhome.getHome_ccontent());
+		System.out.println(adhome.getDoc_content());
 		System.out.println("테스트");
 		return adoptservice.adopthomereplyupdate(adhome);
 		
@@ -251,17 +251,17 @@ private AdoptService adoptservice;
    @RequestMapping(value="/homereply_delete.bo",produces="application/json;charset=UTF-8")
    private int adopthomereplyDelete(adopt_homereplyVO vo) throws Exception{
       
-      if(vo.getHome_lev() != 0) {
+      if(vo.getDoc_lev() != 0) {
          return adoptservice.adopthomereplyDelete(vo);
       }else {
          
-         int res = adoptservice.deleteCount(vo.getHome_cno());
+         int res = adoptservice.deleteCount(vo.getDoc_cno());
          
          if(res == 1) {
             return adoptservice.adopthomereplyDelete(vo);
          }else {
             
-            return adoptservice.deleteUpdate(vo.getHome_cno());
+            return adoptservice.deleteUpdate(vo.getDoc_cno());
          }
          
       }

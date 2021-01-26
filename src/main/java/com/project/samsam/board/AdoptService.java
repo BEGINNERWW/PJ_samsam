@@ -3,12 +3,15 @@ package com.project.samsam.board;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.mail.Session;
+import javax.servlet.http.HttpSession;
+
 
 public interface AdoptService {
 	public int getListCount();
 	public List<adopt_homeVO> getHomeList(HashMap<String,Integer>hashmap);
-	public int adoptInsert(adopt_homeVO adopt);
-	public adopt_homeVO adopt_homeinfo(int home_no);
+	public int adoptInsert(adopt_homeVO adopt, HttpSession session);
+	public adopt_homeVO adopt_homeinfo(int Doc_no);
 	public int homeDelete(adopt_homeVO vo);
 	public int adoptupdateInsert(adopt_homeVO adopt);
 	
@@ -21,8 +24,9 @@ public interface AdoptService {
 	public int adopthomereplyDelete(adopt_homereplyVO adhome);//댓글 삭제
 	public List<adopt_homeVO> getSearchList(adopt_homeVO vo);
 	public int adopthomereplyupdate(adopt_homereplyVO adhome);
-	public int deleteCount(int home_cno);
-	public int deleteUpdate(int home_cno);
+	public int deleteCount(int Doc_cno);
+	public int deleteUpdate(int Doc_cno);
+	
 	
 	
 	

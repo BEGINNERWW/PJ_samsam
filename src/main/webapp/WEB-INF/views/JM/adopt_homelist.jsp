@@ -1202,18 +1202,18 @@ function create_list(){
          dataType : 'json',
          success : function (data) {
         	 $.each(data, function(index, item){
-        		var date = new Date(item.home_date);
-        		var number = new Number(item.home_price);
+        		var date = new Date(item.dog_date);
+        		var number = new Number(item.dog_price);
         		var output = '';
         		
                 output += '<div class="post-entry-2 d-flex">';
-                output += '<div class="thumbnail order-md-2");" style="background-image: url(/springfileupload1/upload/'+item.home_thumbnail+'.jpg)"></div>'
+                output += '<div class="thumbnail order-md-2");" style="background-image: url(/springfileupload1/upload/'+item.doc_thumbnail+'.jpg)"></div>'
                 output += '<div class="contents order-md-1 pl-0">'
-                output += '<h2><a class="a_1" href="./adopthomeview.bo?num='+item.home_no+'">'+ item.home_subject +'</a></h2>'
-                output += '<p class="mb-3 tag">#' + item.big_name  + '#' + item.loc  + '#' +  item.kindof  + '#' + numbeComma(number)+'원' + '</p>'
+                output += '<h2><a class="a_1" href="./adopthomeview.bo?num='+item.doc_no+'">'+ item.dog_subject +'</a></h2>'
+                output += '<p class="mb-3 tag">#' + item.doc_big  + '#' + item.dog_loc  + '#' +  item.doc_kindof  + '#' + numbeComma(number)+'원' + '</p>'
                 output +='<div class="post-meta">'
-                output +='<span class="d-block"><a class="a_1" href="#">'+item.home_nick+'</a></span>'
-                output +='<span class="date-read">'+getFormatDate(date)+'</span><span class="detail-read">&nbsp;&nbsp;&nbsp;&nbsp;<span class="recount_icon"></span>&nbsp;'+item.home_readcount+'&nbsp;&nbsp;<span class="comment_icon"></span>'+item.replycount+'&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+                output +='<span class="d-block"><a class="a_1" href="#">'+item.doc_nick+'</a></span>'
+                output +='<span class="date-read">'+getFormatDate(date)+'</span><span class="detail-read">&nbsp;&nbsp;&nbsp;&nbsp;<span class="recount_icon"></span>&nbsp;'+item.doc_readcount+'&nbsp;&nbsp;<span class="comment_icon"></span>'+item.replycount+'&nbsp;&nbsp;&nbsp;&nbsp;</span>'
                 output += '<div>'
                 output += '</div>'
                 output += '</div>';
@@ -1252,7 +1252,7 @@ $(document).ready(function(){
 
 	            	 output +='<div class="card-header" >'
 	            	 
-	            	 output += '<span>'+item.home_thumbnail +'</span>'
+	            	 output += '<span>'+item.doc_thumbnail +'</span>'
 
 	            	 output +='<div class = "card-header-is_closed" >'
 					
@@ -1307,7 +1307,7 @@ $(document).ready(function(){
 
 	            			 output +='<hr style="margin-bottom: 8px; opacity: 0.5; border-color: #EF5A31">'
 
-	            			 output +='<i class="icon icon-view_count">'+item.home_readcount +'</i>'
+	            			 output +='<i class="icon icon-view_count">'+item.doc_readcount +'</i>'
 
 	            			 output +='<i class="icon icon-comments_count"></i>댓글 4개'
 
@@ -1463,18 +1463,18 @@ function default_submit(){
         success :	function (data) {
        	 
        	 $.each(data, function(index, item){
-        		var date = new Date(item.home_date);
-        		var number = new Number(item.home_price);
+        		var date = new Date(item.dog_date);
+        		var number = new Number(item.dog_price);
         		var output = '';
         		
                 output += '<div class="post-entry-2 d-flex">';
-                output += '<div class="thumbnail order-md-2");" style="background-image: url(/springfileupload1/upload/'+item.home_thumbnail+'.jpg)"></div>'
+                output += '<div class="thumbnail order-md-2");" style="background-image: url(/springfileupload1/upload/'+item.doc_thumbnail+'.jpg)"></div>'
                 output += '<div class="contents order-md-1 pl-0">'
-                output += '<h2><a class="a_1" href="./adopthomeview.bo?num='+item.home_no+'">'+ item.home_subject +'</a></h2>'
-                output += '<p class="mb-3 tag">#' + item.big_name  + '#' + item.loc  + '#' +  item.kindof  + '#' + numbeComma(number)+'원' + '</p>'
+                output += '<h2><a class="a_1" href="./adopthomeview.bo?num='+item.doc_no+'">'+ item.dog_subject +'</a></h2>'
+                output += '<p class="mb-3 tag">#' + item.doc_big  + '#' + item.dog_loc  + '#' +  item.doc_kindof  + '#' + numbeComma(number)+'원' + '</p>'
                 output +='<div class="post-meta">'
-                output +='<span class="d-block"><a class="a_1" href="#">'+item.home_nick+'</a></span>'
-                output +='<span class="date-read">'+getFormatDate(date)+'</span><span class="detail-read">&nbsp;&nbsp;&nbsp;&nbsp;<span class="recount_icon"></span>&nbsp;'+item.home_readcount+'&nbsp;&nbsp;<span class="comment_icon"></span>'+item.replycount+'&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+                output +='<span class="d-block"><a class="a_1" href="#">'+item.doc_nick+'</a></span>'
+                output +='<span class="date-read">'+getFormatDate(date)+'</span><span class="detail-read">&nbsp;&nbsp;&nbsp;&nbsp;<span class="recount_icon"></span>&nbsp;'+item.doc_readcount+'&nbsp;&nbsp;<span class="comment_icon"></span>'+item.replycount+'&nbsp;&nbsp;&nbsp;&nbsp;</span>'
                 output += '<div>'
                 output += '</div>'
                 output += '</div>';
@@ -1508,18 +1508,18 @@ var searchinsert = $("#detail_form").serialize();
          success :	function (data) {
         	 
         	 $.each(data, function(index, item){
-         		var date = new Date(item.home_date);
-         		var number = new Number(item.home_price);
+         		var date = new Date(item.dog_date);
+         		var number = new Number(item.dog_price);
          		var output = '';
          		
                  output += '<div class="post-entry-2 d-flex">';
-                 output += '<div class="thumbnail order-md-2");" style="background-image: url(/springfileupload1/upload/'+item.home_thumbnail+'.jpg)"></div>'
+                 output += '<div class="thumbnail order-md-2");" style="background-image: url(/springfileupload1/upload/'+item.doc_thumbnail+'.jpg)"></div>'
                  output += '<div class="contents order-md-1 pl-0">'
-                 output += '<h2><a class="a_1" href="./adopthomeview.bo?num='+item.home_no+'">'+ item.home_subject +'</a></h2>'
-                 output += '<p class="mb-3 tag">#' + item.big_name  + '#' + item.loc  + '#' +  item.kindof  + '#' + numbeComma(number)+'원' + '</p>'
+                 output += '<h2><a class="a_1" href="./adopthomeview.bo?num='+item.doc_no+'">'+ item.dog_subject +'</a></h2>'
+                 output += '<p class="mb-3 tag">#' + item.doc_big  + '#' + item.dog_loc  + '#' +  item.doc_kindof  + '#' + numbeComma(number)+'원' + '</p>'
                  output +='<div class="post-meta">'
-                 output +='<span class="d-block"><a class="a_1" href="#">'+item.home_nick+'</a></span>'
-                 output +='<span class="date-read">'+getFormatDate(date)+'</span><span class="detail-read">&nbsp;&nbsp;&nbsp;&nbsp;<span class="recount_icon"></span>&nbsp;'+item.home_readcount+'&nbsp;&nbsp;<span class="comment_icon"></span>'+item.replycount+'&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+                 output +='<span class="d-block"><a class="a_1" href="#">'+item.doc_nick+'</a></span>'
+                 output +='<span class="date-read">'+getFormatDate(date)+'</span><span class="detail-read">&nbsp;&nbsp;&nbsp;&nbsp;<span class="recount_icon"></span>&nbsp;'+item.doc_readcount+'&nbsp;&nbsp;<span class="comment_icon"></span>'+item.replycount+'&nbsp;&nbsp;&nbsp;&nbsp;</span>'
                  output += '<div>'
                  output += '</div>'
                  output += '</div>';

@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,11 +44,11 @@ public class AdoptServiceImpl implements AdoptService {
 	}
 
 	@Override
-	public int adoptInsert(adopt_homeVO adopt) {
+	public int adoptInsert(adopt_homeVO adopt,HttpSession session) {
 		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
 		Pattern pattern  =  Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
 		
-		String content = adopt.getHome_content();
+		String content = adopt.getDoc_content();
 		Matcher match = pattern.matcher(content); 
 		String imgTag = null;
 		
@@ -60,10 +62,11 @@ public class AdoptServiceImpl implements AdoptService {
 		imgTag = imgTag.substring(0, index2);
 		
 		
-		adopt.setHome_thumbnail(imgTag);
-		adopt.setHome_nick("user");
-		adopt.setHome_email("user");
-		adopt.setHome_img("aa");
+		adopt.setDoc_email((String)session.getAttribute("email"));
+		adopt.setDoc_nick((String)session.getAttribute("nick"));
+		adopt.setDoc_thumbnail(imgTag);
+		adopt.setDoc_img("aa");
+		
 	    int res = adoptMapper.adoptInsert(adopt);
 		return res;
 	     
@@ -75,7 +78,7 @@ public class AdoptServiceImpl implements AdoptService {
 		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
 		Pattern pattern  =  Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
 		
-		String content = adopt.getHome_content();
+		String content = adopt.getDoc_content();
 		Matcher match = pattern.matcher(content); 
 		String imgTag = null;
 		
@@ -89,10 +92,10 @@ public class AdoptServiceImpl implements AdoptService {
 		imgTag = imgTag.substring(0, index2);
 		
 		
-		adopt.setHome_thumbnail(imgTag);
-		adopt.setHome_nick("user");
-		adopt.setHome_email("user");
-		adopt.setHome_img("aa");
+		adopt.setDoc_thumbnail(imgTag);
+		adopt.setDoc_nick("user");
+		adopt.setDoc_email("user");
+		adopt.setDoc_img("aa");
 	    int res = adoptMapper.adoptupdateInsert(adopt);
 		return res;
 	     
@@ -119,7 +122,7 @@ public class AdoptServiceImpl implements AdoptService {
 		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
 		adoptMapper.adopthomereplyspace(homereply);
 		adoptMapper.ReplycountService(homereply);
-		homereply.setHome_seq(homereply.getHome_seq()+1);
+		homereply.setDoc_seq(homereply.getDoc_seq()+1);
 		return adoptMapper.adoptreplyInsert(homereply);
 		
 	}
@@ -129,8 +132,8 @@ public class AdoptServiceImpl implements AdoptService {
 	public int adopthomereply_re(adopt_homereplyVO adhome) {
 		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
 		adoptMapper.adopthomereplyspace(adhome);
-		adhome.setHome_seq(adhome.getHome_seq()+1);
-		adhome.setHome_lev(adhome.getHome_lev()+1);
+		adhome.setDoc_seq(adhome.getDoc_seq()+1);
+		adhome.setDoc_lev(adhome.getDoc_lev()+1);
 		int res = adoptMapper.adopthomereply_re(adhome);
 		
 		return res;
@@ -140,7 +143,7 @@ public class AdoptServiceImpl implements AdoptService {
 	public int adopthomereplyDelete(adopt_homereplyVO adhome) {
 		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
 		adoptMapper.replycountupdate(adhome);
-		System.out.println(adhome.getHome_no());
+		System.out.println(adhome.getDoc_no());
 		return adoptMapper.replyDelete(adhome);
 	}
 
@@ -159,10 +162,10 @@ public class AdoptServiceImpl implements AdoptService {
 			none1.add("none");
 			vo.setKind_loc(none1);
 		}
-		if(vo.getHome_search()==null) {
+		if(vo.getDoc_search()==null) {
 			ArrayList <String> none2 = new ArrayList<String>();
 			none2.add("none");
-			vo.setHome_search(none2);
+			vo.setDoc_search(none2);
 		}
 		
 		List<adopt_homeVO> home_list = adoptMapper.getSearchList(vo);
@@ -178,28 +181,28 @@ public class AdoptServiceImpl implements AdoptService {
 	@Override // 댓글 수정
 	public int adopthomereplyupdate(adopt_homereplyVO comment) {
 		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
-		System.out.println(comment.getHome_ccontent());
-		String home_ccontent = comment.getHome_ccontent();
+		System.out.println(comment.getDoc_content());
+		String home_ccontent = comment.getDoc_content();
 		
 		home_ccontent = home_ccontent.replace("\r\n","<br>");
-		comment.setHome_ccontent(home_ccontent);
+		comment.setDoc_content(home_ccontent);
 		int res = adoptMapper.adopthomereplyupdate(comment);
-		System.out.println(comment.getHome_cno());
-		System.out.println(comment.getHome_cno());
+		System.out.println(comment.getDoc_cno());
+		System.out.println(comment.getDoc_cno());
 		System.out.println(res);
 		return adoptMapper.adopthomereplyupdate(comment);
 	}
 
 	@Override
-	   public int deleteCount(int home_cno) {
+	   public int deleteCount(int doc_cno) {
 		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
-	      return adoptMapper.DeleteCount(home_cno);
+	      return adoptMapper.DeleteCount(doc_cno);
 	   }
 
 	@Override
-	   public int deleteUpdate(int home_cno) {
+	   public int deleteUpdate(int doc_cno) {
 		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
-	      return adoptMapper.DeleteUpdate(home_cno);
+	      return adoptMapper.DeleteUpdate(doc_cno);
 	   }
 
 	@Override
