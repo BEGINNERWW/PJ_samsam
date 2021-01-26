@@ -28,17 +28,7 @@
 
 <!-- 제이쿼리 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-<script>
-    $('.search-box btn').click(function(){
-      
-    });
-    $('#keyword').keypress(function(event){
-      if(event.which == 13){
-        $('.search-box btn').click();
-        return false;
-      }
-    });
-</script>
+
 
 <style>
 /* 공통으로 사용하는 CSS */
@@ -483,7 +473,9 @@ div::-webkit-scrollbar {
                      <li><a href="selladopt_list.bo">업체분양</a></li>
                   </ul></li>
                <li class="dropdown"><a href="SJ/pet_list">보호소</a>
-                  <ul class="dropdown-menu">
+
+                  <ul class="dropdown-menu care">
+
                      <li><a href="SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
                      <li><a href="SJ/payang/list">파양</a></li>
                      <li><a href="SJ/missing/list">실종</a></li>
@@ -505,14 +497,12 @@ div::-webkit-scrollbar {
 	</div>
 	
 	
-	 <form action="home_search.me" method="post" name="home_search">
-            <div class="search-wrapper">
-               <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
-               <button class="search-box btn" type="submit">
-                  <i class="fas fa-search"></i>
-               </button>
-            </div>
-      </form>
+
+	<div class= "search-wrapper">
+      <input class="search-box input" type="text" placeholder="Search">
+      <button class="search-box btn1" type="button"><i class="fas fa-search"></i></button>
+	</div>
+
 	
 	</div><!-- nav-menu -->
 </header>
@@ -575,6 +565,29 @@ div::-webkit-scrollbar {
 	</div>
 	
 </div><!-- 바디컨텐트 -->
+
+
+<script>
+$(document).ready(function(){
+	$('#login').on('click', function(e){
+	      $('#logout').show();
+		  $('#mypage').show();
+		  $('#login').hide();
+		  $('#signin').hide();
+	  });
+	}) //헤더 상단 로그인 체인지
+
+	$(document).ready(function(){
+	$('#logout').on('click', function(e){
+	       $('#logout').hide();
+		   $('#mypage').hide();
+		   $('#login').show();
+		   $('#signin').show();
+		});
+	}) //헤더 상단 로그아웃 체인지
+
+</script>
+
 
 <!-- 부트스트랩 4.0 js -->
 <script type ="text/javascript" src = "https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -1002,6 +1015,7 @@ setCookie("scroll_position", "");
 	
 </body>
 </html>
+
 
 
 

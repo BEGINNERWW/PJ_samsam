@@ -23,12 +23,21 @@ public class HospitalServiceImpl implements HospitalService {
 		return res;
 	}
 	
+	
+	
 	@Override
 	public List<Hospital_mapVO> select_review(HashMap<String, Object> hashmap) {
 		HospitalMapper hospitalMapper = 
 				sqlSession.getMapper(HospitalMapper.class);
 		List<Hospital_mapVO> review_list = hospitalMapper.select_review(hashmap);
 		return review_list;
+	}
+	
+	public List<Hospital_mapVO> select_star(String place_id) {
+		HospitalMapper hospitalMapper = 
+				sqlSession.getMapper(HospitalMapper.class);
+		List<Hospital_mapVO> select_star = hospitalMapper.select_star(place_id);
+		return select_star;
 	}
 	
 	public int insert_review(Hospital_mapVO hospital_mapVO) {

@@ -26,6 +26,8 @@
     	int startpage=((Integer)request.getAttribute("startpage")).intValue();
     	int endpage=((Integer)request.getAttribute("endpage")).intValue();
     	
+    	float star_rating_avg =((Float)request.getAttribute("star_rating_avg")).floatValue();
+    	String star_avg_round = String.format("%.2f",star_rating_avg);
     %>
 <!DOCTYPE html>
 <html>
@@ -89,7 +91,6 @@ a:hover {
     font-size: 18px;
     text-align: center;
     height: 200px;
-    border-right-color: darkblue;
     border-right: 1px solid #efefef;
     padding: 0px 0px 0 0;
     margin-left: 0;
@@ -122,7 +123,7 @@ a:hover {
 }
 .paging-section {
     position: sticky;
-    bottom: 80px;
+    bottom: 90px;
 }
 .wirte-review-section {
     position: absolute;
@@ -197,19 +198,7 @@ input[type="text"] {
 			        <span>★</span>
 				</p>
 			<%} else {
-			
-			double star_rating_sum = 0;
-    		double num = hospital_mapVO.size();
-    		
-			for (int i=0; i<hospital_mapVO.size(); i++) {
-    		Hospital_mapVO review_list = (Hospital_mapVO)hospital_mapVO.get(i);
-    		
-    		star_rating_sum += review_list.getStar_rating();
-    		
-    		}
-			double sum_num = star_rating_sum/num;
-			double star_rating_avg = Math.round((sum_num)*100/(double)100);
-			
+				
 			if (star_rating_avg == 5) { %>
 			<p id="star_grade" style="margin:0;">
 			        <span class="on">★</span>
@@ -218,7 +207,7 @@ input[type="text"] {
 			        <span class="on">★</span>
 			        <span class="on">★</span>
 				</p>
-			<div><%=star_rating_avg %></div>
+			<div><%=star_avg_round%></div>
 			
 			
 			<%} 
@@ -230,7 +219,7 @@ input[type="text"] {
 			        <span class="on">★</span>
 			        <span >★</span>
 				</p>
-			<div><%=star_rating_avg %></div>
+			<div><%=star_avg_round %></div>
 			<%} 
 			else if (star_rating_avg >= 3) { %>
 			<p id="star_grade" style="margin:0;">
@@ -240,7 +229,7 @@ input[type="text"] {
 			        <span>★</span>
 			        <span>★</span>
 				</p>
-			<div><%=star_rating_avg %></div>
+			<div><%=star_avg_round%></div>
 			<%} 
 			else if (star_rating_avg >= 2) { %>
 			<p id="star_grade" style="margin:0;">
@@ -250,7 +239,7 @@ input[type="text"] {
 			        <span>★</span>
 			        <span>★</span>
 				</p>
-			<div><%=star_rating_avg %></div>
+			<div><%=star_avg_round %></div>
 			<%} 
 			else if (star_rating_avg >= 1) { %>
 			<p id="star_grade" style="margin:0;">
@@ -260,7 +249,7 @@ input[type="text"] {
 			        <span>★</span>
 			        <span>★</span>
 				</p>
-			<div><%=star_rating_avg %></div>
+			<div><%=star_avg_round%></div>
 			<%} 
 			else { %>
 			<p id="star_grade" style="margin:0;">
@@ -270,7 +259,7 @@ input[type="text"] {
 			        <span>★</span>
 			        <span>★</span>
 				</p>
-			<div><%=star_rating_avg %></div>
+			<div><%=star_avg_round %></div>
 			
 			<%	}
 			}	%>
@@ -290,7 +279,7 @@ input[type="text"] {
 			
 			<div class="row">
 			<div style="width:60px;">홈페이지</div>
-			<div><%=place_url %></div>
+			<div><a href="<%=place_url%>" target="_blank"><%=place_url %></a></div>
 			</div>
 		</div>
 		
@@ -316,12 +305,12 @@ input[type="text"] {
 				</p>
 			       <%
 			       if (review_list.getPlace_email().equals(email)) { %>
-			        <a href="javascript:delete_review()" style="color:black;float: right;margin-right: 15px;margin-top: -24px;">삭제</a>
+			        <a href="delete_review.bo?review_num=<%=review_list.getReview_num() %>&address_name=<%=address_name %>" id="delete<%=j %>" style="color:black;float: right;margin-right: 15px;margin-top: -24px;">삭제</a>
 			        <%} %>
 			
 			
 			<%} 
-			else if (review_list.getStar_rating() >= 4) { %>
+			else if (review_list.getStar_rating() == 4) { %>
 			<p id="star_grade" style="margin:0;">
 			        <span class="on">★</span>
 			        <span class="on">★</span>
@@ -331,10 +320,10 @@ input[type="text"] {
 				</p>
 			         <%
 			       if (review_list.getPlace_email().equals(email)) { %>
-			        <a href="javascript:delete_review()" style="color:black;float: right;margin-right: 15px;margin-top: -24px;">삭제</a>
+			        <a href="delete_review.bo?review_num=<%=review_list.getReview_num() %>&address_name=<%=address_name %>" id="delete<%=j %>" style="color:black;float: right;margin-right: 15px;margin-top: -24px;">삭제</a>
 			        <%} %>
 			<%} 
-			else if (review_list.getStar_rating() >= 3) { %>
+			else if (review_list.getStar_rating() == 3) { %>
 			<p id="star_grade" style="margin:0;">
 			        <span class="on">★</span>
 			        <span class="on">★</span>
@@ -344,10 +333,10 @@ input[type="text"] {
 				</p>
 			        <%
 			       if (review_list.getPlace_email().equals(email)) { %>
-			        <a href="javascript:delete_review()" style="color:black;float: right;margin-right: 15px;margin-top: -24px;">삭제</a>
+			        <a href="delete_review.bo?review_num=<%=review_list.getReview_num() %>&address_name=<%=address_name %>" id="delete<%=j %>" style="color:black;float: right;margin-right: 15px;margin-top: -24px;">삭제</a>
 			        <%} %>
 			<%} 
-			else if (review_list.getPlace_email().equals(email)) { %>
+			else if (review_list.getStar_rating() == 2) { %>
 			<p id="star_grade" style="margin:0;">
 			        <span class="on">★</span>
 			        <span class="on">★</span>
@@ -357,10 +346,10 @@ input[type="text"] {
 				</p>
 			         <%
 			       if (review_list.getPlace_email().equals(email)) { %>
-			        <a href="javascript:delete_review()" style="color:black;float: right;margin-right: 15px;margin-top: -24px;">삭제</a>
+			        <a href="delete_review.bo?review_num=<%=review_list.getReview_num() %>&address_name=<%=address_name %>" id="delete<%=j %>" style="color:black;float: right;margin-right: 15px;margin-top: -24px;">삭제</a>
 			        <%} %>
 			<%} 
-			else if (review_list.getStar_rating() >= 1) { %>
+			else if (review_list.getStar_rating() == 1) { %>
 			<p id="star_grade" style="margin:0;">
 			        <span class="on">★</span>
 			        <span>★</span>
@@ -370,7 +359,7 @@ input[type="text"] {
 				</p>
 			         <%
 			       if (review_list.getPlace_email().equals(email)) { %>
-			        <a href="javascript:delete_review()" style="color:black;float: right;margin-right: 15px;margin-top: -24px;">삭제</a>
+			        <a href="delete_review.bo?review_num=<%=review_list.getReview_num() %>&address_name=<%=address_name %>" id="delete<%=j %>" style="color:black;float: right;margin-right: 15px;margin-top: -24px;">삭제</a>
 			        <%} %>
 			<%} 
 			else { %>
@@ -383,14 +372,12 @@ input[type="text"] {
 			</p>
 			         <%
 			       if (review_list.getPlace_email().equals(email)) { %>
-			        <a href="javascript:delete_review()" style="color:black;float: right;margin-right: 15px;margin-top: -24px;">삭제</a>
+			        <a href="delete_review.bo?review_num=<%=review_list.getReview_num() %>&address_name=<%=address_name %>" id="delete<%=j %>" style="color:black;float: right;margin-right: 15px;margin-top: -24px;">삭제</a>
 			        <%} %>
 			
 		<% 
 		}
 			%>
-			<form action="/" name = "delete_review" method="post">
-			<input type="hidden" name="review_num" value="<%=review_list.getReview_num() %>">
 			
 			<div><%=review_list.getPlace_review() %></div>
 			<hr style="width:728px; border:1px solid #efefef; margin: 0px 0 0 0; padding: 0">
@@ -410,7 +397,7 @@ input[type="text"] {
 						<td class="paging">
 						<div class="row">
 						
-							<%if(nowpage<=1){ %> <!-- 이전페이지가 존재하지 않을 때 --> [이전]&nbsp; <!-- 이전 버튼 비활성화 -->
+							<%if(nowpage<=1){ %> <!-- 이전페이지가 존재하지 않을 때 --> [이전] <!-- 이전 버튼 비활성화 -->
 							<%}else{ %> <!-- 이전페이지가 존재할 때 --> <a
 							href="javascript:click_before()" >
 							<!-- 이전 버튼 누를 때 -->
@@ -424,7 +411,7 @@ input[type="text"] {
 							<input type="hidden" name="nick" value="<%=nick %>">
 							<input type="hidden" name="page" value="<%=nowpage-1 %>">
 							</form>
-							[이전]&nbsp;
+							[이전]
 							</a> <%} %>
 
 							<%for(int a=startpage;a<=endpage;a++){
@@ -467,10 +454,10 @@ input[type="text"] {
 		
 		
 		
+		
 		<div class="wirte-review-section">
 		
 		<form action="write_review.bo" name = "place_review_form" method="post">
-		<input type="hidden" name="sequence" value="<%=hospital_mapVO.size() %>">
 		<input type="hidden" name="place_id" value="<%=place_id %>">
 		<input type="hidden" name="place_name" value="<%=place_name %>">
 		<input type="hidden" name="address_name" value="<%=address_name %>">
@@ -494,7 +481,7 @@ input[type="text"] {
 		<input type="text" name="place_review" id="place_review">
 		</form>
 		<button type="button" class="btn btn-primary btn-md"><a href="javascript:write_review()" style="color:white;">등록</a></button>
-				</div><!-- write-review_section -->
+		</div><!-- write-review_section -->
 			
 	
 	
@@ -527,9 +514,23 @@ input[type="text"] {
         
         function write_review() {
         	
+        	var star_rating = $("#star_rating").val();
+        	var email = "<%=email%>"
         	
-        	place_review_form.submit();
+        	if (email=="" || email==null) {
+        		alert("로그인이 필요합니다");
+        	}
+        	
+        	if (star_rating==0) {
+	        		alert("별점을 선택해주세요");
+	        }
+	        else {
+	        		place_review_form.submit();
+	        }
+        	
+        	
         }
+        
         
         function click_before() {
         	var popupWidth = 750;
@@ -576,24 +577,6 @@ input[type="text"] {
         	
         	frm.submit();
         }
-        function delete_review() {
-        	var popupWidth = 750;
-        	var popupHeight = 800;
-
-        	var popupX = (window.screen.width / 2) - (popupWidth / 2);
-        	var popupY= (window.screen.height / 2) - (popupHeight / 2);
-        	
-        	var popupfrm = window.open('about:blank', 'place_review', 'height=' + popupHeight + ',width=' + popupWidth + ',left=' + popupX + ',top=' + popupY );
-        	var frm = document.delete_review;
-        	frm.action = 'delete_review.bo';
-        	frm.target = 'place_review';
-        	frm.method = "post";
-        	
-        	frm.submit();
-        }
-        
-        
-        
         
 </script>
 	

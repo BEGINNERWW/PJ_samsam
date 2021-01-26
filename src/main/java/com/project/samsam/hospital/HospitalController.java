@@ -44,9 +44,20 @@ public class HospitalController {
 		hashmap.put("startrow", startrow);
 		hashmap.put("endrow", endrow);
 		hashmap.put("place_id", place_id);
-		
-		
 		List<Hospital_mapVO> review_list = HospitalService.select_review(hashmap);
+		
+		//별점의 총합을 구하기 위함
+		List<Hospital_mapVO> select_star = HospitalService.select_star(place_id);
+		
+		int star_rating_sum = 0;
+		
+		for (int i=0; i < select_star.size(); i++) {
+			Hospital_mapVO star_sum = (Hospital_mapVO)select_star.get(i);
+			
+			star_rating_sum += star_sum.getStar_rating();
+		}
+		
+		float star_rating_avg = ((float)star_rating_sum/(float)listcount);
 		
 		//총 페이지수
 		int maxpage = (int)((double)listcount/limit+0.95);
@@ -56,8 +67,6 @@ public class HospitalController {
 				
 		//현재 페이지에서 보여줄 마지막 페이지 수
 		int endpage = (int)((double)listcount/limit+0.95);
-		
-		int star_rating = hospital_mapVO.getStar_rating();
 		
 		
 		
@@ -75,9 +84,8 @@ public class HospitalController {
 		model.addAttribute("address_name", address_name);
 		model.addAttribute("place_phone", place_phone);
 		model.addAttribute("place_url", place_url);
-		model.addAttribute("star_rating", star_rating);
 		model.addAttribute("place_email", place_email);
-		
+		model.addAttribute("star_rating_avg", star_rating_avg);
 		
 		return "JunYoung/hospital_review";
 	}
@@ -92,6 +100,12 @@ public class HospitalController {
 			String place_url = hospital_mapVO.getPlace_url();
 			int star_rating = hospital_mapVO.getStar_rating();
 			String place_email = hospital_mapVO.getPlace_email();
+			
+			String place_review = hospital_mapVO.getPlace_review();
+			
+			if (place_review == null || place_review == "") {
+				hospital_mapVO.setPlace_review(" ");
+			}
 			
 			int res = HospitalService.insert_review(hospital_mapVO);
 			
@@ -110,12 +124,12 @@ public class HospitalController {
 		@RequestMapping("delete_review.bo")
 		public String delete_review(Hospital_mapVO hospital_mapVO, Model model) throws Exception {
 			int review_num = hospital_mapVO.getReview_num();
+			String address_name = hospital_mapVO.getAddress_name();
 			
 			Hospital_mapVO hospital_info = HospitalService.hospital_info(review_num);
 			
 			String place_id =hospital_info.getPlace_id();
 			String place_name = hospital_info.getPlace_name();
-			String address_name = hospital_info.getAddress_name();
 			String place_phone = hospital_info.getPlace_phone();
 			String place_url = hospital_info.getPlace_url();
 			String place_email = hospital_info.getPlace_email();
