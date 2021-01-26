@@ -12,6 +12,7 @@
 	List<Myfree_authVO> myfree_auth_detail = (List<Myfree_authVO>)request.getAttribute("myfree_auth_detail");
 %>
 
+
 <!DOCTYPE html>
 <html>
 <head>

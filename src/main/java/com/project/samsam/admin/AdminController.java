@@ -21,6 +21,7 @@ import com.project.samsam.simport.Payed_listVO;
 
 @Controller
 public class AdminController {
+
 	
 	@Autowired
 	private AdminSV adminSV;

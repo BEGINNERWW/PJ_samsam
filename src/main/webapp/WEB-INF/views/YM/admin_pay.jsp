@@ -17,6 +17,7 @@
 	ArrayList<Payed_listVO> plist = (ArrayList<Payed_listVO>) request.getAttribute("Pay_list");
 		
 %>
+
 <!DOCTYPE html>
 <html>
 <head>

@@ -1151,12 +1151,12 @@ select, button, textarea {
 </style>
 <script type ="text/javascript" src = "https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
-    $('.search-box btn').click(function(){
+    $('.search-box').click(function(){
       
     });
     $('#keyword').keypress(function(event){
       if(event.which == 13){
-        $('.search-box btn').click();
+        $('.search-box').click();
         return false;
       }
     });
@@ -1599,7 +1599,7 @@ function search_submit(a){
     <form action="home_search.me" method="post" name="home_search">
             <div class="search-wrapper">
                <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
-               <button class="search-box btn" type="submit">
+               <button class="search-box" type="submit">
                   <i class="fas fa-search"></i>
                </button>
             </div>
@@ -1613,8 +1613,8 @@ function search_submit(a){
          <!-- 왼쪽. 서브메뉴가 들어갈 부분 -->
 	         <div class="sidemenu-section">
 	         	<ul class="list-group list-group-flush">
-				<li class="list-group-item"><a href="home_list.bo">가정분양</a></li>
-				<li class="list-group-item  click"><a href="fdoclist.bo">책임분양</a></li>
+				<li class="list-group-item click"><a href="home_list.bo">가정분양</a></li>
+				<li class="list-group-item"><a href="fdoclist.bo">책임분양</a></li>
 				<li class="list-group-item"><a href="selladopt_list.bo">업체분양</a></li>
 			</ul>
 	         </div>
@@ -2284,7 +2284,7 @@ function search_submit(a){
 
    
    <div style="display:inline-block; float:right;margin-right:25px;">
-		<input type = "button" value = "글작성" style = "float:right;" onclick="location.href='adopt_write.bo' ">
+		<a href="./adopt_write.bo">[글쓰기]</a>
 	</div>
    
 </div>

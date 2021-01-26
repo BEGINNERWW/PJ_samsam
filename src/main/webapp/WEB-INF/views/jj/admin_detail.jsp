@@ -9,6 +9,7 @@
 <%@ page import="com.project.samsam.board.JJWarningVO"%>
 <%@ page import="com.project.samsam.board.JJCommentVO"%>
 
+
 <% String email=(String) session.getAttribute("email"); 
 /* 
   if (session.getAttribute("email")==null){

@@ -24,6 +24,7 @@ HashMap<Object, Object> map = (HashMap<Object, Object>)request.getAttribute("map
 	//email.toUpperCase();
 	//<%= email.toUpperCase() 
 %>
+
 <!DOCTYPE html>
 <html>
 <head>

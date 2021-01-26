@@ -6,6 +6,7 @@
 	String email = (String) session.getAttribute("email");
 	//email.toUpperCase();
 %>
+
 <!DOCTYPE html>
 <html>
 <head>

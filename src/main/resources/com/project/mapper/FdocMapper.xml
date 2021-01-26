@@ -4,6 +4,7 @@
 	 <mapper namespace="com.project.mapper.FdocMapper">
 	
 	 
+	 
 	 <insert id="FdocInsert" parameterType="FdocVO">
 	
 	 	<selectKey keyProperty="doc_no" order="BEFORE" resultType="int">
