@@ -42,12 +42,12 @@ String email = (String) session.getAttribute("email");
 <!-- 제이쿼리 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 <script>
-    $('.search-box btn').click(function(){
+    $('.search-box').click(function(){
       
     });
     $('#keyword').keypress(function(event){
       if(event.which == 13){
-        $('.search-box btn').click();
+        $('.search-box').click();
         return false;
       }
     });
@@ -1193,6 +1193,7 @@ select, button, textarea {
                   <ul class="dropdown-menu commu">
                      <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
                      <li><a href="auth_fdoc.bo">책임분양인증</a></li>
+                     <li><a href="hospital_map.me">Map</a></li>
                   </ul></li>
             </ul>
 				
@@ -1208,7 +1209,7 @@ select, button, textarea {
 	 <form action="home_search.me" method="post" name="home_search">
             <div class="search-wrapper">
                <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
-               <button class="search-box btn" type="submit">
+               <button class="search-box" type="submit">
                   <i class="fas fa-search"></i>
                </button>
             </div>
@@ -1227,7 +1228,7 @@ select, button, textarea {
 			<ul class="list-group list-group-flush">
 				<li class="list-group-item"><a href="doclist.bo">자유게시판</a></li>
 				<li class="list-group-item click"><a href="auth_fdoc.bo">책임분양인증</a></li>
-				<li class="list-group-item"><a href="#">[개발중]</a></li>
+				<li class="list-group-item"><a href="hospital_map.me">Map</a></li>
 			</ul>
 			</div>
 			
@@ -1247,7 +1248,7 @@ select, button, textarea {
           %>
           
             <div class="post-entry-2 d-flex">
-              <div class="thumbnail order-md-2"><%=vo.getConfirm_fdoc_img()%></div>
+              <div class="thumbnail order-md-2"><img src="/resource<%=vo.getConfirm_fdoc_img()%>" style="width:275px; height:135px;"/></div>
               <div class="contents order-md-1 pl-0">
                 
                 <h2>

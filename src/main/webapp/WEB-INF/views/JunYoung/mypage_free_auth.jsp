@@ -707,7 +707,7 @@ td.paging > a {
                   <ul class="dropdown-menu commu">
                      <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
                      <li><a href="auth_fdoc.bo">책임분양인증</a></li>
-                     <li><a href="hospital_map.me">동물병원</a></li>
+                     <li><a href="hospital_map.me">Map</a></li>
                   </ul></li>
             </ul>
 				
@@ -932,6 +932,7 @@ td.paging > a {
 									<th scope="col" class="text-center">제목</th>
 									<th scope="col" class="text-center">작성일</th>
 									<th scope="col" class="text-center">상태</th>
+									<th scope="col" class="text-center">&nbsp;</th>
 								</tr>
 							</thead>
 							<%
@@ -948,7 +949,14 @@ td.paging > a {
 									onclick="window.open(this.href, '_blanck', 'height='+popupHeight + ',width=' + popupWidth + ',left=' + popupX + ',top=' + popupY); return false">
 										&nbsp;&nbsp;<%=auth_list.getFadoc_subject() %></a></td>
 									<td class="text-center"><%=auth_list.getFadoc_date() %></td>
+									
+									<%if (auth_list.getFadoc_check().equals("인증완료")) {	%>
 									<td class="text-center"><%=auth_list.getFadoc_check() %></td>
+									<td class="text-center"><a href="./fadocdetail.bo?doc_no=<%=auth_list.getDoc_no()%>">원문보기</a></td>
+									<%} else { %>
+									<td class="text-center"><%=auth_list.getFadoc_check() %></td>
+									<td class="text-center">&nbsp;</td>
+									<%} %>
 								</tr>
 							</tbody>
 									<%
@@ -1004,7 +1012,7 @@ td.paging > a {
 								%>
 								<tr>
 									<td width="84px" class="text-center" scope="row"><%=doc_list.getDoc_no() %></td>
-									<td width="416px"><a href="/"><%=doc_list.getDoc_subject() %></a></td>
+									<td width="416px"><a href="./fdocdetail.bo?doc_no=<%=doc_list.getDoc_no()%>"><%=doc_list.getDoc_subject() %></a></td>
 									<td width="188px" class="text-center"><%=doc_list.getDoc_date() %></td>
 									<td width="143px" class="text-center"><%=doc_list.getDoc_code() %></td>
 								</tr>

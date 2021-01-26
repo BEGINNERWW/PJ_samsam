@@ -875,6 +875,12 @@ $(document).ready(function() {
           
    });
    
+   $("div.note-editable").on('drop',function(e){
+	    for(i=0; i< e.originalEvent.dataTransfer.files.length; i++){
+	    	sendFile(e.originalEvent.dataTransfer.files[i],$("#summernote")[0]);
+	    }
+	   e.preventDefault();
+	})
 
    function sendFile(file, el) {
        var form_data = new FormData();
@@ -1050,6 +1056,7 @@ function setThumbnail(event) {
                   <ul class="dropdown-menu commu">
                      <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
                      <li><a href="auth_fdoc.bo">책임분양인증</a></li>
+                     <li><a href="hospital_map.me">Map</a></li>
                   </ul></li>
             </ul>
 				
