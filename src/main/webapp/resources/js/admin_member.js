@@ -133,6 +133,8 @@ function member_detail(obj) {
 			$('#biz_com').html(map.Biz_memberVO.biz_com);
 			$('#biz_no').html(map.Biz_memberVO.biz_no);
 			$('#biz_img').html(map.Biz_memberVO.biz_img);
+			
+						console.log("biz_com:"+$('#biz_com').text())
 						
 			if(map.Biz_memberVO.status == 0){
 				console.log("map.Biz_membeerVO.status : " + map.Biz_memberVO.status )
@@ -147,7 +149,10 @@ function member_detail(obj) {
 		        $('.status').val("미제출");
 		        fieldsetDisable();
 		      }
-			}
+			}else{
+		        $('.status').val("미제출");
+		        fieldsetDisable();
+		      }
 			if(map.Boardlist != null && map.Boardlist != ""){
 			$.each(map.Boardlist, function(index, item){
 				console.log("map.Boardlist : " + map.Boardlist);

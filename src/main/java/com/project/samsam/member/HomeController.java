@@ -49,12 +49,12 @@ public class HomeController {
 		System.out.println("request name : " + name);
 
 		MemberVO vo = memberSV.selectMember(email);
-		System.out.println("ȸ�� �̸��� :" + vo.getEmail());
-		System.out.println("�̸� : " + vo.getName());
-
+		
+	
+		if(vo != null) {
 		Random r = new Random();
 		int num = r.nextInt(999999); // 랜덤난수설정
-
+		
 		if (vo.getName().equals(name)) {
 			session.setAttribute("email", vo.getEmail());
 
@@ -80,12 +80,17 @@ public class HomeController {
 			}
 
 			ModelAndView mv = new ModelAndView();
-			mv.setViewName("pw_auth");
+			mv.setViewName("YM/pw_auth");
 			mv.addObject("num", num);
 			return mv;
 		}else {
 			ModelAndView mv = new ModelAndView();
-			mv.setViewName("pw_find");
+			mv.setViewName("YM/pw_find");
+			return mv;
+		}
+		}else {
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("YM/pw_find");
 			return mv;
 		}
 

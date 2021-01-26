@@ -12,7 +12,8 @@
 	margin-left : 20px; 
 	margin-bottom : 15px;
 }
-#check1, #check2 {
+#check11, #check12,#check13,#check14,#check15,#check16,#check17,
+#check21, #check22,#check23,#check24,#check25,#check26,#check27 {
 	width: 264px;
 	height: 48px;
 	margin : 0 auto;
@@ -23,9 +24,18 @@
 	border-radius: 5px;
 	align-self: center;
 }
-#check1:hover, #check2:hover {
+#check11:hover, #check12:hover,#check13:hover,#check14:hover,#check15:hover,#check16:hover,#check17:hover,
+#check21:hover, #check22:hover,#check23:hover,#check24:hover,#check25:hover,#check26:hover,#check27:hover  {
 	color: white;
 	background-color: skyblue;
+}
+.origin{
+	width: 60px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    background-color: #efefef;
+    
 }
 table{
 	width : 500px;
@@ -59,7 +69,8 @@ input {
 #same{
 	margin-left : 220px;
 }
-.error1, .error2{
+.error11,.error12,.error13,.error14,.error15,.error16,.error17,
+.error21,.error22,.error23,.error24,.error25,.error26,.error27{
 	font-size: 0.9em;
 	color : red;
     padding-left: 190px;

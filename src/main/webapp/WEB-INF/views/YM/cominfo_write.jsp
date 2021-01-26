@@ -53,6 +53,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous" type="text/javascript"></script>
 
 <link href="resources/css/com_write.css" rel="stylesheet">
+<script type="text/javascript" src="resources/js/com_write.js" charset="UTF-8"></script>
+
 <script>
     $('.search-box btn').click(function(){
       
@@ -91,7 +93,10 @@ body {
     font-weight: 300;
     font-size: .9rem;
 }
-
+.path{
+	text-decoration : none;
+    color : #000000;
+}
 
 a{
    text-decoration : none;
@@ -487,182 +492,348 @@ li.list-group-item.click > a {
   		  <input type="radio" name="ud_tabs" id="tab2">
           <label for="tab2">작성댓글</label>
   		  <div id="ud_tab-content1" class="ud_content">
-   			<table>
+   			   			
+       			
+    		<% 
+    	 		if(boardlist_al.size() != 0){
+    		%>
+    		<h5> 업체분양(<%=boardlist_al.size() %>) </h5>
+    		<table>
   				<thead>
   					<tr><th>글번호</th><th>제목</th><th>작성일</th></tr>
   				</thead>
   			<tbody>
-    		<% 
-    	 		if(boardlist_al != null){
-    			for(BoardlistVO b_list : boardlist_al){	
-    		%>
-    		<tr class = "boardlist tr">
-    		<a href="">
-    			<td><%=b_list.getNum() %></td>
-    			<td><%=b_list.getSubject() %></td>
-    			<td><%=b_list.getWrite_date() %></td>
-    		</a>
+  			<% for(BoardlistVO b_list : boardlist_al){	 %>
+    		<tr class = "boardlist1">
+    		
+    			<td><a class="path" href=""><%=b_list.getNum() %></a></td>
+    			<td><a class="path" href=""><%=b_list.getSubject() %></a></td>
+    			<td><a class="path" href=""><%=b_list.getWrite_date() %></a></td>
     		</tr>
-   			<% }}%>
+   			<% } %>
+  			</tbody>
+  			</table>
+   
+   			<input type="button" id="check11" value="더보기">
+   			<div class="error11"></div>
+   			<% } %>
    			<% 
-    	 		if(boardlist_fd != null){
-    			for(BoardlistVO b_list : boardlist_fd){	
-    		%>
+    	 		if(boardlist_fd.size() != 0){
+    	 	%>
+    		<h5> 책임분양(<%=boardlist_fd.size() %>) </h5>
+    	 	
+    	 	<table>
+  				<thead>
+  					<tr><th>글번호</th><th>제목</th><th>작성일</th></tr>
+  				</thead>
+  			<tbody>
+    		<%	for(BoardlistVO b_list : boardlist_fd){	%>
     		<tr class = "boardlist tr">
-    		<a href="fdocdetail.bo?doc_no=<%= b_list.getNum()%>">
-    			<td><%=b_list.getNum() %></td>
-    			<td><%=b_list.getSubject() %></td>
-    			<td><%=b_list.getWrite_date() %></td>
-    		</a>
+    			<td><a class="path" href="fdocdetail.bo?doc_no=<%= b_list.getNum()%>"><%=b_list.getNum() %></a></td>
+    			<td><a class="path" href="fdocdetail.bo?doc_no=<%= b_list.getNum()%>"><%=b_list.getSubject() %></a></td>
+    			<td><a class="path" href="fdocdetail.bo?doc_no=<%= b_list.getNum()%>"><%=b_list.getWrite_date() %></a></td>
     		</tr>
-   			<% }}%>
+   			<% } %>
+  			</tbody>
+  			</table>
+   
+   			<input type="button" id="check12" value="더보기">
+   			<div class="error12"></div>
+   			<% } %>
    			<% 
-    	 		if(boardlist_fa != null){
-    			for(BoardlistVO b_list : boardlist_fa){	
-    		%>
+    	 		if(boardlist_fa.size() != 0){ %>
+    		<h5> 책임인증글(<%=boardlist_fa.size() %>) </h5>
+
+    	 	<table>
+  				<thead>
+  					<tr><th>글번호</th><th>제목</th><th>작성일</th></tr>
+  				</thead>
+  			<tbody>	
+    		<%for(BoardlistVO b_list : boardlist_fa){  		%>
+    			<tr class = "boardlist tr">
+    			<td><a class="path" href="fadocdetail.bo?doc_no=<%= b_list.getNum()%>"><%=b_list.getNum() %></a></td>
+    			<td><a class="path" href="fadocdetail.bo?doc_no=<%= b_list.getNum()%>"><%=b_list.getSubject() %></a></td>
+    			<td><a class="path" href="fadocdetail.bo?doc_no=<%= b_list.getNum()%>"><%=b_list.getWrite_date() %></a></td>
+    		</tr>
+   			<% } %>
+  			</tbody>
+  			</table>
+   
+   			<input type="button" id="check13" value="더보기">
+   			<div class="error13"></div>
+   			<% } %>
+   			<% 
+    	 		if(boardlist_ah.size() != 0){ %>
+    		<h5>가정분양(<%=boardlist_ah.size() %>) </h5>
+
+    	 	<table>
+      			<thead>
+      				<tr><th>글번호</th><th>제목</th><th>작성일</th></tr>
+      			</thead>
+      		<tbody>
+    		<%	for(BoardlistVO b_list : boardlist_ah){    		%>
     		<tr class = "boardlist tr">
-    		<a href="fadocdetail.bo?doc_no=<%= b_list.getNum()%>">
-    			<td><%=b_list.getNum() %></td>
-    			<td><%=b_list.getSubject() %></td>
-    			<td><%=b_list.getWrite_date() %></td>
-    		</a>
+    			<td><a class="path" href="adopthomeview.bo?num=<%=b_list.getNum() %>"><%=b_list.getNum() %></a></td>
+    			<td><a class="path" href="adopthomeview.bo?num=<%=b_list.getNum() %>"><%=b_list.getSubject() %></a></td>
+    			<td><a class="path" href="adopthomeview.bo?num=<%=b_list.getNum() %>"><%=b_list.getWrite_date() %></a></td>
     		</tr>
-   			<% }}%>
+   			<% } %>
+  			</tbody>
+  			</table>
+   
+   			<input type="button" id="check14" value="더보기">
+   			<div class="error14"></div>
+   			<% } %>
    			<% 
-    	 		if(boardlist_ah != null){
-    			for(BoardlistVO b_list : boardlist_ah){	
-    		%>
-    		<tr class = "boardlist tr">
-    		<a href="adopthomeview.bo?num='+<%=b_list.getNum() %>+'">
-    			<td><%=b_list.getNum() %></td>
-    			<td><%=b_list.getSubject() %></td>
-    			<td><%=b_list.getWrite_date() %></td>
-    		</a>
-    		</tr>
-   			<% }}%>
-   			<% 
-    	 		if(boardlist_co != null){
+    	 		if(boardlist_co.size() != 0){%>
+    		<h5> 자유게시판(<%=boardlist_co.size() %>) </h5>
+    	 	<table>
+      			<thead>
+      				<tr><th>글번호</th><th>제목</th><th>작성일</th></tr>
+      			</thead>
+      		<tbody>
+    		<%	
     			for(BoardlistVO b_list : boardlist_co){	
     		%>
     		<tr class = "boardlist tr">
-    		<a href="docdetail.bo?doc_no=<%= b_list.getNum()%>">
-    			<td><%=b_list.getNum() %></td>
-    			<td><%=b_list.getSubject() %></td>
-    			<td><%=b_list.getWrite_date() %></td>
-    		</a>
+    			<td><a class="path" href="docdetail.bo?doc_no=<%= b_list.getNum()%>"><%=b_list.getNum() %></a></td>
+    			<td><a class="path" href="docdetail.bo?doc_no=<%= b_list.getNum()%>"><%=b_list.getSubject() %></a></td>
+    			<td><a class="path" href="docdetail.bo?doc_no=<%= b_list.getNum()%>"><%=b_list.getWrite_date() %></a></td>
     		</tr>
-   			<% }}%>
+   			<% } %>
+  			</tbody>
+  			</table>
+   
+   			<input type="button" id="check15" value="더보기">
+   			<div class="error15"></div>
+   			<% } %>
    			<% 
-    	 		if(boardlist_p != null){
+    	 		if(boardlist_p.size() != 0){%>
+    		<h5> 파양게시판(<%=boardlist_p.size() %>) </h5>
+    	 		
+    	 	<table>
+      			<thead>
+      				<tr><th>글번호</th><th>제목</th><th>작성일</th></tr>
+      			</thead>
+      		<tbody>
+    		<%	
     			for(BoardlistVO b_list : boardlist_p){	
     		%>
     		<tr class = "boardlist tr">
-    		<a href="">
-    			<td><%=b_list.getNum() %></td>
-    			<td><%=b_list.getSubject() %></td>
-    			<td><%=b_list.getWrite_date() %></td>
-    		</a>
+    			<td><a class="path" href=""><%=b_list.getNum() %></a></td>
+    			<td><a class="path" href=""><%=b_list.getSubject() %></a></td>
+    			<td><a class="path" href=""><%=b_list.getWrite_date() %></a></td>
     		</tr>
-   			<% }}%>
+   			<% } %>
+  			</tbody>
+  			</table>
+   
+   			<input type="button" id="check16" value="더보기">
+   			<div class="error16"></div>
+   			<% } %>
    			<% 
-    	 		if(boardlist_m != null){
+    	 		if(boardlist_m.size() != 0){%>
+    		<h5> 실종게시판(<%=boardlist_m.size() %>) </h5>
+    	 		
+    	 	<table>
+      			<thead>
+      				<tr><th>글번호</th><th>제목</th><th>작성일</th></tr>
+      			</thead>
+      		<tbody>
+    		<%	
     			for(BoardlistVO b_list : boardlist_m){	
     		%>
     		<tr class = "boardlist tr">
-    		<a href="">
-    			<td><%=b_list.getNum() %></td>
-    			<td><%=b_list.getSubject() %></td>
-    			<td><%=b_list.getWrite_date() %></td>
-    		</a>
+    			<td><a class="path" href=""><%=b_list.getNum() %></a></td>
+    			<td><a class="path" href=""><%=b_list.getSubject() %></a></td>
+    			<td><a class="path" href=""><%=b_list.getWrite_date() %></a></td>
     		</tr>
-   			<% }}%>
-    		</tbody>
-   			</table>
+   			<% } %>
+  			</tbody>
+  			</table>
    
-   			<input type="button" id="check1" value="더보기">
-   			<div class="error1"></div>
+   			<input type="button" id="check17" value="더보기">
+   			<div class="error17"></div>
+   			<% } else{%>
+   			<p> 작성글이 없습니다. </p>
+   			<% } %>
   		</div><!-- tab1 -->
   		<div id="ud_tab-content2" class="ud_content">
-   		  <table>
+   		 
+    	
+    		<% 
+    			if(commentlist_al.size() != 0){ %>
+    		<h5> 업체분양(<%=commentlist_al.size() %>) </h5>
+    	<table>
   			<thead>
-  				<tr><th>내용</th><th>작성일</th></tr>
+  				<tr><th>내용</th><th colspan="2">작성일</th></tr>
   			</thead>
   			<tbody>
-    		<% 
-    			if(commentlist_al != null){
-    			for(CommentListVO c_list : commentlist_al){	
+    		<% for(CommentListVO c_list : commentlist_al){	
     		%>
     			<tr class = "commentlist">
     				<td><%=c_list.getContent() %></td>
     				<td><%=c_list.getWrite_date() %></td>
+    				<td><button type="button" class ="origin" onclick="location.href=''">원문보기</button></td>
     			</tr>
-    		<% }}%>
+    		<% } %>
+  			</tbody>
+  			</table>
+   
+   			<input type="button" id="check21" value="더보기">
+   			<div class="error21"></div>
+   			<% } %>
     		<% 
-    			if(commentlist_fd != null){
+    			if(commentlist_fd.size() != 0){ %>
+    		<h5> 책임분양(<%=commentlist_fd.size() %>) </h5>
+    			
+    	    	<table>
+      			<thead>
+      				<tr><th>내용</th><th  colspan="2">작성일</th></tr>
+      			</thead>
+      			<tbody>
+        		<%
     			for(CommentListVO c_list : commentlist_fd){	
     		%>
     			<tr class = "commentlist">
-    			<a href="fdocdetail.bo?doc_no=<%=c_list.getDoc_no()%>">
+    			<a href="fdocdetail.bo?doc_no=<%= c_list.getDoc_no()%>">
     				<td><%=c_list.getContent() %></td>
     				<td><%=c_list.getWrite_date() %></td>
+    				<td><button type="button" class ="origin" onclick="location.href='fdocdetail.bo?doc_no=<%= c_list.getDoc_no()%>'">원문보기</button></td>
     			</a>
     			</tr>
-    		<% }}%>
+    		<% } %>
+  			</tbody>
+  			</table>
+   
+   			<input type="button" id="check22" value="더보기">
+   			<div class="error22"></div>
+   			<% } %>
     		<% 
-    			if(commentlist_fa != null){
+    			if(commentlist_fa.size() != 0){ %>
+        		<h5> 책임인증글(<%=commentlist_fa.size() %>) </h5>
+    
+    	    	<table>
+      			<thead>
+      				<tr><th>내용</th><th  colspan="2">작성일</th></tr>
+      			</thead>
+      			<tbody>
+        		<%
     			for(CommentListVO c_list : commentlist_fa){	
     		%>
     			<tr class = "commentlist">
-    			<a href="fadocdetail.bo?doc_no=<%= c_list.getDoc_no()%>">
+    			<a href="fadocdetail.bo?doc_no=<%=c_list.getDoc_no()%>">
     				<td><%=c_list.getContent() %></td>
     				<td><%=c_list.getWrite_date() %></td>
+    				<td><button type="button" class ="origin" onclick="location.href='fadocdetail.bo?doc_no=<%= c_list.getDoc_no()%>'">원문보기</button></td>
     			</a>
     			</tr>
-    		<% }}%>
+    	<% } %>
+  			</tbody>
+  			</table>
+   
+   			<input type="button" id="check23" value="더보기">
+   			<div class="error23"></div>
+   			<% } %>
     		<% 
-    			if(commentlist_ah != null){
+    			if(commentlist_ah.size() != 0){%>
+       		<h5> 가정분양(<%=commentlist_ah.size() %>) </h5>
+    			
+    	    	<table>
+      			<thead>
+      				<tr><th>내용</th><th  colspan="2">작성일</th></tr>
+      			</thead>
+      			<tbody>
+        		<%
     			for(CommentListVO c_list : commentlist_ah){	
     		%>
     			<tr class = "commentlist">
-    			<a href="adopthomeview.bo?num='+<%=c_list.getDoc_no()%>+'">
+    			<a href="adopthomeview.bo?num='+<%=c_list.getDoc_no() %>+'">
     				<td><%=c_list.getContent() %></td>
     				<td><%=c_list.getWrite_date() %></td>
+    				<td><button type="button" class ="origin" onclick="location.href='adopthomeview.bo?num=<%= c_list.getDoc_no()%>'">원문보기</button></td>
     			</a>
     			</tr>
-    		<% }}%>
+    		<% } %>
+  			</tbody>
+  			</table>
+   
+   			<input type="button" id="check24" value="더보기">
+   			<div class="error24"></div>
+   			<% } %>
     		<% 
-    			if(commentlist_co != null){
+    			if(commentlist_co.size() != 0){%>
+      		<h5> 자유게시판(<%=commentlist_co.size() %>) </h5>
+    	    	<table>
+      			<thead>
+      				<tr><th>내용</th><th colspan="2">작성일</th></tr>
+      			</thead>
+      			<tbody>
+        		<%
     			for(CommentListVO c_list : commentlist_co){	
     		%>
     			<tr class = "commentlist">
-    			<a href="docdetail.bo?doc_no=<%= c_list.getDoc_no()%>">
     				<td><%=c_list.getContent() %></td>
     				<td><%=c_list.getWrite_date() %></td>
-    			</a>
+    				<td><button type="button" class="origin" onclick="location.href='docdetail.bo?doc_no=<%= c_list.getDoc_no()%>'">원문보기</button></td>
     			</tr>
-    		<% }}%>
+    		<% } %>
+  			</tbody>
+  			</table>
+   
+   			<input type="button" id="check25" value="더보기">
+   			<div class="error25"></div>
+   			<% } %>
     		<% 
-    			if(commentlist_p != null){
+    			if(commentlist_p.size() != 0){%>
+     		<h5> 파양게시판(<%=commentlist_p.size() %>) </h5>
+    			
+    	    	<table>
+      			<thead>
+      				<tr><th>내용</th><th  colspan="2">작성일</th></tr>
+      			</thead>
+      			<tbody>
+        		<%
     			for(CommentListVO c_list : commentlist_p){	
     		%>
     			<tr class = "commentlist">
     				<td><%=c_list.getContent() %></td>
     				<td><%=c_list.getWrite_date() %></td>
+    				<td><button type="button" class ="origin" onclick="location.href='<%= c_list.getDoc_no()%>'">원문보기</button></td>
     			</tr>
-    		<% }}%>
+    		<% } %>
+  			</tbody>
+  			</table>
+   
+   			<input type="button" id="check26" value="더보기">
+   			<div class="error26"></div>
+   			<% } %>
     		<% 
-    			if(commentlist_m != null){
+    			if(commentlist_m.size() != 0){%>
+     		<h5> 실종게시판(<%=commentlist_m.size() %>) </h5>
+    			
+    	    	<table>
+      			<thead>
+      				<tr><th>내용</th><th  colspan="2">작성일</th></tr>
+      			</thead>
+      			<tbody>
+        		<%
     			for(CommentListVO c_list : commentlist_m){	
     		%>
     			<tr class = "commentlist">
     				<td><%=c_list.getContent() %></td>
     				<td><%=c_list.getWrite_date() %></td>
+    				<td><button type="button" class ="origin" onclick="location.href='<%= c_list.getDoc_no()%>'">원문보기</button></td>
     			</tr>
-    		<% }}%>
-    		</tbody>
-   		  </table>
-   		  <input type="button" id="check2" value="더보기">
-		  <div class="error2"></div>
+    		<% } %>
+  			</tbody>
+  			</table>
+   
+   			<input type="button" id="check27" value="더보기">
+   			<div class="error27"></div>
+   			<% } else{%>
+   			<p> 작성댓글이 없습니다. </p>
+   			<% } %>
   		</div><!-- tab2 -->
 	</div>
 	</form>
@@ -726,35 +897,6 @@ $(window).scroll(function(){
     
   //]]>
 </script>
-<!-- 더보기 js -->
-<script type="text/javascript">
-$(document).ready(function(){
-    var start = 5;
-    
-	$(".boardlist").slice(5).hide(); 
 
-	$("#check1").click(function(e){
-		e.preventDefault();
-    	start += 5;
-		$(".boardlist").slice(0,start).show();
-   	
-		if($(".boardlist").length <= start){
-			$(".error1").html("더이상 표시할 내용이 없습니다.");
-    	};
-	});
-	
-	$(".commentlist").slice(5).hide(); 
-
-	$("#check2").click(function(e){
-		e.preventDefault();
-    	start += 5;
-		$(".commentlist").slice(0,start).show();
-   	
-		if($(".commentlist").length <= start){
-			$(".error2").html("더이상 표시할 내용이 없습니다.");
-    	};
-	});
-});
-</script>
 </body>
 </html>
