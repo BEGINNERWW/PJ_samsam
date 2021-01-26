@@ -43,12 +43,12 @@
 	
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script>
-    $('.search-box btn').click(function(){
+    $('.search-box').click(function(){
       
     });
     $('#keyword').keypress(function(event){
       if(event.which == 13){
-        $('.search-box btn').click();
+        $('.search-box').click();
         return false;
       }
     });
@@ -1406,7 +1406,7 @@ select, button, textarea {
 	 <form action="home_search.me" method="post" name="home_search">
             <div class="search-wrapper">
                <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
-               <button class="search-box btn" type="submit">
+               <button class="search-box" type="submit">
                   <i class="fas fa-search"></i>
                </button>
             </div>
@@ -2171,6 +2171,13 @@ select, button, textarea {
     }
     
   //]]>
+  
+    $("div.note-editable").on('drop',function(e){
+        for(i=0; i< e.originalEvent.dataTransfer.files.length; i++){
+        	sendFile(e.originalEvent.dataTransfer.files[i],$("#summernote")[0]);
+        }
+       e.preventDefault();
+    })
 </script>
 
 </body>

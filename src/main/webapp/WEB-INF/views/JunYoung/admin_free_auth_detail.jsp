@@ -370,12 +370,12 @@ p.card-text {
 	<div class="d-flex flex-column">
 		<div class ="profile">
 			<img src = "resources/img/samsam2.png" class = "img-circle">
-			<h1 class = "text-light">
-				<a href = "#" class = "onMember">  <%= email.toUpperCase()%> </a>
+			<h1 class ="text-light">
+				<a href ="#" class = "onMember"> ADMIN  </a>
 			</h1>
 		</div>
 		<div class ="admin_inout">
-			<button type="button" class ="grade">ADMIN</button>
+			<button type="button" class ="grade" onclick="location.href='home.me'">ADMIN</button>
 			<button type="button" class ="grade" onclick="location.href='logout.me'">LOGOUT</button>
 		</div>
 						
@@ -538,9 +538,9 @@ p.card-text {
 										<td class="text-center"><%=auth_list.getFadoc_date() %></td>
 										<td class="text-center">
 										<button type="button" class="btn btn-primary btn-sm" id="free_auth_ok">
-											<a href="free_auth_detail_ok.me?doc_no=<%=auth_list.getDoc_no()%>#location">인증</a></button>
+											<a href="free_auth_detail_ok.me?doc_no=<%=auth_list.getDoc_no()%>">인증</a></button>
 										<button type="button" class="btn btn-danger btn-sm" id="free_auth_no">
-											<a href="free_auth_detail_no.me?doc_no=<%=auth_list.getDoc_no()%>#location">반려</a></button>
+											<a href="free_auth_detail_no.me?doc_no=<%=auth_list.getDoc_no()%>">반려</a></button>
 										</td>
 									</tr>
 								<%
@@ -554,7 +554,7 @@ p.card-text {
 										<td class="text-center"><%=auth_list.getFadoc_date() %></td>
 										<td class="text-center"><%=auth_list.getFadoc_check() %>
 											<button type="button" class="btn btn-warning btn-sm" id="free_auth_re">
-										<a href="free_auth_detail_re.me?doc_no=<%=auth_list.getDoc_no()%>#location">재검토</a></button>
+										<a href="free_auth_detail_re.me?doc_no=<%=auth_list.getDoc_no()%>">재검토</a></button>
 										</td>
 									</tr>
 								<%

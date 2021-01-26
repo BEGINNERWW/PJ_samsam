@@ -15,6 +15,7 @@
 	String table = "fdoc_refly";
 	String doc_table = "free_doc";
 	
+	
 
 %>
 	<link rel="stylesheet"

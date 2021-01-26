@@ -58,12 +58,12 @@ ul{
 	<div class="d-flex flex-column">
 		<div class ="profile">
 			<img src = "resources/img/samsam2.png" alt class = "img-circle">
-			<h1 class = "text-light">
-				<a href = "#" class = "onMember">  <%= email.toUpperCase()%> </a>
+			<h1 class ="text-light">
+				<a href ="#" class = "onMember"> ADMIN  </a>
 			</h1>
 		</div>
 		<div class ="admin_inout">
-			<button type="button" class ="grade">ADMIN</button>
+			<button type="button" class ="grade" onclick="location.href='home.me'">ADMIN</button>
 			<button type="button" class ="grade" onclick="location.href='logout.me'">LOGOUT</button>
 		</div>
 						
