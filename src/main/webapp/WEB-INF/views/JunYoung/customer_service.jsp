@@ -419,7 +419,7 @@ h5 {
                      <li><a href="selladopt_list.bo">업체분양</a></li>
                   </ul></li>
                <li class="dropdown"><a href="SJ/pet_list">보호소</a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu care">
                      <li><a href="SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
                      <li><a href="SJ/payang/list">파양</a></li>
                      <li><a href="SJ/missing/list">실종</a></li>

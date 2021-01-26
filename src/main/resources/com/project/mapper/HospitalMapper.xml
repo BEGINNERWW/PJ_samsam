@@ -15,9 +15,13 @@
 			<![CDATA[
 			SELECT * FROM (SELECT rownum rnum, place_id, place_name, address_name, place_phone, place_url, place_review, review_num, place_date,
 			place_nick, star_rating, place_email
-			from (SELECT * FROM hospital_map where place_id=#{place_id}))
+			from (SELECT * FROM hospital_map where place_id=#{place_id} order by place_date desc))
 			WHERE rnum>=#{startrow} and rnum<=#{endrow} 
 		]]>
+	 	</select>
+	 
+	 	<select id="select_star" parameterType="String" resultType="Hospital_mapVO">
+	 		SELECT * FROM hospital_map WHERE place_id=#{place_id}
 	 	</select>
 	 
 	 	<insert id="insert_review" parameterType="Hospital_mapVO">
