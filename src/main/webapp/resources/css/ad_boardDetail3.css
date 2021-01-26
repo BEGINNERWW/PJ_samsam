@@ -2,6 +2,7 @@
 h3 {
 	margin-bottom:5px;
 }
+
 h4{
 	margin: 4px  0px;
 	display: inline-block;
@@ -18,7 +19,7 @@ hr{
 	height: 100vh;
 }	
 .board_content {
-	height: 500px;
+	height: 432px;;
 	padding: 1px 15px;
 	overflow: auto;	
 }
@@ -194,6 +195,7 @@ hr{
 	display : flex;
 	flex-direction: column;
 	justify-content : space-evenly;
+	margin-left: 27px;
 }
 .auth_write label{
 	margin-bottom : 15px;

@@ -6,6 +6,7 @@
 	flex-direction: column;
 	margin-left : 37px;
 }
+
 .font{
 	text-algin : left;
 	margin-left : 20px; 
@@ -61,7 +62,7 @@ input {
 .error1, .error2{
 	font-size: 0.9em;
 	color : red;
-    padding-left: 155px;
+    padding-left: 190px;
     margin-top: 10px;
 	text-align : left;
 }

@@ -1,5 +1,6 @@
 package com.project.samsam.member;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -220,15 +221,16 @@ public class JJMemberController {
 	public String userCheck(@RequestParam("email") String email, MemberVO vo, HttpSession session) throws Exception {
 		System.out.println("로그인 이메일 "+vo.getEmail());
 		System.out.println("로그인 비밀번호 "+vo.getPw());
-		
 		MemberVO res = memberSV.selectMember(vo.getEmail());
+		System.out.println(res.getPw());
 
 		//어드민
-		if(vo.getEmail().equals("admin") && res.getPw().equals(vo.getPw())) {
+		if(vo.getEmail().equals("admin")) {
+			if(res.getPw().equals(vo.getPw()))
 			session.setAttribute("id", vo.getEmail());
 			session.setAttribute("email", vo.getEmail());
 			
-			return "redirect:/admin_main.me";  //어드민 페이지로 변경 필요
+			return "redirect:/home.me";  //어드민 페이지로 변경 필요
 		}
 		//카카오
 		if(res.getGrade().equals("카카오")) {
@@ -237,10 +239,10 @@ public class JJMemberController {
 			Biz_memberVO bo = memberSV.selectBizMember(vo.getEmail());
 			if(bo != null) {
 				if(bo.getStatus() == 0) {
-					return "redirect:/cominfo_main.do";//사업자 마이페이지로 변경 필요
+					return "redirect:/home.me";//사업자 마이페이지로 변경 필요
 				}
 			}
-			return "redirect:/myinfo_check.me";//마이페이지로 변경 필요
+			return "redirect:/home.me";//마이페이지로 변경 필요
 		}
 		//네이버
 		if(res.getGrade().equals("네이버")) {

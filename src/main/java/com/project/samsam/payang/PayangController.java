@@ -28,7 +28,6 @@ import com.project.utils.UploadFileUtils;
 
 
 @Controller
-@RequestMapping("/SJ/payang")
 public class PayangController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(PayangController.class);

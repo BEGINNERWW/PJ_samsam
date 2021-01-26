@@ -2,6 +2,7 @@
 <!DOCTYPE mapper
 	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
 <!-- namespace="com.spring.mapper.MemberMapper는 MemberMapper인퍼페이스(MemberMapper.class)의 이름을 사용한다. -->
 <mapper namespace="com.project.mapper.MemberMapper">
 
@@ -125,7 +126,7 @@ select * from (
 	select doc_no as num, doc_subject as subject, doc_date as write_date from payang where doc_email = #{email}
 	union all
 	select doc_no as num, doc_subject as subject, doc_date as write_date from missing where doc_email = #{email}
-) order by doc_date desc
+) order by write_date desc
 </select>
 
 <!-- 내 댓글 리스트 -->
@@ -133,7 +134,7 @@ select * from (
 select * from (
 	select doc_content as content, doc_date as write_date, doc_no from adopt_reply where doc_email = #{email}
 	union all
-	select doc_content as content, doc_date as write_date, doc_no from fdoc_reply where doc_email = #{email}
+	select doc_content as content, doc_date as write_date, doc_no from fdoc_refly where doc_email = #{email}
 	union all
 	select doc_content as content, doc_date as write_date, doc_no from free_auth_reply where doc_email = #{email}
 	union all
@@ -144,7 +145,7 @@ select * from (
 	select doc_content as content, doc_date as write_date, doc_no from payang_reply where doc_email = #{email}
 	union all		
 	select doc_content as content, doc_date as write_date, doc_no from missing_reply where doc_email = #{email}
-) order by doc_date desc
+) order by write_date desc
 </select>
 
 <!-- 내 작성글 리스트 -->
@@ -155,7 +156,7 @@ select * from (
 	select doc_no as num, doc_subject as subject, doc_date as write_date from free_doc where doc_email = #{email} order by doc_date desc
 </select>
 <select id="getWriteList3" parameterType="String" resultType="BoardlistVO">
-	select doc_no as num, fadoc_subject as subject, fadoc_date as write_date from free_auth where fadoc_r_email = #{email} order by doc_date desc
+	select doc_no as num, fadoc_subject as subject, fadoc_date as write_date from free_auth where fadoc_r_email = #{email} order by fadoc_date desc
 </select>
 <select id="getWriteList4" parameterType="String" resultType="BoardlistVO">
 	select doc_no as num, doc_subject as subject, doc_date as write_date from adopt_home where doc_email = #{email} order by doc_date desc

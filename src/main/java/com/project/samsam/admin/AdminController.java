@@ -21,6 +21,7 @@ import com.project.samsam.simport.Payed_listVO;
 
 @Controller
 public class AdminController {
+
 	
 	@Autowired
 	private AdminSV adminSV;
@@ -168,4 +169,34 @@ public class AdminController {
 		
 		return "YM/admin_pay";
 	}
+	  @RequestMapping(value = "/storereport.do")
+	   @ResponseBody
+	   public Map<String, Object> storereport(Model model) {
+	      Map<String, Object> map = new HashMap<String, Object>();
+	      ArrayList<ChartjsVO> ncvo = new ArrayList<ChartjsVO>();
+	      
+	      int storecount = adminSV.storecount();
+	      int standbycount = adminSV.standbycount();
+	      //chart1
+	      ArrayList<TboardVO> chart1 = adminSV.getThreeCount();
+	      //chart2
+	      
+	      ArrayList<ChartjsVO> adopt = adminSV.weeklyLocala();
+	      ArrayList<ChartjsVO> home = adminSV.weeklyLocalh();
+	      ArrayList<ChartjsVO> free = adminSV.weeklyLocalf();
+	      //chart3
+	      ArrayList<ChartjsVO> chart3pay = adminSV.payedMonth();
+	      ArrayList<ChartjsVO> chart3repay = adminSV.repayedMonth();
+	      
+	      map.put("storecount", storecount);
+	      map.put("standbycount", standbycount);
+	      map.put("chart1", chart1);
+	      map.put("adopt", adopt);
+	      map.put("home", home);
+	      map.put("free", free);
+	      map.put("chart3pay", chart3pay);
+	      map.put("chart3repay", chart3repay);
+	      
+	      return map;
+	   }
 }

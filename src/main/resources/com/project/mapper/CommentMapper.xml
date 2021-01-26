@@ -5,6 +5,7 @@
 	
 	
 	 
+	 
 	 <!--  댓글  -->
 	 
 	 
@@ -12,7 +13,7 @@
 	<selectKey keyProperty="doc_cno" order="BEFORE" resultType="int">
 		SELECT NVL(max(doc_cno),0) +1 from ${table}
 	</selectKey>
-		INSERT INTO ${table} (doc_cno,doc_no,doc_nick,doc_date,doc_content,doc_secret,doc_ref,doc_lev,doc_seq,doc_email)VALUES(#{doc_cno},#{doc_no},#{doc_nick},sysdate,#{doc_content},#{doc_secret},#{doc_cno},#{doc_lev},#{doc_seq},#{doc_email})	
+		INSERT INTO ${table} (doc_cno,doc_no,doc_email,doc_nick,doc_date,doc_content,doc_secret,doc_ref,doc_lev,doc_seq)VALUES(#{doc_cno},#{doc_no},#{doc_email},#{doc_nick},sysdate,#{doc_content},#{doc_secret},#{doc_cno},#{doc_lev},#{doc_seq})	
 	</insert>
 	
 	
