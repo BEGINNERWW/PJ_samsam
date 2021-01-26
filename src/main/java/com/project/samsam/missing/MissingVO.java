@@ -3,117 +3,128 @@ package com.project.samsam.missing;
 import java.util.Date;
 
 public class MissingVO {
-	private int m_no; 
-	private String m_email; 
-	private String m_nick;
-	private String m_name;
-	private String m_gender;
-	private String m_big_name;
-	private String m_kind;
-	private String m_age;
-	private String m_sido;
-	private String m_sigungu;
-	private String m_address;
-	private String m_subject;
-	private String m_content;
-	private Date m_date;
-	private Date m_upd_date;
+	private int doc_no; 
+	private String doc_email; 
+	private String doc_nick;
+	private String doc_name;
+	private String doc_gender;
+	private String doc_big_name;
+	private String doc_kind;
+	private String doc_age;
+	private String doc_sido;
+	private String doc_sigungu;
+	private String doc_address;
+	private String doc_subject;
+	private String doc_content;
+	private Date doc_date;
+	private Date doc_upd_date;
 	
-	public int getM_no() {
-		return m_no;
+	private String thumbnail;
+	
+	public int getDoc_no() {
+		return doc_no;
 	}
-	public void setM_no(int m_no) {
-		this.m_no = m_no;
+	public void setDoc_no(int doc_no) {
+		this.doc_no = doc_no;
 	}
-	public String getM_email() {
-		return m_email;
+	public String getDoc_email() {
+		return doc_email;
 	}
-	public void setM_email(String m_email) {
-		this.m_email = m_email;
+	public void setDoc_email(String doc_email) {
+		this.doc_email = doc_email;
 	}
-	public String getM_nick() {
-		return m_nick;
+	public String getDoc_nick() {
+		return doc_nick;
 	}
-	public void setM_nick(String m_nick) {
-		this.m_nick = m_nick;
+	public void setDoc_nick(String doc_nick) {
+		this.doc_nick = doc_nick;
 	}
-	public String getM_name() {
-		return m_name;
+	public String getDoc_name() {
+		return doc_name;
 	}
-	public void setM_name(String m_name) {
-		this.m_name = m_name;
+	public void setDoc_name(String doc_name) {
+		this.doc_name = doc_name;
 	}
-	public String getM_gender() {
-		return m_gender;
+	public String getDoc_gender() {
+		return doc_gender;
 	}
-	public void setM_gender(String m_gender) {
-		this.m_gender = m_gender;
+	public void setDoc_gender(String doc_gender) {
+		this.doc_gender = doc_gender;
 	}
-	public String getM_big_name() {
-		return m_big_name;
+	public String getDoc_big_name() {
+		return doc_big_name;
 	}
-	public void setM_big_name(String m_big_name) {
-		this.m_big_name = m_big_name;
+	public void setDoc_big_name(String doc_big_name) {
+		this.doc_big_name = doc_big_name;
 	}
-	public String getM_kind() {
-		return m_kind;
+	public String getDoc_kind() {
+		return doc_kind;
 	}
-	public void setM_kind(String m_kind) {
-		this.m_kind = m_kind;
+	public void setDoc_kind(String doc_kind) {
+		this.doc_kind = doc_kind;
 	}
-	public String getM_age() {
-		return m_age;
+	public String getDoc_age() {
+		return doc_age;
 	}
-	public void setM_age(String m_age) {
-		this.m_age = m_age;
+	public void setDoc_age(String doc_age) {
+		this.doc_age = doc_age;
 	}
-	public String getM_sido() {
-		return m_sido;
+	public String getDoc_sido() {
+		return doc_sido;
 	}
-	public void setM_sido(String m_sido) {
-		this.m_sido = m_sido;
+	public void setDoc_sido(String doc_sido) {
+		this.doc_sido = doc_sido;
 	}
-	public String getM_sigungu() {
-		return m_sigungu;
+	public String getDoc_sigungu() {
+		return doc_sigungu;
 	}
-	public void setM_sigungu(String m_sigungu) {
-		this.m_sigungu = m_sigungu;
+	public void setDoc_sigungu(String doc_sigungu) {
+		this.doc_sigungu = doc_sigungu;
 	}
-	public String getM_address() {
-		return m_address;
+	public String getDoc_address() {
+		return doc_address;
 	}
-	public void setM_address(String m_address) {
-		this.m_address = m_address;
+	public void setDoc_address(String doc_address) {
+		this.doc_address = doc_address;
 	}
-	public String getM_subject() {
-		return m_subject;
+	public String getDoc_subject() {
+		return doc_subject;
 	}
-	public void setM_subject(String m_subject) {
-		this.m_subject = m_subject;
+	public void setDoc_subject(String doc_subject) {
+		this.doc_subject = doc_subject;
 	}
-	public String getM_content() {
-		return m_content;
+	public String getDoc_content() {
+		return doc_content;
 	}
-	public void setM_content(String m_content) {
-		this.m_content = m_content;
+	public void setDoc_content(String doc_content) {
+		this.doc_content = doc_content;
 	}
-	public Date getM_date() {
-		return m_date;
+	public Date getDoc_date() {
+		return doc_date;
 	}
-	public void setM_date(Date m_date) {
-		this.m_date = m_date;
+	public void setDoc_date(Date doc_date) {
+		this.doc_date = doc_date;
 	}
-	public Date getM_upd_date() {
-		return m_upd_date;
+	public Date getDoc_upd_date() {
+		return doc_upd_date;
 	}
-	public void setM_upd_date(Date m_upd_date) {
-		this.m_upd_date = m_upd_date;
+	public void setDoc_upd_date(Date doc_upd_date) {
+		this.doc_upd_date = doc_upd_date;
 	}
 	@Override
 	public String toString() {
-		return "MissingVO [m_no=" + m_no + ", m_email=" + m_email + ", m_nick=" + m_nick + ", m_name=" + m_name
-				+ ", m_gender=" + m_gender + ", m_big_name=" + m_big_name + ", m_kind=" + m_kind + ", m_age=" + m_age
-				+ ", m_sido=" + m_sido + ", m_sigungu=" + m_sigungu + ", m_address=" + m_address + ", m_subject="
-				+ m_subject + ", m_content=" + m_content + ", m_date=" + m_date + ", m_upd_date=" + m_upd_date + "]";
+		return "MissingVO [doc_no=" + doc_no + ", doc_email=" + doc_email + ", doc_nick=" + doc_nick + ", doc_name="
+				+ doc_name + ", doc_gender=" + doc_gender + ", doc_big_name=" + doc_big_name + ", doc_kind=" + doc_kind
+				+ ", doc_age=" + doc_age + ", doc_sido=" + doc_sido + ", doc_sigungu=" + doc_sigungu + ", doc_address="
+				+ doc_address + ", doc_subject=" + doc_subject + ", doc_content=" + doc_content + ", doc_date="
+				+ doc_date + ", doc_upd_date=" + doc_upd_date + "]";
 	}
+	public String getThumbnail() {
+		return thumbnail;
+	}
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+	
+	
 }

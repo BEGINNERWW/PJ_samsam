@@ -6,18 +6,114 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.project.mapper.PayangMapper">
 	
 	<select id="list" resultType="PayangVO">
-		SELECT * FROM payang ORDER BY p_no DESC , p_date DESC
+		SELECT * FROM payang ORDER BY doc_no DESC , doc_date DESC
 	</select>
 	
-	<insert id="write">
-		INSERT INTO PAYANG (P_SUBJECT, P_CONTENT, P_NAME, P_GENDER, P_BIG_NAME, P_SIDO, P_SIGUNGU, P_ADDRESS, P_KIND, P_AGE)
-		VALUES (PAYANG_SEQ.NEXVAL, #{P_SUBJECT}, #{P_CONTENT}, #{P_NAME}, #{P_GENDER}, #{P_BIG_NAME}, #{P_SIDO}, #{P_SIGUNGU}, #{P_ADDRESS}, #{P_KIND}, #{P_AGE})
-	<selectKey keyProperty="boardNo" resultType="Integer" order="AFTER">
-		SELECT PAYANG_SEQ.CURRVAL FROM DUAL
-	</selectKey>
+	<insert id="create" parameterType="PayangVO">
+		<selectKey keyProperty="doc_no" resultType="int" order="BEFORE"> 
+			SELECT PAYANG_SEQ.NEXTVAL FROM DUAL 
+		</selectKey>
+
+		INSERT INTO payang (
+							 DOC_NO
+							,DOC_EMAIL
+							,DOC_NICK
+							,DOC_NAME
+							,DOC_GENDER
+							,DOC_BIG_NAME
+							,DOC_KIND
+							,DOC_AGE
+							,DOC_SIDO
+							,DOC_SIGUNGU
+							,DOC_ADDRESS
+							,DOC_SUBJECT
+							,DOC_CONTENT
+							,DOC_DATE
+							,DOC_UPD_DATE
+							)
+					VALUES (
+							#{doc_no}
+							,#{doc_email}
+							,#{doc_nick}
+							,#{doc_name}
+							,#{doc_gender}
+							,#{doc_big_name}
+							,#{doc_kind}
+							,#{doc_age}
+							,#{doc_sido}
+							,#{doc_sigungu}
+							,#{doc_address}
+							,#{doc_subject}
+							,#{doc_content}
+							,sysdate
+							,sysdate
+							)
 	</insert>
 	
+	<select id="read" resultType="PayangVO">
+		SELECT *
+		FROM payang
+		WHERE doc_no = #{doc_no}
+	</select>
+	
+	
+	<update id="update" parameterType="PayangVO">
+		UPDATE payang
+		SET	 doc_subject = #{doc_subject}
+			,doc_name = #{doc_name}
+			,doc_gender = #{doc_gender}
+			,doc_big_name = #{doc_big_name}
+			,doc_kind = #{doc_kind}
+			,doc_age = #{doc_age}
+			,doc_sido = #{doc_sido}
+			,doc_sigungu = #{doc_sigungu}
+			,doc_address = #{doc_address}
+			,doc_content = #{doc_content}
+		WHERE doc_no = #{doc_no}
+	</update>
+	
 
+	<delete id="delete">
+		DELETE FROM payang
+		WHERE doc_no = #{doc_no}
+	</delete>
+	
+
+	<insert id="replyCreate" >
+		<selectKey keyProperty="doc_cno" resultType="int" order="BEFORE"> 
+			SELECT PAYANG_REPLY_SEQ.NEXTVAL FROM DUAL 
+		</selectKey>
+		INSERT INTO payang_reply (
+								 DOC_CNO
+								,DOC_NO
+								,DOC_EMAIL
+								,DOC_NICK
+								,DOC_CONTENT
+								,DOC_SECRET
+								,DOC_DATE
+								,DOC_UPD_DATE
+								)
+								VALUES
+								(
+									#{doc_cno}
+									,#{doc_no}
+									,#{doc_email}
+									,#{doc_nick}
+									,#{doc_content}
+									,#{doc_secret}
+									, SYSDATE
+									, SYSDATE
+								)
+	</insert>
+
+
+
+	<select id="replyList" resultType="PayangReplyVO">
+		SELECT * 
+		FROM payang_reply
+		WHERE doc_no = #{doc_no}
+		ORDERY BY doc_cno DESC, doc_date DESC
+	</select>
 	
 
 </mapper>

@@ -10,6 +10,7 @@ public class adopt_homeVO {
 	private Date home_date;
 	private String loc;
 	private int home_readcount;
+	private int replycount;
 	private String home_img;
 	private String home_phone;
 	private String home_subject;
@@ -137,6 +138,12 @@ public class adopt_homeVO {
 	}
 	public void setEndrow(int endrow) {
 		this.endrow = endrow;
+	}
+	public int getReplycount() {
+		return replycount;
+	}
+	public void setgetReplycount(int replycount) {
+		this.replycount = replycount;
 	}
 	
 	

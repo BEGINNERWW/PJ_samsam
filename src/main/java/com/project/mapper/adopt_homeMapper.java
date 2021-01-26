@@ -14,12 +14,13 @@ public interface adopt_homeMapper {
 	public int adoptInsert(adopt_homeVO adopt);
 	public int boardReplyupdate(adopt_homeVO board);
 	public int boardReply(adopt_homeVO board);
-	public int boardModify(adopt_homeVO modifyboard);
 	public int boardDelete(int num);
 	public void setReadCountUpdate(int num);
 	public int isBoardWriter(HashMap<String,String>hashmap);
+	public int homeDelete(adopt_homeVO vo);
+	public int adoptupdateInsert(adopt_homeVO adopt);
 	
-	//대댓글
+	//댓글
 	public int adoptreplyCount() throws Exception;
 	public List<adopt_homereplyVO>adopthomereplyList(adopt_homereplyVO homereply) throws Exception;
 	public int adoptreplyInsert(adopt_homereplyVO homereply) throws Exception;
@@ -30,4 +31,10 @@ public interface adopt_homeMapper {
 	public int adopthomereplyupdate(adopt_homereplyVO comment);
 	public int DeleteCount(int home_cno);
 	public int DeleteUpdate(int home_cno);
+	public void ReplycountService(adopt_homereplyVO homereply);
+	public void HomeDeleteComment(adopt_homeVO vo);
+	public void replycountupdate(adopt_homereplyVO adhome);
+	
+	
+	
 }

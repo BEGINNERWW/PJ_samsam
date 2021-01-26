@@ -31,7 +31,7 @@ public class MailSendService {
             num = random.nextInt(10);
             buffer.append(num);
         }
-
+ 
         return buffer.toString();
     }
 

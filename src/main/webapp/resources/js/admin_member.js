@@ -138,14 +138,14 @@ function member_detail(obj) {
 				$('.status').val("완료");
 				fieldsetDisable();
 			}
-			else if($('#biz_com').val() == "" && $('#biz_no').val() == "" && $('#biz_img').val() ==""){
-				$('.status').val("미제출");
-				fieldsetDisable();
-			}
-			}else{
-				$('.status').val("미제출");
-				fieldsetDisable();
-			}
+			else if($('#biz_com').text() == "" && $('#biz_no').text() == "" && $('#biz_img').text() ==""){
+		        $('.status').val("미제출");
+		        fieldsetDisable();
+		      }
+		      }else{
+		        $('.status').val("미확인");
+		        fieldsetDisable();
+		      }
 			
 			if(map.Boardlist != null && map.Boardlist != ""){
 			$.each(map.Boardlist, function(index, item){

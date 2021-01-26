@@ -25,7 +25,7 @@ public class Warning_Controller {
 		if(etc_reason != null) {
 			vo.setW_reason(etc_reason);
 		}
-		vo.setW_nick("2");
+		vo.setW_nick((String)session.getAttribute("nick"));
 		vo.setW_status("대기중");
 		vo.setW_category("책임");
 		vo.setW_note("처리 대기중입니다");
@@ -39,9 +39,23 @@ public class Warning_Controller {
 		if(etc_reason != null) {
 			vo.setW_reason(etc_reason);
 		}
-		vo.setW_nick("2");
+		vo.setW_nick((String)session.getAttribute("nick"));
 		vo.setW_status("대기중");
-		vo.setW_category("커뮤니티");
+		vo.setW_category("자유");
+		vo.setW_note("처리 대기중입니다");
+		return WarningService.warningInsertService(vo);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/confirm_warning.bo",produces="application/json;charset=UTF-8")
+	private int confirmInsert(WarningVO vo, HttpSession session,@RequestParam(value="etc_reason",required=false) String etc_reason) throws Exception{
+		//comment.setFdoc_CNick((String)session.getAttribute("id"));
+		if(etc_reason != null) {
+			vo.setW_reason(etc_reason);
+		}
+		vo.setW_nick((String)session.getAttribute("nick"));
+		vo.setW_status("대기중");
+		vo.setW_category("인증");
 		vo.setW_note("처리 대기중입니다");
 		return WarningService.warningInsertService(vo);
 	}

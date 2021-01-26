@@ -7,9 +7,9 @@ CREATE TABLE member_list (
 	nick	varchar2(50)		NULL,
 	phone	varchar2(20)		NULL,
 	local	varchar2(20)		NULL,
-	grade	varchar2(10)		default '일반',
-	authkey   varchar2(20)		not null,
-	status     varchar2(10)		not null,
+	grade	varchar2(20)		default '일반',
+	authkey   varchar2(20)		default '0',
+	status     varchar2(10)		default '0',
 	wcount   number			default 0,
 	signdate date			not null
 );
@@ -74,7 +74,7 @@ CREATE TABLE free_doc_confirm (
 	confirm_fdoc_s_email	varchar2(50)		NOT NULL,
 	confirm_fdoc_r_email	varchar2(50)		NULL,
 	confirm_fdoc_code	varchar2(20)		NULL,
-            confirm_fdoc_expiry	number		NULL,
+    confirm_fdoc_expiry	number		NULL,
 	confirm_fdoc_price	varchar2(20)		NULL,
 	confirm_s_date	date		NULL,
 	confirm_e_date	date		NULL,
@@ -83,7 +83,7 @@ CREATE TABLE free_doc_confirm (
 	confirm_fdoc_img varchar2(200)	NULL
 );
 
-커뮤니티 community
+커뮤니티 community / 커뮤니티 댓글 doc_comment
 
 CREATE TABLE community (
    doc_no   number   NOT NULL,
@@ -96,111 +96,203 @@ CREATE TABLE community (
    doc_comment   number   NULL
 );
 
+CREATE TABLE doc_comment (
+   doc_cno   number   NOT NULL,
+   doc_no   number   NOT NULL,
+   doc_email varchar2(50) not null,
+   doc_nick   varchar2(50)   NULL,
+   doc_date   date   NULL,
+   doc_content   varchar2(2000)   NULL,
+   doc_secret number,
+   doc_ref number,
+   doc_lev number,
+   doc_seq number
+);
+
 책임분양등록 free_doc / 책임분양댓글 fdoc_refly
 
 CREATE TABLE free_doc (
-   fdoc_no   number      NOT NULL,
-   fdoc_email varchar2(50) not null,
-   fdoc_nick   varchar2(50)      NOT NULL,
-   fdoc_subject   varchar2(150)      NULL,
-   fdoc_content   clob  NULL,
-   fdoc_date   date      NULL,
-   fdoc_readcount   number      NULL,
-   fdoc_expiry   number      NULL,
-   fdoc_code   varchar2(20)      NULL,
-   fdoc_price   number NULL,
-   fdoc_big   varchar2(20)      NULL,
-   fdoc_kindof   varchar2(40)      NULL,
-   fdoc_thumbnail varchar2(200) NULL,
-   fdoc_loc varchar2(20) NULL,
-   fdoc_comment number null
+   doc_no   number      NOT NULL,
+   doc_email varchar2(50) not null,
+   doc_nick   varchar2(50)      NOT NULL,
+   doc_subject   varchar2(150)      NULL,
+   doc_content   clob  NULL,
+   doc_date   date      NULL,
+   doc_readcount   number      NULL,
+   doc_expiry   number      NULL,
+   doc_code   varchar2(20)      NULL,
+   doc_price   number NULL,
+   doc_big   varchar2(20)      NULL,
+   doc_kindof   varchar2(40)      NULL,
+   doc_thumbnail varchar2(200) NULL,
+   doc_loc varchar2(20) NULL,
+   doc_comment number null
 );
 
 CREATE TABLE fdoc_refly (
-   fdoc_cno   number   NOT NULL,
-   fdoc_no   number   NOT NULL,
-   fdoc_cnick   varchar2(50)   NULL,
-   fdoc_cdate   date   NULL,
-   fdoc_ccontent   varchar2(2000)   NULL,
-    fdoc_csecret number,
-    fdoc_ref number,
-    fdoc_lev number,
-    fdoc_seq number
+   doc_cno   number   NOT NULL,
+   doc_no   number   NOT NULL,
+   doc_email varchar2(50) not null,
+   doc_nick   varchar2(50)   NULL,
+   doc_date   date   NULL,
+   doc_content   varchar2(2000)   NULL,
+   doc_secret number,
+   doc_ref number,
+   doc_lev number,
+   doc_seq number
 );
 
 가정분양게시판 adopt_home / 가정분양 댓글 adopt_home_reply
 
 CREATE TABLE adopt_home (
-	home_no	number NOT NULL,
-	home_cemail varchar(40) NULL,
-	home_nick varchar2(20) NULL,
-	home_loc varchar2(10) NULL,
-	home_date date NULL,
-	home_readcount number NULL,
-	home_img varchar2(100) NULL,
-	home_phone number NULL,
-	home_subject varchar2(20) NULL,
-	home_price varchar2(20) NULL,
-	home_content varchar2(2000) NULL,
-	big_name	varchar2(20) NULL,
-	kindof	varchar2(20) NULL,
-	home_thumbnail varchar2(1000) NULL
+   doc_no   number      NOT NULL,
+   doc_email varchar2(50) not null,
+   doc_nick   varchar2(50)      NOT NULL,
+   doc_subject   varchar2(150)      NULL,
+   doc_content   clob  NULL,
+   doc_date   date      NULL,
+   doc_readcount   number      NULL,
+   doc_img varchar2(100) null,
+   doc_phone   number      NULL,
+   doc_expiry   number      NULL,
+   doc_code   varchar2(20)      NULL,
+   doc_price   number NULL,
+   doc_big   varchar2(20)      NULL,
+   doc_kindof   varchar2(40)      NULL,
+   doc_thumbnail varchar2(200) NULL,
+   doc_loc varchar2(20) NULL,
+   doc_comment number null
 );
 
 CREATE TABLE adopt_home_reply (
-	home_cno number NOT NULL,
-	home_no	number NOT NULL,
-	home_cemail varchar2(50) NULL,
-	home_cnick varchar2(20) NULL,
-	home_cdate date NULL,
-	home_ccontent varchar2(20) NULL,
-	home_csecret number NULL,
-	home_ref number NULL,
-	home_lev number NULL,
-	home_seq number NULL
+   doc_cno   number   NOT NULL,
+   doc_no   number   NOT NULL,
+   doc_email varchar2(50) not null,
+   doc_nick   varchar2(50)   NULL,
+   doc_date   date   NULL,
+   doc_content   varchar2(2000)   NULL,
+   doc_secret number,
+   doc_ref number,
+   doc_lev number,
+   doc_seq number
+);
+
+업체분양 adopt_list  / 업체분양 댓글 adopt_reply
+
+CREATE TABLE adopt_list (
+   doc_no   number      NOT NULL,
+   doc_email varchar2(50) not null,
+   doc_nick   varchar2(50)      NOT NULL,
+   doc_subject   varchar2(150)      NULL,
+   doc_content   clob  NULL,
+   doc_date   date      NULL,
+   doc_readcount   number      NULL,
+   doc_img varchar2(100) null,
+   doc_phone   number      NULL,
+   doc_expiry   number      NULL,
+   doc_code   varchar2(20)      NULL,
+   doc_price   number NULL,
+   doc_big   varchar2(20)      NULL,
+   doc_kindof   varchar2(40)      NULL,
+   doc_thumbnail varchar2(200) NULL,
+   doc_loc varchar2(20) NULL,
+   doc_comment number null
+);
+CREATE TABLE adopt_reply (
+   doc_cno   number   NOT NULL,
+   doc_no   number   NOT NULL,
+   doc_email varchar2(50) not null,
+   doc_nick   varchar2(50)   NULL,
+   doc_date   date   NULL,
+   doc_content   varchar2(2000)   NULL,
+   doc_secret number,
+   doc_ref number,
+   doc_lev number,
+   doc_seq number
 );
 
 파양게시판 payang / 파양 댓글 PAYANG_REPLY
 
 CREATE TABLE PAYANG 
 (
-  P_NO NUMBER NOT NULL 
-, P_EMAIL VARCHAR2(50) NOT NULL 
-, P_NICK VARCHAR2(20) NOT NULL 
-, p_NAME VARCHAR2(20) 
-, P_GENDER VARCHAR2(20) 
-, P_BIG_NAME VARCHAR2(20) 
-, P_KIND VARCHAR2(20) 
-, P_AGE NUMBER 
-, P_SIDO VARCHAR2(20) NOT NULL 
-, P_SIGUNGU VARCHAR2(20) 
-, P_ADDRESS VARCHAR2(20) 
-, P_SUBJECT VARCHAR2(20) NOT NULL 
-, P_CONTENT VARCHAR2(20) 
-, P_DATE DATE DEFAULT sysdate NOT NULL 
-, P_UPD_DATE DATE DEFAULT sysdate 
+  doc_NO NUMBER NOT NULL 
+, doc_EMAIL VARCHAR2(50) NOT NULL 
+, doc_NICK VARCHAR2(20) NOT NULL 
+, doc_NAME VARCHAR2(20) 
+, doc_GENDER VARCHAR2(20) 
+, doc_BIG VARCHAR2(20) 
+, doc_KINDof VARCHAR2(20) 
+, doc_AGE NUMBER 
+,   doc_readcount   number      NULL
+, doc_SIDO VARCHAR2(20) NOT NULL 
+, doc_SIGUNGU VARCHAR2(20) 
+, doc_ADDRESS VARCHAR2(20) 
+, doc_SUBJECT VARCHAR2(20) NOT NULL 
+, doc_CONTENT VARCHAR2(20) 
+, doc_DATE DATE DEFAULT sysdate NOT NULL 
+, doc_UPD_DATE DATE DEFAULT sysdate 
 , CONSTRAINT PAYANG_PK PRIMARY KEY 
-  ( P_NO )
+  ( doc_NO )
   ENABLE );
 
 CREATE TABLE PAYANG_REPLY 
 (
-  P_CNO NUMBER NOT NULL 
-, P_NO NUMBER NOT NULL 
-, P_EMAIL VARCHAR2(50) NOT NULL 
-, P_NICK VARCHAR2(20) 
-, P_CONTENT VARCHAR2(20) 
-, P_SECRET CHAR(2) DEFAULT 'N'
-, P_DATE DATE 
-, P_UPD_DATE DATE 
+  doc_CNO NUMBER NOT NULL 
+, doc_NO NUMBER NOT NULL 
+, doc_EMAIL VARCHAR2(50) NOT NULL 
+, doc_NICK VARCHAR2(20) 
+, doc_CONTENT VARCHAR2(20) 
+, doc_SECRET CHAR(2) DEFAULT 'N'
+, doc_DATE DATE 
+, doc_UPD_DATE DATE 
 , CONSTRAINT PAYANG_REPLY_PK PRIMARY KEY 
-  ( P_CNO )
+  ( doc_CNO )
 ENABLE );
 ALTER TABLE PAYANG_REPLY ADD CONSTRAINT PAYANG_REPLY_FK1 FOREIGN KEY
-( P_NO)
+( doc_NO)
 REFERENCES PAYANG
-(  P_NO )
+(  doc_NO )
 ON DELETE CASCADE ENABLE;
+
+
+실종게시판 missing / 파양 댓글 missing_REPLY
+
+CREATE TABLE missing 
+(
+  doc_NO NUMBER NOT NULL 
+, doc_EMAIL VARCHAR2(50) NOT NULL 
+, doc_NICK VARCHAR2(20) NOT NULL 
+, doc_NAME VARCHAR2(20) 
+, doc_GENDER VARCHAR2(20) 
+, doc_BIG VARCHAR2(20) 
+, doc_KINDof VARCHAR2(20) 
+, doc_AGE NUMBER 
+,   doc_readcount   number      NULL
+, doc_SIDO VARCHAR2(20) NOT NULL 
+, doc_SIGUNGU VARCHAR2(20) 
+, doc_ADDRESS VARCHAR2(20) 
+, doc_SUBJECT VARCHAR2(20) NOT NULL 
+, doc_CONTENT VARCHAR2(20) 
+, doc_DATE DATE DEFAULT sysdate NOT NULL 
+, doc_miss_DATE DATE DEFAULT sysdate 
+, CONSTRAINT missing_PK PRIMARY KEY 
+  ( doc_NO )
+  ENABLE );
+
+CREATE TABLE missing_REPLY 
+(
+  doc_CNO NUMBER NOT NULL 
+, doc_NO NUMBER NOT NULL 
+, doc_EMAIL VARCHAR2(50) NOT NULL 
+, doc_NICK VARCHAR2(20) 
+, doc_CONTENT VARCHAR2(20) 
+, doc_SECRET CHAR(2) DEFAULT 'N'
+, doc_DATE DATE 
+, doc_miss_DATE DATE 
+, CONSTRAINT missing_REPLY_PK PRIMARY KEY 
+  ( doc_CNO )
+ENABLE );
+
 
 게시판들 신고 warning
 

@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.project.samsam.member.MemberVO"%> 
+<%	
+	MemberVO vo = (MemberVO) request.getAttribute("MemberVO"); 
+%>  
+  
 
 <!doctype html>
 <html>
@@ -10,23 +16,62 @@
 <meta charset="utf-8" />
 <link href="resources/img/title.png" rel="shortcut icon" type="image/x-icon">
 <title>삼삼하개</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+
 <head profile="http://www.w3.org/2005/10/profile">
-<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-	<link href="resources/css/join_form.css"rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<link href="resources/css/join_form.css"rel="stylesheet"/>
 <script src="resources/js/login_form.js"></script>
+<!-- 스윗얼럿 -->
+<script src = "https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<style>
+/* pageup button */
+.back-to-top{
+   width : 40px;
+   height : 40px;
+   margin : 0 auto;
+   font-size : 24px;
+   color : white;
+   background-color : #149DDD;
+   border-radius : 50%;
+   visibility : visible;
+   position: fixed; 
+   bottom: 45px; 
+   right: 30px;
+   text-align : center;
+}
+/* pageup button */
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+.fas fa-home, i{
+    margin-top: 6px;
+}
 
+/*카카오톡 톡상담*/
+.kakaoChat {
+    text-align: right;
+    position: fixed;
+    margin-right: 28px;
+    bottom: 90px;
+    right: 0;
+}
+.kakao_btn {
+	border-radius: 1rem!important;
+}
+</style>
 <script type="text/javascript">
-
+ 
 
 $(document).ready(function(){
+	// name 속성이 'email'인 input 이 focus를 잃었을때 처리한다.
+	
+		
 	//이메일 체크
 		$('#email').focusout(function(){
-		
-		// name 속성이 'email'인 input 이 focus를 잃었을때 처리한다.
-		//$("input[name='email']").blur(function(){ 
-			var emailt = $('#email').val(); 
-			
 			// 값을 입력안한경우는 아예 체크를 하지 않는다.
+			//$("input[name='email']").blur(function(){ 
+		var emailt = $('#email').val(); 
 		if( emailt == '' || emailt == 'undefined' || emailt == null) 
 			return false; 
 			
@@ -77,6 +122,9 @@ $(document).ready(function(){
 	
 	//닉네임 체크 시작
 	$('#nick').focusout(function(){
+		//$("input[name='email']").blur(function(){ 
+		var emailt = $('#email').val(); 
+	
 		if( emailt == '' || emailt == 'undefined' || emailt == null) {
 			return false; 
 	}else{
@@ -210,14 +258,16 @@ function email_check(emailt) {
     	  alert("동의 후 회원가입이 완료됩니다");
     	  return;
       }
-     
-
-
+     console.log("너의 등급은 " + $('.grade').val())
+	 if($('.grade').val() == '일반'){
+	 swal("","인증번호가 발송되었습니다. 이메일을 확인하세요","info")
+	 }
      input_form.submit(); // 서버로 전송
     }
   </script>
 
-<title>회원가입</title>
+<link href="resources/img/title.png" rel="shortcut icon" type="image/x-icon">
+<title>삼삼하개</title>
 </head>
 
 <body>
@@ -228,11 +278,18 @@ function email_check(emailt) {
   <h1>SIGN UP</h1>
 </hgroup>
 </div>
+<% if (vo!= null) {%>
+<form name="input_form" action = "kkoJoin.me" method="post" class="joinform" onsubmit="return check_input();" >
+<%}else{ %>
 <form name="input_form" action = "signUp.me" method="post" class="joinform" onsubmit="return check_input();" >
-
+<%} %>
 <div class="group">
   <div class="id">
-	<input type="text"name="email" id="email"><span class="highlight"></span><span class="bar"></span>
+  <% if(vo != null){ %>
+  <input type="text"name="email" id="email" readonly value=<%=vo.getEmail() %>>
+  <%} else {%>
+	<input type="text"name="email" id="email">
+  <%} %><span class="highlight"></span><span class="bar"></span>
     <label for="email" class="label-email"id="labelemail"><span class="content-email">Email</span></label>
   </div>
   <div class ="check_email"></div>
@@ -244,7 +301,11 @@ function email_check(emailt) {
 </div>
 <div class="group">
 <div class="nick">
-	<input type="text"name="nick"id="nick"><span class="highlight"></span><span class="bar"></span>
+<% if(vo != null){ %>
+<input type="text"name="nick"id="nick" value=<%=vo.getNick() %>>
+<%} else {%>
+	<input type="text"name="nick"id="nick">
+<%} %>	<span class="highlight"></span><span class="bar"></span>
     <label for="nick" class="label-email"id="labelnick"><span class="content-email">닉네임</span></label>
 </div>
 <div class ="check_nick"></div>
@@ -311,13 +372,30 @@ function email_check(emailt) {
 회원가입</button>
   </div>
 <div class="etc">
-			<input type="hidden" name="grade"value="일반">
-			<input type="hidden" name="authkey"value="">
-			<input type="hidden" name="status"value="">
+			<% if(vo != null){ %>
+				<input type="hidden" name = "grade" value =<%=vo.getGrade() %>>
+			<%} else{%>
+			<input type="hidden" name="grade" class = "grade" value="일반">
+			<input type="hidden" name="authkey" value="">
+			<input type="hidden" name="status" value="0">
+			<%} %>
 		</div>
 			
 
 </form> 
+	<!-- 카카오톡 채널 상담 -->
+	<div class="kakaoChat">
+	<a href="javascript:void plusFriendChat()">
+    <img src="resources/img/kakaolink_btn_medium.png" width="45px" height="45px" class="kakao_btn">
+	</a>
+	</div>
+	
+	<!-- pageup button -->
+	<div class ="back-to-top">
+	<a href="home.me" class ="back-to-top" style="display: inline;">
+	<i class = "fas fa-home"></i>
+	</a>
+	</div>
 </div>
 </body>
 </html>

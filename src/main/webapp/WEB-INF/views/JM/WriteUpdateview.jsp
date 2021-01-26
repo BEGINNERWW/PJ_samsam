@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.project.samsam.board.adopt_homeVO"%>
 
+
+<%
+adopt_homeVO vo = (adopt_homeVO) request.getAttribute("vo");
+String email = (String) session.getAttribute("email");
+%>
 <html>
 <head>
 
@@ -10,36 +16,6 @@
    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
    crossorigin="anonymous">
 <style>
-html, body {
-   margin: 0;
-   padding: 0;
-   height: 100%;
-   overflow: hidden;
-}
-.body_content {
-   margin: 0;
-   height: 100vh;
-    min-height : 600px;
-    box-sizing : content-box;
-   line-height: 1.7;
-    color: gray;
-      font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 300;
-    font-size: .9rem;
-    overflow:scroll;
-}
-table {
-   margin: auto;
-   width: 60%;
-   border-top: 1px solid #444444;
-   border-collapse: collapse;
-}
-
-th, td {
-   border-bottom: 1px solid #444444;
-   padding: 10px;
-}
-
 textarea {
    -webkit-writing-mode: horizontal-tb !important;
    text-rendering: auto;
@@ -99,356 +75,335 @@ a {
 @charset "utf-8";
 
 * {
-   margin: 0;
+   margin:0;
    padding: 0;
 }
-
-html {
-   margin: 0 auto;
-   width: 100%;
+html{
+   margin:0 auto;
+   width : 100%;
    height: 100%;
-   overflow: hidden;
+    overflow: auto;
 }
 
-a:hover {
-   color: #0056b3;
-   text-decoration: none;
-}
 
 body {
    margin: 0;
-   height: 100vh;
-   min-height: 600px;
-   box-sizing: content-box;
+   height: auto;
+    min-height : 600px;
+    box-sizing : content-box;
    line-height: 1.7;
-   color: gray;
-   font-family: 'Noto Sans KR', sans-serif;
-   font-weight: 300;
-   font-size: .9rem;
+    color: gray;
+      font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    font-size: .9rem;
 }
 
-a {
-   text-decoration: none;
-   color: #9494b8;
+
+a{
+   text-decoration : none;
+   color : #9494b8;
+}
+a:hover {
+    color: #0056b3;
+    text-decoration: none;
 }
 
 body {
    text-align: -webkit-center;
+   display : flex;
+   flex-direction : column;
+   justify-content : space-between;
 }
 
-.body_content {
-   margin: 0;
-   padding: 0;
-   width: 100%;
-   height: 100vh;
-   display: flex;
-   flex-direction: column;
-   overflow: auto;
+.body_content{
+     margin : 0;
+     padding : 0;
+     width : 100%;
+     height:100vh;
+    display : flex;
+    flex-direction : column;
 }
 
 #header {
-   width: 100%;
-   height: 190px;
-   box-sizing: content-box;
-   display: flex;
-   flex-direction: column;
-   border-bottom: 1px solid #efefef;
-   padding-bottom: 20px;
+    width: 100%;
+    height: 189px;
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #efefef;
+    padding-bottom: 18px;
+    background-color : #fff;
+    position : fixed;
+    z-index : 100;
+    top : 0;
+    left : 0;
+    right : 0;
 }
 
-.inout_gocen {
-   position: fixed;
-   top: 20px;
-   right: 390px;
+.inout_gocen{
+   position : inline;
+   display : flex;
+   justify-content : flex-end;
+   margin-top : 20px;
+   margin-right : 340px;
+   background-color : #fff;
 }
-
+.fixinner{
+   position: fixed; 
+}
 .header-top {
-   margin-top: 40px;
-   display: flex;
-   justify-content: flex-start;
+   margin-top : -10px;
+   display : flex;
+   justify-content : flex-start;
    margin-right: auto;
 }
-
-.header_btn {
-   width: 70px;
-   height: 30px;
-   background-color: #fff;
-   color: #9494b8;
-   border-radius: 5px;
-   border: none;
-   outline: 0;
+.header_btn{
+   width : 70px;
+   height : 30px;
+   background-color : #fff;
+   color : #9494b8;
+    border-radius: 5px;
+    border : none;
+    outline : 0;
 }
-
-.header_btn:hover {
-   color: #6200cc;
+.header_btn:hover{
+   color : #6200cc;
    font-weight: 700;
 }
-
-#logout, #mypage {
-   display: none;
+#logout, #mypage{
+   display : none;
 }
-
-.img-circle {
-   width: 450px;
-   height: 150px;
+.img-circle{
+   width : 450px;
+   height : 150px;
    display: block;
-   margin: 0 auto;
+   margin : 0 auto;
 }
-
-.nav-menu {
-   margin: 0 auto;
-   display: flex;
-   justify-content: space-around;
+.nav-menu{
+   margin : 0 auto;
+   display : flex;
+   justify-content : space-around;
    align-items: baseline;
    width: 1200px;
 }
-
-.sticky-wrapper {
+.sticky-wrapper{
    width: 400px;
    height: 50px;
-   margin: 0;
+   margin : 0;
    margin-left: 0;
-   position: sticky;
-   list-style: none;
-   display: flex;
-   padding: 0;
+     position: sticky;
+     list-style : none;
+    display : flex;
+    padding: 0;
 }
 
-.sticky-wrapper>li {
-   padding: 8px 8px;
-   list-style-type: none;
+.sticky-wrapper > li{
+   padding : 8px 8px;
+   list-style-type:none;
    float: left;
 }
-
-.sticky-wrapper>ul {
-   padding: 8px 8px;
+.sticky-wrapper > ul{
+   padding : 8px 8px;
 }
 
 li.dropdown {
-   color: #9494b8;
-   background: #fff;
-   transition: .3s all ease;
-   font-size: 20px;
-   width: 90px;
-   height: 50px;
-   text-align: -webkit-center;
+    color: #9494b8;
+    background: #fff;
+    transition: .3s all ease;
+    font-size: 20px;
+    width: 90px;
+    height: 50px;
 }
 
-.sticky-wrapper.active {
+.sticky-wrapper.active{
    position: fixed;
-   top: 0px;
+    top: 0px;
 }
 
 /* dropdown */
 .dropdown-menu {
    display: none;
-   justify-content: flex-start;
+      justify-content : flex-start;
    position: absolute;
-   list-style: none;
-   visibility: visible;
-   background-color: rgb(0, 0, 0, 0);
-   width: 350px;
-   top: 48px;
-   padding: 5px;
+   list-style : none;
+    visibility: visible;
+    background-color: #fff;
+   width: 1200px;
+   top : 48px;
+   margin-left : -30px;
    border: none;
-}
-.dropdown_1{
-   backgrond-color:transparent !important;
-   border:0px;
-   
+   border-top: 1px solid #efefef;
 }
 
-
-.dropdown-menu li {
-   margin-right: 40px;
-   text-decoration: none;
-    color: #9494b8;
+.board {
+   padding-left: 46px;
+}
+.care {
+   padding-left: 30px;
+}
+.commu {
+   padding-left: 35px;
 }
 
-.dropdown:hover .dropdown-menu {
-   display: flex;
-   visibility: visible;
+li.dropdown > a {
+    text-decoration: none;
+}
+
+.dropdown-menu li{
+   margin-right : 40px;
+}
+.dropdown:hover .dropdown-menu { 
+   display: flex; 
+   visibility: visible; 
 }
 
 /* search-wrapper */
 .search-wrapper {
-   padding: 5px;
-   width: 280px;
-   height: 38px;
-   display: flex;
-   justify-content: space-betwwen;
-   background: #fff;
-   border: 2px solid #9494b8;
-   border-radius: 10px;
+  padding : 5px;
+  width: 280px;
+  height: 38px;
+  display: flex;
+  justify-content : space-betwwen;
+  background: #fff;
+  border: 2px solid #9494b8;
+  border-radius: 10px;
 }
-
 .search-box {
-   height: 100%;
-   padding: 0;
-   border: none;
-   background: #fff;
+  height : 100%;
+  padding: 0;
+  border: none;
+  background: #fff;
 }
-
 .search-box.input {
-   width: 80%;
-   margin-left: 15px;
-   font-size: .9rem;
+  width : 80%;
+  margin-left : 15px;
+  font-size : .9rem;
 }
+.search-box.input:focus {outline:none;}
 
-.search-box.input:focus {
-   outline: none;
-}
-
-.search-box.btn {
-   color: #9494b8;
-   text-align: left;
+.search-box.btn1 {
+  color : #9494b8;
+  text-align : left; 
 }
 
 /* search-wrqpper */
-.main-content {
-   width: 100%;
-   height: 100%;
-   margin: 0 auto;
+
+.main-content{
+   width : 100%;
+   height : auto;
+   margin : 0 auto;
 }
+
 
 /* footer */
 #footer {
-
-   position: relative;
-    margin: -15px auto;
-    width: 100%;
-    bottom: 35px;
-    padding-top: 35px;
-    z-index: -1;
-    border-top: 1px solid #efefef;
-    
+    margin: 0 auto;
+    width: fit-content;
+    bottom: 20px;
+    position: relative;
 }
 
-
-
-
-p {
-   text-align: left;
-}
-
-.fa-heart {
-   color: red;
+.fa-heart{
+   color : red;
 }
 
 /* pageup button */
-.back-to-top {
-   width: 40px;
-   height: 40px;
-   margin: 0 auto;
-   font-size: 24px;
-   color: white;
-   background-color: #149DDD;
-   border-radius: 50%;
-   visibility: visible;
-   position: fixed;
-   bottom: 45px;
+.back-to-top{
+   width : 40px;
+   height : 40px;
+   margin : 0 auto;
+   font-size : 24px;
+   color : white;
+   background-color : #149DDD;
+   border-radius : 50%;
+   visibility : visible;
+   position: fixed; 
+   bottom: 45px; 
    right: 30px;
-   text-align: center;
+   text-align : center;
 }
 /* pageup button */
 *, ::after, ::before {
-   box-sizing: border-box;
+    box-sizing: border-box;
 }
+
 
 /*카카오톡 톡상담*/
 .kakaoChat {
-   width: 44px;
-   height: 100px;
-   margin: 0 auto;
-   font-size: 24px;
-   color: white;
-   border-radius: 50%;
-   visibility: visible;
-   position: fixed;
-   bottom: 45px;
-   right: 30px;
-   text-align: center;
+    text-align: right;
+    position: fixed;
+    margin-right: 28px;
+    bottom: 90px;
+    right: 0;
 }
-
 .kakao_btn {
-   border-radius: 1rem !important;
+   border-radius: 1rem!important;
 }
 
 /* side menu와 내용 묶음 */
 .content-wrap {
-    width: 1200px;
-    margin: 0 auto;
-    position: relative;
-    top: 50px;
-    overflow: visible;
-    margin-bottom: 100;
-
+   width: 1200px;
+   min-height: 100%;
+   margin: 0 auto;
+   position: relative;
+   top: 50px;
+   
 }
-
-.cont_comment {
-   margin-top: 35px;
-}
-
-.content-wrap::-webkit-scrollbar {
-   display: none;
-}
-
+/* side menu 틀*/
 .sidemenu-section {
-   width: 200px;
-   position: absolute;
-   font-size: 18px;
-   text-align: left;
-   height: 100%;
-   padding: 0px 0px 0 0;
-   margin-left: 0;
+    width: 200px;
+    font-size: 18px;
+    text-align: left;
+    min-height: 740px;
+    border-right-color: darkblue;
+    border-right: 1px solid #efefef;
+    padding: 0px 0px 0 0;
+    margin-left: 0;
+    margin-top: 210px;
+    position: fixed;
 }
 
+
+/* 내용 틀*/
 .content-section {
-   width: 1000px;
-   position: relative;
-   left: 200px;
-   text-align: left;
-   font-size: 14px;
-   margin-top: 3px;
-   color: black;
-   padding-left: 50px;
-   border-left: 1px solid #efefef;
+    width: 1001px;
+    height: max-content;
+    position: relative;
+    left: 100px;
+    text-align: left;
+    font-size: 14px;
+    margin-top: 0px;
+    color: black;
+    margin-left: 0;
+    padding-bottom: 100px;
+    border-left-color: darkblue;
+    border-left: 1px solid #efefef;
+    padding-left: 50px;
+    padding-right: 0;
+    min-height: 940px;
+    padding-top: 200px;
 }
-
-.content-section::-webkit-scrollbar {
-   display: none;
+.list-group {
+   border-bottom: 1px solid rgba(0,0,0,.125);
 }
-
 .list-group-item {
-   position: relative;
-   display: block;
-   padding: .75rem 1.25rem;
-   margin-bottom: -1px;
-   background-color: white;
-   border: 1px solid rgba(0, 0, 0, .125);
+    position: relative;
+    display: block;
+    padding: .75rem 1.25rem;
+    margin-bottom: -1px;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,.125);
+}
+/* 현재 페이지의 서브메뉴 */
+li.list-group-item.click > a {
+    font-weight: bold;
+    color: #5c5c8a;
 }
 
-li.list-group-item.click>a {
-   font-weight: bold;
-   color: #5c5c8a;
-}
 
-.list-group-item>a {
-   text-decoration: none;
-}
-
-.dropdown-menu {
-   display: none;
-   justify-content: flex-start;
-   position: absolute;
-   list-style: none;
-   visibility: visible;
-   background-color: rgb(0, 0, 0, 0);
-   width: 350px;
-   top: 48px;
-   padding: 5px;
-   border: none;
-}
+.list-group-item > a {
+   text-decoration : none;
+   }
 
 a {
    text-decoration: none;
@@ -519,20 +474,7 @@ a {
    color: #666;
 }
 
-ul {
-   display: block;
-   list-style-type: disc;
-   margin-block-start: 1em;
-   margin-block-end: 1em;
-   margin-inline-start: 0px;
-   margin-inline-end: 0px;
-   padding-inline-start: 40px;
-}
 
-li {
-   display: list-item;
-   text-align: -webkit-match-parent;
-}
 
 .all dd, .all dl, .all dt, .all p, li, ul {
    list-style: none;
@@ -577,15 +519,8 @@ body, button, div, input, select, table, td, textarea, th {
    -webkit-font-smoothing: antialiased;
 }
 
-body, div, table, td, th, tr {
-   line-height: 1.6;
-}
 
-body {
-   margin: 0;
-   padding: 0;
-   font-size: 13px;
-}
+
 
 .comment_section .comment_info .comment_post .ico_bbs.ico_new,
    .comment_section .comment_info .comment_post .ico_role,
@@ -801,10 +736,11 @@ textarea {
 }
 
 .btn_g.full_type1 {
-   background-color: #ff5656;
+   background-color: #ed457d;
    color: #fff;
    border: 0;
 }
+
 
 .btn_g {
    display: inline-block;
@@ -824,7 +760,7 @@ display:inline-block;
 float:right;
 margin-right:40px;
 }
-select, input, button, textarea {
+select,button, textarea {
     display: inline-block;
     font-family: "Malgun Gothic", 'MalgunGothic', '맑은고딕', sans-serif;
     font-size: 12px;
@@ -840,7 +776,7 @@ select, input, button, textarea {
     width: 100%;
     min-height: 40px;
     padding: 11px 12px 10px;
-    border: 1px solid #ebecef;
+   border: 1px solid #ebecef;
     box-sizing: border-box;
     overflow: hidden;
     resize: none;
@@ -859,14 +795,15 @@ select, input, button, textarea {
    margin-top:20px;
    margin-bottom:20px;
    padding: 15px 48px 20px 35px;
-    border-radius: 5px 5px 5px 5px;
-    border: 1px solid #f2f2f2;
+    border: 1px solid #ebecef;
 }
 .option1{
    display:inline-block;
    padding-bottom:10px;
    margin-right:24px;
 }
+
+
 </style>
 
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"
@@ -888,7 +825,17 @@ select, input, button, textarea {
 
 
 <!-- include libraries(jQuery, bootstrap) -->
-
+<script>
+    $('.search-box btn').click(function(){
+      
+    });
+    $('#keyword').keypress(function(event){
+      if(event.which == 13){
+        $('.search-box btn').click();
+        return false;
+      }
+    });
+</script>
 <script>
 
 $(document).ready(function() {
@@ -909,7 +856,7 @@ $(document).ready(function() {
           ],
         fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
         fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
-        height: 300,                 // 에디터 높이
+        height: 600,                 // 에디터 높이
         minHeight: null,             // 최소 높이
         maxHeight: null,             // 최대 높이
         focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
@@ -944,14 +891,14 @@ $(document).ready(function() {
        });
      }
    
-   $("input:radio[name=home_big]").click(function(){
+   $("input:radio[name=big_name]").click(function(){
         $('#kind1').empty();
         $('#kind2').empty();
         $('#kind3').empty();
-        if($("input[name='home_big']:checked").val() =="강아지"){
+        if($("input[name='big_name']:checked").val() =="강아지"){
            var output ='';
            output += '<div class="option1">';
-           output += '<div><select class= "form-control" style="width:250px;" size="1" id="home_kindof" name="home_kindof">';
+           output += '<div><select class= "form-control" style="width:250px;" size="1" id="kindof" name="kindof">';
            output += '<option value="hide">선택하세요</option>';
            output += '<option value="포메라니안">포메라니안</option>';
            output += '<option value="치와와">치와와</option>';
@@ -983,10 +930,10 @@ $(document).ready(function() {
            output += '</select></div></div>';
            $('#kind1').append(output);
         }
-        else if($("input[name='home_big']:checked").val() =="고양이"){
+        else if($("input[name='big_name']:checked").val() =="고양이"){
            var output ='';
            output += '<div class="option1">';
-           output += '<div><select class="form-control" style="width:250px;" size="1" id="home_kindof" name="home_kindof">';
+           output += '<div><select class="form-control" style="width:250px;" size="1" id="kindof" name="kindof">';
            output += '<option value="hide">선택하세요</option>';
            output += '<option value="노르웨이 숲 고양이">노르웨이 숲 고양이</option>';
            output += '<option value="데본렉스">데본렉스</option>';
@@ -1035,7 +982,7 @@ $(document).ready(function() {
         }
         else{
            var output = '';
-           output += '<div class="option1"><input class="form-control" style="width:300px;" type="text" name="home_kindof" placeholder="직접 입력해주세요"></div>'
+           output += '<div class="option1"><input class="form-control" style="width:300px;" type="text" name="kindof" placeholder="직접 입력해주세요"></div>'
             $('#kind3').append(output);
         }
      });
@@ -1068,62 +1015,69 @@ function setThumbnail(event) {
 
       <header id="header">
 
-         <div class="inout_gocen">
-            <input type="button" class="header_btn" id="login" value="로그인">
-            <input type="button" class="header_btn" id="logout" value="로그아웃">
-            <input type="button" class="header_btn" id="signin" value="회원가입">
-            <input type="button" class="header_btn" id="mypage" value="마이페이지">
-            <input type="button" class="header_btn" id="gocen" value="고객센터">
-         </div>
-
-         <div class="nav-menu">
+         <div class ="inout_gocen">
+         <%if(email != null){ %>
+         
+         <input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='logout.me'">
+         <input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='mypage.me'">
+         <%}else{ %>
+         <input  type="button" class= "header_btn" value="로그인" onclick="location.href='loginForm.me'">
+         <input  type="button" class= "header_btn" value="회원가입" onclick="location.href='joinform.me'">
+         <%} %>
+         <a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
+      </div>
+   
+   
+   <div class="nav-menu">
             <ul class="sticky-wrapper">
-               <li class="dropdown"><a href="main.me">HOME</a></li>
-               <li class="dropdown"><a href="board.me">분양</a>
-                  <ul class="dropdown-menu dropdown_1">
-                     <li><a href="#">&nbsp;&nbsp;가정분양</a></li>
-                     <li><a href="homelist.bo">책임분양</a></li>
-                     <li><a href="#">업체분양</a></li>
+               <li class="dropdown"><a href="home.me">HOME</a></li>
+               <li class="dropdown"><a href="home_list.bo">분양</a>
+                  <ul class="dropdown-menu board">
+                     <li><a href="home_list.bo">&nbsp;&nbsp;가정분양</a></li>
+                     <li><a href="fdoclist.bo">책임분양</a></li>
+                     <li><a href="selladopt_list.bo">업체분양</a></li>
                   </ul></li>
-               <li class="dropdown"><a href="care.me">보호소</a>
-                  <ul class="dropdown-menu">
-                     <li><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
-                     <li><a href="#">파양</a></li>
-                     <li><a href="#">실종</a></li>
+               <li class="dropdown"><a href="SJ/pet_list">보호소</a>
+                  <ul class="dropdown-menu care">
+                     <li><a href="SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
+                     <li><a href="SJ/payang/list">파양</a></li>
+                     <li><a href="SJ/missing/list">실종</a></li>
                   </ul></li>
-               <li class="dropdown"><a href="community.me">커뮤니티</a>
-                  <ul class="dropdown-menu">
-                     <li><a href="#">&nbsp;자유게시판</a></li>
-                     <li><a href="#">책임분양인증</a></li>
+               <li class="dropdown"><a href="doclist.bo">커뮤니티</a>
+                  <ul class="dropdown-menu commu">
+                     <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
+                     <li><a href="auth_fdoc.bo">책임분양인증</a></li>
                   </ul></li>
             </ul>
-
-            <div class="header-top">
-               <div class="mainlogo">
-                  <a href="#"> <img src="./resources/img/mainlogo.png"
-                     class="img-circle">
-                  </a>
-               </div>
-            </div>
+   
+   <div class="header-top">
+      <div class="mainlogo">
+      <a href="home.me">
+      <img src = "./resources/img/mainlogo.png" class = "img-circle">
+      </a>
+      </div>
+   </div>
+    <form action="home_search.me" method="post" name="home_search">
             <div class="search-wrapper">
-               <input class="search-box input" type="text" placeholder="Search">
-               <button class="search-box btn" type="button">
+               <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
+               <button class="search-box btn" type="submit">
                   <i class="fas fa-search"></i>
                </button>
             </div>
+      </form>
          </div>
          <!-- nav-menu -->
       </header>
 
-
+<div class="main-content">
       <div class="content-wrap">
 
          <!-- 왼쪽. 서브메뉴가 들어갈 부분 -->
          <div class="sidemenu-section" id="left">
             <ul class="list-group list-group-flush">
-               <li class="list-group-item click"><a href="/">가정분양</a></li>
-               <li class="list-group-item"><a href="homelist.bo">책임분양</a></li>
-               <li class="list-group-item"><a href="/">업체분양</a></li>
+				<li class="list-group-item"><a href="home_list.bo">가정분양</a></li>
+				<li class="list-group-item  click"><a href="fdoclist.bo">책임분양</a></li>
+				<li class="list-group-item"><a href="selladopt_list.bo">업체분양</a></li>
             </ul>
          </div>
 
@@ -1134,10 +1088,10 @@ function setThumbnail(event) {
             <div class="content-form">
       
        
-   <form method="post" action="home_write.bo" enctype="multipart/form-data">
-
+   <form method="post" action="home_update.bo" enctype="multipart/form-data">
+	<input type="hidden" name="home_no" value=<%=vo.getHome_no() %>>
       <div><div><textarea name="home_subject" placeholder="제목을 입력해 주세요." class="textarea_input" style="height: 40px;"></textarea></div></div>
-     <div class="option_box"><div style="padding-bottom:20px;">입력사항</div>
+     <div class="option_box">
      
        <div class="option1"><div style="display:inline-block;margin-right:10px;"><input type="radio" name="big_name" value="강아지">&nbsp;&nbsp;강아지&nbsp;&nbsp;&nbsp;&nbsp;<span id="kind1"></span></div>
          <div style="display:inline-block;margin-right:10px;"><input type="radio" name="big_name" value="고양이">&nbsp;&nbsp;고양이&nbsp;&nbsp;&nbsp;&nbsp;<span id="kind2"></span></div>
@@ -1146,7 +1100,7 @@ function setThumbnail(event) {
         
     <div>
    <div class="option1">분양비&nbsp;:&nbsp;&nbsp;&nbsp;<input class="form-control" style="width:200px; display:inline-block;" type="text" name="home_price" placeholder="분양비를 입력해주세요"></div> 
-   <div class="option1">지&nbsp;&nbsp;역&nbsp;:&nbsp;&nbsp;&nbsp;<select class="form-control" style="width:200px; display:inline-block;" size="1" id="home_loc" name="home_loc">
+   <div class="option1">지&nbsp;&nbsp;역&nbsp;:&nbsp;&nbsp;&nbsp;<select class="form-control" style="width:200px; display:inline-block;" size="1" id="loc" name="loc">
             
             <option value="서울">서울</option>
             <option value="부산">부산</option>
@@ -1166,21 +1120,8 @@ function setThumbnail(event) {
             <option value="경남">경남</option>
             <option value="제주">제주</option>
    </select></div>
-   <div class="option1">책임기간 &nbsp;:&nbsp;&nbsp;&nbsp;<select class="form-control" style="width:180px; display:inline-block;" size="1" id="home_expiry" name="home_expiry">
-               <option value="1">1개월</option>
-               <option value="2">2개월</option>
-               <option value="3">3개월</option>
-               <option value="4">4개월</option>
-               <option value="5">5개월</option>
-               <option value="6">6개월</option>
-               <option value="7">7개월</option>
-               <option value="8">8개월</option>
-               <option value="9">9개월</option>
-               <option value="10">10개월</option>
-               <option value="11">11개월</option>
-               <option value="12">12개월</option>
-               </select>
-   </div></div></div>
+   
+   </div></div>
    <!--  
    <tr><td>썸네일용 이미지를 업로드해주세요</td></tr>
    <tr><td><input type="file" name="home_Image" onchange="setThumbnail(event);"></td></tr>
@@ -1194,7 +1135,7 @@ function setThumbnail(event) {
 
       
       </div>
-      <div><input class="btn_g full_type1" type="button" onclick="#" value="수정" style="float: right;"><input class="btn_g full_type1" type="button" value="뒤로" onclick="javascript:history.go(-1)" style="float:right; margin-right:10px;"></div></div>
+      <div><input class="btn_g full_type1" type="submit" id="homeupdate_submit" value="수정" style="float: right;"><input class="btn_g full_type1" type="button" value="뒤로" onclick="javascript:history.go(-1)" style="float:right; margin-right:10px;"></div></div>
       
       
    </form>
@@ -1232,6 +1173,7 @@ function setThumbnail(event) {
                class="fas fa-heart"></i> by SamSam
       </footer>
    </div>
+   </div>
    <!-- 바디컨텐트 -->
 
 
@@ -1261,3 +1203,9 @@ function setThumbnail(event) {
 
 
 </body>
+
+<style>
+	.note-editor.note-frame {
+    border: 1px solid #ebecef;
+}
+</style>

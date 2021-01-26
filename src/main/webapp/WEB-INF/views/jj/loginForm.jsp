@@ -8,12 +8,50 @@
 <meta charset="UTF-8">
 <link href="resources/img/title.png" rel="shortcut icon" type="image/x-icon">
 <title>삼삼하개</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+
 	<link href="resources/css/login_form.css"rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 	<script src="resources/js/login_form.js"></script>
 	<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script> <!-- 카카오톡 자바스크립트 라이브러리 -->
 	<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script> <!-- 네이버 js 라이브러리 -->
-	
+<style>
+/* pageup button */
+.back-to-top{
+   width : 40px;
+   height : 40px;
+   margin : 0 auto;
+   font-size : 24px;
+   color : white;
+   background-color : #149DDD;
+   border-radius : 50%;
+   visibility : visible;
+   position: fixed; 
+   bottom: 45px; 
+   right: 30px;
+   text-align : center;
+}
+/* pageup button */
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+.fas fa-home, i{
+    margin-top: 6px;
+}
+/*카카오톡 톡상담*/
+.kakaoChat {
+    text-align: right;
+    position: fixed;
+    margin-right: 28px;
+    bottom: 90px;
+    right: 0;
+}
+.kakao_button {
+	border-radius: 1rem!important;
+	width : 45px;
+	height : 45px;
+}
+</style>	
 
 	<script type="text/javascript">
 		document.addEventListener("DOMContentLoaded", function(){
@@ -26,7 +64,7 @@
 					console.log(authObj);
 					Kakao.API.request({
 						url: '/v2/user/me', //v1/user/me api는 종료
-						success: function(res) {
+			 			success: function(res) {
 						    console.log(res);
 						    						    
 						  	$('.email').val(res.kakao_account.email);
@@ -121,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function(){
     <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
   </button>
   <div class="login-item">
- 	 <a href ="joinform.me">비밀번호찾기</a>
+ 	 <a href ="pw_find.me">비밀번호찾기</a>
 	<a href ="joinform.me">회원가입</a>
 	</div>
 </form>
@@ -142,6 +180,18 @@ document.addEventListener("DOMContentLoaded", function(){
 <input type="hidden" class="n_email" name = "email" value = "">
 <input type="hidden" class="n_name" name = "nick" value="">
 </form>
-
+	<!-- 카카오톡 채널 상담 -->
+	<div class="kakaoChat">
+	<a href="javascript:void plusFriendChat()">
+    <img src="resources/img/kakaolink_btn_medium.png" width="45px" height="45px" class="kakao_button">
+	</a>
+	</div>
+	
+	<!-- pageup button -->
+	<div class ="back-to-top">
+	<a href="home.me" class ="back-to-top" style="display: inline;">
+	<i class="fas fa-home"></i>
+	</a>
+	</div>
 </body>
 </html>

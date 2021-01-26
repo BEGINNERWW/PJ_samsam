@@ -28,8 +28,7 @@ public class Doc_Controller {
 	
 	@RequestMapping("/doc_write.bo")
 	public String DocInsert(DocVO vo) throws Exception {
-		vo.setDoc_nick("2");//���� ���̵� ����
-		vo.setDoc_email("gmail.com");//���� �̸��� ����
+	
 		DocService.boardInsert(vo);
 		
 		return "redirect:/doclist.bo";
@@ -83,7 +82,7 @@ public class Doc_Controller {
 		model.addAttribute("page",page);
 		return "js/doc_view";
 	}
-	
+	/*
 	@ResponseBody
 	@RequestMapping(value="/doccomment_insert.bo",produces="application/json;charset=UTF-8")
 	private int mCommentServiceInsert(DocReflyVO comment, HttpSession session) throws Exception{
@@ -142,6 +141,7 @@ public class Doc_Controller {
 			
 		}
 	}
+	*/
 	@RequestMapping(value = "/doc_update.bo", method = RequestMethod.GET)
 	public String doc_update(@RequestParam(value="doc_no", required=true) int doc_no,Model model) {
 		DocVO vo = DocService.getView(doc_no);

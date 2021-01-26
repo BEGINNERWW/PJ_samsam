@@ -1,17 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
 <%@ page import="java.util.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+String email = (String) session.getAttribute("email");
+%>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>보호소</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta charset="utf-8">
+<link href="resources/img/title.png" rel="shortcut icon" type="image/x-icon">
+<title>삼삼하개</title>
 
 <!-- 템플릿  CSS -->
 
-<link rel="stylesheet" href="./resources/fonts/icomoon/style.css">
-
+<!-- 폰트 -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&display=swap" rel="stylesheet">
@@ -20,7 +22,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
 
 <!-- 부트스트랩 4.0 CSS -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<!-- 제이쿼리 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 	
 <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>  -->
 
@@ -34,8 +39,6 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 
 <style>
-
-@charset "utf-8";
 
 * {
    margin:0;
@@ -89,7 +92,7 @@ body {
 
 #header {
     width: 100%;
-    height: 190px;
+    height: 189px;
     box-sizing: content-box;
     display: flex;
     flex-direction: column;
@@ -97,7 +100,7 @@ body {
     padding-bottom: 18px;
     background-color : #fff;
     position : fixed;
-      z-index : 10000;
+    z-index : 100;
     top : 0;
     left : 0;
     right : 0;
@@ -244,7 +247,7 @@ li.dropdown > a {
 }
 .search-box.input:focus {outline:none;}
 
-.search-box.btn {
+.search-box.btn1 {
   color : #9494b8;
   text-align : left; 
 }
@@ -258,9 +261,14 @@ li.dropdown > a {
 }
 
 
-p{
-   text-align : center;
+/* footer */
+#footer {
+    margin: 0 auto;
+    width: fit-content;
+    bottom: 20px;
+    position: relative;
 }
+
 .fa-heart{
    color : red;
 }
@@ -341,15 +349,9 @@ p{
     min-height: 940px;
     padding-top: 200px;
 }
-
-#footer {
-    margin: 0 auto;
-    width: fit-content;
-    bottom: 20px;
-    position: relative;
+.list-group {
+	border-bottom: 1px solid rgba(0,0,0,.125);
 }
-
-/* 각각의 페이지에서 사용할 CSS */
 .list-group-item {
     position: relative;
     display: block;
@@ -364,10 +366,10 @@ li.list-group-item.click > a {
     color: #5c5c8a;
 }
 
+
 .list-group-item > a {
 	text-decoration : none;
 	}
-
 
     
 ul {
@@ -1208,6 +1210,11 @@ ol, ul {
 	    text-align: center;
 	    cursor: pointer;
 	}
+
+	.tab-left.on, .tab-right.on {
+		color: #0056b3;
+		font-weight: 700;
+	}
 	
 	.tab-left {
 		float: left;
@@ -1242,6 +1249,17 @@ ol, ul {
 
 </style>
 </head>
+<script>
+    $('.search-box btn').click(function(){
+      
+    });
+    $('#keyword').keypress(function(event){
+      if(event.which == 13){
+        $('.search-box btn').click();
+        return false;
+      }
+    });
+</script>
 <script type="text/javascript">
 	
 	// 시/도 코드
@@ -1441,46 +1459,55 @@ ol, ul {
 <header id = "header">
 
 	<div class ="inout_gocen">
-			<input type="button" class= "header_btn" id="login" value="로그인">
-			<input type="button" class= "header_btn" id="logout" value="로그아웃">
-			<input type="button" class= "header_btn" id="signin" value="회원가입">
-			<input type="button" class= "header_btn" id="mypage" value="마이페이지">
-			<input type="button" class= "header_btn" id="gocen" value="고객센터">
-		</div>
-	
-	<div class="nav-menu">
-				<ul class="sticky-wrapper">
-					<li class="dropdown"><a href="main.me">HOME</a></li>
-					<li class="dropdown"><a href="board.me">분양</a>
-						<ul class="dropdown-menu">
-							<li><a href="#">&nbsp;&nbsp;가정분양</a></li>
-							<li><a href="#">책임분양</a></li>
-							<li><a href="#">업체분양</a></li>
-						</ul></li>
-					<li class="dropdown"><a href="/SJ/pet_list">보호소</a>
-						<ul class="dropdown-menu">
-							<li><a href="/SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
-							<li><a href="/SJ/payang">파양</a></li>
-							<li><a href="/SJ/missing">실종</a></li>
-						</ul></li>
-					<li class="dropdown"><a href="community.me">커뮤니티</a>
-						<ul class="dropdown-menu">
-							<li><a href="#">&nbsp;자유게시판</a></li>
-							<li><a href="#">책임분양인증</a></li>
-						</ul></li>
-				</ul>
-	
-	<div class="header-top">
-		<div class="mainlogo">
-		<a href="#">
-		<img src = "${pageContext.request.contextPath}/resources/img/mainlogo.png" class = "img-circle">
-		</a>
-		</div>
-	</div>
-	<div class= "search-wrapper">
-      <input class="search-box input" type="text" placeholder="Search">
-      <button class="search-box" type="button"><i class="fas fa-search"></i></button>
-	</div>
+         <%if(email != null){ %>
+         
+         <input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='logout.me'">
+         <input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='mypage.me'">
+         <%}else{ %>
+         <input  type="button" class= "header_btn" value="로그인" onclick="location.href='loginForm.me'">
+         <input  type="button" class= "header_btn" value="회원가입" onclick="location.href='joinform.me'">
+         <%} %>
+         <a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
+      </div>
+   
+   
+   <div class="nav-menu">
+            <ul class="sticky-wrapper">
+               <li class="dropdown"><a href="home.me">HOME</a></li>
+               <li class="dropdown"><a href="home_list.bo">분양</a>
+                  <ul class="dropdown-menu board">
+                     <li><a href="home_list.bo">&nbsp;&nbsp;가정분양</a></li>
+                     <li><a href="fdoclist.bo">책임분양</a></li>
+                     <li><a href="selladopt_list.bo">업체분양</a></li>
+                  </ul></li>
+               <li class="dropdown"><a href="SJ/pet_list">보호소</a>
+                  <ul class="dropdown-menu care">
+                     <li><a href="SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
+                     <li><a href="SJ/payang/list">파양</a></li>
+                     <li><a href="SJ/missing/list">실종</a></li>
+                  </ul></li>
+               <li class="dropdown"><a href="doclist.bo">커뮤니티</a>
+                  <ul class="dropdown-menu commu">
+                     <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
+                     <li><a href="auth_fdoc.bo">책임분양인증</a></li>
+                  </ul></li>
+            </ul>
+   
+   <div class="header-top">
+      <div class="mainlogo">
+      <a href="home.me">
+      <img src = "./resources/img/mainlogo.png" class = "img-circle">
+      </a>
+      </div>
+   </div>
+    <form action="home_search.me" method="post" name="home_search">
+            <div class="search-wrapper">
+               <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
+               <button class="search-box btn" type="submit">
+                  <i class="fas fa-search"></i>
+               </button>
+            </div>
+      </form>
 	</div><!-- nav-menu -->
 </header>
 		
@@ -1490,9 +1517,9 @@ ol, ul {
 			<!-- 왼쪽. 서브메뉴가 들어갈 부분 -->
 			<div class="sidemenu-section">
 				<ul class="list-group list-group-flush">
-					<li class="list-group-item click"><a href="/">보호소</a></li>
-					<li class="list-group-item"><a href="/">파양</a></li>
-					<li class="list-group-item"><a href="/">실종</a></li>
+					<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
 				</ul>
 				</div>
 				
@@ -1503,14 +1530,14 @@ ol, ul {
 						<div class="tab-left">
 							<a href="/samsam/SJ/pet_list" alt="보호 동물">보호 동물</a>
 						</div>
-						<div class="tab-right">
+						<div class="tab-right on">
 							<a href="/samsam/SJ/shelter_list" alt="보호소 찾기">보호소 찾기</a>
 						</div>
 					</div>
 					<div class="select-wrap">
 						<div id="sido-select" class="select-box">
 							<select name="sido" id="sido">
-								<option value="0" selected>전 체</option>
+								<option value="" selected>전 체</option>
 								<c:forEach var="sido" items="${sido}" varStatus="status">
 								  <option value="${sido.sidoCode}">${sido.sidoNm}</option>
 								</c:forEach>
@@ -1519,7 +1546,7 @@ ol, ul {
 						
 						<div id="sigungu-select" class="select-box">
 							<select name="siGunGu" id="siGunGu">
-								<option value="0" selected>전 체</option>
+								<option value="" selected>전 체</option>
 							</select>
 						</div>
 					
@@ -1561,20 +1588,7 @@ ol, ul {
 <!-- 제이쿼리 -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script> -->
 <script>
-	$(document).ready(function(){
-		$('#login').on('click', function(e){
-		      $('#logout').show();
-			  $('#mypage').show();
-			  $('#login').hide();
-			  $('#signin').hide();
-		  });//헤더 상단 로그인 체인지
-		
-		$('#logout').on('click', function(e){
-		       $('#logout').hide();
-			   $('#mypage').hide();
-			   $('#login').show();
-			   $('#signin').show();
-		});//헤더 상단 로그아웃 체인지
+
 		
 		$('#btnCancel').on('click', function(){
 			location.href = "/samsam/SJ/payang/list";

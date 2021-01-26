@@ -24,19 +24,36 @@ public interface MemberMapper {
 	
 	public MemberVO selectMember(String email);
 	public ArrayList<MemberVO> getMemberlist();
-	public int updateMember(MemberVO vo);
+	public int updateMember(MemberVO vo); 
 	public int updateBiz_Member(Biz_memberVO vo);
 	public int pwUpdate_M(MemberVO vo);
 	public int pwUpdate_BM(Biz_memberVO vo);
-	public String check_auth(Biz_memberVO vo);
+	public Biz_memberVO check_auth(Biz_memberVO vo);
 	public int pre_insertBiz(Biz_memberVO vo);
 	public int pre_updateBiz(String vo);
 	public Biz_memberVO selectBizMember(String email);
 	public int selectBiz_no(String biz_no);
 	public ArrayList<Adopt_BoardVO> getMyAdopt(String adopt_email);
 	public int getMyAdoptReply(int adopt_no);
+	
 	public ArrayList<BoardlistVO> getWriteList(String email);
+	public ArrayList<BoardlistVO> getWriteList1(String email);
+	public ArrayList<BoardlistVO> getWriteList2(String email);
+	public ArrayList<BoardlistVO> getWriteList3(String email);
+	public ArrayList<BoardlistVO> getWriteList4(String email);
+	public ArrayList<BoardlistVO> getWriteList5(String email);
+	public ArrayList<BoardlistVO> getWriteList6(String email);
+	public ArrayList<BoardlistVO> getWriteList7(String email);
+	
 	public ArrayList<CommentListVO> getWriteComment(String email);
+	public ArrayList<CommentListVO> getWriteComment1(String email);
+	public ArrayList<CommentListVO> getWriteComment2(String email);
+	public ArrayList<CommentListVO> getWriteComment3(String email);
+	public ArrayList<CommentListVO> getWriteComment4(String email);
+	public ArrayList<CommentListVO> getWriteComment5(String email);
+	public ArrayList<CommentListVO> getWriteComment6(String email);
+	public ArrayList<CommentListVO> getWriteComment7(String email);
+
 	
 	//pay
 	public int insert_pay(Payed_listVO pvo);
@@ -50,6 +67,7 @@ public interface MemberMapper {
 	public int 	auth_confirm(String email);
 	public int 	update_confirm(String email);
 	public int 	auth_return(String email);
+	public int   update_return(String email);
 	public ArrayList<Payed_listVO> 	getPay_list();
 	
 	//todolist

@@ -3,12 +3,6 @@ package com.project.samsam.api;
 public class AnimalKind {
 	private String kindCd;
 	private String kindNm;
-	
-	
-	public AnimalKind(String kindCd, String kindNm) {
-		this.kindCd = kindCd;
-		this.kindNm = kindNm;
-	}
 
 	public String getKindCd() {
 		return kindCd;
@@ -33,7 +27,5 @@ public class AnimalKind {
 	public String toString() {
 		return "AnimalKind [kindCd=" + kindCd + ", kindNm=" + kindNm + "]";
 	}
-	
-	
 	
 }

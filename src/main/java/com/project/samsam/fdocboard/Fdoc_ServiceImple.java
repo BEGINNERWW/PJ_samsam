@@ -24,7 +24,7 @@ public class Fdoc_ServiceImple implements Fdoc_Service {
 	public int boardInsert(FdocVO vo) {
 		FdocMapper fdocMapper = sqlSession.getMapper(FdocMapper.class);
 		String fdoc_Code = Fdoc_Code();
-		vo.setFdoc_code(fdoc_Code);
+		vo.setDoc_code(fdoc_Code);
 		int res = fdocMapper.FdocInsert(vo);
 		return res;
 	}
@@ -76,9 +76,6 @@ public class Fdoc_ServiceImple implements Fdoc_Service {
 		FdocMapper fdocMapper = sqlSession.getMapper(FdocMapper.class);
 		comment.setFdoc_seq(1);
 		fdocMapper.commentCount(comment);
-		//String fdoc_ccontent = comment.getFdoc_ccontent();
-		//fdoc_ccontent = fdoc_ccontent.replace("\r\n","<br>");//�ٹٲ� ġȯ
-		//comment.setFdoc_ccontent(fdoc_ccontent);
 		
 		return fdocMapper.commentInsert(comment);
 	}
@@ -93,7 +90,7 @@ public class Fdoc_ServiceImple implements Fdoc_Service {
 	public int commentUpdateService(FdocReflyVO comment) throws Exception {
 		FdocMapper fdocMapper = sqlSession.getMapper(FdocMapper.class);
 		String fdoc_ccontent = comment.getFdoc_ccontent();
-		fdoc_ccontent = fdoc_ccontent.replace("\r\n","<br>");//�ٹٲ� ġȯ
+		fdoc_ccontent = fdoc_ccontent.replace("\r\n","<br>");//占쌕바뀐옙 치환
 		comment.setFdoc_ccontent(fdoc_ccontent);
 		return fdocMapper.commentUpdate(comment);
 	}
@@ -202,6 +199,35 @@ public class Fdoc_ServiceImple implements Fdoc_Service {
 		FdocMapper fdocMapper = sqlSession.getMapper(FdocMapper.class);
 		
 		return fdocMapper.FdocUpdate(vo);
+	}
+
+	@Override
+	public void codeUpdate(Myfree_doc_confirmVO vo) {
+		FdocMapper fdocMapper = sqlSession.getMapper(FdocMapper.class);
+		vo.setConfirm_fdoc_code("�셿猷�");
+		fdocMapper.CodeUpdate(vo);
+		
+	}
+//�솗�젙�쁽�솴
+	@Override
+	public int getConfirmCount() {
+		FdocMapper fdocMapper = sqlSession.getMapper(FdocMapper.class);
+		return fdocMapper.getConfirmCount();
+	}
+
+	@Override
+	public List<ConfirmVO> getConfirmList(HashMap<String, Integer> hashmap) {
+		FdocMapper fdocMapper = sqlSession.getMapper(FdocMapper.class);
+		List<ConfirmVO> confirm_list = fdocMapper.getConfirmList(hashmap);
+		return confirm_list;
+	}
+
+	@Override
+	public ConfirmVO getConfirmView(int fadoc_no) {
+		FdocMapper fdocMapper = sqlSession.getMapper(FdocMapper.class);
+		fdocMapper.setReadCountConfirm(fadoc_no);
+		ConfirmVO vo = fdocMapper.getConfirmView(fadoc_no);
+		return vo;
 	}
 
 	

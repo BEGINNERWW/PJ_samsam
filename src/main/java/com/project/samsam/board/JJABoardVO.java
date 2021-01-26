@@ -1,16 +1,13 @@
 package com.project.samsam.board;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.sql.Date;
-
 public class JJABoardVO {
 	private String startDate;
 	private String endDate;
 	private String kind;
-	private String kategorie;
+	private String category;
+	private String co_category;
 	private String keyword;
-	
+	 
 	public String getStartDate() {
 		return startDate;
 	}
@@ -25,12 +22,7 @@ public class JJABoardVO {
 	}
 
 	
-	public String getKategorie() {
-		return kategorie;
-	}
-	public void setKategorie(String kategorie) {
-		this.kategorie = kategorie;
-	}
+
 	public String getKeyword() {
 		return keyword;
 	}
@@ -42,6 +34,18 @@ public class JJABoardVO {
 	}
 	public void setKind(String kind) {
 		this.kind = kind;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public String getCo_category() {
+		return co_category;
+	}
+	public void setCo_category(String co_category) {
+		this.co_category = co_category;
 	}
 
 	

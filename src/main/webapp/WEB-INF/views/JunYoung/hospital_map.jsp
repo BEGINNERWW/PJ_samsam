@@ -473,7 +473,9 @@ div::-webkit-scrollbar {
                      <li><a href="selladopt_list.bo">업체분양</a></li>
                   </ul></li>
                <li class="dropdown"><a href="SJ/pet_list">보호소</a>
+
                   <ul class="dropdown-menu care">
+
                      <li><a href="SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
                      <li><a href="SJ/payang/list">파양</a></li>
                      <li><a href="SJ/missing/list">실종</a></li>
@@ -495,10 +497,12 @@ div::-webkit-scrollbar {
 	</div>
 	
 	
+
 	<div class= "search-wrapper">
       <input class="search-box input" type="text" placeholder="Search">
       <button class="search-box btn1" type="button"><i class="fas fa-search"></i></button>
 	</div>
+
 	
 	</div><!-- nav-menu -->
 </header>
@@ -1011,6 +1015,7 @@ setCookie("scroll_position", "");
 	
 </body>
 </html>
+
 
 
 

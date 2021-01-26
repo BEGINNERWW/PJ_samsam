@@ -410,32 +410,14 @@ li.list-group-item.click > a {
 	
 	<!-- pageup button -->
 	<div class ="back-to-top">
-	<a href="#" class ="back-to-top" style="display: inline;">
-	<i class = "fas fa-angle-up"></i>
+	<a href="home.me" class ="back-to-top" style="display: inline;">
+	<i class = "fas fa-home"></i>
 	</a>
 	</div>
 	
 </div><!-- 바디컨텐트 -->
 
 <script>
-$(document).ready(function(){
-    console.log("<%= email %>") 
-    var session = '<%= email %>'
-    console.log(session);
-    if(session == "null" ){
-        $('#logout').hide();
-          $('#mypage').hide();
-          $('#login').show();
-          $('#signin').show();
-        
-     } //헤더 상단 로그인상태 일때
-     else{
-       $('#logout').show();
-         $('#mypage').show();
-         $('#login').hide();
-         $('#signin').hide();
-     }; //헤더 상단 로그아웃상태 일때 
-  });
 
 $(window).scroll(function(){ 
     var height = $(document).scrollTop(); //실시간으로 스크롤의 높이를 측정

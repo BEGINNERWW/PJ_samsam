@@ -1,58 +1,59 @@
 package com.project.samsam.board;
 
-import java.util.Date;
-
 public class JJABoardVOto {
-	private int num; 
-	private String email;
-	private String nick;
-	private String subject;
-	private String c_content;
-	private String c_date;
-	private int readcount;
+	private int doc_no; 
+	private String doc_email;
+	private String doc_nick;
+	private String doc_subject;
+	private String doc_content;
+	private String doc_date;
+	private int doc_readcount;
 	private String category;
-	private int c_count;
-	public int getNum() {
-		return num;
+	private int doc_comment;
+	
+	 
+	
+	public int getDoc_no() {
+		return doc_no;
 	}
-	public void setNum(int num) {
-		this.num = num;
+	public void setDoc_no(int doc_no) {
+		this.doc_no = doc_no;
 	}
-	public String getEmail() {
-		return email;
+	public String getDoc_email() {
+		return doc_email;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setDoc_email(String doc_email) {
+		this.doc_email = doc_email;
 	}
-	public String getNick() {
-		return nick;
+	public String getDoc_nick() {
+		return doc_nick;
 	}
-	public void setNick(String nick) {
-		this.nick = nick;
+	public void setDoc_nick(String doc_nick) {
+		this.doc_nick = doc_nick;
 	}
-	public String getSubject() {
-		return subject;
+	public String getDoc_subject() {
+		return doc_subject;
 	}
-	public void setSubject(String subject) {
-		this.subject = subject;
+	public void setDoc_subject(String doc_subject) {
+		this.doc_subject = doc_subject;
 	}
-	public String getC_content() {
-		return c_content;
+	public String getDoc_content() {
+		return doc_content;
 	}
-	public void setC_content(String c_content) {
-		this.c_content = c_content;
+	public void setDoc_content(String doc_content) {
+		this.doc_content = doc_content;
 	}
-	public String getC_date() {
-		return c_date;
+	public String getDoc_date() {
+		return doc_date;
 	}
-	public void setC_date(String c_date) {
-		this.c_date = c_date;
+	public void setDoc_date(String doc_date) {
+		this.doc_date = doc_date;
 	}
-	public int getReadcount() {
-		return readcount;
+	public int getDoc_readcount() {
+		return doc_readcount;
 	}
-	public void setReadcount(int readcount) {
-		this.readcount = readcount;
+	public void setDoc_readcount(int doc_readcount) {
+		this.doc_readcount = doc_readcount;
 	}
 	public String getCategory() {
 		return category;
@@ -60,12 +61,13 @@ public class JJABoardVOto {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public int getC_count() {
-		return c_count;
+	public int getDoc_comment() {
+		return doc_comment;
 	}
-	public void setC_count(int c_count) {
-		this.c_count = c_count;
-	}  //
+	public void setDoc_coment(int doc_comment) {
+		this.doc_comment = doc_comment;
+	}
+
 	//���� �Խñ� ����Ʈ�� ������ VO
 }
 	

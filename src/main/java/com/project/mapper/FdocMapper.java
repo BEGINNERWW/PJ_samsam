@@ -3,6 +3,7 @@ package com.project.mapper;
 import java.util.HashMap;
 import java.util.List;
 
+import com.project.samsam.fdocboard.ConfirmVO;
 import com.project.samsam.fdocboard.FdocReflyVO;
 import com.project.samsam.fdocboard.FdocVO;
 import com.project.samsam.fdocboard.FdocWarningVO;
@@ -38,5 +39,9 @@ public interface FdocMapper {
 	public int DeleteUpdate(int fdoc_cno);
 	public int FdocUpdate(FdocVO vo);
 	public void commentSub(FdocReflyVO comment);
-	
+	public void CodeUpdate(Myfree_doc_confirmVO vo);
+	public int getConfirmCount();
+	public List<ConfirmVO> getConfirmList(HashMap<String,Integer> hashmap);
+	public void setReadCountConfirm(int fadoc_no);
+	public ConfirmVO getConfirmView(int fadoc_no);
 }

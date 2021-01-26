@@ -97,7 +97,7 @@ input {
 }
 #ud_tab .ud_content {
     background: #fff;
-    width: 90%;
+    width: 100%;
     display: none;
     padding: 5%;
     float: left;

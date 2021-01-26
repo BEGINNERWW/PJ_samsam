@@ -24,6 +24,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 
+
+
+
+
 @Controller
 public class adoptController {
 
@@ -40,12 +44,23 @@ private AdoptService adoptservice;
  
  //수정폼
  
- @RequestMapping("/writeupdateview.bo")
- public String writeupdateview() {
-    
-    return "JM/WriteUpdateview";
- }
+ @RequestMapping(value = "/homeupdate.bo", method = RequestMethod.GET)
+	public String fdoc_update(@RequestParam(value="num", required=true) int num,Model model) {
+		adopt_homeVO vo = adoptservice.adopt_homeinfo(num);
+		model.addAttribute("vo",vo);
+		
+		
+		return "JM/WriteUpdateview";
+	}
  
+ 
+ @RequestMapping(value = "/home_delete.bo", method = RequestMethod.GET)
+ public String home_delete(adopt_homeVO vo) {
+	 adoptservice.homeDelete(vo);
+	 
+	 return "redirect:/home_list.bo";
+	}
+
  
  //작성값을 인서트해주는 동작
  @RequestMapping("/adoptwrite.bo")
@@ -53,6 +68,15 @@ private AdoptService adoptservice;
 	 int res = adoptservice.adoptInsert(adopt);
 	 return "redirect:/home_list.bo";
  }
+ 
+ @RequestMapping("/home_update.bo")
+ public String adoptupdateInsert(adopt_homeVO adopt)throws Exception{
+	 
+	 int res = adoptservice.adoptupdateInsert(adopt);
+	 
+	 return "redirect:/adopthomeview.bo?num="+adopt.getHome_no();
+ }
+ 
  
  @RequestMapping("/home_list.bo") 
  public String getHomeList(Model model,@RequestParam(value="page",required=false,
@@ -89,6 +113,7 @@ private AdoptService adoptservice;
 	 
 	 return "JM/adopt_homelist";
  }
+ 
  
  
  	//리스트 생성
@@ -168,6 +193,7 @@ private AdoptService adoptservice;
 	 model.addAttribute("maxpage",maxpage);
 	 model.addAttribute("startpage",startpage);
 	 model.addAttribute("endpage",endpage);
+	 model.addAttribute("vo",vo);
 	 System.out.println("77");
 	 System.out.println(homelist.size());
 	 return homelist;
@@ -221,7 +247,7 @@ private AdoptService adoptservice;
 	
 
 	
-	@ResponseBody
+   @ResponseBody
    @RequestMapping(value="/homereply_delete.bo",produces="application/json;charset=UTF-8")
    private int adopthomereplyDelete(adopt_homereplyVO vo) throws Exception{
       

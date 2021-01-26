@@ -2,19 +2,16 @@ package com.project.samsam.api;
 
 
 public class Sido {
-	private Integer sidoCode;
+	private String sidoCode;
 	private String sidoNm;
 	
-	public Sido(Integer sidoCode, String sidoNm) {
-		this.sidoCode = sidoCode;
-		this.sidoNm = sidoNm;
-	}
+	public Sido() {}
 
-	public Integer getSidoCode() {
+	public String getSidoCode() {
 		return sidoCode;
 	}
 
-	public void setSidoCode(Integer sidoCode) {
+	public void setSidoCode(String sidoCode) {
 		this.sidoCode = sidoCode;
 	}
 

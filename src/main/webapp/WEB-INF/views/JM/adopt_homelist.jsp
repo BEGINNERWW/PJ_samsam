@@ -12,7 +12,13 @@
 	int maxpage=((Integer)request.getAttribute("maxpage")).intValue();
 	int startpage=((Integer)request.getAttribute("startpage")).intValue();
 	int endpage=((Integer)request.getAttribute("endpage")).intValue();
+	adopt_homeVO searchVO = (adopt_homeVO)request.getAttribute("vo");
+	
+	String email = request.getParameter("email");
+	email = "11";
+	
 %>
+
 
 	
 
@@ -22,10 +28,11 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<link href="resources/img/title.png" rel="shortcut icon" type="image/x-icon">
-<title>삼삼하개</title>
+
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<link href="resources/img/title.png" rel="shortcut icon" type="image/x-icon">
+<title>삼삼하개</title>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -40,35 +47,8 @@
 
 <style>
 
-#viewtrans{
-	width:1000px;
-	margin:0 auto;
-	height:50px;
-}
-
-
-#write{
-margin:0 auto;
-width:1000px;
-}
-
-.content{
-	width:1000px;
-	margin:0 auto;
-}
-
-img{
-max-width:100%;
-}
-.thumbnail1{
-width:100px;
-}
-
-
-
-
-
 @charset "utf-8";
+
 * {
    margin:0;
    padding: 0;
@@ -77,15 +57,13 @@ html{
    margin:0 auto;
    width : 100%;
    height: 100%;
-    overflow: hidden;
+    overflow: auto;
 }
-a:hover {
-    color: #0056b3;
-    text-decoration: none;
-}
+
+
 body {
    margin: 0;
-   height: 100vh;
+   height: auto;
     min-height : 600px;
     box-sizing : content-box;
    line-height: 1.7;
@@ -93,7 +71,6 @@ body {
       font-family: 'Noto Sans KR', sans-serif;
     font-weight: 300;
     font-size: .9rem;
-   
 }
 
 
@@ -101,41 +78,56 @@ a{
    text-decoration : none;
    color : #9494b8;
 }
+a:hover {
+    color: #0056b3;
+    text-decoration: none;
+}
 
 body {
    text-align: -webkit-center;
+   display : flex;
+   flex-direction : column;
+   justify-content : space-between;
 }
 
-.body_content {
-   margin: 0;
-   height: 100vh;
-    min-height : 600px;
-    box-sizing : content-box;
-   line-height: 1.7;
-    color: gray;
-      font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 300;
-    font-size: .9rem;
-    overflow:scroll;
+.body_content{
+     margin : 0;
+     padding : 0;
+     width : 100%;
+     height:100vh;
+    display : flex;
+    flex-direction : column;
 }
 
 #header {
     width: 100%;
-    height: 190px;
+    height: 189px;
     box-sizing: content-box;
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid #efefef;
-    padding-bottom: 20px;
-}
-.inout_gocen{
-   position: fixed; 
-   top : 20px;
-   right : 390px;
+    padding-bottom: 18px;
+    background-color : #fff;
+    position : fixed;
+    z-index : 100;
+    top : 0;
+    left : 0;
+    right : 0;
 }
 
+.inout_gocen{
+   position : inline;
+   display : flex;
+   justify-content : flex-end;
+   margin-top : 20px;
+   margin-right : 340px;
+   background-color : #fff;
+}
+.fixinner{
+   position: fixed; 
+}
 .header-top {
-   margin-top : 40px;
+   margin-top : -10px;
    display : flex;
    justify-content : flex-start;
    margin-right: auto;
@@ -178,7 +170,6 @@ body {
      list-style : none;
     display : flex;
     padding: 0;
-    line-height:1.6;
 }
 
 .sticky-wrapper > li{
@@ -205,23 +196,41 @@ li.dropdown {
 }
 
 /* dropdown */
-.dropdown-menu{
+.dropdown-menu {
    display: none;
       justify-content : flex-start;
    position: absolute;
    list-style : none;
     visibility: visible;
-    background-color: rgb(0,0,0,0);
-   width: 350px;
+    background-color: #fff;
+   width: 1200px;
    top : 48px;
-   padding: 5px;
+   margin-left : -30px;
    border: none;
+   border-top: 1px solid #efefef;
 }
+
+.board {
+	padding-left: 46px;
+}
+.care {
+	padding-left: 30px;
+}
+.commu {
+	padding-left: 35px;
+}
+
+li.dropdown > a {
+    text-decoration: none;
+}
+
 .dropdown-menu li{
    margin-right : 40px;
 }
-.dropdown:hover .dropdown-menu { display: flex; visibility: visible;}
-
+.dropdown:hover .dropdown-menu { 
+   display: flex; 
+   visibility: visible; 
+}
 
 /* search-wrapper */
 .search-wrapper {
@@ -235,20 +244,10 @@ li.dropdown {
   border-radius: 10px;
 }
 .search-box {
-  color: #9494b8;
-  text-align: left;
   height : 100%;
   padding: 0;
   border: none;
   background: #fff;
-  display: inline-block;
-  font-weight: 400;
-  white-space: nowrap;
-  vertical-align: middle;
-  font-size: 1rem;
-  line-height: 1.5;
-  border-radius: .25rem;
-  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 .search-box.input {
   width : 80%;
@@ -257,30 +256,28 @@ li.dropdown {
 }
 .search-box.input:focus {outline:none;}
 
-.search-box.btn {
+.search-box.btn1 {
   color : #9494b8;
   text-align : left; 
 }
 
 /* search-wrqpper */
 
+.main-content{
+   width : 100%;
+   height : auto;
+   margin : 0 auto;
+}
 
 
 /* footer */
 #footer {
+    margin: 0 auto;
+    width: fit-content;
+    bottom: 20px;
+    position: relative;
+}
 
-   position: relative;
-    margin: -15px auto;
-    width: 100%;
-    bottom: 35px;
-    padding-top: 35px;
-    z-index: -1;
-    border-top: 1px solid #efefef;
-    
-}
-p{
-   text-align : center;
-}
 .fa-heart{
    color : red;
 }
@@ -305,6 +302,7 @@ p{
     box-sizing: border-box;
 }
 
+
 /*카카오톡 톡상담*/
 .kakaoChat {
     text-align: right;
@@ -312,52 +310,56 @@ p{
     margin-right: 28px;
     bottom: 90px;
     right: 0;
-
 }
 .kakao_btn {
-   border-radius: 1rem!important;
+	border-radius: 1rem!important;
 }
 
 /* side menu와 내용 묶음 */
 .content-wrap {
-    width: 1200px;
-    margin: 0 auto;
-    position: relative;
-    top: 50px;
-    overflow: visible;
-    margin-bottom: 100px;
-
+	width: 1200px;
+	min-height: 100%;
+	margin: 0 auto;
+	position: relative;
+	top: 50px;
+	
 }
-
-
 /* side menu 틀*/
 .sidemenu-section {
-  width: 200px;
-   position: absolute;
-   font-size: 18px;
-   text-align: left;
-   height: 100%;
-   padding: 0px 0px 0 0;
-   margin-left: 0;
+    width: 200px;
+    font-size: 18px;
+    text-align: left;
+    min-height: 740px;
+    border-right-color: darkblue;
+    border-right: 1px solid #efefef;
+    padding: 0px 0px 0 0;
+    margin-left: 0;
+    margin-top: 210px;
+    position: fixed;
 }
+
 
 /* 내용 틀*/
 .content-section {
-   width: 1000px;
-   position: relative;
-   left: 200px;
-   text-align: left;
-   font-size: 14px;
-   margin-top: 3px;
-   color: black;
-   padding-left: 50px;
-   border-left: 1px solid #efefef;
+    width: 1001px;
+    height: max-content;
+    position: relative;
+    left: 100px;
+    text-align: left;
+    font-size: 14px;
+    margin-top: 0px;
+    color: black;
+    margin-left: 0;
+    padding-bottom: 100px;
+    border-left-color: darkblue;
+    border-left: 1px solid #efefef;
+    padding-left: 50px;
+    padding-right: 0;
+    min-height: 940px;
+    padding-top: 200px;
 }
-
-/* 각각의 페이지에서 사용할 CSS */
-.list-group{
-   margin-block-start: 0;
-   line-height:1.6;
+.list-group {
+	border-bottom: 1px solid rgba(0,0,0,.125);
 }
 .list-group-item {
     position: relative;
@@ -373,14 +375,15 @@ li.list-group-item.click > a {
     color: #5c5c8a;
 }
 
+
 .list-group-item > a {
-   text-decoration : none;
-   }
+	text-decoration : none;
+	}
 
 
     
 ul {
-   background-color: white;
+	background-color: white;
 }
 .filter-list{
     background-color: white;
@@ -389,27 +392,10 @@ ul {
 
 
 .brand-list{
-   background-color: white;
+	background-color: white;
 }
 
 /* header, footer 이외 css */
-
-
-
-
-table {
-
-    width: 100%;
-    border-top: 1px solid #444444;
-    border-collapse: collapse;
- 
-  }
-  
-th, td {
-    border-bottom: 1px solid #444444;
-    padding: 10px;
-  }
-  
 
 
 .a_1{
@@ -515,7 +501,7 @@ button {
     background-image:none;
     border:2px solid black;
 }
-select, input, button, textarea {
+select, button, textarea {
     display: inline-block;
     font-family: "Malgun Gothic", 'MalgunGothic', '맑은고딕', sans-serif;
     font-size: 12px;
@@ -921,20 +907,7 @@ select, input, button, textarea {
     font-weight: 500;
     color: #333;
 }
-ul {
-    display: block;
-    list-style-type: disc;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    padding-inline-start: 0px;
-    
-}
-ol, ul {
-    list-style: none;
-    line-height:130%;
-}
+
 .smart-search-wrap .search-item-wrap .search-item .filter-content .brand-list li .item input {
     position: absolute;
     width: 1px;
@@ -1073,7 +1046,7 @@ ol, ul {
     vertical-align: top;
 }
 .btn-filter-del{
-   font-size:0px;
+	font-size:0px;
 }
 .prod-category-smart-search .smart-search-result .title-box .title {
     padding-right: 53px;
@@ -1092,35 +1065,35 @@ ol, ul {
     text-align: center;
 }
 .list_content{
-   
-   padding:15px 15px;
+	
+	padding:15px 15px;
 }
 
 .comment_icon{
-    background: url(./resources/img/free-icon-speech-bubble-2462719.png) center no-repeat;
+	 background: url(./resources/img/free-icon-speech-bubble-2462719.png) center no-repeat;
 
-    display: inline-block;
+	 display: inline-block;
     width: 16px;
     height: 16px;
    
 }
 .recount_icon{
-   background: url(./resources/img/free-icon-eye-660022.png) center no-repeat;
+	background: url(./resources/img/free-icon-eye-660022.png) center no-repeat;
 
-    display: inline-block;
+	 display: inline-block;
     width: 16px;
     height: 16px;
 }
 .detail-read{
-   float:right;
-   margin-right:135px;
+	float:right;
+	margin-right:135px;
 }
 .section-title {
     color: #000;
     margin-bottom: 30px;
 }
 .section-title h2 {
-   margin-top: 10px;
+	margin-top: 10px;
     font-size: 20px;
     font-weight: 400;
     position: relative;
@@ -1168,9 +1141,9 @@ ol, ul {
     border-bottom: 1px solid #efefef;
 }
 .tag{
-   
-   
-   color:#5c5c8a;
+	
+	
+	color:#5c5c8a;
 }
 	
 
@@ -1178,8 +1151,50 @@ ol, ul {
 </style>
 <script type ="text/javascript" src = "https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
+    $('.search-box btn').click(function(){
+      
+    });
+    $('#keyword').keypress(function(event){
+      if(event.which == 13){
+        $('.search-box btn').click();
+        return false;
+      }
+    });
+</script>
+<script>
+function getFormatDate(date){
+	
+	var year = date.getFullYear();function getFormatDate(date){
+	    
+	    var year = date.getFullYear();
+	    var month = (1 + date.getMonth());
+	    month = month >= 10 ? month : '0' + month;
+	    var day = date.getDate();
+	    day = day >= 10 ? day : '0' + day;
+	    var hour = date.getHours();
+	    var min = date.getMinutes();
+	    return year + '-' + month + '-' + day + '&nbsp;'+hour + ':' + min;
+	 }
+	
+	var month = (1 + date.getMonth());
+	month = month >= 10 ? month : '0' + month;
+	var day = date.getDate();
+	day = day >= 10 ? day : '0' + day;
+	return year + '/' + month + '/' + day + '&nbsp;'
+}
+
+
+function numbeComma(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
+
+
 function create_list(){
-	$('.content').empty();
+	
+	
+	$('.list_content').empty();
 	jQuery.ajax({
 		 url : 'home_listAjax.bo',
          type : 'POST',
@@ -1187,14 +1202,20 @@ function create_list(){
          dataType : 'json',
          success : function (data) {
         	 $.each(data, function(index, item){
+        		var date = new Date(item.home_date);
+        		var number = new Number(item.home_price);
         		var output = '';
         		
-                output += '<div>';
-                output += '<p><a href = "adopthomeview.bo?num='+item.home_no+'">' + item.home_subject +'</a></p>'
-                output += '<p>' + item.big_name + item.loc + item.kindof + item.home_price +'</p>'
-                output += '<p>' + item.home_nick + '</p>'  
-                output += '<p>' + item.home_date + '</p>'
-                output += '<p>' + item.home_readcount + '</p>'
+                output += '<div class="post-entry-2 d-flex">';
+                output += '<div class="thumbnail order-md-2");" style="background-image: url(/springfileupload1/upload/'+item.home_thumbnail+'.jpg)"></div>'
+                output += '<div class="contents order-md-1 pl-0">'
+                output += '<h2><a class="a_1" href="./adopthomeview.bo?num='+item.home_no+'">'+ item.home_subject +'</a></h2>'
+                output += '<p class="mb-3 tag">#' + item.big_name  + '#' + item.loc  + '#' +  item.kindof  + '#' + numbeComma(number)+'원' + '</p>'
+                output +='<div class="post-meta">'
+                output +='<span class="d-block"><a class="a_1" href="#">'+item.home_nick+'</a></span>'
+                output +='<span class="date-read">'+getFormatDate(date)+'</span><span class="detail-read">&nbsp;&nbsp;&nbsp;&nbsp;<span class="recount_icon"></span>&nbsp;'+item.home_readcount+'&nbsp;&nbsp;<span class="comment_icon"></span>'+item.replycount+'&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+                output += '<div>'
+                output += '</div>'
                 output += '</div>';
                 
                 $('.list_content').append(output);
@@ -1431,47 +1452,41 @@ function search(){
 function default_submit(){
 	$(".content").empty();
 	
-	var searchinsert = $("#detail_form").serializes();
+	var searchinsert = $("#detail_form").serialize();
 	
 	jQuery.ajax({
 		 url : 'home_search.bo',
-         type : 'POST',
-         contentType : 'application/x-www-form-urlencoded; charset=utf-8',
-         data : searchinsert,
-         dataType : 'json',
-         success :	function (data) {
-        	 
-        	 var thead = '';
-        	 thead += '<th>번호 </th>'
-        	 thead += '<th colspan="2">제목 </th>'
-        	 thead += '<th>분양가 </th>'
-        	 thead += '<th>닉네임 </th>'
-        	 thead += '<th>작성일자 </th>'
-         	 thead += '<th>조회수 </th>'
-         	 
-         	 $('.content').append(thead);
-        	 $.each(data, function(index, item){
+        type : 'POST',
+        contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+        data : searchinsert,
+        dataType : 'json',
+        success :	function (data) {
+       	 
+       	 $.each(data, function(index, item){
+        		var date = new Date(item.home_date);
+        		var number = new Number(item.home_price);
         		var output = '';
         		
-				
-                output += '<tr>';
-                output += '<td class ="line">' + item.home_no +'</td>'
-                output += '<td class ="line"><a href = "adopthomeview.bo?num='+item.home_no+'">' + item.home_thumbnail +'</a></td>'
-                output += '<td class ="line" valign="middle"><a href = "adopthomeview.bo">' + item.home_subject +'</a></td>'
-                output += '<td class ="line">' + item.home_price + '</td>'  
-                output += '<td class ="line">' + item.home_nick + '</td>'
-                output += '<td class ="line">' + item.home_date + '</td>'
-                output += '<td class ="line">' + item.home_readcount + '</td>'
-                output += '</tr>';
+                output += '<div class="post-entry-2 d-flex">';
+                output += '<div class="thumbnail order-md-2");" style="background-image: url(/springfileupload1/upload/'+item.home_thumbnail+'.jpg)"></div>'
+                output += '<div class="contents order-md-1 pl-0">'
+                output += '<h2><a class="a_1" href="./adopthomeview.bo?num='+item.home_no+'">'+ item.home_subject +'</a></h2>'
+                output += '<p class="mb-3 tag">#' + item.big_name  + '#' + item.loc  + '#' +  item.kindof  + '#' + numbeComma(number)+'원' + '</p>'
+                output +='<div class="post-meta">'
+                output +='<span class="d-block"><a class="a_1" href="#">'+item.home_nick+'</a></span>'
+                output +='<span class="date-read">'+getFormatDate(date)+'</span><span class="detail-read">&nbsp;&nbsp;&nbsp;&nbsp;<span class="recount_icon"></span>&nbsp;'+item.home_readcount+'&nbsp;&nbsp;<span class="comment_icon"></span>'+item.replycount+'&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+                output += '<div>'
+                output += '</div>'
+                output += '</div>';
                 
-                $('.content').append(output);
-        	 });
-         },
-         error:function(){
-             alert("ajax통신 실패!!!");
-          }
+                $('.list_content').append(output);
+       	 });
+        },
+        error:function(){
+            alert("ajax통신 실패!!!");
+         }
 		
-	});	
+	});
 	/*
 	sessionStorage.removeItem("default_option");
 	sessionStorage.removeItem("detail_option");
@@ -1481,7 +1496,7 @@ function default_submit(){
 }
 
 function detail_submit(){
-$(".content").empty();
+$(".list_content").empty();
 var searchinsert = $("#detail_form").serialize();
 	
 	jQuery.ajax({
@@ -1492,30 +1507,24 @@ var searchinsert = $("#detail_form").serialize();
          dataType : 'json',
          success :	function (data) {
         	 
-        	 var thead = '';
-        	 thead += '<th>번호 </th>'
-        	 thead += '<th colspan="2">제목 </th>'
-        	 thead += '<th>분양가 </th>'
-        	 thead += '<th>닉네임 </th>'
-        	 thead += '<th>작성일자 </th>'
-         	 thead += '<th>조회수 </th>'
-         	 
-         	 $('.content').append(thead);
         	 $.each(data, function(index, item){
-        		var output = '';
-        		
-				
-                output += '<tr>';
-                output += '<td class ="line">' + item.home_no +'</td>'
-                output += '<td class ="line"><a href = "adopthomeview.bo?num='+item.home_no+'">' + item.home_thumbnail +'</a></td>'
-                output += '<td class ="line" valign="middle"><a href = "adopthomeview.bo">' + item.home_subject +'</a></td>'
-                output += '<td class ="line">' + item.home_price + '</td>'  
-                output += '<td class ="line">' + item.home_nick + '</td>'
-                output += '<td class ="line">' + item.home_date + '</td>'
-                output += '<td class ="line">' + item.home_readcount + '</td>'
-                output += '</tr>';
-                
-                $('.content').append(output);
+         		var date = new Date(item.home_date);
+         		var number = new Number(item.home_price);
+         		var output = '';
+         		
+                 output += '<div class="post-entry-2 d-flex">';
+                 output += '<div class="thumbnail order-md-2");" style="background-image: url(/springfileupload1/upload/'+item.home_thumbnail+'.jpg)"></div>'
+                 output += '<div class="contents order-md-1 pl-0">'
+                 output += '<h2><a class="a_1" href="./adopthomeview.bo?num='+item.home_no+'">'+ item.home_subject +'</a></h2>'
+                 output += '<p class="mb-3 tag">#' + item.big_name  + '#' + item.loc  + '#' +  item.kindof  + '#' + numbeComma(number)+'원' + '</p>'
+                 output +='<div class="post-meta">'
+                 output +='<span class="d-block"><a class="a_1" href="#">'+item.home_nick+'</a></span>'
+                 output +='<span class="date-read">'+getFormatDate(date)+'</span><span class="detail-read">&nbsp;&nbsp;&nbsp;&nbsp;<span class="recount_icon"></span>&nbsp;'+item.home_readcount+'&nbsp;&nbsp;<span class="comment_icon"></span>'+item.replycount+'&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+                 output += '<div>'
+                 output += '</div>'
+                 output += '</div>';
+                 
+                 $('.list_content').append(output);
         	 });
          },
          error:function(){
@@ -1543,62 +1552,71 @@ function search_submit(a){
 
 	<div class ="body_content">
 <header id = "header">
-
-  	<div class ="inout_gocen">
-			<input type="button" class= "header_btn" id="login" value="로그인" onclick = "location.href='loginForm.me'">
-			<input type="button" class= "header_btn" id="logout" value="로그아웃" onclick ="location.href='logout.me'">
-			<input type="button" class= "header_btn" id="signin" value="회원가입" onclick = "location.href='joinform.me'">
-			<input type="button" class= "header_btn" id="mypage" value="마이페이지" onclick = "location.href='mypage.me'">
-			<input type="button" class= "header_btn" id="gocen" value="고객센터" onclick ="location.href='customer_service.me'">
-		</div>
-
-		 <div class="nav-menu">
+	
+	
+	<div class ="inout_gocen">
+         <%if(email != null){ %>
+         
+         <input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='logout.me'">
+         <input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='mypage.me'">
+         <%}else{ %>
+         <input  type="button" class= "header_btn" value="로그인" onclick="location.href='loginForm.me'">
+         <input  type="button" class= "header_btn" value="회원가입" onclick="location.href='joinform.me'">
+         <%} %>
+         <a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
+      </div>
+   
+   
+   <div class="nav-menu">
             <ul class="sticky-wrapper">
                <li class="dropdown"><a href="home.me">HOME</a></li>
                <li class="dropdown"><a href="home_list.bo">분양</a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu board">
                      <li><a href="home_list.bo">&nbsp;&nbsp;가정분양</a></li>
                      <li><a href="fdoclist.bo">책임분양</a></li>
                      <li><a href="selladopt_list.bo">업체분양</a></li>
                   </ul></li>
-               <li class="dropdown"><a href="/SJ/pet_list">보호소</a>
-                  <ul class="dropdown-menu">
-                     <li><a href="/SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
-                     <li><a href="/SJ/payang/list">파양</a></li>
-                     <li><a href="/SJ/missing/list">실종</a></li>
+               <li class="dropdown"><a href="SJ/pet_list">보호소</a>
+                  <ul class="dropdown-menu care">
+                     <li><a href="SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
+                     <li><a href="SJ/payang/list">파양</a></li>
+                     <li><a href="SJ/missing/list">실종</a></li>
                   </ul></li>
                <li class="dropdown"><a href="doclist.bo">커뮤니티</a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu commu">
                      <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
                      <li><a href="auth_fdoc.bo">책임분양인증</a></li>
                   </ul></li>
             </ul>
-
-
-				<div class="header-top">
-					<div class="mainlogo">
-						<a href="home.me"> <img src="resources/img/mainlogo.png"
-							class="img-circle">
-						</a>
-					</div>
-				</div>
-   <div class= "search-wrapper">
-      <input class="search-box input" type="text" placeholder="Search">
-      <button class="search-box" type="button"><i class="fas fa-search"></i></button>
+   
+   <div class="header-top">
+      <div class="mainlogo">
+      <a href="home.me">
+      <img src = "./resources/img/mainlogo.png" class = "img-circle">
+      </a>
+      </div>
    </div>
+    <form action="home_search.me" method="post" name="home_search">
+            <div class="search-wrapper">
+               <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
+               <button class="search-box btn" type="submit">
+                  <i class="fas fa-search"></i>
+               </button>
+            </div>
+      </form>
    </div><!-- nav-menu -->
 </header>
       
-      
+      	<div class="main-content">
          <div class="content-wrap">
          
          <!-- 왼쪽. 서브메뉴가 들어갈 부분 -->
 	         <div class="sidemenu-section">
-	         <ul class="list-group list-group-flush">
-	            <li class="list-group-item click"><a href="home_list.bo">가정분양</a></li>
-	            <li class="list-group-item"><a href="fdoclist.bo">책임분양</a></li>
-	            <li class="list-group-item"><a href="selladopt_list.bo">업체분양</a></li>
-	         </ul>
+	         	<ul class="list-group list-group-flush">
+				<li class="list-group-item"><a href="home_list.bo">가정분양</a></li>
+				<li class="list-group-item  click"><a href="fdoclist.bo">책임분양</a></li>
+				<li class="list-group-item"><a href="selladopt_list.bo">업체분양</a></li>
+			</ul>
 	         </div>
          
          <!-- 오른쪽. 내용이 들어갈 부분 -->
@@ -2221,8 +2239,48 @@ function search_submit(a){
 
       <div style="margin-top:20px;">
    
-     
-   
+	     <div style="text-align:center;display:inline-block;margin-left:400px;">
+				<%if(nowpage<=1){ %>
+				[이전]&nbsp;
+				<%}else{ 
+				if(searchVO ==null){
+				%>
+				<a href="./home_list.bo?page=<%=nowpage-1 %>">[이전]</a>&nbsp;
+				<%}else{ %>
+				<a onclick="search_submit(<%=nowpage-1 %>);" href="#">[이전]</a>
+				<%}}
+				
+				for(int a=startpage;a<=endpage;a++){
+					if(a==nowpage){
+					//현재페이지는 링크가 필요없으므로 링크를 안검
+					
+					%>
+					[<%=a %>]
+					<%}else{ 
+					if(searchVO == null){
+					%>
+					<a onclick ="create_list(<%=a %>);" href ="#">[<%=a %>]</a>
+					&nbsp;
+					<%}else{ %>
+						
+					<a onclick="search_submit(<%=a %>);" href="#">[<%=a %>]</a>
+					&nbsp;
+					<% }} %>
+				<%} %>
+				
+				<%if(nowpage>=maxpage){
+					//더이상 읽을페이지가없을떄
+						%>
+				[다음]
+				<%}else{ 
+				if(searchVO == null){
+				%>
+				<a href="./home_list.bo?page=<%=nowpage+1 %>">[다음]</a>
+				<%}else{ %>
+				<a onclick="search_submit(<%=nowpage+1 %>);" href="#">[다음]</a>
+				<%}} %>
+			</div>
+	   
 
    
    <div style="display:inline-block; float:right;margin-right:25px;">
@@ -2241,25 +2299,25 @@ function search_submit(a){
 
 
    <!-- 카카오톡 채널 상담 -->
-   <div class="kakaoChat">
-   <a href="javascript:void plusFriendChat()">
+	<div class="kakaoChat">
+	<a href="javascript:void plusFriendChat()">
     <img src="./resources/img/kakaolink_btn_medium.png" width="45px" height="45px" class="kakao_btn">
-   </a>
-   </div>
-   
-   <!-- pageup button -->
-   <div class ="back-to-top">
-   <a href="#" class ="back-to-top" style="display: inline;">
-   <i class = "fas fa-angle-up"></i>
-   </a>
-   </div>
+	</a>
+	</div>
+	
+	<!-- pageup button -->
+	<div class ="back-to-top">
+	<a href="#" class ="back-to-top" style="display: inline;">
+	<i class = "fas fa-angle-up"></i>
+	</a>
+	</div>
    
    <footer id="footer">
-<p>Copyright ©2021 All rights reserved | This template is made with <i class="fas fa-heart"></i> by SamSam
+	 <p>Copyright ©2021 All rights reserved | This template is made with <i class="fas fa-heart"></i> by SamSam
 
-</footer>
+   </footer>
 </div><!-- 바디컨텐트 -->
-
+	</div>
 	     <!--  
 		<div id="viewtrans">
 			<input type = "button" value = "카드로 보기" style = "float:right;" class = "cardview">
@@ -2268,31 +2326,32 @@ function search_submit(a){
 		-->
 		
 		
-		<div class="content">
-			
-		</div>
 		
 	</div>
-<!-- 로그인로그아웃 -->
-<script>
-$(document).ready(function(){
-    console.log("<%= email %>") 
-    var session = '<%= email %>'
-    console.log(session);
-    if(session == "null" ){
-        $('#logout').hide();
-          $('#mypage').hide();
-          $('#login').show();
-          $('#signin').show();
-        
-     } //헤더 상단 로그인상태 일때
-     else{
-       $('#logout').show();
-         $('#mypage').show();
-         $('#login').hide();
-         $('#signin').hide();
-     }; //헤더 상단 로그아웃상태 일때 
-  });
+	
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
+<!-- 부트스트랩 4.0 js -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<!-- 카카오톡 채널 상담 js -->
+	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script type='text/javascript'>
+  //<![CDATA[
+    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    Kakao.init('be685f4c6119a7e447cd31c67878faf1');
+    // 카카오톡 채널 1:1채팅 버튼을 생성합니다.
+    function plusFriendChat() {
+        Kakao.Channel.chat({
+              channelPublicId: '_cjxmxiK' // 카카오톡채널 홈 URL에 명시된 홈ID
+        });
+    }
+    
+  //]]>
 </script>
+	
+	
 </body>
 </html>

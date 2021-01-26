@@ -153,7 +153,8 @@ public class AdminController {
 		System.out.println("전달받은email : "+ email);
 		
 		Map<String,Integer> map = new HashMap<String, Integer>(); 
-		int res = adminSV.auth_return(email);
+		 int mem_return = adminSV.update_return(email);
+		 int res = adminSV.auth_return(email);
 		map.put("result", res);
 		
 		return map;

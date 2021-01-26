@@ -46,6 +46,9 @@
 .modal{
 max-width: 700px;
 }
+ul{
+  list-style: none;
+}
 </style>
 </head>
 <body>

@@ -11,7 +11,7 @@ public interface MemberSV {
 	public int updateBiz_Member(Biz_memberVO vo);
 	public int pwUpdate_M(MemberVO vo);
 	public int pwUpdate_BM(Biz_memberVO vo);
-	public String check_auth(Biz_memberVO vo);
+	public Biz_memberVO check_auth(Biz_memberVO vo);
 	public int pre_insertBiz(Biz_memberVO vo);
 	public int pre_updateBiz(String vo);
 	public Biz_memberVO selectBizMember(String email);
@@ -19,7 +19,21 @@ public interface MemberSV {
 	public ArrayList<Adopt_BoardVO> getMyAdopt(String adopt_email);
 	public int getMyAdoptReply(int adopt_no);
 	public ArrayList<BoardlistVO> getWriteList(String email);
+	public ArrayList<BoardlistVO> getWriteList1(String email);
+	public ArrayList<BoardlistVO> getWriteList2(String email);
+	public ArrayList<BoardlistVO> getWriteList3(String email);
+	public ArrayList<BoardlistVO> getWriteList4(String email);
+	public ArrayList<BoardlistVO> getWriteList5(String email);
+	public ArrayList<BoardlistVO> getWriteList6(String email);
+	public ArrayList<BoardlistVO> getWriteList7(String email);
 	public ArrayList<CommentListVO> getWriteComment(String email);
+	public ArrayList<CommentListVO> getWriteComment1(String email);
+	public ArrayList<CommentListVO> getWriteComment2(String email);
+	public ArrayList<CommentListVO> getWriteComment3(String email);
+	public ArrayList<CommentListVO> getWriteComment4(String email);
+	public ArrayList<CommentListVO> getWriteComment5(String email);
+	public ArrayList<CommentListVO> getWriteComment6(String email);
+	public ArrayList<CommentListVO> getWriteComment7(String email);
 	
 	//join member
 	public int joinMember(MemberVO mvo);
@@ -34,4 +48,4 @@ public interface MemberSV {
 	public int idCheck(String email);
 	public int nickCheck(String nick);
 
-}
+} 
