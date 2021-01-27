@@ -1006,7 +1006,43 @@ function setThumbnail(event) {
       }
 
 
- 
+function submit_check(){
+	   
+
+	   
+	   
+	   var subject = $('#doc_subject').val();
+	   if(subject==''){
+	      alert("제목을 입력해주세요");
+	      return false;
+	   }
+	   if($("input:radio[name='doc_big']").is(":checked") == false){
+	      alert("종류를 입력해주세요");
+	      return false;
+	   }
+	   var kindof =  $("select[name=doc_kindof]").val();
+
+
+	   if(kindof=='' ){
+	      alert("품종을 입력해주세요");
+	      return false;
+	   }
+
+	   var price = $('#doc_price').val();
+	   if(price==''){
+	      alert('분양비를 입력해주세요');
+	      return false;
+	   }
+
+	   var content = $('#summernote').val();
+	   var img_check = "img";
+	   if(content.indexOf(img_check) == -1){
+	      alert("이미지를 넣어주세요");
+	      return false;
+	   }
+	   
+	   return true;
+	}
 
 </script>
 
@@ -1058,7 +1094,7 @@ function setThumbnail(event) {
 		</a>
 		</div>
 	</div>
-	<form action="home_search.me" method="post" name="home_search">
+	<form action="home_search.me" method="post" name="doc_search">
 				<div class="search-wrapper">
 					<input class="search-box input" id="keyword" name="keyword" type="text" placeholder="Search">
 					<button class="search-box btn" type="submit">
@@ -1089,10 +1125,10 @@ function setThumbnail(event) {
             <div class="content-form">
       
        
-   <form method="post" action="adoptwrite.bo" enctype="multipart/form-data">
+   <form method="post" action="adoptwrite.bo" enctype="multipart/form-data" onsubmit="return submit_check();">
 
      
-      <div><div><textarea name="home_subject" placeholder="제목을 입력해 주세요." class="textarea_input" style="height: 40px;"></textarea></div></div>
+      <div><div><textarea name="doc_subject" placeholder="제목을 입력해 주세요." class="textarea_input" style="height: 40px;"></textarea></div></div>
      <div class="option_box">
      
        <div class="option1"><div style="display:inline-block;margin-right:10px;"><input type="radio" name="doc_big" value="강아지">&nbsp;&nbsp;강아지&nbsp;&nbsp;&nbsp;&nbsp;<span id="kind1"></span></div>
@@ -1101,8 +1137,8 @@ function setThumbnail(event) {
          
         
     <div>
-   <div class="option1">분양비&nbsp;:&nbsp;&nbsp;&nbsp;<input class="form-control" style="width:200px; display:inline-block;" type="text" name="home_price" placeholder="분양비를 입력해주세요"></div> 
-   <div class="option1">지&nbsp;&nbsp;역&nbsp;:&nbsp;&nbsp;&nbsp;<select class="form-control" style="width:200px; display:inline-block;" size="1" id="loc" name="loc">
+   <div class="option1">분양비&nbsp;:&nbsp;&nbsp;&nbsp;<input class="form-control" style="width:200px; display:inline-block;" type="text" name="doc_price" placeholder="분양비를 입력해주세요"></div> 
+   <div class="option1">지&nbsp;&nbsp;역&nbsp;:&nbsp;&nbsp;&nbsp;<select class="form-control" style="width:200px; display:inline-block;" size="1" id="doc_loc" name="doc_loc">
             
             <option value="서울">서울</option>
             <option value="부산">부산</option>
@@ -1131,7 +1167,7 @@ function setThumbnail(event) {
      -->
       <div><div style="margin-top:20px;margin-bottom:20px;"> 
      
-      <textarea id="summernote" name="home_content"></textarea>
+      <textarea id="summernote" name="doc_content"></textarea>
       </div>
      
       

@@ -8,7 +8,7 @@
 adopt_homeVO adoptvo = (adopt_homeVO)request.getAttribute("adopt");
 String email = (String) session.getAttribute("email");
 String writer = request.getParameter("doc_email");
-
+String id = (String) session.getAttribute("nick");
 
 %>
 <!DOCTYPE html>
@@ -432,7 +432,7 @@ a {
 }
 
 .commentArea{
-	padding: 0 45px;
+	padding: 10px 45px 10px 45px;
 }
 
 .comment_view .list_comment>li  {
@@ -444,9 +444,7 @@ a {
 	color: #959595;
 }
 
-.comment_view {
-	padding-top: 10px;
-}
+
 
 .comment_section .comment_info .comment_post .opt_more_g {
 	margin-top: 0;
@@ -890,6 +888,122 @@ border-bottom: 1px solid #eee;
 			}
 		});
 	};
+	
+	
+	
+	function warning(cno,dno,cnick,content){
+		   event.preventDefault();
+		   $('#ex7').empty();
+		   var a = '';
+		   var id ='<%=id%>';
+		   var email ='<%=email%>';
+		   a += '<div class="modal-header"><h1>신고하기</h1></div>';
+		   a += '<div class="modal-body">';
+		   a += '<form id= "warning_form" name="warning_form" method="post" action="warning.bo">';
+		   a += '<input type="hidden" name="w_email" value="'+email+'">';
+		   a += '<input type="hidden" name="w_co_no" value="'+cno+'">';
+		   a += '<input type="hidden" name="w_doc_no" value="'+dno+'">';
+		   a += '<input type="hidden" name="w_nick" value="'+id+'">';
+		   a += '<div class="warning_container"><div class="warning_report">';
+		   a += '<div class="report_title">내&nbsp;&nbsp;&nbsp;용 :</div>';
+		   a += '<div class="report_content">'+content+'</div>';
+		   a += '<div class="report_title">작성자:</div>';
+		   a += '<div class="report_content">'+cnick+'</div></div>';
+		   a += '<div class="warning_reason">';
+		   a += '<div class="report_title"><span>사유 선택</span> : </div>';
+		   a += '<div class="report_content"><p class="">여러 사유에 해당되는 경우, 대표적인 사유 1개를 선택해 주세요</p>';
+		   a += '<ul class=""><li><input type="radio" name="w_reason" id="reson1" value="부적절한 홍보 게시글">';
+		   a += '<label for="reason1">&nbsp;부적절한 홍보 게시글</label></li>';
+		   a += '<li><input type="radio" name="w_reason" id="reason2" value="음란성 또는 청소년에게 부적합한 내용">';
+		   a += '<label for="reason2">&nbsp;음란성 또는 청소년에게 부적합한 내용</label></li>';
+		   a += '<li><input type="radio" name="w_reason" id="reason3" value="명예훼손/사생활 침해 및 저작권침해등">';
+		   a += '<label for="reason3">&nbsp;명예훼손/사생활 침해 및 저작권침해등</label></li>';
+		   a += '<li><input type="radio" name="w_reason" id="reason4">';
+		   a += '<label for="reason4">&nbsp;기타</label></li></ul>';
+		   a += '<textarea disabled name="etc_reason" id="etc_reason" cols="50" rows="5" class="" style="width:405px; height:80px; display:none;" placeholder="신고 사유를 기재해 주세요"></textarea></div>';
+		   a += '</div></form></div></div><div class="modal-footer">';
+		   a += '<button type="button" id="waring_submit" onclick="warning_submit();">신고하기</button>';
+		   a += '<button type="button" onclick="modal_close();">취소하기</button>';
+		   
+		   
+		   
+		   $('#ex7').append(a);
+		   $('#ex7').modal('show');
+		}
+		function modal_close(){
+		   
+		   $.modal.close();
+		   
+		}
+		function warning_submit(){
+		   
+		   var data = $('#warning_form').serialize();
+		   if($('input:radio[name="w_reason"]').is(':checked') ==false){
+		      alert('신고 사유를 체크해주세요');
+		      return false;
+		   }
+
+		   if($('input[name="w_reason"]:checked').attr('id')=="reason4" && $('#etc_reason').val() == ''){
+		      alert('신고 사유를 입력해주세요');
+		      return false;
+		   }
+		   $.ajax({
+		      url : 'home_warning.bo',
+		      type : 'POST',
+		      data :  data,
+		      success: function(data){
+		         if(data ==1){
+		            $.modal.close();
+		            $('#ex1').modal('show');
+		         }
+		      },
+		      error:function(){
+		         alert("ajax 통신 실패 (insert!!!!)");
+		         
+		      }
+		   });
+		}
+	
+	
+	
+	function warning_ori(dno,cnick,content){
+		
+		   event.preventDefault();
+		   $('#ex7').empty();
+		   var a = '';
+		   var id ='<%=id%>';
+		   var email = '<%=email%>';
+		   a += '<div class="modal-header"><h1>신고하기</h1></div>';
+		   a += '<div class="modal-body">';
+		   a += '<form id= "warning_form" name="warning_form" method="post" action="warning.bo">';
+		   a += '<input type="hidden" name="w_email" value="'+email+'">';
+		   a += '<input type="hidden" name="w_doc_no" value="'+dno+'">';
+		   a += '<input type="hidden" name="w_nick" value="'+id+'">';
+		   a += '<div class="warning_container"><div class="warning_report">';
+		   a += '<div class="report_title">제&nbsp;&nbsp;&nbsp;목 :</div>';
+		   a += '<div class="report_content">'+content+'</div>';
+		   a += '<div class="report_title">작성자:</div>';
+		   a += '<div class="report_content">'+cnick+'</div></div>';
+		   a += '<div class="warning_reason">';
+		   a += '<div class="report_title"><span>사유 선택</span> : </div>';
+		   a += '<div class="report_content"><p class="">여러 사유에 해당되는 경우, 대표적인 사유 1개를 선택해 주세요</p>';
+		   a += '<ul class=""><li><input type="radio" name="w_reason" id="reson1" value="부적절한 홍보 게시글">';
+		   a += '<label for="reason1">&nbsp;부적절한 홍보 게시글</label></li>';
+		   a += '<li><input type="radio" name="w_reason" id="reason2" value="음란성 또는 청소년에게 부적합한 내용">';
+		   a += '<label for="reason2">&nbsp;음란성 또는 청소년에게 부적합한 내용</label></li>';
+		   a += '<li><input type="radio" name="w_reason" id="reason3" value="명예훼손/사생활 침해 및 저작권침해등">';
+		   a += '<label for="reason3">&nbsp;명예훼손/사생활 침해 및 저작권침해등</label></li>';
+		   a += '<li><input type="radio" name="w_reason" id="reason4">';
+		   a += '<label for="reason4">&nbsp;기타</label></li></ul>';
+		   a += '<textarea disabled name="etc_reason" id="etc_reason" cols="50" rows="5" class="" style="width:405px; height:80px; display:none;" placeholder="신고 사유를 기재해 주세요"></textarea></div>';
+		   a += '</div></form></div></div><div class="modal-footer">';
+		   a += '<button type="button" id="waring_submit" onclick="warning_submit();">신고하기</button>';
+		   a += '<button type="button" onclick="modal_close();">취소하기</button>';
+		   
+		   
+		   $('#ex7').append(a);
+		   $('#ex7').modal('show');
+		}
 </script>
 
 
@@ -1017,7 +1131,7 @@ border-bottom: 1px solid #eee;
 							<%
 								} else {
 							%>
-							<span><a href="homeupdate.bo?num=<%=adoptvo.getDoc_no()%>">수정</a>&nbsp;&nbsp;&nbsp;</span><span><a href="home_delete.bo?home_no=<%=adoptvo.getDoc_no()%>">삭제</a></span>
+							<span><a href="homeupdate.bo?num=<%=adoptvo.getDoc_no()%>">수정</a>&nbsp;&nbsp;&nbsp;</span><span><a href="home_delete.bo?Doc_no=<%=adoptvo.getDoc_no()%>">삭제</a></span>
 							<%
 								}
 								}
@@ -1036,7 +1150,7 @@ border-bottom: 1px solid #eee;
 					
 					
 					
-						<div class="cont_comment" style="background-color: #f8f8f8;">
+						<div class="cont_comment" style="background-color: white;">
 						
 						
 						
