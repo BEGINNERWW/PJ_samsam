@@ -123,7 +123,7 @@ public class AdminfreeController {
 		
 		result.addObject("myfree_doc_confirm_detail", myfree_doc_confirm_detail_re);
 		result.addObject("myfree_auth_detail", myfree_auth_detail_re);
-		result.setViewName("admin_free_auth_detail");
+		result.setViewName("JunYoung/admin_free_auth_detail");
 		
 		return result;
 	}
@@ -145,7 +145,7 @@ public class AdminfreeController {
 		
 		result.addObject("myfree_doc_confirm_detail", myfree_doc_confirm_detail_re);
 		result.addObject("myfree_auth_detail", myfree_auth_detail_re);
-		result.setViewName("admin_free_auth_detail");
+		result.setViewName("JunYoung/admin_free_auth_detail");
 		
 		return result;
 	}
@@ -167,7 +167,7 @@ public class AdminfreeController {
 		
 		result.addObject("myfree_doc_confirm_detail", myfree_doc_confirm_detail_re);
 		result.addObject("myfree_auth_detail", myfree_auth_detail_re);
-		result.setViewName("admin_free_auth_detail");
+		result.setViewName("JunYoung/admin_free_auth_detail");
 		
 		return result;
 	}

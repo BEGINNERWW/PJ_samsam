@@ -59,12 +59,13 @@ public class AdoptServiceImpl implements AdoptService {
 		int index1 =imgTag.lastIndexOf("/");
 		imgTag = imgTag.substring(index1+1);
 		int index2 = imgTag.lastIndexOf(".");
-		imgTag = imgTag.substring(0, index2);
+		imgTag = imgTag.substring(0, index2+3);
 		
 		
 		adopt.setDoc_email((String)session.getAttribute("email"));
 		adopt.setDoc_nick((String)session.getAttribute("nick"));
 		adopt.setDoc_thumbnail(imgTag);
+	
 		adopt.setDoc_img("aa");
 		
 	    int res = adoptMapper.adoptInsert(adopt);
@@ -74,7 +75,7 @@ public class AdoptServiceImpl implements AdoptService {
 	}
 	
 	
-	public int adoptupdateInsert(adopt_homeVO adopt) {
+	public int adoptupdateInsert(adopt_homeVO adopt,HttpSession session) {
 		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
 		Pattern pattern  =  Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
 		
@@ -93,8 +94,8 @@ public class AdoptServiceImpl implements AdoptService {
 		
 		
 		adopt.setDoc_thumbnail(imgTag);
-		adopt.setDoc_nick("user");
-		adopt.setDoc_email("user");
+		adopt.setDoc_email((String)session.getAttribute("email"));
+		adopt.setDoc_nick((String)session.getAttribute("nick"));
 		adopt.setDoc_img("aa");
 	    int res = adoptMapper.adoptupdateInsert(adopt);
 		return res;
@@ -118,10 +119,16 @@ public class AdoptServiceImpl implements AdoptService {
 	}
 
 	@Override
-	public int adoptreplyInsertService(adopt_homereplyVO homereply) throws Exception {
+	public int adoptreplyInsertService(adopt_homereplyVO homereply,HttpSession session) throws Exception {
 		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
 		adoptMapper.adopthomereplyspace(homereply);
 		adoptMapper.ReplycountService(homereply);
+		
+		System.out.println((String)session.getAttribute("email"));
+		System.out.println(123456);
+		homereply.setDoc_email((String)session.getAttribute("email"));
+		homereply.setDoc_nick((String)session.getAttribute("nick"));
+		
 		homereply.setDoc_seq(homereply.getDoc_seq()+1);
 		return adoptMapper.adoptreplyInsert(homereply);
 		
@@ -129,9 +136,13 @@ public class AdoptServiceImpl implements AdoptService {
 
 
 	@Override
-	public int adopthomereply_re(adopt_homereplyVO adhome) {
+	public int adopthomereply_re(adopt_homereplyVO adhome,HttpSession session) {
 		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
 		adoptMapper.adopthomereplyspace(adhome);
+		adoptMapper.ReplycountService(adhome);
+		
+		adhome.setDoc_email((String)session.getAttribute("email"));
+		adhome.setDoc_nick((String)session.getAttribute("nick"));
 		adhome.setDoc_seq(adhome.getDoc_seq()+1);
 		adhome.setDoc_lev(adhome.getDoc_lev()+1);
 		int res = adoptMapper.adopthomereply_re(adhome);

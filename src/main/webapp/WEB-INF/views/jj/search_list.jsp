@@ -663,11 +663,11 @@ li.list-group-item.click > a {
                     	%>
                     	
                     	<tr class="adopt_home">
-                    		<td><%=h_list.getNum()%></td>
-                    		<td> <%=h_list.getSubject()%></td>
-                    		<td> <%=h_list.getNick() %></td>
+                    		<td><a class ="detailview" href="adopthomeview.bo?num=<%=h_list.getNum()%>"><%=h_list.getNum()%></a></td>
+                    		<td><a class ="detailview" href="adopthomeview.bo?num=<%=h_list.getNum()%>"> <%=h_list.getSubject()%></a></td>
+                    		<td><a class ="detailview" href="adopthomeview.bo?num=<%=h_list.getNum()%>"> <%=h_list.getNick() %></a></td>
                     		<fmt:formatDate var="formatDate" value="<%=h_list.getC_date()%>" pattern="yyyy-MM-dd"/>
-    						<td>${formatDate}</td>
+    						<td><a class ="detailview" href="adopthomeview.bo?num=<%=h_list.getNum()%>">${formatDate}</a></td>
                     	</tr>
                     	<% 
                     	}}
@@ -688,13 +688,13 @@ li.list-group-item.click > a {
 	                   	if(free_doc !=null){
 	               		for(JJBoardVO f_list: free_doc){
                    	%>
-	                <a href="#"><tr class="free_doc">
-	                  <td><%=f_list.getNum()%></td>
-	                  <td> <%=f_list.getSubject()%></td>
-	                  <td> <%=f_list.getNick() %></td>
+	               <tr class="free_doc">
+	                  <td><a class ="detailview" href="fdocdetail.bo?doc_no=<%=f_list.getNum()%>"><%=f_list.getNum()%></a></td>
+	                  <td><a class ="detailview" href="fdocdetail.bo?doc_no=<%=f_list.getNum()%>"> <%=f_list.getSubject()%></a></td>
+	                  <td><a class ="detailview" href="fdocdetail.bo?doc_no=<%=f_list.getNum()%>"> <%=f_list.getNick() %></a></td>
 	    			  <fmt:formatDate var="formatDate" value="<%=f_list.getC_date()%>" pattern="yyyy-MM-dd"/>
-    				  <td>${formatDate}</td>
-                   	</tr></a>
+    				  <td><a class ="detailview" href="fdocdetail.bo?doc_no=<%=f_list.getNum()%>">${formatDate}</a></td>
+                   	</tr>
 	               	<% }} %>
 	             </tbody>       	  
 	             </table>
@@ -712,13 +712,13 @@ li.list-group-item.click > a {
 	                   	if(free_auth !=null){
 	               		for(JJBoardVO f_list: free_auth){
                    	%>
-	                <a href="#"><tr class="free_auth">
-	                  <td><%=f_list.getNum()%></td>
-	                  <td> <%=f_list.getSubject()%></td>
-	                  <td> <%=f_list.getNick() %></td>
+	               <tr class="free_auth">
+	                  <td><a class ="detailview" href="fadocdetail.bo?doc_no=<%=f_list.getNum()%>"><%=f_list.getNum()%></a></td>
+	                  <td><a class ="detailview" href="fadocdetail.bo?doc_no=<%=f_list.getNum()%>"> <%=f_list.getSubject()%></a></td>
+	                  <td><a class ="detailview" href="fadocdetail.bo?doc_no=<%=f_list.getNum()%>"> <%=f_list.getNick() %></a></td>
 	    			  <fmt:formatDate var="formatDate" value="<%=f_list.getC_date()%>" pattern="yyyy-MM-dd"/>
-    				  <td>${formatDate}</td>
-                   	</tr></a>
+    				  <td><a class ="detailview" href="fadocdetail.bo?doc_no=<%=f_list.getNum()%>">${formatDate}</a></td>
+                   	</tr>
 	               	<% }} %>
 	             </tbody>       	  
 	             </table>
@@ -736,13 +736,13 @@ li.list-group-item.click > a {
 	                   	if(payang !=null){
 	               		for(JJBoardVO f_list: payang){
                    	%>
-	                <a href="#"><tr class="payang">
+	                <tr class="payang">
 	                  <td><%=f_list.getNum()%></td>
 	                  <td> <%=f_list.getSubject()%></td>
 	                  <td> <%=f_list.getNick() %></td>
 	    			  <fmt:formatDate var="formatDate" value="<%=f_list.getC_date()%>" pattern="yyyy-MM-dd"/>
     				  <td>${formatDate}</td>
-                   	</tr></a>
+                   	</tr>
 	               	<% }} %>
 	             </tbody>       	  
 	             </table>
@@ -760,13 +760,13 @@ li.list-group-item.click > a {
 	                   	if(missing !=null){
 	               		for(JJBoardVO f_list: missing){
                    	%>
-	                <a href="#"><tr class="missing">
+	                <tr class="missing">
 	                  <td><%=f_list.getNum()%></td>
 	                  <td> <%=f_list.getSubject()%></td>
 	                  <td> <%=f_list.getNick() %></td>
 	    			  <fmt:formatDate var="formatDate" value="<%=f_list.getC_date()%>" pattern="yyyy-MM-dd"/>
     				  <td>${formatDate}</td>
-                   	</tr></a>
+                   	</tr>
 	               	<% }} %>
 	             </tbody>       	  
 	             </table>

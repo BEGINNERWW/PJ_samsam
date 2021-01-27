@@ -32,7 +32,7 @@ body::-webkit-scrollbar { display:none; }
 	width:55%;
 } 
 .right-container{
-	width:45%;
+	width:30%;
 	margin-top : 50px ;
     display : flex;
     flex-direction: column;
@@ -47,7 +47,7 @@ span {
 }
 /* left-sidebar */
 header,#header {
-	width : 300px;
+	width : 12.6%;
 	height: 100%;
 	background : #040B14;
 	margin-right : auto;

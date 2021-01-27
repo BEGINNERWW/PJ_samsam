@@ -258,7 +258,7 @@ li.dropdown > a {
 #footer {
     margin: 0 auto;
     width: fit-content;
-    bottom: 20px;
+    bottom: 50px;
     position: relative;
 }
 
@@ -341,7 +341,7 @@ p{
     padding-left: 50px;
     padding-right: 0;
     min-height: 940px;
-    padding-top: 200px;
+    padding-top: 150px;
 }
 
 /* 각각의 페이지에서 사용할 CSS */

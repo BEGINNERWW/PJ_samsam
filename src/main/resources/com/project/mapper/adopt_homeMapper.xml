@@ -11,7 +11,7 @@
   	<selectKey keyProperty="doc_no" order="BEFORE" resultType="int"><!-- select에서 구한 값을 num에 저장한다. keyProperty에 들어갈 값의 타입을 resultType에 적는다. -->
          select nvl(max(doc_no), 0)+1 from adopt_home
     </selectKey>
- 	insert into adopt_home (doc_no,doc_email,doc_nick,doc_subject,doc_content,doc_date,doc_readcount,doc_img,doc_price,doc_big,doc_kindof,doc_thumbnail,doc_loc,doc_comment)  values (#{doc_no},#{doc_email},#{doc_nick},#{doc_subject},#{doc_content},#{doc_date},#{doc_readcount},#{doc_img},#{doc_price},#{doc_big},#{doc_kindof},#{doc_thumbnail},#{doc_loc},#{doc_comment})
+ 	insert into adopt_home (doc_no,doc_email,doc_nick,doc_subject,doc_content,doc_date,doc_readcount,doc_img,doc_price,doc_big,doc_kindof,doc_thumbnail,doc_loc,doc_comment)  values (#{doc_no},#{doc_email},#{doc_nick},#{doc_subject},#{doc_content},sysdate,#{doc_readcount},#{doc_img},#{doc_price},#{doc_big},#{doc_kindof},#{doc_thumbnail},#{doc_loc},#{doc_comment})
  </insert>
  
   <update id="adoptupdateInsert" parameterType="adopt_homeVO">
@@ -32,11 +32,11 @@
  </update>
  
  <update id="ReplycountService" parameterType="adopt_homereplyVO"> 
-	 	update adopt_home set doc_comment=doc_comment+1 where doc_no =#{home_no}	
+	 	update adopt_home set doc_comment=doc_comment+1 where doc_no =#{doc_no}	
 </update>
  
  <select id = "adopt_homeinfo" parameterType = "int" resultType="adopt_homeVO">
- 	select * from adopt_home where home_no = #{num}
+ 	select * from adopt_home where doc_no = #{num}
  </select>
  
  
@@ -63,11 +63,11 @@
  </select>
  
  <insert id = "adoptreplyInsert" parameterType ="adopt_homereplyVO">
- 	<selectKey keyProperty="home_cno" order="BEFORE" resultType = "int">
+ 	<selectKey keyProperty="doc_cno" order="BEFORE" resultType = "int">
  		select nvl(max(doc_cno),0) +1 from adopt_home_reply
  	</selectKey>
- 	INSERT INTO adopt_home_reply (DOC_CNO,DOC_NO,DOC_NICK,DOC_DATE,DOC_CONTENT,DOC_SECRET,DOC_REF,DOC_LEV,DOC_SEQ)
- 	VALUES(#{doc_cno},#{doc_no},#{doc_nick},sysdate,#{doc_content},#{doc_secret},#{doc_cno},#{doc_lev},#{doc_seq})
+ 	INSERT INTO adopt_home_reply (DOC_CNO,DOC_NO,DOC_EMAIL,DOC_NICK,DOC_DATE,DOC_CONTENT,DOC_SECRET,DOC_REF,DOC_LEV,DOC_SEQ)
+ 	VALUES(#{doc_cno},#{doc_no},#{doc_email},#{doc_nick},sysdate,#{doc_content},#{doc_secret},#{doc_cno},#{doc_lev},#{doc_seq})
  </insert>
  
  <!-- 필터 검색 -->
@@ -85,15 +85,15 @@
 	 #{kind_loc}
 	 </foreach>
 	 or doc_big in
-	 <foreach collection="home_search" item="home_search" open="(" close=")" separator=",">
-	 #{home_search}
+	 <foreach collection="doc_search" item="doc_search" open="(" close=")" separator=",">
+	 #{doc_search}
 	 </foreach>
 	 or doc_kindof in
-	<foreach collection="home_search" item="home_search" open="(" close=")" separator=",">
+	<foreach collection="doc_search" item="doc_search" open="(" close=")" separator=",">
 	#{doc_search}
 	</foreach>
 	or doc_loc in
-	<foreach collection="home_search" item="home_search" open="(" close=")" separator=",">
+	<foreach collection="doc_search" item="doc_search" open="(" close=")" separator=",">
 	#{doc_search}
 	</foreach>
 	 order by doc_no desc)) where rnum>=#{startrow} <![CDATA[and rnum<=#{endrow}]]>
@@ -102,17 +102,17 @@
  
  <!-- 대댓글 -->
  <update id ="adopthomereplyspace" parameterType = "adopt_homereplyVO">
- 	update adopt_home_reply set home_seq=home_seq+1
- 	where home_ref = #{home_ref} and home_seq > #{home_seq}
+ 	update adopt_home_reply set doc_seq=doc_seq+1
+ 	where doc_ref = #{doc_ref} and doc_seq > #{doc_seq}
  </update>
  
  
  <insert id = "adopthomereply_re" parameterType ="adopt_homereplyVO">
- 	<selectKey keyProperty="home_cno" order="BEFORE" resultType = "int">
- 		select nvl(max(home_cno),0) +1 from adopt_home_reply
+ 	<selectKey keyProperty="doc_cno" order="BEFORE" resultType = "int">
+ 		select nvl(max(doc_cno),0) +1 from adopt_home_reply
  	</selectKey>
- 	INSERT INTO adopt_home_reply (DOC_CNO,DOC_NO,DOC_NICK,DOC_DATE,DOC_CONTENT,DOC_SECRET,DOC_REF,DOC_LEV,DOC_SEQ)
- 	VALUES(#{doc_no},#{doc_no},#{doc_nick},sysdate,#{doc_content},#{doc_secret},#{doc_ref},#{doc_lev},#{doc_seq})
+ 	INSERT INTO adopt_home_reply (DOC_CNO,DOC_NO,DOC_EMAIL,DOC_NICK,DOC_DATE,DOC_CONTENT,DOC_SECRET,DOC_REF,DOC_LEV,DOC_SEQ)
+ 	VALUES(#{doc_cno},#{doc_no},#{doc_email},#{doc_nick},sysdate,#{doc_content},#{doc_secret},#{doc_ref},#{doc_lev},#{doc_seq})
  </insert>
  
  <delete id="replyDelete"  parameterType="int">
@@ -132,7 +132,7 @@
 </update>
 
  <update id = "adopthomereplyupdate" parameterType ="adopt_homereplyVO">
- 	UPDATE adopt_home_reply SET doc_CONTENT = #{doc_content},DOC_SECRET =#{doc_secret} where DOC_CNO = #{doc_cno}
+ 	UPDATE adopt_home_reply SET DOC_CONTENT = #{doc_content},DOC_SECRET = #{doc_secret} where DOC_CNO = #{doc_cno}
  </update>
  
  <update id="replycountupdate" parameterType="adopt_homereplyVO">

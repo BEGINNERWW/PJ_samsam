@@ -85,5 +85,71 @@ public class AdminSVImp implements AdminSV {
 				
 		return todolist;
 	}
-	
+	@Override
+	public int 	storecount() {
+		int res= mapper.storecount();
+		
+		return res;	
+	}
+	@Override
+	public int 	standbycount() {
+		int res= mapper.standbycount();
+		
+		return res;	
+	};
+	@Override
+	public int 	countAdopt() {
+		int res= mapper.countAdopt();
+		
+		return res;	
+	};
+	@Override
+	public int 	countHome() {
+		int res= mapper.countHome();
+		
+		return res;	
+	};
+	@Override
+	public int 	countFree() {
+		int res= mapper.countFree();
+		
+		return res;	
+	};
+	@Override
+	public ArrayList<TboardVO> getThreeCount(){
+		ArrayList<TboardVO> tbvo = mapper.getThreeCount();
+		
+		return tbvo;
+	};
+
+	@Override
+	public ArrayList<ChartjsVO> 	weeklyLocala() {
+		ArrayList<ChartjsVO> res= mapper.weeklyLocala();
+		
+		return res;	
+	};
+	@Override
+	public ArrayList<ChartjsVO> 	weeklyLocalh() {
+		ArrayList<ChartjsVO> res= mapper.weeklyLocalh();
+		
+		return res;	
+	};
+	@Override
+	public ArrayList<ChartjsVO> 	weeklyLocalf() {
+		ArrayList<ChartjsVO> res = mapper.weeklyLocalf();
+		
+		return res;	
+	};
+	@Override
+	public ArrayList<ChartjsVO> payedMonth() {
+		ArrayList<ChartjsVO> res = mapper.payedMonth();
+		
+		return res;	
+	};
+	@Override
+	public ArrayList<ChartjsVO> repayedMonth() {
+		ArrayList<ChartjsVO> res = mapper.repayedMonth();
+		
+		return res;	
+	};
 }

@@ -45,8 +45,9 @@ private AdoptService adoptservice;
  //수정폼
  
  @RequestMapping(value = "/homeupdate.bo", method = RequestMethod.GET)
-	public String fdoc_update(@RequestParam(value="num", required=true) int num,Model model) {
+	public String home_update(@RequestParam(value="num", required=true) int num,Model model) {
 		adopt_homeVO vo = adoptservice.adopt_homeinfo(num);
+		
 		model.addAttribute("vo",vo);
 		
 		
@@ -70,9 +71,9 @@ private AdoptService adoptservice;
  }
  
  @RequestMapping("/home_update.bo")
- public String adoptupdateInsert(adopt_homeVO adopt)throws Exception{
+ public String adoptupdateInsert(adopt_homeVO adopt,HttpSession session)throws Exception{
 	 
-	 int res = adoptservice.adoptupdateInsert(adopt);
+	 int res = adoptservice.adoptupdateInsert(adopt,session);
 	 
 	 return "redirect:/adopthomeview.bo?num="+adopt.getDoc_no();
  }
@@ -194,7 +195,7 @@ private AdoptService adoptservice;
 	 model.addAttribute("startpage",startpage);
 	 model.addAttribute("endpage",endpage);
 	 model.addAttribute("vo",vo);
-	 System.out.println("77");
+
 	 System.out.println(homelist.size());
 	 return homelist;
 	}
@@ -217,29 +218,27 @@ private AdoptService adoptservice;
 	
 	@RequestMapping(value = "/adopt_replyinsert.bo",produces="application/json;charset=UTF-8")
 	@ResponseBody
-	public int adopthomepreplyinsert(adopt_homereplyVO adhome)throws Exception{
-		System.out.println(1111112);
-		System.out.println(adhome.getDoc_secret());
-		adhome.setDoc_nick("user");
-		return adoptservice.adoptreplyInsertService(adhome);
+	public int adopthomepreplyinsert(adopt_homereplyVO adhome,HttpSession session)throws Exception{
+		
+		
+		return adoptservice.adoptreplyInsertService(adhome,session);
 	}
 	
 	@RequestMapping("/adopt_replyReinsert.bo")
 	@ResponseBody
-	public int adopthomereply_re(adopt_homereplyVO adhome) throws Exception{
+	public int adopthomereply_re(adopt_homereplyVO adhome,HttpSession session) throws Exception{
 		
-		adhome.setDoc_nick("user");
-		return adoptservice.adopthomereply_re(adhome);
+		
+		return adoptservice.adopthomereply_re(adhome,session);
 		
 	}
 	
 	
 
-	@RequestMapping("/comment_update.bo") 
+	@RequestMapping("/reply_update.bo") 
 	@ResponseBody
 	public int adopthomereplyupdate(adopt_homereplyVO adhome) throws Exception{
-		System.out.println(adhome.getDoc_content());
-		System.out.println("테스트");
+		
 		return adoptservice.adopthomereplyupdate(adhome);
 		
 	}

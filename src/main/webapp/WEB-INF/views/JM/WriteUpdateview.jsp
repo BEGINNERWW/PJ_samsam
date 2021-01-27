@@ -871,7 +871,12 @@ $(document).ready(function() {
             }
           
    });
-   
+   $("div.note-editable").on('drop',function(e){
+	    for(i=0; i< e.originalEvent.dataTransfer.files.length; i++){
+	    	sendFile(e.originalEvent.dataTransfer.files[i],$("#summernote")[0]);
+	    }
+	   e.preventDefault();
+	})
 
    function sendFile(file, el) {
        var form_data = new FormData();
@@ -1005,6 +1010,44 @@ function setThumbnail(event) {
       }
 
 
+
+function submit_check(){
+	   
+
+	   
+	   
+	   var subject = $('#doc_subject').val();
+	   if(subject==''){
+	      alert("제목을 입력해주세요");
+	      return false;
+	   }
+	   if($("input:radio[name='doc_big']").is(":checked") == false){
+	      alert("종류를 입력해주세요");
+	      return false;
+	   }
+	   var kindof =  $("select[name=doc_kindof]").val();
+
+
+	   if(kindof=='' ){
+	      alert("품종을 입력해주세요");
+	      return false;
+	   }
+
+	   var price = $('#doc_price').val();
+	   if(price==''){
+	      alert('분양비를 입력해주세요');
+	      return false;
+	   }
+
+	   var content = $('#summernote').val();
+	   var img_check = "img";
+	   if(content.indexOf(img_check) == -1){
+	      alert("이미지를 넣어주세요");
+	      return false;
+	   }
+	   
+	   return true;
+	}
  
 
 </script>
@@ -1047,6 +1090,7 @@ function setThumbnail(event) {
                   <ul class="dropdown-menu commu">
                      <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
                      <li><a href="auth_fdoc.bo">책임분양인증</a></li>
+                     <li><a href="hospital_map.me">Map</a></li>
                   </ul></li>
             </ul>
    
@@ -1057,7 +1101,7 @@ function setThumbnail(event) {
       </a>
       </div>
    </div>
-    <form action="home_search.me" method="post" name="home_search">
+    <form action="home_search.me" method="post" name="doc_search">
             <div class="search-wrapper">
                <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
                <button class="search-box btn" type="submit">
@@ -1075,8 +1119,8 @@ function setThumbnail(event) {
          <!-- 왼쪽. 서브메뉴가 들어갈 부분 -->
          <div class="sidemenu-section" id="left">
             <ul class="list-group list-group-flush">
-				<li class="list-group-item"><a href="home_list.bo">가정분양</a></li>
-				<li class="list-group-item  click"><a href="fdoclist.bo">책임분양</a></li>
+				<li class="list-group-item click"><a href="home_list.bo">가정분양</a></li>
+				<li class="list-group-item "><a href="fdoclist.bo">책임분양</a></li>
 				<li class="list-group-item"><a href="selladopt_list.bo">업체분양</a></li>
             </ul>
          </div>
@@ -1088,9 +1132,9 @@ function setThumbnail(event) {
             <div class="content-form">
       
        
-   <form method="post" action="home_update.bo" enctype="multipart/form-data">
-	<input type="hidden" name="home_no" value=<%=vo.getDoc_no() %>>
-      <div><div><textarea name="home_subject" placeholder="제목을 입력해 주세요." class="textarea_input" style="height: 40px;"></textarea></div></div>
+   <form method="post" action="home_update.bo" enctype="multipart/form-data" onsubmit="return submit_check();">
+	<input type="hidden" name="doc_no" value=<%=vo.getDoc_no() %>>
+      <div><div><textarea name="doc_subject" placeholder="제목을 입력해 주세요." class="textarea_input" style="height: 40px;"><%=vo.getDoc_subject() %></textarea></div></div>
      <div class="option_box">
      
        <div class="option1"><div style="display:inline-block;margin-right:10px;"><input type="radio" name="doc_big" value="강아지">&nbsp;&nbsp;강아지&nbsp;&nbsp;&nbsp;&nbsp;<span id="kind1"></span></div>
@@ -1099,8 +1143,8 @@ function setThumbnail(event) {
          
         
     <div>
-   <div class="option1">분양비&nbsp;:&nbsp;&nbsp;&nbsp;<input class="form-control" style="width:200px; display:inline-block;" type="text" name="home_price" placeholder="분양비를 입력해주세요"></div> 
-   <div class="option1">지&nbsp;&nbsp;역&nbsp;:&nbsp;&nbsp;&nbsp;<select class="form-control" style="width:200px; display:inline-block;" size="1" id="loc" name="loc">
+   <div class="option1">분양비&nbsp;:&nbsp;&nbsp;&nbsp;<input class="form-control" style="width:200px; display:inline-block;" type="text" name="doc_price" placeholder="분양비를 입력해주세요" value=<%=vo.getDoc_price()%>></div> 
+   <div class="option1">지&nbsp;&nbsp;역&nbsp;:&nbsp;&nbsp;&nbsp;<select class="form-control" style="width:200px; display:inline-block;" size="1" id="doc_loc" name="doc_loc">
             
             <option value="서울">서울</option>
             <option value="부산">부산</option>
@@ -1129,7 +1173,7 @@ function setThumbnail(event) {
      -->
       <div><div style="margin-top:20px;margin-bottom:20px;"> 
      
-      <textarea id="summernote" name="home_content"></textarea>
+      <textarea id="summernote" name="doc_content"><%=vo.getDoc_content() %></textarea>
       </div>
       <div style="margin-bottom:20px;">
 

@@ -1,3 +1,7 @@
+admin_board
+
+
+
 <%@ page language = "java" contentType = "text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="java.util.*"%>
@@ -155,11 +159,11 @@ $(document).ready(function(){
 								for(var i = 1; i <= b_count ; i++){
 									console.log("반복문")
 									b += i;
-									if(b%2 == 0){
+									if(b%10 == 0){ //페이지
 										page += 1	
 										console.log("page수 :" + page)
 										$('.pagenum').html($('.pagenum').html()+'<a class ="pageA" href="javascript:void(0);" onclick="page_detail(this);" value = "'+ page +'">'+ page + '</a>')
-									}else if(b <= 2){
+									}else if(b <= 10){
 										page += 1	
 										console.log("page값 :" + $('.pagenum').val())
 
@@ -228,11 +232,11 @@ $(document).ready(function(){
 					for(var i = 1; i <= b_count ; i++){
 						console.log("반복문")
 						b += i;
-						if(b%2 == 0){
+						if(b%10 == 0){
 							page += 1	
 							console.log("page수 :" + page)
 							$('.pagenum').html($('.pagenum').html()+'<a class ="pageA" href="javascript:void(0);" onclick="page_detail(this);" value = "'+ page +'">'+ page + '</a>')
-						}else if(b <= 2){
+						}else if(b <= 10){
 							page += 1	
 							console.log("page값 :" + $('.pagenum').val())
 
@@ -277,8 +281,8 @@ function page_detail(obj){
 		if(page <= 1){
 			swal("","첫 페이지 입니다.","info")
 		}
-		var start = (page-10)*2;
-		var end = (page-1)*2;
+		var start = (page-10)*10;
+		var end = (page-1)*10;
 
 		$(".wc_board").slice(start, end).show();
 		sessionStorage.setItem("pagenum", Number(page)-1)
@@ -294,8 +298,8 @@ function page_detail(obj){
 		page = sessionStorage.getItem("pagenum")
 
 		console.log("page"+sessionStorage.getItem("pagenum"));
-		var start = page*2;
-		var end = start+2;
+		var start = page*10;
+		var end = start+10;
 		
 		$(".wc_board").slice(start, end).show();
 		sessionStorage.setItem("pagenum",Number(page)+1)
@@ -377,8 +381,13 @@ function page_detail(obj){
 						카테고리&nbsp;&nbsp; 
 						<select class="category" onchange="btn_disable();">
 							<option value="">선택하세요</option>
+							<option value="community" checked>자유게시판</option>
 							<option value="free_doc">책임분양</option>
-							<option value="community" checked>커뮤니티</option>
+							<option value="adopt_home">가정분양</option>
+							<option value="adopt_list">업체분양</option>
+							<option value="free_auth">책임인증글</option>
+							<option value="payang">파양</option>
+							<option value="missing">실종</option>
 						</select>
 					</div>
 				</div>
