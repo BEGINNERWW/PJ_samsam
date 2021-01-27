@@ -18,6 +18,10 @@ public class MissingVO {
 	private String doc_content;
 	private Date doc_date;
 	private Date doc_upd_date;
+	private int doc_readcount;
+	// 댓글 개수
+	private int reply_count;
+	
 	
 	private String thumbnail;
 	
@@ -124,6 +128,18 @@ public class MissingVO {
 	}
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
+	}
+	public int getDoc_readcount() {
+		return doc_readcount;
+	}
+	public void setDoc_readcount(int doc_readcount) {
+		this.doc_readcount = doc_readcount;
+	}
+	public int getReply_count() {
+		return reply_count;
+	}
+	public void setReply_count(int reply_count) {
+		this.reply_count = reply_count;
 	}
 	
 	

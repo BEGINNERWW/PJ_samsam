@@ -1,21 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
 <%@ page import="java.util.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%
-String email = (String) session.getAttribute("email");
-%>
 <!DOCTYPE html>
 <html>
 <head>
-<link href="resources/img/title.png" rel="shortcut icon" type="image/x-icon">
+<meta charset="utf-8">
+<link href="${pageContext.request.contextPath}/resources/img/title.png" rel="shortcut icon" type="image/x-icon">
 <title>삼삼하개</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- 템플릿  CSS -->
-
-<link rel="stylesheet" href="./resources/fonts/icomoon/style.css">
-
+<!-- 폰트 -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&display=swap" rel="stylesheet">
@@ -24,32 +17,15 @@ String email = (String) session.getAttribute("email");
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
 
 <!-- 부트스트랩 4.0 CSS -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	
-<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>  -->
+<!-- 제이쿼리 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 
-<!-- include libraries(jQuery, bootstrap) -->
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-
-<!-- include summernote css/js-->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
-
-<!-- modal -->
+<!-- ㅇㅇㅇㅇㅇ -->
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<script>
-    $('.search-box btn').click(function(){
-      
-    });
-    $('#keyword').keypress(function(event){
-      if(event.which == 13){
-        $('.search-box btn').click();
-        return false;
-      }
-    });
-</script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/SJ/pet.css">
+
 <style>
 
 @charset "utf-8";
@@ -106,7 +82,7 @@ body {
 
 #header {
     width: 100%;
-    height: 190px;
+    height: 189px;
     box-sizing: content-box;
     display: flex;
     flex-direction: column;
@@ -114,7 +90,7 @@ body {
     padding-bottom: 18px;
     background-color : #fff;
     position : fixed;
-    z-index : 10000;
+    z-index : 100;
     top : 0;
     left : 0;
     right : 0;
@@ -261,7 +237,7 @@ li.dropdown > a {
 }
 .search-box.input:focus {outline:none;}
 
-.search-box.btn {
+.search-box.btn1 {
   color : #9494b8;
   text-align : left; 
 }
@@ -275,9 +251,14 @@ li.dropdown > a {
 }
 
 
-p{
-   text-align : center;
+/* footer */
+#footer {
+    margin: 0 auto;
+    width: fit-content;
+    bottom: 20px;
+    position: relative;
 }
+
 .fa-heart{
    color : red;
 }
@@ -358,13 +339,27 @@ p{
     min-height: 940px;
     padding-top: 200px;
 }
-
-#footer {
-    margin: 0 auto;
-    width: fit-content;
-    bottom: 20px;
-    position: relative;
+.list-group {
+	border-bottom: 1px solid rgba(0,0,0,.125);
 }
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: .75rem 1.25rem;
+    margin-bottom: -1px;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,.125);
+}
+/* 현재 페이지의 서브메뉴 */
+li.list-group-item.click > a {
+    font-weight: bold;
+    color: #5c5c8a;
+}
+
+
+.list-group-item > a {
+	text-decoration : none;
+	}
 
 /* 각각의 페이지에서 사용할 CSS */
 .list-group-item {
@@ -1210,84 +1205,6 @@ ol, ul {
     background: #fff;
 }
 
-
-.SmartEditor button {
-	
-}
-	.tab-left, .tab-right {
-		display: inline-block;
-	    border: 1px solid black;
-	    padding: 10px 20px;
-	    width: 50%;
-	    box-sizing: border-box;
-	    position: relative;
-	    text-align: center;
-	    cursor: pointer;
-	}
-	
-	.tab-left.on, .tab-right.on {
-		color: #0056b3;
-		font-weight: 700;
-	}
-	
-	.tab-left {
-		float: left;
-	}
-	
-	.tab-right {
-		float: right;
-	}
-
-
-	.pet-search-option {
-	    clear: both;
-	    height: 100%;
-	    text-align: center;
-		border: 1px solid black;
-	}
-	
-	.pet-search-option div {
-		padding: 2px 5px;
-	}
-	
-	.pet-search-option .condition {
-		position: absolute;
-	    right: 0;
-		cursor: pointer;
-	}
-	
-	
-	
-	
-	/* model */
-	.modal-container{
-		
-	}
-	
-	.w3-modal {
-		padding-top: 300px;
-		z-index: 20000;
-	}
-	
-	
-	@media (min-width: 993px){
-		.w3-modal-content {
-			width: 600px;
-		}
-		
-		.w3-container, .w3-panel {
-			padding: 3.01em 16px;
-		}
-	}
-	
-	.condition-header {
-		text-align: center;
-	    padding: 20px;
-	    font-size: 24px;
-	    font-weight: bold;
-	    margin-bottom: 25px;
-	}
-	
 	.condition-btn {
 		background: #2F9D27;
 	    text-align: center;
@@ -1296,67 +1213,6 @@ ol, ul {
 	    color: white;
 	    cursor: pointer;
     }
-
-	/* 펫 리스트 */
-	.pet-empty {
-	    border: 1px solid black;
-	    padding: 10px;
-	    text-align: center;
-	}
-	
-	
-	.pet-box {
-	    border: 1px solid black;
-    	height: 245px;
-    	cursor: pointer;
-	}
-	
-	.pet-img {
-		padding:  20px;
-		float: left;
-	}
-	
-	
-	.pet-box .pet-img, .pet-box .pet-content {
-		display: inline-block;
-	}
-	
-	.pet-box .pet-img img {
-		width: 350px;
-		height: 200px;
-	}
-	
-	.pet-content {
-		padding: 20px;
-	}
-	
-	.pet-content span {
-		display: block;
-		padding: 8px 3px;
-	}
-	
-	
-	.select-box  {
-		display: inline;
-	}
-	
-	.select-box select {
-		width: 160px;
-	}
-	
-	.pet-search-option .inline-block {
-		display: inline-block;
-		
-	}
-	
-	.pet-search-option input, select {
-		width: 200px;
-    	font-size: 14px;
-	}
-	
-	.pet-search-option table, th, td {
-		border: none !important;
-	}
 
 </style>
 </head>
@@ -1436,7 +1292,7 @@ ol, ul {
 			sido = $('#sido').val();
 			siGunGu = $('#sigungu').val();
 			upKind = $('#upKind').val();
-			kind = $('#kind').val();
+			kind = $('#kind-select').val();
 			
 			console.log(bgnde + "," + endde+ "," + sido+ "," + siGunGu+ "," + upKind+ "," + kind)
 			
@@ -1445,6 +1301,64 @@ ol, ul {
 		});
 		
 		
+		$('.pet-list-wrap').on('click', '.pet-box', function() {
+			var box = $(this);
+			var content = box.children(".pet-content");
+			var hidden = box.children(".pet-hidden");
+			
+			console.log(content);
+			console.log(hidden);
+			
+			kindCd = content.children(".animal-kindCd").text() ;
+			sexCd = content.children(".animal-sexCd").text() ;
+			happenDt = content.children(".animal-happenDt").text() ;
+			orgNm = content.children(".animal-orgNm").text() ;
+			happenPlace = content.children(".animal-happenPlace").text() ;
+			
+			
+			age = hidden.children(".animal-age").text() ;
+			careAddr = hidden.children(".animal-careAddr").text() ;
+			careNm = hidden.children(".animal-careNm").text() ;
+			careTel = hidden.children(".animal-careTel").text() ;
+			chargeNm = hidden.children(".animal-chargeNm").text() ;
+			colorCd = hidden.children(".animal-colorCd").text() ;
+			desertionNo = hidden.children(".animal-desertionNo").text() ;
+			neuterYn = hidden.children(".animal-neuterYn").text() ;
+			noticeEdt = hidden.children(".animal-noticeEdt").text() ;
+			noticeNo = hidden.children(".animal-noticeNo").text() ;
+			noticeSdt = hidden.children(".animal-noticeSdt").text() ;
+			officetel = hidden.children(".animal-officetel").text() ;
+			popfile = hidden.children(".animal-popfile").text() ;
+			processState = hidden.children(".animal-processState").text() ;
+			specialMark = hidden.children(".animal-specialMark").text() ;
+			weight = hidden.children(".animal-weight").text() ;
+			
+			kindCd = kindCd.replace("[", "");
+			kindCd = kindCd.replace("]", "");
+			
+			location.href = "/SJ/pet_detail?"
+					+ "kindCd=" + kindCd
+					+ "&happenPlace=" + happenPlace
+					+ "&sexCd=" + sexCd
+					+ "&happenDt=" + happenDt
+					+ "&orgNm=" + orgNm
+					+ "&age=" + age
+					+ "&careAddr=" + careAddr
+					+ "&careNm=" + careNm
+					+ "&careTel=" + careTel
+					+ "&chargeNm=" + chargeNm
+					+ "&colorCd=" + colorCd
+					+ "&desertionNo=" + desertionNo
+					+ "&neuterYn=" + neuterYn
+					+ "&noticeEdt=" + noticeEdt
+					+ "&noticeNo=" + noticeNo
+					+ "&noticeSdt=" + noticeSdt
+					+ "&officetel=" + officetel
+					+ "&popfile=" + popfile
+					+ "&processState=" + processState
+					+ "&specialMark=" + specialMark
+					+ "&weight=" + weight;
+		});
 	});
 	
 	// 시군구 가져오기
@@ -1452,14 +1366,13 @@ ol, ul {
 		
 		$.ajax({
 			type: "POST"
-			, url: "/samsam/SJ/SiGunGu"
+			, url: "/SJ/SiGunGu"
 			, data: {
 				  sidoCode: sidoCode,
 				  requestType : '01'
 				}  
 			 , dataType: "html"
 			, success: function( data ){
-				console.log(data);
 				$('#sigungu-select').empty();
 				$('#sigungu-select').append(data);
 				
@@ -1477,9 +1390,10 @@ ol, ul {
 		
 		$.ajax({
 			type: "POST"
-			, url: "/samsam/SJ/animalKind"
+			, url: "/SJ/animalKind"
 			, data: {
-					upKindCode: upKindCode
+					upKindCode: upKindCode,
+					requestType : '01'
 				}  
 			 , dataType: "html"
 			, success: function( data ){
@@ -1501,7 +1415,7 @@ ol, ul {
 		
 		$.ajax({
 			type: "POST"
-			, url: "/samsam/SJ/animalInfoList"
+			, url: "/SJ/animalInfoList"
 			, data: {
 				bgnde : bgnde,
 				endde : endde,
@@ -1538,7 +1452,7 @@ ol, ul {
 		
 		$.ajax({
 			type: "GET"
-			, url: "/samsam/SJ/petList"
+			, url: "/SJ/petList"
 			, data: {
 					bgnde: bgnde,
 					endde: endde,
@@ -1569,54 +1483,48 @@ ol, ul {
 <body>
 <div class ="body_content">
 <header id = "header">
-<div class ="inout_gocen">
-         <%if(email != null){ %>
-         
-         <input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='logout.me'">
-         <input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='mypage.me'">
-         <%}else{ %>
-         <input  type="button" class= "header_btn" value="로그인" onclick="location.href='loginForm.me'">
-         <input  type="button" class= "header_btn" value="회원가입" onclick="location.href='joinform.me'">
-         <%} %>
-         <a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
-      </div>
-	 <div class="nav-menu">
-            <ul class="sticky-wrapper">
-               <li class="dropdown"><a href="home.me">HOME</a></li>
-               <li class="dropdown"><a href="home_list.bo">분양</a>
-                  <ul class="dropdown-menu board">
-                     <li><a href="home_list.bo">&nbsp;&nbsp;가정분양</a></li>
-                     <li><a href="fdoclist.bo">책임분양</a></li>
-                     <li><a href="selladopt_list.bo">업체분양</a></li>
-                  </ul></li>
-               <li class="dropdown"><a href="SJ/pet_list">보호소</a>
-                  <ul class="dropdown-menu care">
-                     <li><a href="SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
-                     <li><a href="SJ/payang/list">파양</a></li>
-                     <li><a href="SJ/missing/list">실종</a></li>
-                  </ul></li>
-               <li class="dropdown"><a href="doclist.bo">커뮤니티</a>
+
+	<div class ="inout_gocen">
+			<a href="${pageContext.request.contextPath}/loginForm.me"><input type="button" class= "header_btn" id="login" value="로그인"></a>
+			<a href="${pageContext.request.contextPath}/logout.me"><input type="button" class= "header_btn" id="logout" value="로그아웃"></a>
+			<a href="${pageContext.request.contextPath}/joinform.me"><input type="button" class= "header_btn" id="signin" value="회원가입"></a>
+			<a href="${pageContext.request.contextPath}/mypage.me"><input type="button" class= "header_btn" id="mypage" value="마이페이지"></a>
+			<a href="${pageContext.request.contextPath}/customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
+		</div>
+	
+	<div class="nav-menu">
+				<ul class="sticky-wrapper">
+               <li class="dropdown"><a href="${pageContext.request.contextPath}/home.me">HOME</a></li>
+               <li class="dropdown"><a href="${pageContext.request.contextPath}/home_list.bo">분양</a>
+						<ul class="dropdown-menu">
+                     <li><a href="${pageContext.request.contextPath}/home_list.bo">&nbsp;&nbsp;가정분양</a></li>
+                     <li><a href="${pageContext.request.contextPath}/fdoclist.bo">책임분양</a></li>
+                     <li><a href="${pageContext.request.contextPath}/selladopt_list.bo">업체분양</a></li>
+						</ul></li>
+					<li class="dropdown"><a href="${pageContext.request.contextPath}//SJ/pet_list">보호소</a>
+						<ul class="dropdown-menu care">
+					<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
+						</ul></li>
+               <li class="dropdown"><a href="${pageContext.request.contextPath}/doclist.bo">커뮤니티</a>
                   <ul class="dropdown-menu commu">
-                     <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
-                     <li><a href="auth_fdoc.bo">책임분양인증</a></li>
-                  </ul></li>
-            </ul>
-   
-   <div class="header-top">
-      <div class="mainlogo">
-      <a href="home.me">
-      <img src = "./resources/img/mainlogo.png" class = "img-circle">
-      </a>
-      </div>
-   </div>
-    <form action="home_search.me" method="post" name="home_search">
-            <div class="search-wrapper">
-               <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
-               <button class="search-box btn" type="submit">
-                  <i class="fas fa-search"></i>
-               </button>
-            </div>
-      </form>
+                     <li><a href="${pageContext.request.contextPath}/doclist.bo">&nbsp;자유게시판</a></li>
+                     <li><a href="${pageContext.request.contextPath}/auth_fdoc.bo">책임분양인증</a></li>
+						</ul></li>
+				</ul>
+	
+	<div class="header-top">
+		<div class="mainlogo">
+		<a href="${pageContext.request.contextPath}/home.me">
+		<img src = "${pageContext.request.contextPath}/resources/img/mainlogo.png" class = "img-circle">
+		</a>
+		</div>
+	</div>
+	<div class= "search-wrapper">
+      <input class="search-box input" type="text" placeholder="Search">
+      <button class="search-box" type="button"><i class="fas fa-search"></i></button>
+	</div>
 	</div><!-- nav-menu -->
 </header>
 		
@@ -1640,11 +1548,11 @@ ol, ul {
 					
 					<!-- 검색 카테고리 탭 -->
 					<div class="tab">
-						<div class="tab-left on">
-							<a href="/samsam/SJ/pet_list" alt="보호 동물">보호 동물</a>
+						<div class="tab-left on" onclick="window.location.href='/SJ/pet_list';">
+							<a href="${pageContext.request.contextPath}/SJ/pet_list" alt="보호 동물">보호 동물</a>
 						</div>
-						<div class="tab-right">
-							<a href="/samsam/SJ/shelter_list" alt="보호소 찾기">보호소 찾기</a>
+						<div class="tab-right" onclick="window.location.href='/SJ/shelter_list';">
+							<a href="${pageContext.request.contextPath}/SJ/shelter_list" alt="보호소 찾기">보호소 찾기</a>
 						</div>
 					</div>
 					
@@ -1668,8 +1576,6 @@ ol, ul {
 											<span><input id="endde" type="date" name="endde" value="${formatLastDate}"></input></span>
 										</div>
 									</td>
-									<td>
-									</td>
 								</tr>
 								<tr>
 									<td>
@@ -1684,13 +1590,11 @@ ol, ul {
 												</c:forEach>
 											</select>
 										</div>
-										<div id="sigungu-select" class="inline-block">
-											<select name="siGunGu" id="siGunGu">
+										<div  class="inline-block">
+											<select name="siGunGu" id="sigungu-select">
 												<option value="" selected>전 체</option>
 											</select>
 										</div>
-									</td>
-									<td>
 									</td>
 								</tr>
 								<tr>
@@ -1698,8 +1602,8 @@ ol, ul {
 								      	<span>축종 :</span>
 									</td>
 									<td align="left">
-										<div id="upkind-select" class="inline-block">
-											<select name="upKind" id="upKind">
+										<div class="inline-block">
+											<select name="upKind" id="upKind" id="upkind-select">
 												<option value="" selected>모든 동물</option>
 												<option value="417000">개</option>
 												<option value="422400">고양이</option>
@@ -1707,14 +1611,16 @@ ol, ul {
 											</select>
 										</div>
 										
-										<div id="kind-select" class="inline-block">
-											<select name="kind" id="kind">
+										<div class="inline-block">
+											<select name="kind" id="kind-select">
 												<option value="" selected>전체</option>
 											</select>
 										</div>
 									</td>
-									<td>
-							      		<span id="condition-btn" class="btn btn-primary">검색하기</span>
+								</tr>
+								<tr>
+									<td colspan="2">
+							      		<button id="condition-btn" class="btn pet-btn">검색하기</button>
 									</td>
 								</tr>
 							</table>
@@ -1724,52 +1630,10 @@ ol, ul {
 					</div>
 					
 					<!-- 동물 리스트 -->			
-					<div class="pet-list-wrap">
-					
-						<div class="pet-list">
-							<%--
-							<c:forEach var="animal" items="${animalList}" varStatus="status">
-								<div class="pet-box">
-									<div class="pet-img">
-									  <img src="${animal.filename }" alt="img" />
-									</div>
-									<div class="pet-content">
-										<span class="animal-kindCd">${animal.kindCd }</span>
-										<span class="animal-sexCd">${animal.sexCd }</span>
-										<span class="animal-happenDt">${animal.happenDt }</span>
-										<span class="animal-orgNm">${animal.orgNm }</span>
-										<span class="animal-happenPlace">${animal.happenPlace }</span>
-									</div>
-									<div class="pet-hidden" style="display: none;"> 
-										<span class="animal-age">${animal.age }</span>
-										<span class="animal-careAddr">${animal.careAddr }</span>
-										<span class="animal-careNm">${animal.careNm }</span>
-										<span class="animal-careTel">${animal.careTel }</span>
-										<span class="animal-chargeNm">${animal.chargeNm }</span>
-										<span class="animal-colorCd">${animal.colorCd }</span>
-										<span class="animal-desertionNo">${animal.desertionNo }</span>
-										<span class="animal-neuterYn">${animal.neuterYn }</span>
-										<span class="animal-noticeEdt">${animal.noticeEdt }</span>
-										<span class="animal-noticeNo">${animal.noticeNo }</span>
-										<span class="animal-noticeSdt">${animal.noticeSdt }</span>
-										<span class="animal-officetel">${animal.officetel }</span>
-										<span class="animal-popfile">${animal.popfile }</span>
-										<span class="animal-processState">${animal.processState }</span>
-										<span class="animal-specialMark">${animal.specialMark }</span>
-										<span class="animal-weight">${animal.weight }</span>
-									</div>
-								</div>
-							</c:forEach>
-							 --%>
-						</div>
-		
-					</div>
-					
-				
+					<div class="pet-list-wrap"></div>
 				</div>				
 			</div>
 	</div>
-</div>
 
 	<!-- 카카오톡 채널 상담 -->
 	<div class="kakaoChat">
@@ -1787,70 +1651,29 @@ ol, ul {
 	
 </div><!-- 바디컨텐트 -->
 
-
-<!-- 제이쿼리 -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script> -->
 <script>
+	$(document).ready(function(){
+		$('#login').on('click', function(e){
+		      $('#logout').show();
+			  $('#mypage').show();
+			  $('#login').hide();
+			  $('#signin').hide();
+		  });//헤더 상단 로그인 체인지
+		
+		$('#logout').on('click', function(e){
+		       $('#logout').hide();
+			   $('#mypage').hide();
+			   $('#login').show();
+			   $('#signin').show();
+		});//헤더 상단 로그아웃 체인지
 		
 		$('#btnCancel').on('click', function(){
-			location.href = "/samsam/SJ/payang/list";
+			location.href = "/SJ/payang/list";
 		});
 		
-		
-		// summernote
-		$('#summernote').summernote({
-		       toolbar: [
-		            // [groupName, [list of button]]
-		            ['fontname', ['fontname']],
-		            ['fontsize', ['fontsize']],
-		            ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-		            ['color', ['forecolor','color']],
-		            ['table', ['table']],
-		            ['para', ['ul', 'ol', 'paragraph']],
-		            ['height', ['height']],
-		            ['insert',['picture','link','video']],
-		            ['view', ['fullscreen', 'help']]
-		          ],
-		        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
-		        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
-		        height: 300,                 // 에디터 높이
-		        minHeight: null,             // 최소 높이
-		        maxHeight: null,             // 최대 높이
-		        focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-		        lang: "ko-KR",               // 한글 설정
-		        placeholder: '최대 2048자까지 쓸 수 있습니다',   //placeholder 설정
-		          callbacks: {
-		               onImageUpload: function(files, editor, welEditable) {
-		                     for (var i = files.length - 1; i >= 0; i--) {
-		                        sendFile(files[i], this);
-		                     }
-		                 }
-		            }
-		          
-		});
 		
 		
 	}); 
-	
-	// 파일업로드
-	function sendFile(file, el) {
-	       var form_data = new FormData();
-	       form_data.append('file', file);
-	   
-	       $.ajax({
-	         data: form_data,
-	         type: "post",
-	         url: 'image.bo',
-	         cache: false,
-	         contentType: false,
-	         enctype: 'multipart/form-data',
-	         processData: false,
-	         success: function(url) {
-	               $(el).summernote('editor.insertImage', url);
-	         }
-	       });
-     }
-	
 	
 
 </script>

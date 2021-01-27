@@ -51,5 +51,18 @@ public class PayangServiceImpl implements PayangService {
 	public List<PayangReplyVO> replyList(Integer doc_no) throws Exception {
 		return mapper.replyList(doc_no);
 	}
+	@Override
+	public void updateReadCount(PayangVO payang) throws Exception {
+		mapper.updateReadCount(payang);
+	}
+	@Override
+	public void replyRemove(Integer doc_cno) throws Exception {
+		mapper.replyRemove(doc_cno);
+	}
+	@Override
+	public int replyModify(PayangReplyVO paramVO) {
+		return mapper.replyModify(paramVO);
+	}
+	
 
 }

@@ -3,6 +3,7 @@ package com.project.samsam.missing;
 import java.util.List;
 
 public interface MissingService {
+		
 	// 게시글 목록 조회
 		public List<MissingVO> list() throws Exception;
 		
@@ -23,4 +24,13 @@ public interface MissingService {
 		
 		// 댓글 목록 조회
 		public List<MissingReplyVO> replyList(Integer doc_no) throws Exception;
+		
+		// 조회수 증가
+		public void updateReadCount(MissingVO missing) throws Exception;
+		
+		// 댓글 삭제
+		public void replyRemove(Integer doc_cno) throws Exception;
+		
+		public int replyModify(MissingReplyVO paramVO);
+		
 }
