@@ -16,36 +16,6 @@ String id = (String) session.getAttribute("nick");
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
 <style>
-html, body {
-	margin: 0;
-	padding: 0;
-	height: 100%;
-	overflow: hidden;
-}
-.body_content {
-	margin: 0;
-	height: 100vh;
-    min-height : 600px;
-    box-sizing : content-box;
-	line-height: 1.7;
-    color: gray;
-   	font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 300;
-    font-size: .9rem;
-    overflow:scroll;
-}
-table {
-	margin: auto;
-	width: 60%;
-	border-top: 1px solid #444444;
-	border-collapse: collapse;
-}
-
-th, td {
-	border-bottom: 1px solid #444444;
-	padding: 10px;
-}
-
 textarea {
 	-webkit-writing-mode: horizontal-tb !important;
 	text-rendering: auto;
@@ -105,356 +75,335 @@ a {
 @charset "utf-8";
 
 * {
-	margin: 0;
-	padding: 0;
+   margin:0;
+   padding: 0;
+}
+html{
+   margin:0 auto;
+   width : 100%;
+   height: 100%;
+    overflow: auto;
 }
 
-html {
-	margin: 0 auto;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
+
+body {
+   margin: 0;
+   height: auto;
+    min-height : 600px;
+    box-sizing : content-box;
+   line-height: 1.7;
+    color: gray;
+      font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    font-size: .9rem;
 }
 
+
+a{
+   text-decoration : none;
+   color : #9494b8;
+}
 a:hover {
-	color: #0056b3;
-	text-decoration: none;
+    color: #0056b3;
+    text-decoration: none;
 }
 
 body {
-	margin: 0;
-	height: 100vh;
-	min-height: 600px;
-	box-sizing: content-box;
-	line-height: 1.7;
-	color: gray;
-	font-family: 'Noto Sans KR', sans-serif;
-	font-weight: 300;
-	font-size: .9rem;
+   text-align: -webkit-center;
+   display : flex;
+   flex-direction : column;
+   justify-content : space-between;
 }
 
-a {
-	text-decoration: none;
-	color: #9494b8;
-}
-
-body {
-	text-align: -webkit-center;
-}
-
-.body_content {
-	margin: 0;
-	padding: 0;
-	width: 100%;
-	height: 100vh;
-	display: flex;
-	flex-direction: column;
-	overflow: auto;
+.body_content{
+     margin : 0;
+     padding : 0;
+     width : 100%;
+     height:100vh;
+    display : flex;
+    flex-direction : column;
 }
 
 #header {
-	width: 100%;
-	height: 190px;
-	box-sizing: content-box;
-	display: flex;
-	flex-direction: column;
-	border-bottom: 1px solid #efefef;
-	padding-bottom: 20px;
+    width: 100%;
+    height: 189px;
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #efefef;
+    padding-bottom: 18px;
+    background-color : #fff;
+    position : fixed;
+    z-index : 100;
+    top : 0;
+    left : 0;
+    right : 0;
 }
 
-.inout_gocen {
-	position: fixed;
-	top: 20px;
-	right: 390px;
+.inout_gocen{
+   position : inline;
+   display : flex;
+   justify-content : flex-end;
+   margin-top : 20px;
+   margin-right : 340px;
+   background-color : #fff;
 }
-
+.fixinner{
+   position: fixed; 
+}
 .header-top {
-	margin-top: 40px;
-	display: flex;
-	justify-content: flex-start;
-	margin-right: auto;
+   margin-top : -10px;
+   display : flex;
+   justify-content : flex-start;
+   margin-right: auto;
+}
+.header_btn{
+   width : 70px;
+   height : 30px;
+   background-color : #fff;
+   color : #9494b8;
+    border-radius: 5px;
+    border : none;
+    outline : 0;
+}
+.header_btn:hover{
+   color : #6200cc;
+   font-weight: 700;
+}
+#logout, #mypage{
+   display : none;
+}
+.img-circle{
+   width : 450px;
+   height : 150px;
+   display: block;
+   margin : 0 auto;
+}
+.nav-menu{
+   margin : 0 auto;
+   display : flex;
+   justify-content : space-around;
+   align-items: baseline;
+   width: 1200px;
+}
+.sticky-wrapper{
+   width: 400px;
+   height: 50px;
+   margin : 0;
+   margin-left: 0;
+     position: sticky;
+     list-style : none;
+    display : flex;
+    padding: 0;
 }
 
-.header_btn {
-	width: 70px;
-	height: 30px;
-	background-color: #fff;
-	color: #9494b8;
-	border-radius: 5px;
-	border: none;
-	outline: 0;
+.sticky-wrapper > li{
+   padding : 8px 8px;
+   list-style-type:none;
+   float: left;
 }
-
-.header_btn:hover {
-	color: #6200cc;
-	font-weight: 700;
-}
-
-#logout, #mypage {
-	display: none;
-}
-
-.img-circle {
-	width: 450px;
-	height: 150px;
-	display: block;
-	margin: 0 auto;
-}
-
-.nav-menu {
-	margin: 0 auto;
-	display: flex;
-	justify-content: space-around;
-	align-items: baseline;
-	width: 1200px;
-}
-
-.sticky-wrapper {
-	width: 400px;
-	height: 50px;
-	margin: 0;
-	margin-left: 0;
-	position: sticky;
-	list-style: none;
-	display: flex;
-	padding: 0;
-}
-
-.sticky-wrapper>li {
-	padding: 8px 8px;
-	list-style-type: none;
-	float: left;
-}
-
-.sticky-wrapper>ul {
-	padding: 8px 8px;
+.sticky-wrapper > ul{
+   padding : 8px 8px;
 }
 
 li.dropdown {
-	color: #9494b8;
-	background: #fff;
-	transition: .3s all ease;
-	font-size: 20px;
-	width: 90px;
-	height: 50px;
-	text-align: -webkit-center;
+    color: #9494b8;
+    background: #fff;
+    transition: .3s all ease;
+    font-size: 20px;
+    width: 90px;
+    height: 50px;
 }
 
-.sticky-wrapper.active {
-	position: fixed;
-	top: 0px;
+.sticky-wrapper.active{
+   position: fixed;
+    top: 0px;
 }
 
 /* dropdown */
 .dropdown-menu {
-	display: none;
-	justify-content: flex-start;
-	position: absolute;
-	list-style: none;
-	visibility: visible;
-	background-color: rgb(0, 0, 0, 0);
-	width: 350px;
-	top: 48px;
-	padding: 5px;
-	border: none;
-}
-.dropdown_1{
-	backgrond-color:transparent !important;
-	border:0px;
-	
+   display: none;
+      justify-content : flex-start;
+   position: absolute;
+   list-style : none;
+    visibility: visible;
+    background-color: #fff;
+   width: 1200px;
+   top : 48px;
+   margin-left : -30px;
+   border: none;
+   border-top: 1px solid #efefef;
 }
 
-
-.dropdown-menu li {
-	margin-right: 40px;
-	text-decoration: none;
-    color: #9494b8;
+.board {
+	padding-left: 46px;
+}
+.care {
+	padding-left: 30px;
+}
+.commu {
+	padding-left: 35px;
 }
 
-.dropdown:hover .dropdown-menu {
-	display: flex;
-	visibility: visible;
+li.dropdown > a {
+    text-decoration: none;
+}
+
+.dropdown-menu li{
+   margin-right : 40px;
+}
+.dropdown:hover .dropdown-menu { 
+   display: flex; 
+   visibility: visible; 
 }
 
 /* search-wrapper */
 .search-wrapper {
-	padding: 5px;
-	width: 280px;
-	height: 38px;
-	display: flex;
-	justify-content: space-betwwen;
-	background: #fff;
-	border: 2px solid #9494b8;
-	border-radius: 10px;
+  padding : 5px;
+  width: 280px;
+  height: 38px;
+  display: flex;
+  justify-content : space-betwwen;
+  background: #fff;
+  border: 2px solid #9494b8;
+  border-radius: 10px;
 }
-
 .search-box {
-	height: 100%;
-	padding: 0;
-	border: none;
-	background: #fff;
+  height : 100%;
+  padding: 0;
+  border: none;
+  background: #fff;
 }
-
 .search-box.input {
-	width: 80%;
-	margin-left: 15px;
-	font-size: .9rem;
+  width : 80%;
+  margin-left : 15px;
+  font-size : .9rem;
 }
+.search-box.input:focus {outline:none;}
 
-.search-box.input:focus {
-	outline: none;
-}
-
-.search-box.btn {
-	color: #9494b8;
-	text-align: left;
+.search-box.btn1 {
+  color : #9494b8;
+  text-align : left; 
 }
 
 /* search-wrqpper */
-.main-content {
-	width: 100%;
-	height: 100%;
-	margin: 0 auto;
+
+.main-content{
+   width : 100%;
+   height : auto;
+   margin : 0 auto;
 }
+
 
 /* footer */
 #footer {
-
-	position: relative;
-    margin: -15px auto;
-    width: 100%;
-    bottom: 35px;
-    padding-top: 35px;
-    z-index: -1;
-    border-top: 1px solid #efefef;
-    
+    margin: 0 auto;
+    width: fit-content;
+    bottom: 20px;
+    position: relative;
 }
 
-
-
-
-p {
-	text-align: left;
-}
-
-.fa-heart {
-	color: red;
+.fa-heart{
+   color : red;
 }
 
 /* pageup button */
-.back-to-top {
-	width: 40px;
-	height: 40px;
-	margin: 0 auto;
-	font-size: 24px;
-	color: white;
-	background-color: #149DDD;
-	border-radius: 50%;
-	visibility: visible;
-	position: fixed;
-	bottom: 45px;
-	right: 30px;
-	text-align: center;
+.back-to-top{
+   width : 40px;
+   height : 40px;
+   margin : 0 auto;
+   font-size : 24px;
+   color : white;
+   background-color : #149DDD;
+   border-radius : 50%;
+   visibility : visible;
+   position: fixed; 
+   bottom: 45px; 
+   right: 30px;
+   text-align : center;
 }
 /* pageup button */
 *, ::after, ::before {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
+
 
 /*카카오톡 톡상담*/
 .kakaoChat {
-	width: 44px;
-	height: 100px;
-	margin: 0 auto;
-	font-size: 24px;
-	color: white;
-	border-radius: 50%;
-	visibility: visible;
-	position: fixed;
-	bottom: 45px;
-	right: 30px;
-	text-align: center;
+    text-align: right;
+    position: fixed;
+    margin-right: 28px;
+    bottom: 90px;
+    right: 0;
 }
-
 .kakao_btn {
-	border-radius: 1rem !important;
+	border-radius: 1rem!important;
 }
 
 /* side menu와 내용 묶음 */
 .content-wrap {
-    width: 1200px;
-    margin: 0 auto;
-    position: relative;
-    top: 50px;
-    overflow: visible;
-    margin-bottom: 100px;
-
+	width: 1200px;
+	min-height: 100%;
+	margin: 0 auto;
+	position: relative;
+	top: 50px;
+	
 }
-
-.cont_comment {
-	margin-top: 35px;
-}
-
-.content-wrap::-webkit-scrollbar {
-	display: none;
-}
-
+/* side menu 틀*/
 .sidemenu-section {
-	width: 200px;
-	position: absolute;
-	font-size: 18px;
-	text-align: left;
-	height: 100%;
-	padding: 0px 0px 0 0;
-	margin-left: 0;
+    width: 200px;
+    font-size: 18px;
+    text-align: left;
+    min-height: 740px;
+    border-right-color: darkblue;
+    border-right: 1px solid #efefef;
+    padding: 0px 0px 0 0;
+    margin-left: 0;
+    margin-top: 210px;
+    position: fixed;
 }
 
+
+/* 내용 틀*/
 .content-section {
-	width: 1000px;
-	position: relative;
-	left: 200px;
-	text-align: left;
-	font-size: 14px;
-	margin-top: 3px;
-	color: black;
-	padding-left: 50px;
-	border-left: 1px solid #efefef;
+    width: 1001px;
+    height: max-content;
+    position: relative;
+    left: 100px;
+    text-align: left;
+    font-size: 14px;
+    margin-top: 0px;
+    color: black;
+    margin-left: 0;
+    padding-bottom: 100px;
+    border-left-color: darkblue;
+    border-left: 1px solid #efefef;
+    padding-left: 50px;
+    padding-right: 0;
+    min-height: 940px;
+    padding-top: 200px;
 }
-
-.content-section::-webkit-scrollbar {
-	display: none;
+.list-group {
+	border-bottom: 1px solid rgba(0,0,0,.125);
 }
-
 .list-group-item {
-	position: relative;
-	display: block;
-	padding: .75rem 1.25rem;
-	margin-bottom: -1px;
-	background-color: white;
-	border: 1px solid rgba(0, 0, 0, .125);
+    position: relative;
+    display: block;
+    padding: .75rem 1.25rem;
+    margin-bottom: -1px;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,.125);
+}
+/* 현재 페이지의 서브메뉴 */
+li.list-group-item.click > a {
+    font-weight: bold;
+    color: #5c5c8a;
 }
 
-li.list-group-item.click>a {
-	font-weight: bold;
-	color: #5c5c8a;
-}
 
-.list-group-item>a {
-	text-decoration: none;
-}
-
-.dropdown-menu {
-	display: none;
-	justify-content: flex-start;
-	position: absolute;
-	list-style: none;
-	visibility: visible;
-	background-color: rgb(0, 0, 0, 0);
-	width: 350px;
-	top: 48px;
-	padding: 5px;
-	border: none;
-}
+.list-group-item > a {
+	text-decoration : none;
+	}
 
 a {
 	text-decoration: none;
@@ -525,20 +474,7 @@ a {
 	color: #666;
 }
 
-ul {
-	display: block;
-	list-style-type: disc;
-	margin-block-start: 1em;
-	margin-block-end: 1em;
-	margin-inline-start: 0px;
-	margin-inline-end: 0px;
-	padding-inline-start: 40px;
-}
 
-li {
-	display: list-item;
-	text-align: -webkit-match-parent;
-}
 
 .all dd, .all dl, .all dt, .all p, li, ul {
 	list-style: none;
@@ -583,15 +519,8 @@ body, button, div, input, select, table, td, textarea, th {
 	-webkit-font-smoothing: antialiased;
 }
 
-body, div, table, td, th, tr {
-	line-height: 1.6;
-}
 
-body {
-	margin: 0;
-	padding: 0;
-	font-size: 13px;
-}
+
 
 .comment_section .comment_info .comment_post .ico_bbs.ico_new,
 	.comment_section .comment_info .comment_post .ico_role,
@@ -812,6 +741,7 @@ textarea {
 	border: 0;
 }
 
+
 .btn_g {
 	display: inline-block;
 	height: 34px;
@@ -830,7 +760,7 @@ display:inline-block;
 float:right;
 margin-right:40px;
 }
-select, input, button, textarea {
+select,button, textarea {
     display: inline-block;
     font-family: "Malgun Gothic", 'MalgunGothic', '맑은고딕', sans-serif;
     font-size: 12px;
@@ -846,7 +776,7 @@ select, input, button, textarea {
     width: 100%;
     min-height: 40px;
     padding: 11px 12px 10px;
-    border: 1px solid #ebecef;
+   border: 1px solid #ebecef;
     box-sizing: border-box;
     overflow: hidden;
     resize: none;
@@ -865,8 +795,7 @@ select, input, button, textarea {
 	margin-top:20px;
 	margin-bottom:20px;
 	padding: 15px 48px 20px 35px;
-    border-radius: 5px 5px 5px 5px;
-    border: 1px solid #f2f2f2;
+    border: 1px solid #ebecef;
 }
 .option1{
 	display:inline-block;
@@ -892,7 +821,7 @@ select, input, button, textarea {
 	 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet"> 
 	 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
 <script>
-    $('.search-box btn').click(function(){
+    $('.search-box').click(function(){
       
     });
     $('#keyword').keypress(function(event){
@@ -959,16 +888,43 @@ $(document).ready(function() {
 	     }
 	   
 });
+
+function submit_check(){
+	
+
+	
+	var subject = $('#doc_subject').val();
+
+	if(subject==''){
+		alert("제목을 입력해주세요");
+		return false;
+	}
+	
+	var content = $('#summernote').val();
+	
+	if(content==''){
+		alert("내용을 입력해주세요");
+		return false;
+		}
+
+
+
+	
+	return true;
+	
+	
+}
+	
 </script>
 </head>
 <body>
 
-	<div class="body_content">
+<div class="body_content">
 
 		<header id="header">
 
-			<div class="inout_gocen">
-				<%if(email != null){ %>
+	<div class ="inout_gocen">
+			<%if(email != null){ %>
 			
 			<input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='logout.me'">
 			<input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='mypage.me'">
@@ -977,7 +933,8 @@ $(document).ready(function() {
 			<input  type="button" class= "header_btn" value="회원가입" onclick="location.href='joinform.me'">
 			<%} %>
 			<a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
-			</div>
+		</div>
+
 
 		 <div class="nav-menu">
             <ul class="sticky-wrapper">
@@ -988,7 +945,7 @@ $(document).ready(function() {
                      <li><a href="fdoclist.bo">책임분양</a></li>
                      <li><a href="selladopt_list.bo">업체분양</a></li>
                   </ul></li>
-               <li class="dropdown"><a href="SJ/pet_list">보호소</a>
+             <li class="dropdown"><a href="SJ/pet_list">보호소</a>
                   <ul class="dropdown-menu care">
                      <li><a href="SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
                      <li><a href="SJ/payang/list">파양</a></li>
@@ -1001,17 +958,18 @@ $(document).ready(function() {
                   </ul></li>
             </ul>
 
+
 				<div class="header-top">
 					<div class="mainlogo">
-						<a href="home.me"> <img src="./resources/img/mainlogo.png"
+						<a href="home.me"> <img src="resources/img/mainlogo.png"
 							class="img-circle">
 						</a>
 					</div>
 				</div>
-				 <form action="home_search.me" method="post" name="home_search">
+				<form action="home_search.me" method="post" name="home_search">
             <div class="search-wrapper">
                <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
-               <button class="search-box btn" type="submit">
+               <button class="search-box" type="submit">
                   <i class="fas fa-search"></i>
                </button>
             </div>
@@ -1020,15 +978,15 @@ $(document).ready(function() {
 			<!-- nav-menu -->
 		</header>
 
-
+<div class="main-content">
 		<div class="content-wrap">
 
 			<!-- 왼쪽. 서브메뉴가 들어갈 부분 -->
 			<div class="sidemenu-section" id="left">
 				<ul class="list-group list-group-flush">
-					<li class="list-group-item click"><a href="home_list.bo">가정분양</a></li>
-					<li class="list-group-item"><a href="fdoclist.bo">책임분양</a></li>
-					<li class="list-group-item"><a href="selladopt_list.bo">업체분양</a></li>
+					<li class="list-group-item click"><a href="doclist.bo">자유게시판</a></li>
+					<li class="list-group-item"><a href="auth_fdoc.bo">책임분양인증</a></li>
+					<li class="list-group-item"><a href="#">Map</a></li>
 				</ul>
 			</div>
 
@@ -1039,11 +997,11 @@ $(document).ready(function() {
 				<div class="content-form">
 		
 		 
-   <form method="post" action="doc_write.bo" enctype="multipart/form-data">
+   <form method="post" action="doc_write.bo" enctype="multipart/form-data" onsubmit="return submit_check();">
 
       <input type="hidden" name="doc_nick" value=<%=id %>>
       <input type="hidden" name="doc_email" value=<%=email %>>
-      <div><div><textarea name="doc_subject" placeholder="제목을 입력해 주세요." class="textarea_input" style="height: 40px;"></textarea></div></div>
+      <div><div><textarea name="doc_subject" id="doc_subject" placeholder="제목을 입력해 주세요." class="textarea_input" style="height: 40px;"></textarea></div></div>
    
      
     
@@ -1090,6 +1048,7 @@ $(document).ready(function() {
 					class="fas fa-heart"></i> by SamSam
 		</footer>
 	</div>
+	</div>
 	<!-- 바디컨텐트 -->
 
 
@@ -1116,7 +1075,24 @@ $(document).ready(function() {
     
   //]]>
   
-
+    $(document).ready(function(){
+        console.log("<%=email%>") 
+        var session = '<%=email %>'
+        console.log(session);
+        if(session == "null" ){
+            $('#logout').hide();
+              $('#mypage').hide();
+              $('#login').show();
+              $('#signin').show();
+            
+         } //헤더 상단 로그인상태 일때
+         else{
+           $('#logout').show();
+             $('#mypage').show();
+             $('#login').hide();
+             $('#signin').hide();
+         }; //헤더 상단 로그아웃상태 일때 
+      });
 </script>
 
 	<div id="ex7" class="modal" style="overflow: visible;"></div>

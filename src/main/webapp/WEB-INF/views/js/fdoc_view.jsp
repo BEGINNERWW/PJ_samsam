@@ -15,14 +15,12 @@
 	String table = "fdoc_refly";
 	String doc_table = "free_doc";
 	
-	
 
 %>
 	<link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
-
 
 <style>
 
@@ -831,6 +829,17 @@ padding: 0 0 29px;
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+	<script>
+    $('.search-box').click(function(){
+      
+    });
+    $('#keyword').keypress(function(event){
+      if(event.which == 13){
+        $('.search-box btn').click();
+        return false;
+      }
+    });
+</script>
 <script>
 
 var table = '<%=table%>';
@@ -2135,17 +2144,6 @@ function pay(){
 	
 	
 </script>
-<script>
-    $('.search-box btn').click(function(){
-      
-    });
-    $('#keyword').keypress(function(event){
-      if(event.which == 13){
-        $('.search-box btn').click();
-        return false;
-      }
-    });
-</script>
 <body>
 <div class ="body_content">
 <header id = "header">
@@ -2194,10 +2192,10 @@ function pay(){
 	</div>
 	
 	
-	 <form action="home_search.me" method="post" name="home_search">
+	<form action="home_search.me" method="post" name="home_search">
             <div class="search-wrapper">
                <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
-               <button class="search-box btn" type="submit">
+               <button class="search-box" type="submit">
                   <i class="fas fa-search"></i>
                </button>
             </div>
@@ -2260,9 +2258,9 @@ function pay(){
 							<span class="cmt"><i class="far fa-comment"></i>&nbsp;<%=vo.getDoc_comment()%></span>
 							<div class="option-wrap">
 							<%
-								if (id != null) {
+								if (email != null) {
 
-									if (!id.equals(vo.getDoc_nick())) {
+									if (!email.equals(vo.getDoc_email())) {
 							%>
 							<span><a href="#"
 								onclick="warning_ori(<%=vo.getDoc_no()%>,'<%=vo.getDoc_nick()%>','<%=vo.getDoc_subject()%>');">신고하기</a></span>
@@ -2282,7 +2280,7 @@ function pay(){
 							<%=vo.getDoc_content()%>
 						</div>
 						<%
-									if (id != null) {
+									if (email != null) {
 										
 										if(fdoc_Code.equals("완료")){
 								%>
