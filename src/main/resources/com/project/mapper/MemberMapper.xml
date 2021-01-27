@@ -115,7 +115,7 @@ biz_email / biz_no / biz_com/ biz_name / biz_add / biz_img / free_coupon/ pay_co
 	union all
 	select fdoc_no as num, fdoc_subject as subject, fdoc_date as write_date from free_doc where fdoc_email = #{email}
 </select>
-
+ 
 <!-- 내 댓글 리스트 -->
 <select id="getWriteComment" parameterType="String" resultType="CommentListVO">
 	select adopt_ccontent as content, adopt_cdate as write_date from adopt_reply where adopt_cemail = #{email}

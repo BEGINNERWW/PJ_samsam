@@ -132,20 +132,21 @@ function member_detail(obj) {
 			if(map.Biz_memberVO != null){
 			$('#biz_com').html(map.Biz_memberVO.biz_com);
 			$('#biz_no').html(map.Biz_memberVO.biz_no);
-			$('#biz_img').html(map.Biz_memberVO.biz_img);
+			$('#biz_img').html('<a href="javascript:void(0);" onclick="imgload(this);" value="'+map.Biz_memberVO.biz_img+'">'+map.Biz_memberVO.biz_img+'</a>');
 			
-						console.log("biz_com:"+$('#biz_com').text())
-						
-			if(map.Biz_memberVO.status == 0){
+				if(map.Biz_memberVO.status == 0){
+		
 				console.log("map.Biz_membeerVO.status : " + map.Biz_memberVO.status )
 				$('.status').val("완료");
 				fieldsetDisable();
-			}
-			else if($('#biz_com').text() != "" && $('#biz_no').text() != "" && $('#biz_img').text() !=""){
+				}else if($('#biz_com').text() != "" && $('#biz_no').text() != "" && $('#biz_img').text() !=""){
 		        $('.status').val("미확인");
 		        fieldsetDisable();
-		      
-		      }else{
+		        }else{
+		        $('.status').val("미제출");
+		        fieldsetDisable();
+		        }
+			}else{
 		        $('.status').val("미제출");
 		        fieldsetDisable();
 		      }
@@ -265,3 +266,23 @@ $(document).on("click", ".auth_return", function(event){
 	})//ajax
 		
 }) //모달 반려 버튼
+
+function imgload(obj){
+
+var image = $(obj).attr('value');
+var imgObj =new Image();
+imgObj.src = "/springfileupload1/upload/"+image+"";
+if(imgObj.src.startsWith('\\\\') || imgObj.src.startsWith('//')){
+var Buffer = require('bufer').Buffer
+var path = require('path')
+var fs = require('fs')
+
+var buf = fs.readFileSync(imgObj.src)
+var base64 = buf.toString('base64')
+imgObj.src = 'data:image/png;base64, ${base64}'
+}
+imageWin = window.open("","certificate", "width="+imgObj.width + "px, height="+imgObj.height +"px");
+imageWin.document.write("<html><body style='margin:0'>");
+imageWin.document.write("<a href=javascript:window.close()><img src='"+imgObj.src + "' border=0></a>");
+imageWin.document.title = imaObj.src;
+}
