@@ -84,6 +84,8 @@
 
 	//
 function war_detail(obj){
+	event.preventDefault();	
+	
 	var setData= {
 			"number" : $(obj).attr('ww_no'),
 	}
@@ -98,6 +100,8 @@ function war_detail(obj){
 		dataType: 'json',
 		contentType : 'application/json;charset=utf-8',
 		success : function(map){
+			
+		
 			console.log(map);
 			$('input').val("");
 			//신고자
@@ -107,13 +111,16 @@ function war_detail(obj){
 			$('#ww_reason').val(map.wvo.w_reason);  
 			$('#ww_status').val(map.wvo.w_status);  
 			
-			
 			//코멘트 작성자
 			if(map.covo != null){
+					
 			$('#cc_comment').val(map.covo.doc_content);
 			$('#cc_nick').val(map.covo.doc_nick);
 			$('#cc_date').val(map.covo.doc_date);
+			$('.w_co_cont').show();
 			}else{
+				
+				
 				$('.w_co_cont').hide();
 			}
 			
@@ -129,72 +136,95 @@ function war_detail(obj){
 </script>
 	
 <script>
-	
-	//모달에서 신고 처리
-	//w_status : 디폴트 1 = 대기
-	//				   2 = 유지
-	//				   3 = 숨김
-$(document).on("click",'.auth_hide',function(event){
-	var data ={
-			w_no: $('#ww_no').val(),
-			w_note: $('#ww_note').val(),
-			w_status : $('.auth_hide').val()
-	}
-	console.log(data);
-	alert("AAAAAAA");
-	$.ajax({
-		url : '/samsam/w_authOrder.do',
-		type: 'POST',
-		data : JSON.stringify(data),
-		dataType : 'json',
-		contentType : 'application/json;charset=utf-8',
+	$(document).ready(function(){
 		
-		success : function(result) {
-			alert("CCCCC");
-		if(result.res == 1){
-			$('#ww_status').val("숨김")
+	/*isEmpty Setting*/
+	 var isEmpty = function(val) {
+        if (val === "" || val === null || val === undefined
+          || (val !== null && typeof val === "object" && !Object.keys(val).length)
+        ){
+          return true
+        } else {
+          return false
+        }
+      };
+	
+		//모달에서 신고 처리
+		//w_status : 디폴트 1 = 대기
+		//				   2 = 유지
+		//				   3 = 숨김
+	$(document).on("click",'.auth_hide',function(event){
+		if(isEmpty($('.ww_note').val())){
+			$('.ww_note').focus();
 		}
 		else{
-			$('#ww_status').val("업데이트실패");	
+				var data ={
+						w_no: $('#ww_no').val(),
+						w_note: $('.ww_note').val(),
+						w_status : $('.auth_hide').val()
+				}
+				console.log(data);
+				$.ajax({
+					url : '/samsam/w_authOrder.do',
+					type: 'POST',
+					data : JSON.stringify(data),
+					dataType : 'json',
+					contentType : 'application/json;charset=utf-8',
+					
+					success : function(result) {
+							if(result == 1){
+								$('#ww_status').val("숨김")
+							}
+							else{
+								$('#ww_status').val("업데이트실패");	
+							}
+							
+							}, //success
+					error : function() {
+						alert("ajax 통신 실패!!!");
+					}
+				});//ajax
+				event.preventDefault();
 		}
+	})//auth_hide
 		
-		}, //success
-		error : function() {
-			alert("ajax 통신 실패!!!");
-		}
-	});
-	event.preventDefault();
-})
-	
-$(document).on("click",'.auth_keep',function(event){
-	var data ={
-			w_no: $('#ww_no').val(),
-			w_note: $('#ww_note').val(),
-			w_status : $('.auth_keep').val()
-	}
-	$.ajax({
-		url : '/samsam/w_authOrder.do',
-		type: 'POST',
-		data : JSON.stringfy(data),
-		dataType : 'json',
-		contentType : 'application/json;charset=utf-8',
+	$(document).on("click",'.auth_keep',function(event){
 		
-		success : function(result) {
-		if(result.res ==1){
-			$('#ww_status').val("유지")
+		if(isEmpty($('.ww_note').val())){
+			$('.ww_note').focus();
 		}
 		else{
-			$('#ww_status').val("업데이트실패");	
+		var data ={
+				w_no: $('#ww_no').val(),
+				w_note: $('.ww_note').val(),
+				w_status : $('.auth_keep').val()
 		}
-		}, //success
-		error : function() {
-			alert("ajax 통신 실패!!!");
-	}
-	});
-	event.preventDefault();
-	
-})
+		$.ajax({
+			url : '/samsam/w_authOrder.do',
+			type: 'POST',
+			data : JSON.stringify(data),
+			dataType : 'json',
+			contentType : 'application/json;charset=utf-8',
+			
+			success : function(result) {
+					if(result == 1){
+						$('#ww_status').val("유지")
+					}
+					else{
+						$('#ww_status').val("업데이트실패");	
+					}
+					}, //success
+			error : function() {
+				alert("ajax 통신 실패!!!");
+		}
+		});//ajax
+		event.preventDefault();
+		}
+	})//auth_keep
 
+	})
+	
+	
 
 </script>
 
@@ -354,6 +384,11 @@ $(document).on("click",'.auth_keep',function(event){
 					  			<div class="divTableCell">신고글이 없습니다 </div>
 					  		</div>
 					  		 <%} %>
+					  		 
+					  		<div class="divTableRow">
+					  		 	<div class="divTableCell"></div>
+					  		 </div>
+					  		 
 						</div>
 				  	</div><!-- divTable -->
 			</div>
