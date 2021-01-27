@@ -11,7 +11,13 @@ public class MissingReplyVO {
 	private String doc_secret;
 	private Date doc_date;
 	private Date doc_upd_date;
+	private String doc_date_fmt;
 	
+	// 수정 삭제
+	private String btnModify;
+	private String btnRemove;
+	
+		
 	
 	public int getDoc_cno() {
 		return doc_cno;
@@ -66,5 +72,23 @@ public class MissingReplyVO {
 		return "MissingReplyVO [doc_cno=" + doc_cno + ", doc_no=" + doc_no + ", doc_email=" + doc_email + ", doc_nick="
 				+ doc_nick + ", doc_content=" + doc_content + ", doc_secret=" + doc_secret + ", doc_date=" + doc_date
 				+ ", doc_upd_date=" + doc_upd_date + "]";
+	}
+	public String getBtnModify() {
+		return btnModify;
+	}
+	public void setBtnModify(String btnModify) {
+		this.btnModify = btnModify;
+	}
+	public String getBtnRemove() {
+		return btnRemove;
+	}
+	public void setBtnRemove(String btnRemove) {
+		this.btnRemove = btnRemove;
+	}
+	public String getDoc_date_fmt() {
+		return doc_date_fmt;
+	}
+	public void setDoc_date_fmt(String doc_date_fmt) {
+		this.doc_date_fmt = doc_date_fmt;
 	}
 }

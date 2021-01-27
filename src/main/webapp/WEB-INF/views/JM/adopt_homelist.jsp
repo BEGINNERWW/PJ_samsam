@@ -13,9 +13,8 @@
 	int startpage=((Integer)request.getAttribute("startpage")).intValue();
 	int endpage=((Integer)request.getAttribute("endpage")).intValue();
 	adopt_homeVO searchVO = (adopt_homeVO)request.getAttribute("vo");
+	String email = (String) session.getAttribute("email"); 
 	
-	String email = request.getParameter("email");
-	email = "11";
 	
 %>
 
@@ -1202,18 +1201,18 @@ function create_list(){
          dataType : 'json',
          success : function (data) {
         	 $.each(data, function(index, item){
-        		var date = new Date(item.dog_date);
-        		var number = new Number(item.dog_price);
+        		var date = new Date(item.doc_date);
+        		var number = new Number(item.doc_price);
         		var output = '';
         		
                 output += '<div class="post-entry-2 d-flex">';
-                output += '<div class="thumbnail order-md-2");" style="background-image: url(/springfileupload1/upload/'+item.doc_thumbnail+'.jpg)"></div>'
+                output += '<div class="thumbnail order-md-2");" style="background-image: url(/springfileupload1/upload/'+item.doc_thumbnail+')"></div>'
                 output += '<div class="contents order-md-1 pl-0">'
-                output += '<h2><a class="a_1" href="./adopthomeview.bo?num='+item.doc_no+'">'+ item.dog_subject +'</a></h2>'
-                output += '<p class="mb-3 tag">#' + item.doc_big  + '#' + item.dog_loc  + '#' +  item.doc_kindof  + '#' + numbeComma(number)+'원' + '</p>'
+                output += '<h2><a class="a_1" href="./adopthomeview.bo?num='+item.doc_no+'">'+ item.doc_subject +'</a></h2>'
+                output += '<p class="mb-3 tag">#' + item.doc_big  + '#' + item.doc_loc  + '#' +  item.doc_kindof  + '#' + numbeComma(number)+'원' + '</p>'
                 output +='<div class="post-meta">'
                 output +='<span class="d-block"><a class="a_1" href="#">'+item.doc_nick+'</a></span>'
-                output +='<span class="date-read">'+getFormatDate(date)+'</span><span class="detail-read">&nbsp;&nbsp;&nbsp;&nbsp;<span class="recount_icon"></span>&nbsp;'+item.doc_readcount+'&nbsp;&nbsp;<span class="comment_icon"></span>'+item.replycount+'&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+                output +='<span class="date-read">'+getFormatDate(date)+'</span><span class="detail-read">&nbsp;&nbsp;&nbsp;&nbsp;<span class="recount_icon"></span>&nbsp;'+item.doc_readcount+'&nbsp;&nbsp;<span class="comment_icon"></span>'+item.doc_comment+'&nbsp;&nbsp;&nbsp;&nbsp;</span>'
                 output += '<div>'
                 output += '</div>'
                 output += '</div>';
@@ -1401,13 +1400,13 @@ $(document).ready(function(){
 		});
 	 
 	 $(document).on('click','#default_button',function(){
-			var home_search =$('#default_search').val();
-			if(home_search != ''){
+			var doc_search =$('#default_search').val();
+			if(doc_search != ''){
 			var a = '';
-	         a += '<li id="li_'+home_search+'" class="smart-search-selected-condition-item option-type-brand">';
-	         a += '<span class="filter-item"><span class="filter-title">'+home_search+'</span>';
+	         a += '<li id="li_'+doc_search+'" class="smart-search-selected-condition-item option-type-brand">';
+	         a += '<span class="filter-item"><span class="filter-title">'+doc_search+'</span>';
 	         a += '<button class="btn-filter-del smart-search-selected-condition-delete-btn option-type-brand"></button>';
-	         a += '<input type="hidden" name="home_search" value="'+home_search+'"></span></li>';
+	         a += '<input type="hidden" name="doc_search" value="'+doc_search+'"></span></li>';
 	         
 	         $(".filter-list").append(a);
 	         $('#default_search').val('');
@@ -1416,13 +1415,13 @@ $(document).ready(function(){
 		});
 	 
 	 $(document).on('click','#detail_button',function(){
-			var home_search =$('#detail_search').val();
-			if(home_search != ''){
+			var doc_search =$('#detail_search').val();
+			if(doc_search != ''){
 			var a = '';
-	        a += '<li id="li_'+home_search+'" class="smart-search-selected-condition-item option-type-brand">';
-	        a += '<span class="filter-item"><span class="filter-title">'+home_search+'</span>';
+	        a += '<li id="li_'+doc_search+'" class="smart-search-selected-condition-item option-type-brand">';
+	        a += '<span class="filter-item"><span class="filter-title">'+doc_search+'</span>';
 	        a += '<button class="btn-filter-del smart-search-selected-condition-delete-btn option-type-brand"></button>';
-	        a += '<input type="hidden" name="home_search" value="'+home_search+'"></span></li>';
+	        a += '<input type="hidden" name="doc_search" value="'+doc_search+'"></span></li>';
 	        
 	        $(".filter-list").append(a);
 	        $('#detail_search').val('');
@@ -1450,7 +1449,7 @@ function search(){
 }
 
 function default_submit(){
-	$(".content").empty();
+	$(".list_content").empty();
 	
 	var searchinsert = $("#detail_form").serialize();
 	
@@ -1463,18 +1462,18 @@ function default_submit(){
         success :	function (data) {
        	 
        	 $.each(data, function(index, item){
-        		var date = new Date(item.dog_date);
-        		var number = new Number(item.dog_price);
+        		var date = new Date(item.doc_date);
+        		var number = new Number(item.doc_price);
         		var output = '';
         		
                 output += '<div class="post-entry-2 d-flex">';
                 output += '<div class="thumbnail order-md-2");" style="background-image: url(/springfileupload1/upload/'+item.doc_thumbnail+'.jpg)"></div>'
                 output += '<div class="contents order-md-1 pl-0">'
-                output += '<h2><a class="a_1" href="./adopthomeview.bo?num='+item.doc_no+'">'+ item.dog_subject +'</a></h2>'
-                output += '<p class="mb-3 tag">#' + item.doc_big  + '#' + item.dog_loc  + '#' +  item.doc_kindof  + '#' + numbeComma(number)+'원' + '</p>'
+                output += '<h2><a class="a_1" href="./adopthomeview.bo?num='+item.doc_no+'">'+ item.doc_subject +'</a></h2>'
+                output += '<p class="mb-3 tag">#' + item.doc_big  + '#' + item.doc_loc  + '#' +  item.doc_kindof  + '#' + numbeComma(number)+'원' + '</p>'
                 output +='<div class="post-meta">'
                 output +='<span class="d-block"><a class="a_1" href="#">'+item.doc_nick+'</a></span>'
-                output +='<span class="date-read">'+getFormatDate(date)+'</span><span class="detail-read">&nbsp;&nbsp;&nbsp;&nbsp;<span class="recount_icon"></span>&nbsp;'+item.doc_readcount+'&nbsp;&nbsp;<span class="comment_icon"></span>'+item.replycount+'&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+                output +='<span class="date-read">'+getFormatDate(date)+'</span><span class="detail-read">&nbsp;&nbsp;&nbsp;&nbsp;<span class="recount_icon"></span>&nbsp;'+item.doc_readcount+'&nbsp;&nbsp;<span class="comment_icon"></span>'+item.doc_comment+'&nbsp;&nbsp;&nbsp;&nbsp;</span>'
                 output += '<div>'
                 output += '</div>'
                 output += '</div>';
@@ -1500,7 +1499,7 @@ $(".list_content").empty();
 var searchinsert = $("#detail_form").serialize();
 	
 	jQuery.ajax({
-		 url : 'home_search	.bo',
+		 url : 'home_search.bo',
          type : 'POST',
          contentType : 'application/x-www-form-urlencoded; charset=utf-8',
          data : searchinsert,
@@ -1508,18 +1507,18 @@ var searchinsert = $("#detail_form").serialize();
          success :	function (data) {
         	 
         	 $.each(data, function(index, item){
-         		var date = new Date(item.dog_date);
-         		var number = new Number(item.dog_price);
+         		var date = new Date(item.doc_date);
+         		var number = new Number(item.doc_price);
          		var output = '';
          		
                  output += '<div class="post-entry-2 d-flex">';
                  output += '<div class="thumbnail order-md-2");" style="background-image: url(/springfileupload1/upload/'+item.doc_thumbnail+'.jpg)"></div>'
                  output += '<div class="contents order-md-1 pl-0">'
-                 output += '<h2><a class="a_1" href="./adopthomeview.bo?num='+item.doc_no+'">'+ item.dog_subject +'</a></h2>'
-                 output += '<p class="mb-3 tag">#' + item.doc_big  + '#' + item.dog_loc  + '#' +  item.doc_kindof  + '#' + numbeComma(number)+'원' + '</p>'
+                 output += '<h2><a class="a_1" href="./adopthomeview.bo?num='+item.doc_no+'">'+ item.doc_subject +'</a></h2>'
+                 output += '<p class="mb-3 tag">#' + item.doc_big  + '#' + item.doc_loc  + '#' +  item.doc_kindof  + '#' + numbeComma(number)+'원' + '</p>'
                  output +='<div class="post-meta">'
                  output +='<span class="d-block"><a class="a_1" href="#">'+item.doc_nick+'</a></span>'
-                 output +='<span class="date-read">'+getFormatDate(date)+'</span><span class="detail-read">&nbsp;&nbsp;&nbsp;&nbsp;<span class="recount_icon"></span>&nbsp;'+item.doc_readcount+'&nbsp;&nbsp;<span class="comment_icon"></span>'+item.replycount+'&nbsp;&nbsp;&nbsp;&nbsp;</span>'
+                 output +='<span class="date-read">'+getFormatDate(date)+'</span><span class="detail-read">&nbsp;&nbsp;&nbsp;&nbsp;<span class="recount_icon"></span>&nbsp;'+item.doc_readcount+'&nbsp;&nbsp;<span class="comment_icon"></span>'+item.doc_comment+'&nbsp;&nbsp;&nbsp;&nbsp;</span>'
                  output += '<div>'
                  output += '</div>'
                  output += '</div>';
@@ -1586,6 +1585,7 @@ function search_submit(a){
                   <ul class="dropdown-menu commu">
                      <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
                      <li><a href="auth_fdoc.bo">책임분양인증</a></li>
+                     <li><a href="hospital_map.me">동물병원</a></li>
                   </ul></li>
             </ul>
    
@@ -1596,7 +1596,7 @@ function search_submit(a){
       </a>
       </div>
    </div>
-    <form action="home_search.me" method="post" name="home_search">
+    <form action="home_search.me" method="post" name="doc_search">
             <div class="search-wrapper">
                <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
                <button class="search-box" type="submit">
@@ -1614,7 +1614,7 @@ function search_submit(a){
 	         <div class="sidemenu-section">
 	         	<ul class="list-group list-group-flush">
 				<li class="list-group-item click"><a href="home_list.bo">가정분양</a></li>
-				<li class="list-group-item"><a href="fdoclist.bo">책임분양</a></li>
+				<li class="list-group-item "><a href="fdoclist.bo">책임분양</a></li>
 				<li class="list-group-item"><a href="selladopt_list.bo">업체분양</a></li>
 			</ul>
 	         </div>
@@ -2282,11 +2282,27 @@ function search_submit(a){
 			</div>
 	   
 
-   
+   <%
+   if(email != null){
+   %>
    <div style="display:inline-block; float:right;margin-right:25px;">
+   		if
 		<a href="./adopt_write.bo">[글쓰기]</a>
+		
 	</div>
+	<% 
+   }
+ 
    
+   
+   else{
+	%>
+	<div style="display:inline-block; float:right;margin-right:25px;">
+		
+	</div>
+	<%
+   }
+   %>
 </div>
 </div></div>
          

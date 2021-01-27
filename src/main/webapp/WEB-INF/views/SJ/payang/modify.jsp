@@ -1,461 +1,370 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
+<%@ page import="java.util.*"%>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
+
 <%
 	String email = (String) session.getAttribute("email");
 %>
 <html>
 <head>
 
+<meta charset="utf-8">
+<link href="${pageContext.request.contextPath}/resources/img/title.png" rel="shortcut icon" type="image/x-icon">
+<title>삼삼하개</title>
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
+<!-- 폰트 -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&display=swap" rel="stylesheet">
+
+<!-- 아이콘 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+
+<!-- 부트스트랩 4.0 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<!-- 제이쿼리 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
 <style>
-html, body {
-	margin: 0;
-	padding: 0;
-	height: 100%;
-	overflow: hidden;
-}
-.body_content {
-	margin: 0;
-	height: 100vh;
-    min-height : 600px;
-    box-sizing : content-box;
-	line-height: 1.7;
-    color: gray;
-   	font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 300;
-    font-size: .9rem;
-    overflow:scroll;
-}
-table {
-	margin: auto;
-	width: 60%;
-	border-top: 1px solid #444444;
-	border-collapse: collapse;
-}
-
-th, td {
-	border-bottom: 1px solid #444444;
-	padding: 10px;
-}
-
-textarea {
-	-webkit-writing-mode: horizontal-tb !important;
-	text-rendering: auto;
-	color: -internal-light-dark(black, white);
-	letter-spacing: normal;
-	word-spacing: normal;
-	text-transform: none;
-	text-indent: 0px;
-	text-shadow: none;
-	display: inline-block;
-	text-align: start;
-	appearance: textarea;
-	background-color: -internal-light-dark(rgb(255, 255, 255),
-		rgb(59, 59, 59));
-	-webkit-rtl-ordering: logical;
-	flex-direction: column;
-	resize: auto;
-	cursor: text;
-	white-space: pre-wrap;
-	overflow-wrap: break-word;
-	margin: 0em;
-	font: 400 13.3333px Arial;
-	border-width: 1px;
-	border-style: solid;
-	border-color: -internal-light-dark(rgb(118, 118, 118),
-		rgb(133, 133, 133));
-	border-image: initial;
-	padding: 2px;
-}
-
-
-a {
-	text-decoration: none;
-	color: #9494b8;
-}
-
-.name {
-	color: #37acc9;
-	font-size: 20px;
-	margin-top: 16px;
-	line-height: 16px;
-}
-
-.agreement {
-	margin: 10px auto;
-}
-
-.option {
-	margin-right: 7px;
-}
-
-.wrap-info {
-	margin-top: 10px;
-	margin-bottom: 35px;
-}
 
 @charset "utf-8";
 
 * {
-	margin: 0;
-	padding: 0;
+   margin:0;
+   padding: 0;
+}
+html{
+   margin:0 auto;
+   width : 100%;
+   height: 100%;
+    overflow: auto;
 }
 
-html {
-	margin: 0 auto;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
+
+body {
+   margin: 0;
+   height: auto;
+    min-height : 600px;
+    box-sizing : content-box;
+   line-height: 1.7;
+    color: gray;
+      font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    font-size: .9rem;
 }
 
+
+a{
+   text-decoration : none;
+   color : #9494b8;
+}
 a:hover {
-	color: #0056b3;
-	text-decoration: none;
+    color: #0056b3;
+    text-decoration: none;
 }
 
 body {
-	margin: 0;
-	height: 100vh;
-	min-height: 600px;
-	box-sizing: content-box;
-	line-height: 1.7;
-	color: gray;
-	font-family: 'Noto Sans KR', sans-serif;
-	font-weight: 300;
-	font-size: .9rem;
+   text-align: -webkit-center;
+   display : flex;
+   flex-direction : column;
+   justify-content : space-between;
 }
 
-a {
-	text-decoration: none;
-	color: #9494b8;
-}
-
-body {
-	text-align: -webkit-center;
-}
-
-.body_content {
-	margin: 0;
-	padding: 0;
-	width: 100%;
-	height: 100vh;
-	display: flex;
-	flex-direction: column;
-	overflow: auto;
+.body_content{
+     margin : 0;
+     padding : 0;
+     width : 100%;
+     height:100vh;
+    display : flex;
+    flex-direction : column;
 }
 
 #header {
-	width: 100%;
-	height: 190px;
-	box-sizing: content-box;
-	display: flex;
-	flex-direction: column;
-	border-bottom: 1px solid #efefef;
-	padding-bottom: 20px;
+    width: 100%;
+    height: 189px;
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #efefef;
+    padding-bottom: 18px;
+    background-color : #fff;
+    position : fixed;
+    z-index : 100;
+    top : 0;
+    left : 0;
+    right : 0;
 }
 
-.inout_gocen {
-	position: fixed;
-	top: 20px;
-	right: 390px;
+.inout_gocen{
+   position : inline;
+   display : flex;
+   justify-content : flex-end;
+   margin-top : 20px;
+   margin-right : 340px;
+   background-color : #fff;
 }
-
+.fixinner{
+   position: fixed; 
+}
 .header-top {
-	margin-top: 40px;
-	display: flex;
-	justify-content: flex-start;
-	margin-right: auto;
+   margin-top : -10px;
+   display : flex;
+   justify-content : flex-start;
+   margin-right: auto;
+}
+.header_btn{
+   width : 70px;
+   height : 30px;
+   background-color : #fff;
+   color : #9494b8;
+    border-radius: 5px;
+    border : none;
+    outline : 0;
+}
+.header_btn:hover{
+   color : #6200cc;
+   font-weight: 700;
+}
+#logout, #mypage{
+   display : none;
+}
+.img-circle{
+   width : 450px;
+   height : 150px;
+   display: block;
+   margin : 0 auto;
+}
+.nav-menu{
+   margin : 0 auto;
+   display : flex;
+   justify-content : space-around;
+   align-items: baseline;
+   width: 1200px;
+}
+.sticky-wrapper{
+   width: 400px;
+   height: 50px;
+   margin : 0;
+   margin-left: 0;
+     position: sticky;
+     list-style : none;
+    display : flex;
+    padding: 0;
 }
 
-.header_btn {
-	width: 70px;
-	height: 30px;
-	background-color: #fff;
-	color: #9494b8;
-	border-radius: 5px;
-	border: none;
-	outline: 0;
+.sticky-wrapper > li{
+   padding : 8px 8px;
+   list-style-type:none;
+   float: left;
 }
-
-.header_btn:hover {
-	color: #6200cc;
-	font-weight: 700;
-}
-
-#logout, #mypage {
-	display: none;
-}
-
-.img-circle {
-	width: 450px;
-	height: 150px;
-	display: block;
-	margin: 0 auto;
-}
-
-.nav-menu {
-	margin: 0 auto;
-	display: flex;
-	justify-content: space-around;
-	align-items: baseline;
-	width: 1200px;
-}
-
-.sticky-wrapper {
-	width: 400px;
-	height: 50px;
-	margin: 0;
-	margin-left: 0;
-	position: sticky;
-	list-style: none;
-	display: flex;
-	padding: 0;
-}
-
-.sticky-wrapper>li {
-	padding: 8px 8px;
-	list-style-type: none;
-	float: left;
-}
-
-.sticky-wrapper>ul {
-	padding: 8px 8px;
+.sticky-wrapper > ul{
+   padding : 8px 8px;
 }
 
 li.dropdown {
-	color: #9494b8;
-	background: #fff;
-	transition: .3s all ease;
-	font-size: 20px;
-	width: 90px;
-	height: 50px;
-	text-align: -webkit-center;
+    color: #9494b8;
+    background: #fff;
+    transition: .3s all ease;
+    font-size: 20px;
+    width: 90px;
+    height: 50px;
 }
 
-.sticky-wrapper.active {
-	position: fixed;
-	top: 0px;
+.sticky-wrapper.active{
+   position: fixed;
+    top: 0px;
 }
 
 /* dropdown */
 .dropdown-menu {
-	display: none;
-	justify-content: flex-start;
-	position: absolute;
-	list-style: none;
-	visibility: visible;
-	background-color: rgb(0, 0, 0, 0);
-	width: 350px;
-	top: 48px;
-	padding: 5px;
-	border: none;
-}
-.dropdown_1{
-	backgrond-color:transparent !important;
-	border:0px;
-	
+   display: none;
+      justify-content : flex-start;
+   position: absolute;
+   list-style : none;
+    visibility: visible;
+    background-color: #fff;
+   width: 1200px;
+   top : 48px;
+   margin-left : -30px;
+   border: none;
+   border-top: 1px solid #efefef;
 }
 
-
-.dropdown-menu li {
-	margin-right: 40px;
-	text-decoration: none;
-    color: #9494b8;
+.board {
+	padding-left: 46px;
+}
+.care {
+	padding-left: 30px;
+}
+.commu {
+	padding-left: 35px;
 }
 
-.dropdown:hover .dropdown-menu {
-	display: flex;
-	visibility: visible;
+li.dropdown > a {
+    text-decoration: none;
+}
+
+.dropdown-menu li{
+   margin-right : 40px;
+}
+.dropdown:hover .dropdown-menu { 
+   display: flex; 
+   visibility: visible; 
 }
 
 /* search-wrapper */
 .search-wrapper {
-	padding: 5px;
-	width: 280px;
-	height: 38px;
-	display: flex;
-	justify-content: space-betwwen;
-	background: #fff;
-	border: 2px solid #9494b8;
-	border-radius: 10px;
+  padding : 5px;
+  width: 280px;
+  height: 38px;
+  display: flex;
+  justify-content : space-betwwen;
+  background: #fff;
+  border: 2px solid #9494b8;
+  border-radius: 10px;
 }
-
 .search-box {
-	height: 100%;
-	padding: 0;
-	border: none;
-	background: #fff;
+  height : 100%;
+  padding: 0;
+  border: none;
+  background: #fff;
 }
-
 .search-box.input {
-	width: 80%;
-	margin-left: 15px;
-	font-size: .9rem;
+  width : 80%;
+  margin-left : 15px;
+  font-size : .9rem;
 }
+.search-box.input:focus {outline:none;}
 
-.search-box.input:focus {
-	outline: none;
-}
-
-.search-box.btn {
-	color: #9494b8;
-	text-align: left;
+.search-box.btn1 {
+  color : #9494b8;
+  text-align : left; 
 }
 
 /* search-wrqpper */
-.main-content {
-	width: 100%;
-	height: 100%;
-	margin: 0 auto;
+
+.main-content{
+   width : 100%;
+   height : auto;
+   margin : 0 auto;
 }
+
 
 /* footer */
 #footer {
-
-	position: relative;
-    margin: -15px auto;
-    width: 100%;
-    bottom: 35px;
-    padding-top: 35px;
-    z-index: -1;
-    border-top: 1px solid #efefef;
-    
+    margin: 0 auto;
+    width: fit-content;
+    bottom: 20px;
+    position: relative;
 }
 
-
-
-
-p {
-	text-align: left;
-}
-
-.fa-heart {
-	color: red;
+.fa-heart{
+   color : red;
 }
 
 /* pageup button */
-.back-to-top {
-	width: 40px;
-	height: 40px;
-	margin: 0 auto;
-	font-size: 24px;
-	color: white;
-	background-color: #149DDD;
-	border-radius: 50%;
-	visibility: visible;
-	position: fixed;
-	bottom: 45px;
-	right: 30px;
-	text-align: center;
+.back-to-top{
+   width : 40px;
+   height : 40px;
+   margin : 0 auto;
+   font-size : 24px;
+   color : white;
+   background-color : #149DDD;
+   border-radius : 50%;
+   visibility : visible;
+   position: fixed; 
+   bottom: 45px; 
+   right: 30px;
+   text-align : center;
 }
 /* pageup button */
 *, ::after, ::before {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
+
 
 /*카카오톡 톡상담*/
 .kakaoChat {
-	width: 44px;
-	height: 100px;
-	margin: 0 auto;
-	font-size: 24px;
-	color: white;
-	border-radius: 50%;
-	visibility: visible;
-	position: fixed;
-	bottom: 45px;
-	right: 30px;
-	text-align: center;
+    text-align: right;
+    position: fixed;
+    margin-right: 28px;
+    bottom: 90px;
+    right: 0;
 }
-
 .kakao_btn {
-	border-radius: 1rem !important;
+	border-radius: 1rem!important;
 }
 
 /* side menu와 내용 묶음 */
 .content-wrap {
-    width: 1200px;
-    margin: 0 auto;
-    position: relative;
-    top: 50px;
-    overflow: visible;
-    margin-bottom: 100;
-
+	width: 1200px;
+	min-height: 100%;
+	margin: 0 auto;
+	position: relative;
+	top: 50px;
+	
 }
-
-.cont_comment {
-	margin-top: 35px;
-}
-
-.content-wrap::-webkit-scrollbar {
-	display: none;
-}
-
+/* side menu 틀*/
 .sidemenu-section {
-	width: 200px;
-	position: absolute;
-	font-size: 18px;
-	text-align: left;
-	height: 100%;
-	padding: 0px 0px 0 0;
-	margin-left: 0;
+    width: 200px;
+    font-size: 18px;
+    text-align: left;
+    min-height: 740px;
+    border-right-color: darkblue;
+    border-right: 1px solid #efefef;
+    padding: 0px 0px 0 0;
+    margin-left: 0;
+    margin-top: 210px;
+    position: fixed;
 }
 
+
+/* 내용 틀*/
 .content-section {
-	width: 1000px;
-	position: relative;
-	left: 200px;
-	text-align: left;
-	font-size: 14px;
-	margin-top: 3px;
-	color: black;
-	padding-left: 50px;
-	border-left: 1px solid #efefef;
+    width: 1001px;
+    height: max-content;
+    position: relative;
+    left: 100px;
+    text-align: left;
+    font-size: 14px;
+    margin-top: 0px;
+    color: black;
+    margin-left: 0;
+    padding-bottom: 100px;
+    border-left-color: darkblue;
+    border-left: 1px solid #efefef;
+    padding-left: 50px;
+    padding-right: 0;
+    min-height: 940px;
+    padding-top: 200px;
 }
-
-.content-section::-webkit-scrollbar {
-	display: none;
+.list-group {
+	border-bottom: 1px solid rgba(0,0,0,.125);
 }
-
 .list-group-item {
-	position: relative;
-	display: block;
-	padding: .75rem 1.25rem;
-	margin-bottom: -1px;
-	background-color: white;
-	border: 1px solid rgba(0, 0, 0, .125);
+    position: relative;
+    display: block;
+    padding: .75rem 1.25rem;
+    margin-bottom: -1px;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,.125);
+}
+/* 현재 페이지의 서브메뉴 */
+li.list-group-item.click > a {
+    font-weight: bold;
+    color: #5c5c8a;
 }
 
-li.list-group-item.click>a {
-	font-weight: bold;
-	color: #5c5c8a;
-}
 
-.list-group-item>a {
-	text-decoration: none;
-}
+.list-group-item > a {
+	text-decoration : none;
+	}
+	
 
-.dropdown-menu {
-	display: none;
-	justify-content: flex-start;
-	position: absolute;
-	list-style: none;
-	visibility: visible;
-	background-color: rgb(0, 0, 0, 0);
-	width: 350px;
-	top: 48px;
-	padding: 5px;
-	border: none;
-}
-
-a {
-	text-decoration: none;
-	color: #9494b8;
-}
+/* 각각의 페이지에서 사용할 CSS */
 
 .comment_view .list_comment>li {
 	position: relative;
@@ -891,7 +800,7 @@ select, input, button, textarea {
 
 
 </style>
-<link href="resources/img/title.png" rel="shortcut icon" type="image/x-icon">
+<link href="${pageContext.request.contextPath}/resources/img/title.png" rel="shortcut icon" type="image/x-icon">
 <title>삼삼하개</title>
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"
 	type="text/javascript"></script>
@@ -912,72 +821,53 @@ select, input, button, textarea {
 
 
 <!-- include libraries(jQuery, bootstrap) -->
-<script>
-    $('.search-box btn').click(function(){
-      
-    });
-    $('#keyword').keypress(function(event){
-      if(event.which == 13){
-        $('.search-box btn').click();
-        return false;
-      }
-    });
-</script>
+
 </head>
 <body>
 <div class ="body_content">
 <header id = "header">
 
 	<div class ="inout_gocen">
-         <%if(email != null){ %>
-         
-         <input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='logout.me'">
-         <input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='mypage.me'">
-         <%}else{ %>
-         <input  type="button" class= "header_btn" value="로그인" onclick="location.href='loginForm.me'">
-         <input  type="button" class= "header_btn" value="회원가입" onclick="location.href='joinform.me'">
-         <%} %>
-         <a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
-      </div>
-   
-   
-   <div class="nav-menu">
-            <ul class="sticky-wrapper">
-               <li class="dropdown"><a href="home.me">HOME</a></li>
-               <li class="dropdown"><a href="home_list.bo">분양</a>
-                  <ul class="dropdown-menu board">
-                     <li><a href="home_list.bo">&nbsp;&nbsp;가정분양</a></li>
-                     <li><a href="fdoclist.bo">책임분양</a></li>
-                     <li><a href="selladopt_list.bo">업체분양</a></li>
-                  </ul></li>
-               <li class="dropdown"><a href="SJ/pet_list">보호소</a>
-                  <ul class="dropdown-menu care">
-                     <li><a href="SJ/pet_list">&nbsp;&nbsp;&nbsp;&nbsp;보호소</a></li>
-                     <li><a href="SJ/payang/list">파양</a></li>
-                     <li><a href="SJ/missing/list">실종</a></li>
-                  </ul></li>
-               <li class="dropdown"><a href="doclist.bo">커뮤니티</a>
+			<input type="button" class= "header_btn" id="login" value="로그인">
+			<input type="button" class= "header_btn" id="logout" value="로그아웃">
+			<input type="button" class= "header_btn" id="signin" value="회원가입">
+			<input type="button" class= "header_btn" id="mypage" value="마이페이지">
+			<input type="button" class= "header_btn" id="gocen" value="고객센터">
+		</div>
+	
+	<div class="nav-menu">
+				<ul class="sticky-wrapper">
+               <li class="dropdown"><a href="${pageContext.request.contextPath}/home.me">HOME</a></li>
+               <li class="dropdown"><a href="${pageContext.request.contextPath}/home_list.bo">분양</a>
+						<ul class="dropdown-menu">
+                     <li><a href="${pageContext.request.contextPath}/home_list.bo">&nbsp;&nbsp;가정분양</a></li>
+                     <li><a href="${pageContext.request.contextPath}/fdoclist.bo">책임분양</a></li>
+                     <li><a href="${pageContext.request.contextPath}/selladopt_list.bo">업체분양</a></li>
+						</ul></li>
+					<li class="dropdown"><a href="${pageContext.request.contextPath}//SJ/pet_list">보호소</a>
+						<ul class="dropdown-menu care">
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
+					<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
+						</ul></li>
+               <li class="dropdown"><a href="${pageContext.request.contextPath}/doclist.bo">커뮤니티</a>
                   <ul class="dropdown-menu commu">
-                     <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
-                     <li><a href="auth_fdoc.bo">책임분양인증</a></li>
-                  </ul></li>
-            </ul>
-   
-   <div class="header-top">
-      <div class="mainlogo">
-      <a href="home.me">
-      <img src = "./resources/img/mainlogo.png" class = "img-circle">
-      </a>
-      </div>
-   </div>
-    <form action="home_search.me" method="post" name="home_search">
-            <div class="search-wrapper">
-               <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
-               <button class="search-box btn" type="submit">
-                  <i class="fas fa-search"></i>
-               </button>
-            </div>
-      </form>
+                     <li><a href="${pageContext.request.contextPath}/doclist.bo">&nbsp;자유게시판</a></li>
+                     <li><a href="${pageContext.request.contextPath}/auth_fdoc.bo">책임분양인증</a></li>
+						</ul></li>
+				</ul>
+	
+	<div class="header-top">
+		<div class="mainlogo">
+		<a href="${pageContext.request.contextPath}/home.me">
+		<img src = "${pageContext.request.contextPath}/resources/img/mainlogo.png" class = "img-circle">
+		</a>
+		</div>
+	</div>
+	<div class= "search-wrapper">
+      <input class="search-box input" type="text" placeholder="Search">
+      <button class="search-box" type="button"><i class="fas fa-search"></i></button>
+	</div>
 	</div><!-- nav-menu -->
 </header>
 		
@@ -987,16 +877,21 @@ select, input, button, textarea {
 			<!-- 왼쪽. 서브메뉴가 들어갈 부분 -->
 			<div class="sidemenu-section">
 			<ul class="list-group list-group-flush">
-					<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
+					<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
 					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
 			</ul>
 			</div>
 			
 			<!-- 오른쪽. 내용이 들어갈 부분 -->
 			<div class="content-section">
-				<h6>파양게시판 > 수정</h6>
-				<h2>파양을 되도록 지양해주세요.</h2>
+				 <div style="margin-top:20px;">
+				          <div class="col-lg-12">
+				            <div class="section-title">
+				              <span class="caption d-block small">보호소 > 파양게시판</span>
+				            </div>
+				            <div class="list_wrap">
+				            <div class="list_content">
 				<form id="board" action="register"  method="POST">
 					<input type="text" name="doc_nick" />
 					<input type="text" name="doc_email" />
@@ -1062,6 +957,13 @@ select, input, button, textarea {
 				
 				
 			</div>
+			</div>
+			</div>
+			</div>
+			</div>
+
+
+			
 	
 
 
@@ -1080,11 +982,16 @@ select, input, button, textarea {
 	</div>
 	
 </div><!-- 바디컨텐트 -->
-	
-		
+</div>
 
-<!-- 제이쿼리 -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script> -->
+
+<footer id="footer">
+<p>Copyright ©2021 All rights reserved | This template is made with <i class="fas fa-heart"></i> by SamSam
+
+</footer>	
+				</div>	
+
+
 <script>
 	$(document).ready(function(){
 		
@@ -1103,8 +1010,28 @@ select, input, button, textarea {
 		$("#doc_sido option[value='" + doc_sido + "']").attr("selected","selected");
 		$("#doc_sigungu option[value='" + doc_sigungu + "']").attr("selected","selected");
 		
+		
+		
+		
+		
+		
+		
+		$('#login').on('click', function(e){
+		      $('#logout').show();
+			  $('#mypage').show();
+			  $('#login').hide();
+			  $('#signin').hide();
+		  });//헤더 상단 로그인 체인지
+		
+		$('#logout').on('click', function(e){
+		       $('#logout').hide();
+			   $('#mypage').hide();
+			   $('#login').show();
+			   $('#signin').show();
+		});//헤더 상단 로그아웃 체인지
+		
 		$('#btnCancel').on('click', function(){
-			location.href = "/samsam/SJ/payang/list";
+			location.href = "/SJ/payang/list";
 		});
 		
 		

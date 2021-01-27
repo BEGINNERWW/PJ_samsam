@@ -135,6 +135,7 @@ function member_detail(obj) {
 			$('#biz_img').html('<a href="javascript:void(0);" onclick="imgload(this);" value="'+map.Biz_memberVO.biz_img+'">'+map.Biz_memberVO.biz_img+'</a>');
 			
 				if(map.Biz_memberVO.status == 0){
+		
 				console.log("map.Biz_membeerVO.status : " + map.Biz_memberVO.status )
 				$('.status').val("완료");
 				fieldsetDisable();
@@ -145,6 +146,10 @@ function member_detail(obj) {
 		        $('.status').val("미제출");
 		        fieldsetDisable();
 		        }
+			}else{
+		        $('.status').val("미제출");
+		        fieldsetDisable();
+		      }
 			}else{
 		        $('.status').val("미제출");
 		        fieldsetDisable();
