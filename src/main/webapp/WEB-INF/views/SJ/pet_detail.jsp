@@ -10,7 +10,7 @@
 
 <!-- 템플릿  CSS -->
 
-<link rel="stylesheet" href="./resources/fonts/icomoon/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css">
 
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
@@ -1487,7 +1487,7 @@ ol, ul {
 			specialMark = hidden.children(".animal-specialMark").text() ;
 			weight = hidden.children(".animal-weight").text() ;
 			
-			location.href = "/samsam/SJ/pet_detail?"
+			location.href = "/SJ/pet_detail?"
 					+ "kindCd=" + kindCd
 					+ "&sexCd=" + sexCd
 					+ "&happenDt=" + happenDt
@@ -1519,7 +1519,7 @@ ol, ul {
 		
 		$.ajax({
 			type: "POST"
-			, url: "/samsam/SJ/SiGunGu"
+			, url: "/SJ/SiGunGu"
 			, data: {
 				  sidoCode: sidoCode,
 				  requestType : '01'
@@ -1544,7 +1544,7 @@ ol, ul {
 		
 		$.ajax({
 			type: "POST"
-			, url: "/samsam/SJ/animalKind"
+			, url: "/SJ/animalKind"
 			, data: {
 					upKindCode: upKindCode
 				}  
@@ -1567,7 +1567,7 @@ ol, ul {
 		
 		$.ajax({
 			type: "POST"
-			, url: "/samsam/SJ/animalInfoList"
+			, url: "/SJ/animalInfoList"
 			, data: {
 				bgnde : bgnde,
 				endde : endde,
@@ -1614,12 +1614,12 @@ ol, ul {
 	
 	<div class="nav-menu">
 				<ul class="sticky-wrapper">
-					<li class="dropdown"><a href="home.me">HOME</a></li>
-					<li class="dropdown"><a href="home_list.bo">분양</a>
+					<li class="dropdown"><a href="${pageContext.request.contextPath}/home.me">HOME</a></li>
+					<li class="dropdown"><a href="${pageContext.request.contextPath}/home_list.bo">분양</a>
 						<ul class="dropdown-menu">
-							<li><a href="home_list.bo">&nbsp;&nbsp;가정분양</a></li>
-							<li><a href="fdoclist.bo">책임분양</a></li>
-							<li><a href="selladopt_list.bo">업체분양</a></li>
+							<li><a href="${pageContext.request.contextPath}/home_list.bo">&nbsp;&nbsp;가정분양</a></li>
+							<li><a href="${pageContext.request.contextPath}/fdoclist.bo">책임분양</a></li>
+							<li><a href="${pageContext.request.contextPath}/selladopt_list.bo">업체분양</a></li>
 						</ul></li>
 					<li class="dropdown"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a>
 						<ul class="dropdown-menu">
@@ -1627,10 +1627,10 @@ ol, ul {
 				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
 				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
 						</ul></li>
-					<li class="dropdown"><a href="doclist.bo">커뮤니티</a>
+					<li class="dropdown"><a href="${pageContext.request.contextPath}/doclist.bo">커뮤니티</a>
 						<ul class="dropdown-menu">
-							<li><a href="doclist.bo">&nbsp;자유게시판</a></li>
-							<li><a href="auth_fdoc.bo">책임분양인증</a></li>
+							<li><a href="${pageContext.request.contextPath}/doclist.bo">&nbsp;자유게시판</a></li>
+							<li><a href="${pageContext.request.contextPath}/auth_fdoc.bo">책임분양인증</a></li>
 						</ul></li>
 				</ul>
 	
@@ -1803,7 +1803,7 @@ ol, ul {
 		});//헤더 상단 로그아웃 체인지
 		
 		$('#btnCancel').on('click', function(){
-			location.href = "/samsam/SJ/payang/list";
+			location.href = "/SJ/payang/list";
 		});
 		
 		

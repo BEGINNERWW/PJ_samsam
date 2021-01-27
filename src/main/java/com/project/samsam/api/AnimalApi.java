@@ -18,8 +18,8 @@ public interface AnimalApi {
 	public ArrayList<AnimalKind> getAnimalKind(String up_kind_cd) throws Exception;
 	
 	// 유기동물 정보
-	public ArrayList<AnimalInfo> getAnimalInfo( String bgnde, String endde, String upkind, String state, Integer pageNo, Integer numOfRows, String neuter_yn  ) throws Exception;
-	public ArrayList<AnimalInfo> getAnimalInfo( String bgnde, String endde,String upr_cd, String org_cd, String upkind, String kind, String state, Integer pageNo, Integer numOfRows, String neuter_yn  ) throws Exception;
+	public AnimalApiVO getAnimalInfo( String bgnde, String endde, String upkind, String state, Integer pageNo, Integer numOfRows, String neuter_yn  ) throws Exception;
+	public AnimalApiVO getAnimalInfo( String bgnde, String endde,String upr_cd, String org_cd, String upkind, String kind, String state, Integer pageNo, Integer numOfRows, String neuter_yn  ) throws Exception;
 	
 	// 보호소 정보
 	public ArrayList<ShelterInfo> getShelterInfo( String upr_cd, String org_cd, Integer pageNo ) throws Exception;

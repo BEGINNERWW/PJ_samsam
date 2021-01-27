@@ -6,7 +6,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.project.mapper.PayangMapper">
 	
 	<select id="list" resultType="PayangVO">
-		SELECT * FROM payang ORDER BY doc_no DESC , doc_date DESC
+		SELECT  P.DOC_NO
+		        ,P.DOC_EMAIL
+		        ,P.DOC_NICK
+		        ,P.DOC_NAME
+		        ,P.DOC_GENDER
+		        ,P.DOC_BIG_NAME
+		        ,P.DOC_KIND
+		        ,P.DOC_AGE
+		        ,P.DOC_SIDO
+		        ,P.DOC_SIGUNGU
+		        ,P.DOC_ADDRESS
+		        ,P.DOC_SUBJECT
+		        ,P.DOC_CONTENT
+		        ,P.DOC_DATE
+		        ,P.DOC_UPD_DATE
+		        ,P.DOC_READCOUNT
+		      , (SELECT COUNT(R.DOC_NO) FROM PAYANG_REPLY R WHERE P.DOC_NO = R.DOC_NO ) AS REPLY_COUNT
+		FROM PAYANG P
+		ORDER BY P.DOC_NO DESC
+		        ,P.DOC_DATE DESC
 	</select>
 	
 	<insert id="create" parameterType="PayangVO">
@@ -112,8 +131,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * 
 		FROM payang_reply
 		WHERE doc_no = #{doc_no}
-		ORDERY BY doc_cno DESC, doc_date DESC
+		ORDER BY doc_cno DESC, doc_date DESC
 	</select>
 	
+	
+	<insert id="updateReadCount">
+		<selectKey keyProperty="doc_readcount" resultType="int" order="BEFORE"> 
+			SELECT NVL(doc_readCount,0) + 1 FROM payang WHERE doc_no = #{doc_no}
+		</selectKey>
+		UPDATE payang
+		SET doc_readCount = #{doc_readcount}
+		WHERE doc_no = #{doc_no}
+	</insert>
+
+	<delete id="replyRemove" parameterType="int">
+		DELETE FROM payang_reply WHERE doc_cno = #{doc_cno}
+	</delete>
+	
+	<update id="replyModify" parameterType="PayangReplyVO">
+		UPDATE payang_reply
+		SET doc_content = #{doc_content}
+		WHERE doc_cno = #{doc_cno}
+	</update>
 
 </mapper>

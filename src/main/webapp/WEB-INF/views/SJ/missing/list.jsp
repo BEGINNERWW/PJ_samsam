@@ -1,18 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
 <%@ page import="java.util.*"%>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
+
+<%
+	String email = (String)session.getAttribute("email");
+	//email.toUpperCase();
+%>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>실종게시판</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta charset="utf-8">
+<link href="${pageContext.request.contextPath}/resources/img/title.png" rel="shortcut icon" type="image/x-icon">
+<title>삼삼하개</title>
 
-<!-- 템플릿  CSS -->
-
-<link rel="stylesheet" href="../../resources/fonts/icomoon/style.css">
-
+<!-- 폰트 -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&display=swap" rel="stylesheet">
@@ -22,131 +25,144 @@
 
 <!-- 부트스트랩 4.0 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+
+<!-- 제이쿼리 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 
 <style>
 
 @charset "utf-8";
+
 * {
-	margin:0;
-	padding: 0;
+   margin:0;
+   padding: 0;
 }
 html{
-	margin:0 auto;
-	width : 100%;
-	height: 100%;
-    overflow: hidden;
+   margin:0 auto;
+   width : 100%;
+   height: 100%;
+    overflow: auto;
+}
+
+
+body {
+   margin: 0;
+   height: auto;
+    min-height : 600px;
+    box-sizing : content-box;
+   line-height: 1.7;
+    color: gray;
+      font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    font-size: .9rem;
+}
+
+
+a{
+   text-decoration : none;
+   color : #9494b8;
 }
 a:hover {
     color: #0056b3;
     text-decoration: none;
 }
-body {
-	margin: 0;
-	height: 100vh;
-    min-height : 600px;
-    box-sizing : content-box;
-	line-height: 1.7;
-    color: gray;
-   	font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 300;
-    font-size: .9rem;
-   
-}
-
-
-a{
-	text-decoration : none;
-	color : #9494b8;
-}
 
 body {
-	text-align: -webkit-center;
+   text-align: -webkit-center;
+   display : flex;
+   flex-direction : column;
+   justify-content : space-between;
 }
 
-.body_content {
-	margin: 0;
-	height: 100vh;
-    min-height : 600px;
-    box-sizing : content-box;
-	line-height: 1.7;
-    color: gray;
-   	font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 300;
-    font-size: .9rem;
-    overflow:scroll;
+.body_content{
+     margin : 0;
+     padding : 0;
+     width : 100%;
+     height:100vh;
+    display : flex;
+    flex-direction : column;
 }
 
 #header {
     width: 100%;
-    height: 190px;
+    height: 189px;
     box-sizing: content-box;
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid #efefef;
-    padding-bottom: 20px;
-}
-.inout_gocen{
-	position: fixed; 
-	top : 20px;
-	right : 390px;
+    padding-bottom: 18px;
+    background-color : #fff;
+    position : fixed;
+    z-index : 100;
+    top : 0;
+    left : 0;
+    right : 0;
 }
 
+.inout_gocen{
+   position : inline;
+   display : flex;
+   justify-content : flex-end;
+   margin-top : 20px;
+   margin-right : 340px;
+   background-color : #fff;
+}
+.fixinner{
+   position: fixed; 
+}
 .header-top {
-	margin-top : 40px;
-	display : flex;
-	justify-content : flex-start;
-	margin-right: auto;
+   margin-top : -10px;
+   display : flex;
+   justify-content : flex-start;
+   margin-right: auto;
 }
 .header_btn{
-	width : 70px;
-	height : 30px;
-	background-color : #fff;
-	color : #9494b8;
+   width : 70px;
+   height : 30px;
+   background-color : #fff;
+   color : #9494b8;
     border-radius: 5px;
     border : none;
     outline : 0;
 }
 .header_btn:hover{
-	color : #6200cc;
-	font-weight: 700;
+   color : #6200cc;
+   font-weight: 700;
 }
 #logout, #mypage{
-	display : none;
+   display : none;
 }
 .img-circle{
-	width : 450px;
-	height : 150px;
-	display: block;
-	margin : 0 auto;
+   width : 450px;
+   height : 150px;
+   display: block;
+   margin : 0 auto;
 }
 .nav-menu{
-	margin : 0 auto;
-	display : flex;
-	justify-content : space-around;
-	align-items: baseline;
-	width: 1200px;
+   margin : 0 auto;
+   display : flex;
+   justify-content : space-around;
+   align-items: baseline;
+   width: 1200px;
 }
 .sticky-wrapper{
-	width: 400px;
-	height: 50px;
-	margin : 0;
-	margin-left: 0;
-  	position: sticky;
-  	list-style : none;
+   width: 400px;
+   height: 50px;
+   margin : 0;
+   margin-left: 0;
+     position: sticky;
+     list-style : none;
     display : flex;
     padding: 0;
-    line-height:1.6;
 }
 
 .sticky-wrapper > li{
-	padding : 8px 8px;
-	list-style-type:none;
-	float: left;
+   padding : 8px 8px;
+   list-style-type:none;
+   float: left;
 }
 .sticky-wrapper > ul{
-	padding : 8px 8px;
+   padding : 8px 8px;
 }
 
 li.dropdown {
@@ -159,28 +175,46 @@ li.dropdown {
 }
 
 .sticky-wrapper.active{
-	position: fixed;
+   position: fixed;
     top: 0px;
 }
 
 /* dropdown */
-.dropdown-menu{
-	display: none;
-   	justify-content : flex-start;
-	position: absolute;
-	list-style : none;
+.dropdown-menu {
+   display: none;
+      justify-content : flex-start;
+   position: absolute;
+   list-style : none;
     visibility: visible;
-    background-color: rgb(0,0,0,0);
-	width: 350px;
-	top : 48px;
-	padding: 5px;
-	border: none;
+    background-color: #fff;
+   width: 1200px;
+   top : 48px;
+   margin-left : -30px;
+   border: none;
+   border-top: 1px solid #efefef;
 }
-.dropdown-menu li{
-	margin-right : 40px;
-}
-.dropdown:hover .dropdown-menu { display: flex; visibility: visible;}
 
+.board {
+	padding-left: 46px;
+}
+.care {
+	padding-left: 30px;
+}
+.commu {
+	padding-left: 35px;
+}
+
+li.dropdown > a {
+    text-decoration: none;
+}
+
+.dropdown-menu li{
+   margin-right : 40px;
+}
+.dropdown:hover .dropdown-menu { 
+   display: flex; 
+   visibility: visible; 
+}
 
 /* search-wrapper */
 .search-wrapper {
@@ -194,20 +228,10 @@ li.dropdown {
   border-radius: 10px;
 }
 .search-box {
-  color: #9494b8;
-  text-align: left;
   height : 100%;
   padding: 0;
   border: none;
   background: #fff;
-  display: inline-block;
-  font-weight: 400;
-  white-space: nowrap;
-  vertical-align: middle;
-  font-size: 1rem;
-  line-height: 1.5;
-  border-radius: .25rem;
-  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 .search-box.input {
   width : 80%;
@@ -216,53 +240,52 @@ li.dropdown {
 }
 .search-box.input:focus {outline:none;}
 
-.search-box.btn {
+.search-box.btn1 {
   color : #9494b8;
   text-align : left; 
 }
 
 /* search-wrqpper */
 
+.main-content{
+   width : 100%;
+   height : auto;
+   margin : 0 auto;
+}
 
 
 /* footer */
 #footer {
-	position: relative;
-    margin: -15px auto;
-    width: 100%;
-    bottom: 0px;
-    padding-bottom:10px;
-    padding-top: 35px;
-    z-index: -1;
-    border-top: 1px solid #efefef;
-    
+    margin: 0 auto;
+    width: fit-content;
+    bottom: 20px;
+    position: relative;
 }
-p{
-	text-align : center;
-}
+
 .fa-heart{
-	color : red;
+   color : red;
 }
 
 /* pageup button */
 .back-to-top{
-	width : 40px;
-	height : 40px;
-	margin : 0 auto;
-	font-size : 24px;
-	color : white;
-	background-color : #149DDD;
-	border-radius : 50%;
-	visibility : visible;
-	position: fixed; 
-	bottom: 45px; 
-	right: 30px;
-	text-align : center;
+   width : 40px;
+   height : 40px;
+   margin : 0 auto;
+   font-size : 24px;
+   color : white;
+   background-color : #149DDD;
+   border-radius : 50%;
+   visibility : visible;
+   position: fixed; 
+   bottom: 45px; 
+   right: 30px;
+   text-align : center;
 }
 /* pageup button */
 *, ::after, ::before {
     box-sizing: border-box;
 }
+
 
 /*카카오톡 톡상담*/
 .kakaoChat {
@@ -271,7 +294,6 @@ p{
     margin-right: 28px;
     bottom: 90px;
     right: 0;
-
 }
 .kakao_btn {
 	border-radius: 1rem!important;
@@ -279,44 +301,49 @@ p{
 
 /* side menu와 내용 묶음 */
 .content-wrap {
-    width: 1200px;
-    margin: 0 auto;
-    position: relative;
-    top: 50px;
-    overflow: visible;
-    margin-bottom: 100px;
-
+	width: 1200px;
+	min-height: 100%;
+	margin: 0 auto;
+	position: relative;
+	top: 50px;
+	
 }
-
-
 /* side menu 틀*/
 .sidemenu-section {
-  width: 200px;
-	position: absolute;
-	font-size: 18px;
-	text-align: left;
-	height: 100%;
-	padding: 0px 0px 0 0;
-	margin-left: 0;
+    width: 200px;
+    font-size: 18px;
+    text-align: left;
+    min-height: 740px;
+    border-right-color: darkblue;
+    border-right: 1px solid #efefef;
+    padding: 0px 0px 0 0;
+    margin-left: 0;
+    margin-top: 210px;
+    position: fixed;
 }
+
 
 /* 내용 틀*/
 .content-section {
-	width: 1000px;
-	position: relative;
-	left: 200px;
-	text-align: left;
-	font-size: 14px;
-	margin-top: 3px;
-	color: black;
-	padding-left: 50px;
-	border-left: 1px solid #efefef;
+    width: 1001px;
+    height: max-content;
+    position: relative;
+    left: 100px;
+    text-align: left;
+    font-size: 14px;
+    margin-top: 0px;
+    color: black;
+    margin-left: 0;
+    padding-bottom: 100px;
+    border-left-color: darkblue;
+    border-left: 1px solid #efefef;
+    padding-left: 50px;
+    padding-right: 0;
+    min-height: 940px;
+    padding-top: 200px;
 }
-
-/* 각각의 페이지에서 사용할 CSS */
-.list-group{
-	margin-block-start: 0;
-	line-height:1.6;
+.list-group {
+	border-bottom: 1px solid rgba(0,0,0,.125);
 }
 .list-group-item {
     position: relative;
@@ -332,9 +359,28 @@ li.list-group-item.click > a {
     color: #5c5c8a;
 }
 
+
 .list-group-item > a {
 	text-decoration : none;
 	}
+	
+/* 각각의 페이지에서 사용할 CSS */
+.list-group{
+	border-bottom: 1px solid rgba(0,0,0,.125);
+}
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: .75rem 1.25rem;
+    margin-bottom: -1px;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,.125);
+}
+/* 현재 페이지의 서브메뉴 */
+li.list-group-item.click > a {
+    font-weight: bold;
+    color: #5c5c8a;
+}
 
 
     
@@ -1117,7 +1163,7 @@ ol, ul {
     font-size: .8rem;
 }
 .d-block {
-    display: block!important;
+    display: inline-block!important;
 }
 .date-read {
     color: #b4b4b4;
@@ -1141,38 +1187,38 @@ ol, ul {
 <header id = "header">
 
 	<div class ="inout_gocen">
-			<input type="button" class= "header_btn" id="login" value="로그인">
-			<input type="button" class= "header_btn" id="logout" value="로그아웃">
-			<input type="button" class= "header_btn" id="signin" value="회원가입">
-			<input type="button" class= "header_btn" id="mypage" value="마이페이지">
-			<input type="button" class= "header_btn" id="gocen" value="고객센터">
+			<a href="${pageContext.request.contextPath}/loginForm.me"><input type="button" class= "header_btn" id="login" value="로그인"></a>
+			<a href="${pageContext.request.contextPath}/logout.me"><input type="button" class= "header_btn" id="logout" value="로그아웃"></a>
+			<a href="${pageContext.request.contextPath}/joinform.me"><input type="button" class= "header_btn" id="signin" value="회원가입"></a>
+			<a href="${pageContext.request.contextPath}/mypage.me"><input type="button" class= "header_btn" id="mypage" value="마이페이지"></a>
+			<a href="${pageContext.request.contextPath}/customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
 		</div>
 	
 	<div class="nav-menu">
 				<ul class="sticky-wrapper">
-					<li class="dropdown"><a href="home.me">HOME</a></li>
-					<li class="dropdown"><a href="home_list.bo">분양</a>
+               <li class="dropdown"><a href="${pageContext.request.contextPath}/home.me">HOME</a></li>
+               <li class="dropdown"><a href="${pageContext.request.contextPath}/home_list.bo">분양</a>
 						<ul class="dropdown-menu">
-							<li><a href="home_list.bo">&nbsp;&nbsp;가정분양</a></li>
-							<li><a href="fdoclist.bo">책임분양</a></li>
-							<li><a href="selladopt_list.bo">업체분양</a></li>
+                     <li><a href="${pageContext.request.contextPath}/home_list.bo">&nbsp;&nbsp;가정분양</a></li>
+                     <li><a href="${pageContext.request.contextPath}/fdoclist.bo">책임분양</a></li>
+                     <li><a href="${pageContext.request.contextPath}/selladopt_list.bo">업체분양</a></li>
 						</ul></li>
-					<li class="dropdown"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a>
-						<ul class="dropdown-menu">
-				<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
-				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
-				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
+					<li class="dropdown"><a href="${pageContext.request.contextPath}//SJ/pet_list">보호소</a>
+						<ul class="dropdown-menu care">
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
+					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
+					<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
 						</ul></li>
-					<li class="dropdown"><a href="doclist.bo">커뮤니티</a>
-						<ul class="dropdown-menu">
-							<li><a href="doclist.bo">&nbsp;자유게시판</a></li>
-							<li><a href="auth_fdoc.bo">책임분양인증</a></li>
+               <li class="dropdown"><a href="${pageContext.request.contextPath}/doclist.bo">커뮤니티</a>
+                  <ul class="dropdown-menu commu">
+                     <li><a href="${pageContext.request.contextPath}/doclist.bo">&nbsp;자유게시판</a></li>
+                     <li><a href="${pageContext.request.contextPath}/auth_fdoc.bo">책임분양인증</a></li>
 						</ul></li>
 				</ul>
 	
 	<div class="header-top">
 		<div class="mainlogo">
-		<a href="#">
+		<a href="${pageContext.request.contextPath}/home.me">
 		<img src = "${pageContext.request.contextPath}/resources/img/mainlogo.png" class = "img-circle">
 		</a>
 		</div>
@@ -1190,9 +1236,9 @@ ol, ul {
 			<!-- 왼쪽. 서브메뉴가 들어갈 부분 -->
 			<div class="sidemenu-section">
 			<ul class="list-group list-group-flush">
-				<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
+				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
 				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
-				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
+				<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
 			</ul>
 			</div>
 			
@@ -1201,8 +1247,7 @@ ol, ul {
 					 <div style="margin-top:20px;">
 				          <div class="col-lg-12">
 				            <div class="section-title">
-				              <span class="caption d-block small">Categories</span>
-				              <h2>실종</h2>
+				              <span class="caption d-block small">보호소 > 실종게시판</span>
 				            </div>
 				            <div class="list_wrap">
 				            <div class="list_content">
@@ -1218,18 +1263,16 @@ ol, ul {
 				              <div class="thumbnail order-md-2" style="background-image: url('${board.thumbnail}');"></div>
 				              <div class="contents order-md-1 pl-0">
 				               
-				                <h2><a class="a_1" href="/samsam/SJ/missing/read?doc_no=${board.doc_no}">${board.doc_subject}</a></h2>
-				                <p class="mb-3 tag">#${board.doc_big_name} #${board.doc_sido} #${board.doc_age}</p>
+				                <h2><a class="a_1" href="/SJ/missing/read?doc_no=${board.doc_no}">${board.doc_subject}</a></h2>
+				                <p class="mb-3 tag">#${board.doc_big_name} #${board.doc_kind} #${board.doc_sido} </p>
 				                <div class="post-meta">
 				                  <span class="d-block"><a class="a_1" href="#">${board.doc_nick}</a></span>
 				                  <span class="date-read">
-				                  	<%-- 여기를 참고해서 게시글 상세의 날짜 포멧 지정하기 --%>
 				                  	<fmt:formatDate value="${board.doc_date}" pattern="yy/MM/dd"/>
 				                  </span>
-				                  <span class="detail-read">&nbsp;&nbsp;&nbsp;&nbsp;
-				                  <span class="recount_icon"></span>&nbsp;&nbsp;&nbsp;
-				                  <span class="comment_icon">
-				                  </span>&nbsp;</span>
+				                  <div class="detail-read"></div>&nbsp;&nbsp;&nbsp;&nbsp;
+				                  <div class="recount_icon"></div>&nbsp;&nbsp;&nbsp;${board.doc_readcount} 
+				                  <div class="comment_icon"></div>&nbsp;${board.reply_count}
 				                </div>
 				              </div>
 				            </div>
@@ -1237,18 +1280,17 @@ ol, ul {
 				            
 				            <%-- --%>
 				            </div>
-				            <div style="text-align: right;">
-				            	<a href="${pageContext.request.contextPath}/SJ/missing/register">
-				            		<button class="btn btn-sm" >글쓰기</button> 
-					            </a>
-				            </div>
+				            <c:if test="${email != null}">
+					            <div style="text-align: right;">
+					            	<a href="${pageContext.request.contextPath}/SJ/missing/register">
+					            		<button class="btn btn-sm" >글쓰기</button> 
+						            </a>
+					            </div>
+				            </c:if>
 				          </div>
 				       </div>
 			        </div>
-		
-				
 			</div>
-	
 
 
 	<!-- 카카오톡 채널 상담 -->
@@ -1266,6 +1308,8 @@ ol, ul {
 	</div>
 	
 </div><!-- 바디컨텐트 -->
+</div>
+
 	
 		
 <footer id="footer">
@@ -1273,9 +1317,9 @@ ol, ul {
 
 </footer>
 
+</div>
 
-<!-- 제이쿼리 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
 <script>
 $(document).ready(function(){
 	$('#login').on('click', function(e){
@@ -1284,16 +1328,18 @@ $(document).ready(function(){
 		  $('#login').hide();
 		  $('#signin').hide();
 	  });
-	}) //헤더 상단 로그인 체인지
-
-	$(document).ready(function(){
+	
 	$('#logout').on('click', function(e){
 	       $('#logout').hide();
 		   $('#mypage').hide();
 		   $('#login').show();
 		   $('#signin').show();
-		});
-	}) //헤더 상단 로그아웃 체인지
+	});
+	
+		
+		
+}); 
+
 </script>
 
 <!-- 부트스트랩 4.0 js -->

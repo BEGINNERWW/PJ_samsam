@@ -12,6 +12,32 @@ public class PayangReplyVO {
 	private String doc_secret;
 	private Date doc_date;
 	private Date doc_upd_date;
+	private String doc_date_fmt;
+	
+	// 수정 삭제
+	private String btnModify;
+	private String btnRemove;
+	
+	
+	
+	public String getBtnModify() {
+		return btnModify;
+	}
+	public void setBtnModify(String btnModify) {
+		this.btnModify = btnModify;
+	}
+	public String getBtnRemove() {
+		return btnRemove;
+	}
+	public void setBtnRemove(String btnRemove) {
+		this.btnRemove = btnRemove;
+	}
+	public String getDoc_date_fmt() {
+		return doc_date_fmt;
+	}
+	public void setDoc_date_fmt(String doc_date_fmt) {
+		this.doc_date_fmt = doc_date_fmt;
+	}
 	public int getDoc_cno() {
 		return doc_cno;
 	}
