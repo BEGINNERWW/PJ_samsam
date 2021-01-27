@@ -128,7 +128,7 @@ select * from (
 	select doc_no as num, doc_subject as subject, doc_date as write_date from missing where doc_email = #{email}
 ) order by write_date desc
 </select>
-
+ 
 <!-- 내 댓글 리스트 -->
 <select id="getWriteComment" parameterType="String" resultType="CommentListVO">
 select * from (
