@@ -254,7 +254,7 @@ public class AnimalApiUtil implements AnimalApi {
 	}
 
 	@Override
-	public ArrayList<AnimalInfo> getAnimalInfo(String bgnde, String endde, String upkind, String state,
+	public AnimalApiVO getAnimalInfo(String bgnde, String endde, String upkind, String state,
 			Integer pageNo, Integer numOfRows, String neuter_yn) throws Exception {
 		
 		ArrayList<String> paramNm = new ArrayList<String>();
@@ -278,123 +278,15 @@ public class AnimalApiUtil implements AnimalApi {
 		paramVal.add(neuter_yn);
 		
 		StringBuilder sb = getReponse("abandonmentPublic", 5, paramNm, paramVal);
-        
         Document a = convertStringToDocument(sb.toString());
+        AnimalApiVO apiVO = getAnimalInfoList(a);
 		
-		ArrayList<AnimalInfo> animalList = getAnimalInfoList(a);
-		
-//		String animalInfo = sb.toString();
-//        System.out.println(animalInfo);
-//        String[] str1 = animalInfo.split("<items>");
-//		String result = str1[1];
-//		String[] str2 = result.split("</items>");
-//		result = str2[0];
-//		String[] str3 = result.split("(<\\w+>)|(</\\w+>)");
-//		
-//		System.out.println("###########################");
-//		int count = 0;
-//		AnimalInfo animal = null;
-//		ArrayList<AnimalInfo> animalList = new ArrayList<AnimalInfo>();
-//		
-//		for (int i = 0; i < str3.length; i++) {
-//			
-//			if( count == 0 ) {
-//				animal = new AnimalInfo();
-//			}
-//			
-//			if( count == 22 ) {
-//				animalList.add(animal);
-//				count = 0;
-//			}
-//			
-//			if( !str3[i].equals("") ) {
-//				
-//				count++;
-//				System.out.print(count + ". ");
-//				System.out.println(str3[i]);
-//				
-//				switch (count) {
-//				case 1:
-//					animal.setAge( str3[i] );
-//					break;
-//				case 2:
-//					animal.setCareAddr( str3[i] );
-//					break;
-//				case 3:
-//					animal.setCareNm(str3[i] );
-//					break;
-//				case 4:
-//					animal.setCareTel(str3[i] );
-//					break;
-//				case 5:
-//					animal.setChargeNm( str3[i] );
-//					break;
-//				case 6:
-//					animal.setColorCd(str3[i] );
-//					break;
-//				case 7:
-//					animal.setDesertionNo(str3[i] );
-//					break;
-//				case 8:
-//					animal.setFilename(str3[i] );
-//					break;
-//				case 9:
-//					animal.setHappenDt(str3[i] );
-//					break;
-//				case 10:
-//					animal.setHappenPlace(str3[i] );
-//					break;
-//				case 11:
-//					animal.setKindCd(str3[i] );
-//					break;
-//				case 12:
-//					animal.setNeuterYn(str3[i] );
-//					break;
-//				case 13:
-//					animal.setNoticeEdt(str3[i] );
-//					break;
-//				case 14:
-//					animal.setNoticeNo(str3[i] );
-//					break;
-//				case 15:
-//					animal.setNoticeSdt(str3[i] );
-//					break;
-//				case 16:
-//					animal.setOfficetel(str3[i] );
-//					break;
-//				case 17:
-//					animal.setOrgNm(str3[i] );
-//					break;
-//				case 18:
-//					animal.setPopfile(str3[i] );
-//					break;
-//				case 19:
-//					animal.setProcessState(str3[i] );
-//					break;
-//				case 20:
-//					animal.setSexCd(str3[i] );
-//					break;
-//				case 21:
-//					animal.setSpecialMark(str3[i] );
-//					break;
-//				case 22:
-//					animal.setWeight(str3[i] );
-//					break;
-//				default:
-//							break;
-//				}
-//				
-//			}
-//		}
-		
-		
-		
-		return animalList;
+		return apiVO;
 	}
 	
 	// 보호 동물 정보 가져오기
 	@Override
-	public ArrayList<AnimalInfo> getAnimalInfo(String bgnde, String endde, String upr_cd, String org_cd, String upkind, String kind, String state,
+	public AnimalApiVO getAnimalInfo(String bgnde, String endde, String upr_cd, String org_cd, String upkind, String kind, String state,
 			Integer pageNo, Integer numOfRows, String neuter_yn) throws Exception {
 		
 		ArrayList<String> paramNm = new ArrayList<String>();
@@ -443,7 +335,7 @@ public class AnimalApiUtil implements AnimalApi {
         
         Document a = convertStringToDocument(sb.toString());
 		
-		ArrayList<AnimalInfo> animalList = getAnimalInfoList(a);
+        AnimalApiVO apiVO = getAnimalInfoList(a);
 //		
 //		String animalInfo = sb.toString();
 //        System.out.println(animalInfo);
@@ -563,7 +455,7 @@ public class AnimalApiUtil implements AnimalApi {
 //		}
 		
 		
-		return animalList;
+		return apiVO;
 	}
 	
 	// 보호소 정보 가져오기
@@ -727,11 +619,27 @@ public class AnimalApiUtil implements AnimalApi {
 	 * @param a
 	 * @return
 	 */
-    private static ArrayList<AnimalInfo> getAnimalInfoList(Document a) {
+    private static AnimalApiVO getAnimalInfoList(Document a) {
+    	AnimalApiVO apiVO = new AnimalApiVO();
     	ArrayList<AnimalInfo> resultList = new ArrayList<AnimalInfo>();
     	
     	NodeList items = a.getElementsByTagName("document");
-    	items = a.getChildNodes().item(0).getChildNodes().item(1).getChildNodes().item(0).getChildNodes();
+    	NodeList bodyChildrens = a.getChildNodes().item(0).getChildNodes().item(1).getChildNodes();
+    	items = bodyChildrens.item(0).getChildNodes();
+    	int totalCount = 0;
+    	
+    	
+    	for (int i=0; i<bodyChildrens.getLength(); i++) {
+    		Node item = bodyChildrens.item(i);
+			String nodeName = item.getNodeName();
+    		String nodeValue = item.getTextContent();
+    		
+    		if ("totalCount".equals(nodeName)) {
+    			// Body 자식 노드 중  totalCount name값을 지니고 있다면 해당 노드의 value값이 totalCount.
+    			totalCount = Integer.parseInt(nodeValue);
+    			apiVO.setTotalCount(totalCount);
+    		}
+    	}
 
     	for (int i=0; i<items.getLength(); i++) {
     		// 모든 items
@@ -792,7 +700,8 @@ public class AnimalApiUtil implements AnimalApi {
     		
     		resultList.add(shelter);
     	}
-		return resultList;
+    	apiVO.setAnimalInfo(resultList);
+		return apiVO;
 	}
 	
 	
