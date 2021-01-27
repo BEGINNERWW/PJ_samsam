@@ -731,6 +731,7 @@ $('#keyword').keypress(function(event){
                   <ul class="dropdown-menu commu">
                      <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
                      <li><a href="auth_fdoc.bo">책임분양인증</a></li>
+                     <li><a href="hospital_map.me">Map</a></li>
                   </ul></li>
             </ul>
 				
@@ -765,7 +766,7 @@ $('#keyword').keypress(function(event){
 			<ul class="list-group list-group-flush">
 				<li class="list-group-item click"><a href="doclist.bo">자유게시판</a></li>
 				<li class="list-group-item"><a href="auth_fdoc.bo">책임분양인증</a></li>
-				<li class="list-group-item"><a href="#">[개발중]</a></li>
+				<li class="list-group-item"><a href="hospital_map.me">Map</a></li>
 			</ul>
 			</div>
 			

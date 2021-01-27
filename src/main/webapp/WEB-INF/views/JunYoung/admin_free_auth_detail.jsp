@@ -371,13 +371,17 @@ p.card-text {
 	<div class="d-flex flex-column">
 		<div class ="profile">
 			<img src = "resources/img/samsam2.png" class = "img-circle">
-			<h1 class ="text-light">
+
+			<h1 class ="text-light" style="margin-top: 14px;margin-bottom: 19px;">
+
 				<a href ="#" class = "onMember"> ADMIN  </a>
 			</h1>
 		</div>
 		<div class ="admin_inout">
-			<button type="button" class ="grade" onclick="location.href='home.me'">ADMIN</button>
-			<button type="button" class ="grade" onclick="location.href='logout.me'">LOGOUT</button>
+
+			<button type="button" class ="grade" onclick="location.href='home.me'" style="font:400 13.3333px Arial;">ADMIN</button>
+			<button type="button" class ="grade" onclick="location.href='logout.me'" style="font:400 13.3333px Arial;">LOGOUT</button>
+
 		</div>
 						
 		<ul>
@@ -576,8 +580,9 @@ p.card-text {
 						<thead>
 							<tr>
 								<th scope="col" class="text-center" width=500>제목</th>
-								<th scope="col" class="text-center" width=150>작성일</th>
-								<th scope="col" class="text-center" width=200>상태</th>
+								<th scope="col" class="text-center" width=100>작성일</th>
+								<th scope="col" class="text-center" width=110>상태</th>
+								<th scope="col" class="text-center" width=85>&nbsp;</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -596,6 +601,8 @@ p.card-text {
 									<button type="button" class="btn btn-danger btn-sm" id="free_auth_re">
 										<a href="free_auth_detail_re.me?doc_no=<%=free_auth_list.getDoc_no()%>#location">인증취소</a></button>
 									</td>
+									<td class="text-center">
+										<a href="./fadocdetail.bo?doc_no=<%=free_auth_list.getDoc_no()%>" target="_blank">원문보기</a></td>
 								</tr>
 							<%
 							}

@@ -443,6 +443,26 @@ div::-webkit-scrollbar {
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
 
+.btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #158cba;
+    border-color: #158cba;
+    font-size: 11px;
+    line-height: 21px;
+    font-weight: 500;
+    border-width:0;
+   }
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #127ba3;
+    border-color: #127ba3;
+}
+
 </style>
 
 </head>
@@ -484,7 +504,7 @@ div::-webkit-scrollbar {
                   <ul class="dropdown-menu commu">
                      <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
                      <li><a href="auth_fdoc.bo">책임분양인증</a></li>
-                     <li><a href="hospital_map.me">동물병원</a></li>
+                     <li><a href="hospital_map.me">Map</a></li>
                   </ul></li>
             </ul>
 				
@@ -523,8 +543,8 @@ div::-webkit-scrollbar {
 								<div>
 										
 									<form onsubmit="searchPlaces(); return false;">
-										  키워드 : <input type="text" value="종로구 동물병원" id="keyword" size="15"> 
-                   						 <button type="submit">검색하기</button> 
+										  키워드&nbsp;&nbsp;<input type="text" value="종로구 동물병원" id="keyword" size="15"> 
+                   						 <button type="submit" class="btn-primary" style="width:50px; height:25px;">검색</button> 
 									</form>
 								</div>
 							</div>

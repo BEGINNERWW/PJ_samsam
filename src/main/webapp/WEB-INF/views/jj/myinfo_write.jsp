@@ -121,12 +121,12 @@ body {
 
 #header {
     width: 100%;
-    height: 190px;
+    height: 189px;
     box-sizing: content-box;
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid #efefef;
-    padding-bottom: 20px;
+    padding-bottom: 18px;
     background-color : #fff;
     position : fixed;
       z-index : 10000;
@@ -224,9 +224,10 @@ li.dropdown {
     visibility: visible;
     background-color: #fff;
    width: 1200px;
-   top : 52px;
+   top : 48px;
    margin-left : -30px;
    border: none;
+    border-top: 1px solid #efefef;
 }
 
 .board {
