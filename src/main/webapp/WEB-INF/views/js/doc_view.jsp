@@ -824,6 +824,17 @@ padding: 0 0 29px;
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+	<script>
+    $('.search-box').click(function(){
+      
+    });
+    $('#keyword').keypress(function(event){
+      if(event.which == 13){
+        $('.search-box btn').click();
+        return false;
+      }
+    });
+</script>
 <script>
 var table = '<%=table%>';
 var doc_table = '<%=doc_table%>';
@@ -2025,17 +2036,6 @@ $(document).on("change","input[name='w_reason']",function(){
 	
 	
 </script>
-<script>
-    $('.search-box btn').click(function(){
-      
-    });
-    $('#keyword').keypress(function(event){
-      if(event.which == 13){
-        $('.search-box btn').click();
-        return false;
-      }
-    });
-</script>
 <body>
 <div class ="body_content">
 <header id = "header">
@@ -2085,10 +2085,10 @@ $(document).on("change","input[name='w_reason']",function(){
 	</div>
 	
 	
-	 <form action="home_search.me" method="post" name="home_search">
+	<form action="home_search.me" method="post" name="home_search">
             <div class="search-wrapper">
                <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
-               <button class="search-box btn" type="submit">
+               <button class="search-box" type="submit">
                   <i class="fas fa-search"></i>
                </button>
             </div>
@@ -2107,7 +2107,7 @@ $(document).on("change","input[name='w_reason']",function(){
 			<ul class="list-group list-group-flush">
 				<li class="list-group-item click"><a href="doclist.bo">자유게시판</a></li>
 				<li class="list-group-item"><a href="auth_fdoc.bo">책임분양인증</a></li>
-				<li class="list-group-item"><a href="#">[개발중]</a></li>
+				<li class="list-group-item"><a href="#">Map</a></li>
 			</ul>
 			</div>
 			
@@ -2126,9 +2126,9 @@ $(document).on("change","input[name='w_reason']",function(){
 							<span class="cmt"><i class="far fa-comment"></i>&nbsp;<%=vo.getDoc_comment()%></span>
 							<div class="option-wrap">
 							<%
-								if (id != null) {
+								if (email != null) {
 
-									if (!id.equals(vo.getDoc_nick())) {
+									if (!email.equals(vo.getDoc_email())) {
 							%>
 							<span><a href="#"
 								onclick="warning_ori(<%=vo.getDoc_no()%>,'<%=vo.getDoc_nick()%>','<%=vo.getDoc_subject()%>');">신고하기</a></span>
@@ -2222,7 +2222,24 @@ $(document).on("change","input[name='w_reason']",function(){
     }
     
   //]]>
-  
+    $(document).ready(function(){
+        console.log("<%= email %>") 
+        var session = '<%= email %>'
+        console.log(session);
+        if(session == "null" ){
+            $('#logout').hide();
+              $('#mypage').hide();
+              $('#login').show();
+              $('#signin').show();
+            
+         } //헤더 상단 로그인상태 일때
+         else{
+           $('#logout').show();
+             $('#mypage').show();
+             $('#login').hide();
+             $('#signin').hide();
+         }; //헤더 상단 로그아웃상태 일때 
+      }); 
 </script>
 
 	<div id="ex7" class="modal" style="overflow: visible;"></div>
