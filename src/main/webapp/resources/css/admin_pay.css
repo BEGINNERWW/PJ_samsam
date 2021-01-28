@@ -43,9 +43,21 @@ input {
     width:250px;
     height : 40px;
 }
+/* 페이징 처리 */
 .tb-bottom{
-	text-align : right;
+	display : flex;
+	margin : 0 auto;
 }
+.pagenum{
+	display : flex;
+}
+.pageA{
+	margin-top :12px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+/* 페이징 처리 끝 */
+
 .before-btn, .after-btn{
 	margin: 10px;
     width:60px;
