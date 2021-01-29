@@ -440,15 +440,15 @@ li.dropdown > a {
 				</ol>
 				<div class="carousel-inner">
 					<div class="carousel-item active">
-						<img class="d-block w-100 rounded" src="resources/img/mainpage_1.jpg"
+						<img class="d-block w-100 rounded" src="resources/img/mainpage_1.png"
 							alt="First slide">
 					</div>
 					<div class="carousel-item">
-						<img class="d-block w-100 rounded" src="resources/img/mainpage_2.jpg"
+						<img class="d-block w-100 rounded" src="resources/img/mainpage_3.png"
 							alt="Second slide">
 					</div>
 					<div class="carousel-item">
-						<img class="d-block w-100 rounded" src="resources/img/mainpage_3.jpg"
+						<img class="d-block w-100 rounded" src="resources/img/mainpage_5.png"
 							alt="Third slide">
 					</div>
 				</div>
