@@ -150,10 +150,7 @@ function member_detail(obj) {
 		        $('.status').val("미제출");
 		        fieldsetDisable();
 		      }
-			}else{
-		        $('.status').val("미제출");
-		        fieldsetDisable();
-		      }
+			
 			if(map.Boardlist != null && map.Boardlist != ""){
 			$.each(map.Boardlist, function(index, item){
 				console.log("map.Boardlist : " + map.Boardlist);

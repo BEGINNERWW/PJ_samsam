@@ -2286,7 +2286,7 @@ function search_submit(a){
    if(email != null){
    %>
    <div style="display:inline-block; float:right;margin-right:25px;">
-   		if
+   		
 		<a href="./adopt_write.bo">[글쓰기]</a>
 		
 	</div>
