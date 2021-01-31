@@ -36,5 +36,7 @@ public interface PayangService {
 	//수정
 	public int replyModify(PayangReplyVO paramVO);
 	
+	//대댓글 추가
+	public int rereplyRegister(PayangReplyVO vo) throws Exception;
 	
 }

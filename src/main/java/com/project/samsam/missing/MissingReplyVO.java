@@ -1,8 +1,10 @@
 package com.project.samsam.missing;
 
 import java.util.Date;
+import java.util.List;
 
 public class MissingReplyVO {
+
 	private int doc_cno; 
 	private int doc_no; 
 	private String doc_email; 
@@ -12,6 +14,10 @@ public class MissingReplyVO {
 	private Date doc_date;
 	private Date doc_upd_date;
 	private String doc_date_fmt;
+	private int doc_ref;
+	private int doc_lev;
+	private int doc_seq;
+	private List<MissingReplyVO> rereList;
 	
 	// 수정 삭제
 	private String btnModify;
@@ -67,12 +73,6 @@ public class MissingReplyVO {
 	public void setDoc_upd_date(Date doc_upd_date) {
 		this.doc_upd_date = doc_upd_date;
 	}
-	@Override
-	public String toString() {
-		return "MissingReplyVO [doc_cno=" + doc_cno + ", doc_no=" + doc_no + ", doc_email=" + doc_email + ", doc_nick="
-				+ doc_nick + ", doc_content=" + doc_content + ", doc_secret=" + doc_secret + ", doc_date=" + doc_date
-				+ ", doc_upd_date=" + doc_upd_date + "]";
-	}
 	public String getBtnModify() {
 		return btnModify;
 	}
@@ -90,5 +90,37 @@ public class MissingReplyVO {
 	}
 	public void setDoc_date_fmt(String doc_date_fmt) {
 		this.doc_date_fmt = doc_date_fmt;
+	}
+	public List<MissingReplyVO> getRereList() {
+		return rereList;
+	}
+	public void setRereList(List<MissingReplyVO> rereList) {
+		this.rereList = rereList;
+	}
+	public int getDoc_ref() {
+		return doc_ref;
+	}
+	public void setDoc_ref(int doc_ref) {
+		this.doc_ref = doc_ref;
+	}
+	public int getDoc_lev() {
+		return doc_lev;
+	}
+	public void setDoc_lev(int doc_lev) {
+		this.doc_lev = doc_lev;
+	}
+	public int getDoc_seq() {
+		return doc_seq;
+	}
+	public void setDoc_seq(int doc_seq) {
+		this.doc_seq = doc_seq;
+	}
+	@Override
+	public String toString() {
+		return "MissingReplyVO [doc_cno=" + doc_cno + ", doc_no=" + doc_no + ", doc_email=" + doc_email + ", doc_nick="
+				+ doc_nick + ", doc_content=" + doc_content + ", doc_secret=" + doc_secret + ", doc_date=" + doc_date
+				+ ", doc_upd_date=" + doc_upd_date + ", doc_date_fmt=" + doc_date_fmt + ", doc_ref=" + doc_ref
+				+ ", doc_lev=" + doc_lev + ", doc_seq=" + doc_seq + ", rereList=" + rereList + ", btnModify="
+				+ btnModify + ", btnRemove=" + btnRemove + "]";
 	}
 }
