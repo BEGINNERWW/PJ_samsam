@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.mapper.MissingMapper;
-import com.project.samsam.missing.MissingReplyVO;
-import com.project.samsam.missing.MissingVO;
-import com.project.samsam.payang.PayangReplyVO;
+
 
 @Service
 public class MissingServiceImpl implements MissingService {
@@ -51,24 +49,32 @@ public class MissingServiceImpl implements MissingService {
 	}
 	@Override
 	public List<MissingReplyVO> replyList(Integer doc_no) throws Exception {
-		return mapper.replyList(doc_no);
+		List<MissingReplyVO> replyList = mapper.replyList(doc_no);
+		
+		
+		for (int i=0; i<replyList.size(); i++) {
+			int replyNo = replyList.get(i).getDoc_no();
+//			List<MissingReplyVO> rereply = mapper.
+		}
+		
+		return replyList;
 	}
 	@Override
 	public void updateReadCount(MissingVO missing) throws Exception {
 		mapper.updateReadCount(missing);
-		
 	}
 	@Override
 	public void replyRemove(Integer doc_cno) throws Exception {
 		mapper.replyRemove(doc_cno);
-		
 	}
 	@Override
 	public int replyModify(MissingReplyVO paramVO) {
 		return mapper.replyModify(paramVO);
 	}
-	
-
-
+	@Override
+	public int rereplyRegister(MissingReplyVO vo) throws Exception {
+		System.out.println(vo);
+		return mapper.rereplyInsert(vo);
+	}
 
 }

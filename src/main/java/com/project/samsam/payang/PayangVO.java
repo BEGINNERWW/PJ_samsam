@@ -19,6 +19,7 @@ public class PayangVO {
 	private Date doc_date;
 	private Date doc_upd_date;
 	private int doc_readcount;
+	private String thumbnail;
 	// 댓글 개수
 		private int reply_count;
 		
@@ -36,7 +37,7 @@ public class PayangVO {
 	public void setReply_count(int reply_count) {
 		this.reply_count = reply_count;
 	}
-	private String thumbnail;
+	
 	
 	public int getDoc_no() {
 		return doc_no;
