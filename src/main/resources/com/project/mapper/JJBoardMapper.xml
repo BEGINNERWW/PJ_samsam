@@ -14,7 +14,7 @@
     <select id="getSearch_free_auth" parameterType="String" resultType="JJBoardVO">
      select doc_no as num, fadoc_r_email as nick, fadoc_subject as subject, fadoc_date as c_date,fadoc_readcount as readcount 
         from  free_auth
-        where fadoc_subject like '%' || #{keyword}|| '%' or fadoc_content like '%' ||#{keyword} || '%'
+        where fadoc_check ='인증완료' and fadoc_subject like '%' || #{keyword}|| '%' or fadoc_content like '%' ||#{keyword} || '%'
         order by fadoc_date desc
     </select>
    

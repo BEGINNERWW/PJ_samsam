@@ -496,6 +496,16 @@ li.list-group-item.click > a {
 $(document).ready(function() {
 	swal("판매관리번호 인증 진행중","인증 완료까지 최대 3영업일 소요될 수 있습니다.","info")
 	
+$(document).keyup(function(e) {
+	    if ( e.keyCode == 27) {
+	    	location.href = "home.me";
+	    }
+	})
+	
+$('.swal-button').on('click', function() {
+
+	location.href = "home.me";
+});
 });
 </script>
 

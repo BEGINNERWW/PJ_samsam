@@ -15,7 +15,6 @@
 	}
 	
 	ArrayList<Payed_listVO> plist = (ArrayList<Payed_listVO>) request.getAttribute("Pay_list");
-		
 %>
 
 <!DOCTYPE html>
@@ -46,33 +45,7 @@ ul{
 }
 </style>
 <script>
-var count = 8;
-var page =0;
-$(document).on("click", ".before-btn",function(event) {
-	if(count > 8  && page >= 1){
-		count -= 8
-		page -= 1
-		$(".payed").slice(page * 8,count).show();
-	}
-	else{
-		swal("","첫 페이지 입니다.","info")
-	}
-	  console.log("이전:"+page)
-});
 
-$(document).on("click", ".after-btn",function(event) {
-	  if($(".payed").length <= count){
-		    console.log($(".payed").length)
-		    swal("","마지막 페이지 입니다.","info")
-		  }
-		  else{
-		    count += 8
-		    page += 1
-		    $(".payed").slice(page * 8,count).show();
-		  }
-		  console.log("다음:"+page)
-	
-});
 var chart1Labels = [];
 var chart1adopt = [];
 var chart1home = [];
@@ -119,6 +92,7 @@ $(document).ready(function(){
 				if(item.board == "책임"){
 					chart1free.push(item.write_count);
 				}
+				 
 			});
 			}//map.chart1
 			console.log("chart2")
@@ -250,6 +224,7 @@ $(document).ready(function(){
 	});	
 
 })//ready
+
 function lineChart(){
 	console.log("linechart")
 	console.log(chart1adopt)
@@ -441,6 +416,127 @@ function getTimeStamp() {
 	$('.today').html(s);	
 }
 </script>
+<!-- 페이징 -->
+<script>
+$(document).ready(function(){
+	$(".payed").slice(10).hide();
+
+var page = 0
+var b = 0;
+var b_count = $( '.payed' ).length
+console.log("행 수")
+console.log(b_count)
+for(var i = 1; i <= b_count ; i++){
+	if(b != 10 && b%10 == 0){
+		console.log("b는 "+ b)
+		console.log(b%10)
+		page += 1	
+		console.log("page수 :" + page)
+		$('.pagenum').html($('.pagenum').html()+'<a class ="pageA" href="javascript:void(0);" onclick="page_detail(this);" value = "'+ page +'">'+ page + '</a>')
+	}else if(b <= 10){
+		console.log("page값 :" + page)
+		if(page < 1){
+		 page = 1	
+		$('.pagenum').html($('.pagenum').html()+'<a class ="pageA" href="javascript:void(0);" onclick="page_detail(this);" value = "'+ page +'">'+ page + '</a>')
+		}
+	}else if(b > page*10 && b%10 != 0){
+		page += 1	
+		console.log("page수 :" + page)
+		$('.pagenum').html($('.pagenum').html()+'<a class ="pageA" href="javascript:void(0);" onclick="page_detail(this);" value = "'+ page +'">'+ page + '</a>')							
+	}
+	b += 1;
+}
+sessionStorage.setItem("pagenum", 1);
+sessionStorage.setItem("lastPage", page)
+console.log("세션"+ sessionStorage.getItem("pagenum"))
+console.log("마지막페이지"+ sessionStorage.getItem("lastPage"))
+
+nowpage();
+});//ready
+
+function nowpage(){
+	if($('.pageA').hasClass('now')){
+		$('.pageA').removeClass('now')
+	}
+	console.log("현재페이지 css")
+	console.log($('.pageA:nth-child(n)').attr('value'))
+	for(var i=0; i <= $('.pageA').length; i++){
+		var nowpage = $('.pageA:nth-child('+ i +')').attr('value');
+		console.log(nowpage)
+		console.log(sessionStorage.getItem("pagenum"))
+		if(nowpage == sessionStorage.getItem("pagenum")){
+			$('.pageA:nth-child('+ i +')').addClass("now");
+			break;
+		}
+	}
+}
+
+function page_detail(obj){
+	console.log("page버튼이벤트"+sessionStorage.getItem("pagenum"));
+	
+	
+	$(".result").hide();
+	var page = $(obj).attr('value');
+	console.log(page)
+	var start = (page-1)*10;
+	var end = page*10;
+	$(".result").slice(start, end).show();
+	sessionStorage.setItem("pagenum", page);
+	nowpage()
+	
+	console.log("page버튼 이벤트 후"+sessionStorage.getItem("pagenum"));
+}//page event
+
+$(document).on("click", ".before-btn",function(event) {
+	before = sessionStorage.getItem("pagenum")
+	sessionStorage.setItem("pagenum", Number(before)-1)
+	page = sessionStorage.getItem("pagenum")
+	console.log("이전"+sessionStorage.getItem("pagenum"));
+	nowpage()	
+	if(Number(page) <= 0){
+		swal("","첫 페이지 입니다.","info")
+		sessionStorage.setItem("pagenum", 1)
+		nowpage()
+	}
+	else if(Number(page) > 1){
+	$(".result").hide();
+	var start = (page-1)*10;
+	var end = start*10;
+
+	$(".result").slice(start, end).show();
+	}
+	else if(Number(page) == 1){
+		$(".result").hide();
+		var start = (page-1)*10;
+		var end = 1*10;
+
+		$(".result").slice(start, end).show();
+	}
+});
+
+$(document).on("click", ".after-btn",function(event) {
+	page = sessionStorage.getItem("pagenum")
+	last = sessionStorage.getItem("lastPage")
+	console.log("다음:"+sessionStorage.getItem("pagenum"))
+	if(Number(page) >= Number(last)){
+		swal("","마지막 페이지 입니다.","info")
+	}
+	else{
+	$(".result").hide();
+	console.log($(".result").length)
+
+	console.log("page"+sessionStorage.getItem("pagenum"));
+	var start = page*10;
+	var end = start+10;
+	
+	$(".result").slice(start, end).show();
+	sessionStorage.setItem("pagenum",Number(page)+1)
+	console.log("다음:"+sessionStorage.getItem("pagenum"))
+	}
+	nowpage()
+});
+</script>
+
 </head>
 <body>
 <div class ="body_content">
@@ -511,13 +607,13 @@ if(!plist.isEmpty()){
 <% }} else{%>
 <tr><td colspan = "4"> 전체 조회결과, 결제내역이 존재하지 않습니다 </td></tr>
 <% } %>
-<tr><td class="tb-bottom" colspan = "4">
-	<input type='button' class ='before-btn' value = '이전'>
-	<input type='button' class = 'after-btn' value = '다음'>
-	</td>
-</tr>
 </tbody>
 </table>
+<div class='tb-bottom'>
+	<input type='button' class ='before-btn' value = '이전'>
+	<span class='pagenum'></span>
+	<input type='button' class = 'after-btn' value = '다음'>
+</div><!-- paging -->
 </div>
 </div><!-- 메인컨텐트 -->
 

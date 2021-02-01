@@ -150,7 +150,7 @@ public class JJMemberController {
 		System.out.println("이메일: " + mvo.getEmail() + "닉네임 : " + mvo.getNick());
 		
 		MemberVO vo = memberSV.selectMember(mvo.getEmail());
-		if(vo != null && !(vo.getGrade().equals("카카오"))){
+		if(vo != null && !(vo.getAuthkey().equals("kkoAuth"))){
 			
 			return "jj/loginForm";
 		}
@@ -178,7 +178,7 @@ public class JJMemberController {
 		System.out.println("네이버이메일: " + mvo.getEmail() + "닉네임 : " + mvo.getNick());
 		
 		MemberVO vo = memberSV.selectMember(mvo.getEmail());
-		if(vo != null && !(vo.getGrade().equals("네이버"))){
+		if(vo != null && !(vo.getAuthkey().equals("nidAuth"))){
 			return "jj/loginForm";
 		}
 		if(memberSV.selectMember(mvo.getEmail()) == null) {
@@ -218,7 +218,7 @@ public class JJMemberController {
 
 	
 	@RequestMapping(value = "/login.me")
-	public String userCheck(@RequestParam("email") String email, MemberVO vo, HttpSession session) throws Exception {
+	public String userCheck(@RequestParam("email") String email, MemberVO vo, HttpSession session, Model model) throws Exception {
 		System.out.println("로그인 이메일 "+vo.getEmail());
 		System.out.println("로그인 비밀번호 "+vo.getPw());
 		MemberVO res = memberSV.selectMember(vo.getEmail());
@@ -233,7 +233,7 @@ public class JJMemberController {
 			return "redirect:/home.me";  //어드민 페이지로 변경 필요
 		}
 		//카카오
-		if(res.getGrade().equals("카카오")) {
+		if(res.getAuthkey().equals("kkoAuth")) {
 			session.setAttribute("email", res.getEmail());
 			session.setAttribute("nick",  res.getNick());
 			Biz_memberVO bo = memberSV.selectBizMember(vo.getEmail());
@@ -245,7 +245,7 @@ public class JJMemberController {
 			return "redirect:/home.me";//마이페이지로 변경 필요
 		}
 		//네이버
-		if(res.getGrade().equals("네이버")) {
+		if(res.getAuthkey().equals("nidAuth")) {
 			session.setAttribute("email", res.getEmail());
 			session.setAttribute("nick",  res.getNick());
 
@@ -265,7 +265,7 @@ public class JJMemberController {
 			session.setAttribute("email", res.getEmail());
 			session.setAttribute("nick",  res.getNick());
 
-			System.out.println("session id :" +session.getAttribute("id"));
+			System.out.println("session nick :" +session.getAttribute("nick"));
 			System.out.println("session email :" +session.getAttribute("email"));
 			//사업자회원인지 확인
 			Biz_memberVO bo = memberSV.selectBizMember(vo.getEmail());
@@ -277,6 +277,7 @@ public class JJMemberController {
 			}
 			return "redirect:/home.me";  
 		}else {
+			model.addAttribute("email",res.getEmail());
 			return "redirect:/loginForm.me";
 		}
 	}
@@ -314,6 +315,7 @@ public class JJMemberController {
 	 public ModelAndView signUpConfirm(@RequestParam HashMap<String, Integer> map, ModelAndView mav){
 		//email, authKey 가 일치할경우 authStatus 업데이트
 		System.out.println("connection  email :" + map.get("email"));
+		System.out.println("connection  authkey :" + map.get("authkey"));
 	    memberSV.updateAuthStatus(map);
 	    System.out.println("connection  email2 :" + map.get("email"));
 	    mav.addObject("display", "/jj/loginForm.jsp");

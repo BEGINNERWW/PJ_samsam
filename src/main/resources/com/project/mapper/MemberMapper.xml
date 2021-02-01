@@ -24,7 +24,7 @@ biz_email / biz_no / biz_com/ biz_name / biz_add / biz_img / free_coupon/ pay_co
 	</update>
 	
 	<update id="updateAuthStatus" parameterType="HashMap">
-	update member_list set status ='1' where email=#{email} and authkey=#{authkey, jdbcType=VARCHAR}
+	update member_list set status =1 where email=#{email} and authkey=#{authkey, jdbcType=VARCHAR}
 	</update>
 <!-- join email check -->
 <select id="idCheck" parameterType="String" resultType="int">
@@ -116,7 +116,7 @@ select * from (
 	union all
 	select doc_no as num, doc_subject as subject, doc_date as write_date from free_doc where doc_email = #{email}
 	union all
-	select doc_no as num, fadoc_subject as subject, fadoc_date as write_date from free_auth where fadoc_r_email = #{email}
+	select doc_no as num, fadoc_subject as subject, fadoc_date as write_date from free_auth where fadoc_r_email = #{email} and fadoc_check='인증완료'
 	union all
 	select doc_no as num, doc_subject as subject, doc_date as write_date from adopt_home where doc_email = #{email}
 	union all
@@ -156,7 +156,7 @@ select * from (
 	select doc_no as num, doc_subject as subject, doc_date as write_date from free_doc where doc_email = #{email} order by doc_date desc
 </select>
 <select id="getWriteList3" parameterType="String" resultType="BoardlistVO">
-	select doc_no as num, fadoc_subject as subject, fadoc_date as write_date from free_auth where fadoc_r_email = #{email} order by fadoc_date desc
+	select doc_no as num, fadoc_subject as subject, fadoc_date as write_date from free_auth where fadoc_r_email = #{email} and fadoc_check='인증완료' order by fadoc_date desc
 </select>
 <select id="getWriteList4" parameterType="String" resultType="BoardlistVO">
 	select doc_no as num, doc_subject as subject, doc_date as write_date from adopt_home where doc_email = #{email} order by doc_date desc

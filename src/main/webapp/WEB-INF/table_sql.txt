@@ -308,3 +308,18 @@ CREATE TABLE warning (
    w_category varchar2(20) NULL,
    w_note varchar2(500) null
 );
+
+지도 후기 hospital_map
+CREATE TABLE hospital_map (
+   place_id   varchar2(30)      NOT NULL,
+   place_name   varchar2(50)      NULL,
+   address_name   varchar2(200)      NULL,
+   place_phone   varchar2(50)      NULL,
+   place_url    varchar2(200)      NULL,
+   place_review   varchar2(2000)      NULL,
+   review_num   number      NULL,
+   place_date   date      NULL,
+   place_nick   varchar2(20)      NULL,
+   star_rating   number      NULL,
+   place_email   varchar(50)      NULL
+);

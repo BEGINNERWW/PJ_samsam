@@ -81,7 +81,11 @@ html{
    height: 100%;
     overflow: auto;
 }
+body::-webkit-scrollbar { 
 
+    display: none; 
+
+}
 
 body {
    margin: 0;
@@ -305,6 +309,8 @@ li.dropdown > a {
 
 p{
    text-align : center;
+   margin-top: 50px;
+   font-size: 16px;
 }
 .fa-heart{
    color : red;
@@ -449,6 +455,7 @@ li.list-group-item.click > a {
                   <ul class="dropdown-menu commu">
                      <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
                      <li><a href="auth_fdoc.bo">책임분양인증</a></li>
+                     <li><a href="hospital_map.me">Map</a></li>
                   </ul></li>
             </ul>
 	
@@ -497,7 +504,8 @@ li.list-group-item.click > a {
   		  <div id="ud_tab-content1" class="ud_content">
    			
     		   			
-    		<% 
+    		<%
+    			if(boardlist_al.size() != 0 || boardlist_fd.size() != 0 || boardlist_fa.size() != 0 || boardlist_ah.size() != 0 || boardlist_co.size() != 0 || boardlist_p.size() != 0 || boardlist_m.size() != 0){
     	 		if(boardlist_al.size() != 0){
     		%>
     		<h5> 업체분양(<%=boardlist_al.size() %>) </h5>
@@ -509,9 +517,9 @@ li.list-group-item.click > a {
   			<% for(BoardlistVO b_list : boardlist_al){	 %>
     		<tr class = "boardlist1">
     		
-    			<td><a class="path" href=""><%=b_list.getNum() %></a></td>
-    			<td><a class="path" href=""><%=b_list.getSubject() %></a></td>
-    			<td><a class="path" href=""><%=b_list.getWrite_date() %></a></td>
+    			<td><a class="path" href="Selladopthomeview.bo?num=<%= b_list.getNum()%>"><%=b_list.getNum() %></a></td>
+    			<td><a class="path" href="Selladopthomeview.bo?num=<%= b_list.getNum()%>"><%=b_list.getSubject() %></a></td>
+    			<td><a class="path" href="Selladopthomeview.bo?num=<%= b_list.getNum()%>"><%=b_list.getWrite_date() %></a></td>
     		</tr>
    			<% } %>
   			</tbody>
@@ -657,13 +665,14 @@ li.list-group-item.click > a {
    
    			<input type="button" id="check17" value="더보기">
    			<div class="error17"></div>
-   			<% } else{%>
+   			<% }} else{%>
    			<p> 작성글이 없습니다. </p>
    			<% } %>
   		</div><!-- tab1 -->
   		<div id="ud_tab-content2" class="ud_content">
    		 
     		<% 
+			if(commentlist_al.size() != 0 || commentlist_fd.size() != 0 || commentlist_fa.size() != 0 || commentlist_ah.size() != 0 || commentlist_co.size() != 0 || commentlist_p.size() != 0 || commentlist_m.size() != 0){
     			if(commentlist_al.size() != 0){ %>
     		<h5> 업체분양(<%=commentlist_al.size() %>) </h5>
     	<table>
@@ -674,9 +683,11 @@ li.list-group-item.click > a {
     		<% for(CommentListVO c_list : commentlist_al){	
     		%>
     			<tr class = "commentlist">
+    			<a href="Selladopthomeview.bo?num=<%= c_list.getDoc_no()%>">
     				<td><%=c_list.getContent() %></td>
     				<td><%=c_list.getWrite_date() %></td>
-    				<td><button type="button" class ="origin" onclick="location.href=''">원문보기</button></td>
+    				<td><button type="button" class ="origin" onclick="location.href='Selladopthomeview.bo?num=<%= c_list.getDoc_no()%>'">원문보기</button></td>
+    			</a>
     			</tr>
     		<% } %>
   			</tbody>
@@ -833,7 +844,7 @@ li.list-group-item.click > a {
    
    			<input type="button" id="check27" value="더보기">
    			<div class="error27"></div>
-   			<% } else{%>
+   			<% }} else{%>
    			<p> 작성댓글이 없습니다. </p>
    			<% } %>
   		</div><!-- tab2 -->

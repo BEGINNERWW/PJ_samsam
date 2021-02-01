@@ -3,7 +3,9 @@ package com.project.mapper;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.project.samsam.admin.ChartjsVO;
 import com.project.samsam.admin.Search_paramsVO;
+import com.project.samsam.admin.TboardVO;
 import com.project.samsam.admin.Todo_listVO;
 import com.project.samsam.member.Adopt_BoardVO;
 import com.project.samsam.member.Biz_memberVO;

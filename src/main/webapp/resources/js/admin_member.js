@@ -1,6 +1,7 @@
 
 $(document).ready(function() {
 
+	
 	$("#check").click(function(event) { //정적데이터는 이벤트 처리를 바로 가능하나 동적이면 on을 사용하여 처리
 		$('#result').empty();
 		if($('#fromDate').val() == null) { 
@@ -47,17 +48,50 @@ $(document).ready(function() {
 				contentType : 'application/json;charset=utf-8',
 				success : function(mvo) {
 					$('#result').empty();
-				
+					$('.tb-bottom').empty();
+					var b_count = 0
 					$.each(mvo, function(index, item){
 						console.log(item.signdate);
 			
-						$('#result').html($('#result').html()+'<tr><td><a href="javascript:void(0);" onclick="member_detail(this);" value = "'+ item.email+'">' + item.grade+'</td></a><td class="email"><a href="javascript:void(0);" onclick="member_detail(this);" value = "'+ item.email+'">' + item.email +'</td></a><td><a href="javascript:void(0);" onclick="member_detail(this);" value = "'+ item.email+'">' + item.nick +'</td></a><td><a href="javascript:void(0);" onclick="member_detail(this);" value = "'+ item.email+'">' + item.local + '</td></a><td><a href="javascript:void(0);" onclick="member_detail(this);" value = "'+ item.email+'">'
+						$('#result').html($('#result').html()+'<tr class = "result"><td><a href="javascript:void(0);" onclick="member_detail(this);" value = "'+ item.email+'">' + item.grade+'</td></a><td class="email"><a href="javascript:void(0);" onclick="member_detail(this);" value = "'+ item.email+'">' + item.email +'</td></a><td><a href="javascript:void(0);" onclick="member_detail(this);" value = "'+ item.email+'">' + item.nick +'</td></a><td><a href="javascript:void(0);" onclick="member_detail(this);" value = "'+ item.email+'">' + item.local + '</td></a><td><a href="javascript:void(0);" onclick="member_detail(this);" value = "'+ item.email+'">'
 								 + item.signdate + '</td></a><td><a href="javascript:void(0);" onclick="member_detail(this);" value = "'+ item.email+'">' + item.wcount +'</td></a></tr>')
+						b_count += 1
 					});
+					$(".result").slice(10).hide();
+
+					var app = "<div class='tb-bottom'><input type='button' class ='before-btn' value = '이전'><span class='pagenum'></span><input type='button' class = 'after-btn' value = '다음'></div>"
+					$("#result-table").after(app);
 					
-					var app = "<tr><td class='tb-bottom' colspan = 6><input type='button' class ='before-btn' value = '이전'><input type='button' class = 'after-btn' value = '다음'></td></tr>"
-					$("#result").append(app);
-					$("#result").slice(10).hide();
+					var page = 0
+					var b = 0;
+					console.log("행 수")
+					console.log(b_count)
+					for(var i = 1; i <= b_count ; i++){
+						if(b != 10 && b%10 == 0){
+							console.log("b는 "+ b)
+							console.log(b%10)
+							page += 1	
+							console.log("page수 :" + page)
+							$('.pagenum').html($('.pagenum').html()+'<a class ="pageA" href="javascript:void(0);" onclick="page_detail(this);" value = "'+ page +'">'+ page + '</a>')
+						}else if(b <= 10){
+							console.log("page값 :" + page)
+							if(page < 1){
+							 page = 1	
+							$('.pagenum').html($('.pagenum').html()+'<a class ="pageA" href="javascript:void(0);" onclick="page_detail(this);" value = "'+ page +'">'+ page + '</a>')
+							}
+						}else if(b > page*10 && b%10 != 0){
+							page += 1	
+							console.log("page수 :" + page)
+							$('.pagenum').html($('.pagenum').html()+'<a class ="pageA" href="javascript:void(0);" onclick="page_detail(this);" value = "'+ page +'">'+ page + '</a>')							
+						}
+						b += 1;
+					}
+					sessionStorage.setItem("pagenum", 1);
+					sessionStorage.setItem("lastPage", page)
+					console.log("세션"+ sessionStorage.getItem("pagenum"))
+					console.log("마지막페이지"+ sessionStorage.getItem("lastPage"))
+					
+					nowpage();
 
 				},
 				error : function() {
@@ -69,29 +103,87 @@ $(document).ready(function() {
 	});
 	
 }); //레디
-var count = 10;
-var page = 0;
+
+function nowpage(){
+	if($('.pageA').hasClass('now')){
+		$('.pageA').removeClass('now')
+	}
+	console.log("현재페이지 css")
+	console.log($('.pageA:nth-child(n)').attr('value'))
+	for(var i=0; i <= $('.pageA').length; i++){
+		var nowpage = $('.pageA:nth-child('+ i +')').attr('value');
+		console.log(nowpage)
+		console.log(sessionStorage.getItem("pagenum"))
+		if(nowpage == sessionStorage.getItem("pagenum")){
+			$('.pageA:nth-child('+ i +')').addClass("now");
+			break;
+		}
+	}
+}
+
+function page_detail(obj){
+	console.log("page버튼이벤트"+sessionStorage.getItem("pagenum"));
+	
+	
+	$(".result").hide();
+	var page = $(obj).attr('value');
+	console.log(page)
+	var start = (page-1)*10;
+	var end = page*10;
+	$(".result").slice(start, end).show();
+	sessionStorage.setItem("pagenum", page);
+	nowpage()
+	
+	console.log("page버튼 이벤트 후"+sessionStorage.getItem("pagenum"));
+}//page event
+
 $(document).on("click", ".before-btn",function(event) {
-	if(count > 10){
-		count -= 10
-		page -= 1
-		$("#result").slice(page*10,count).show();
-	}
-	else{
+	before = sessionStorage.getItem("pagenum")
+	sessionStorage.setItem("pagenum", Number(before)-1)
+	page = sessionStorage.getItem("pagenum")
+	console.log("이전"+sessionStorage.getItem("pagenum"));
+	nowpage()	
+	if(Number(page) <= 0){
 		swal("","첫 페이지 입니다.","info")
+		sessionStorage.setItem("pagenum", 1)
+		nowpage()
 	}
-	event.preventDefault();
+	else if(Number(page) > 1){
+	$(".result").hide();
+	var start = (page-1)*10;
+	var end = start*10;
+
+	$(".result").slice(start, end).show();
+	}
+	else if(Number(page) == 1){
+		$(".result").hide();
+		var start = (page-1)*10;
+		var end = 1*10;
+
+		$(".result").slice(start, end).show();
+	}
 });
 
 $(document).on("click", ".after-btn",function(event) {
-	count += 10
-	page += 1
-	$("#result").slice(page*10,count).show();
-	if($("#result").length <= count){
-		console.log($("#result").length)
+	page = sessionStorage.getItem("pagenum")
+	last = sessionStorage.getItem("lastPage")
+	console.log("다음:"+sessionStorage.getItem("pagenum"))
+	if(Number(page) >= Number(last)){
 		swal("","마지막 페이지 입니다.","info")
 	}
-	event.preventDefault();
+	else{
+	$(".result").hide();
+	console.log($(".result").length)
+
+	console.log("page"+sessionStorage.getItem("pagenum"));
+	var start = page*10;
+	var end = start+10;
+	
+	$(".result").slice(start, end).show();
+	sessionStorage.setItem("pagenum",Number(page)+1)
+	console.log("다음:"+sessionStorage.getItem("pagenum"))
+	}
+	nowpage()
 });
 
 
