@@ -463,9 +463,10 @@ li.dropdown > a {
 }
 .search-box.input:focus {outline:none;}
 
-.search-box.btn1 {
+.search-box{
   color : #9494b8;
   text-align : left; 
+  font-size: 1rem;
 }
 
 /* search-wrqpper */
@@ -1448,6 +1449,9 @@ li{
     border-radius : 5px; 
     border-color: #eeeeee;
     border-width: 0px;
+}
+body::-webkit-scrollbar { 
+    display: none; 
 }
 
 

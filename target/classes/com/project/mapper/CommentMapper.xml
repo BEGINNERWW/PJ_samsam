@@ -60,7 +60,7 @@
 	 	</selectKey>
 	 
 	 
-	 	INSERT INTO ${table} VALUES(#{doc_cno},#{doc_no},#{doc_nick},sysdate,#{doc_content},#{doc_secret},#{doc_ref},#{doc_lev},#{doc_seq},#{doc_email})
+	 	INSERT INTO ${table} (#{doc_cno},#{doc_no},#{doc_nick},#{doc_date},#{doc_content},#{doc_secret},#{doc_ref},#{doc_lev},#{doc_seq},#{doc_email})VALUES(#{doc_cno},#{doc_no},#{doc_nick},sysdate,#{doc_content},#{doc_secret},#{doc_ref},#{doc_lev},#{doc_seq},#{doc_email})
 	 
 	 </insert>
 	 	 
