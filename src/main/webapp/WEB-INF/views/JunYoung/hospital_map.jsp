@@ -6,6 +6,7 @@
 <%
 	String email = (String)session.getAttribute("email");
 	//email.toUpperCase();
+	
 %>
 
 <!DOCTYPE html>
@@ -29,10 +30,15 @@
 <!-- 제이쿼리 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 
-
 <style>
 /* 공통으로 사용하는 CSS */
 @charset "utf-8";
+
+body::-webkit-scrollbar { 
+
+    display: none; 
+
+}
 
 * {
    margin:0;
@@ -401,7 +407,7 @@ div::-webkit-scrollbar {
     .info_overlay .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
     .info_overlay .close:hover {cursor: pointer;}
     .info_overlay .body {position: relative;overflow: hidden;}
-    .info_overlay .desc {position: relative;margin: 0;height: 20px;margin-top: 20px;text-align: center;}
+    .info_overlay .desc {position: relative;margin: 0;height: 20px;margin-top: 20px;place-content: center;}
     .info_overlay:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
     .info_overlay .link {color: #5085BB;}
 
@@ -410,6 +416,10 @@ div::-webkit-scrollbar {
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
 .map_wrap {position:relative;width:850px;height:600px;left: 50px;}
 #menu_wrap {position:absolute;top:0;left: 850px;bottom:0;width:250px;margin:0px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+.title {font-weight:bold;display:block;}
+    .hAddr {position:absolute;left:10px;top:10px;border-radius: 2px;background:#fff;background:rgba(255,255,255,0.9);z-index:1;padding:5px;}
+    #centerAddr {display:block;margin-top:2px;font-weight: normal;}
+    .bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}
@@ -537,13 +547,16 @@ div::-webkit-scrollbar {
 					<div class="map_wrap">
 						<div id="map"
 							style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
+						 <div class="hAddr">
+					        <span class="title">지도중심기준 행정동 주소정보</span>
+					        <span id="centerAddr"></span>
+					    </div>	
 
 						<div id="menu_wrap" class="bg_white">
 							<div class="option">
 								<div>
-										
 									<form onsubmit="searchPlaces(); return false;">
-										  키워드&nbsp;&nbsp;<input type="text" value="종로구 동물병원" id="keyword" size="15"> 
+										  키워드&nbsp;&nbsp;<input type="text" value="" id="keyword" name="current_location" size="15"> 
                    						 <button type="submit" class="btn-primary" style="width:50px; height:25px;">검색</button> 
 									</form>
 								</div>
@@ -609,10 +622,6 @@ $(document).ready(function(){
 </script>
 
 
-<!-- 부트스트랩 4.0 js -->
-<script type ="text/javascript" src = "https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	
 
 <!-- 카카오톡 채널 상담 js -->
@@ -643,6 +652,7 @@ function write_auth() {
 
 <!-- 지도 관련 script -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=55b8c1f480c897afef5a9252a9d4dbff&libraries=services"></script>
+
 <script>
 
 // 마커를 담을 배열입니다
@@ -650,7 +660,7 @@ var markers = [];
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
-        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+		center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };  
 
@@ -668,8 +678,97 @@ var content = null;
 var marker = new kakao.maps.Marker({
     map: map
 });
+    
+//HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
+if (navigator.geolocation) {
+	 	// GeoLocation을 이용해서 접속 위치를 얻어옵니다
+  	navigator.geolocation.getCurrentPosition(function(position) {
+     var lat = position.coords.latitude, // 위도
+         lon = position.coords.longitude; // 경도
+	
+     var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+         message = '<div style="padding:5px;width: 150px;text-align-last: center;">현재 위치</div>'; // 인포윈도우에 표시될 내용입니다
+     
+     // 마커와 인포윈도우를 표시합니다
+     displayMarker(locPosition, message);    
+         
+         
+ 	// 주소-좌표 변환 객체를 생성합니다
+	 var geocoder = new kakao.maps.services.Geocoder();
+	 var callback = function(result, status) {
+		if (status === kakao.maps.services.Status.OK) {
+			var locate = result[0].address_name;
+			     			
+			document.getElementById("keyword").value=locate + " 동물병원";
+			  	searchPlaces();	//입력받은 키워드를 검색합니다.
+			   	}
+		}
+		geocoder.coord2RegionCode(position.coords.longitude, position.coords.latitude, callback);	//현재위치 좌표 가져오기
+		
+		//현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
+		searchAddrFromCoords(map.getCenter(), displayCenterInfo);
 
+		//중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
+		kakao.maps.event.addListener(map, 'idle', function() {
+		    searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+		});
 
+		function searchAddrFromCoords(coords, callback) {
+		    // 좌표로 행정동 주소 정보를 요청합니다
+		    geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);         
+		}
+
+		function searchDetailAddrFromCoords(coords, callback) {
+		    // 좌표로 법정동 상세 주소 정보를 요청합니다
+		    geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+		}
+
+		// 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+		function displayCenterInfo(result, status) {
+		    if (status === kakao.maps.services.Status.OK) {
+		        var infoDiv = document.getElementById('centerAddr');
+
+		        for(var i = 0; i < result.length; i++) {
+		            // 행정동의 region_type 값은 'H' 이므로
+		            if (result[i].region_type === 'H') {
+		                infoDiv.innerHTML = result[i].address_name;
+		                break;
+		            }
+		        }
+		    }    
+		}
+ 	});	
+	 	
+}
+
+else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+    
+    var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),    
+        message = 'geolocation을 사용할수 없어요..'
+        
+    displayMarker(locPosition, message);
+}
+
+function displayMarker(locPosition, message) {
+
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({  
+        map: map, 
+        position: locPosition
+    }); 
+    
+    var iwContent = message, // 인포윈도우에 표시할 내용
+        iwRemoveable = true;
+
+    // 인포윈도우를 생성합니다
+    var infowindow = new kakao.maps.InfoWindow({
+        content : iwContent,
+        removable : iwRemoveable
+    });
+    
+    // 인포윈도우를 마커위에 표시합니다 
+    infowindow.open(map, marker);
+}
 
 
 // 키워드로 장소를 검색합니다
@@ -707,6 +806,7 @@ function placesSearchCB(data, status, pagination) {
 
     }
 }
+
 var el = [];
 // 검색결과 항목을 Element로 반환하는 함수입니다
 function getListItem(index, places) {
@@ -742,9 +842,7 @@ function displayPlaces(places) {
     fragment = document.createDocumentFragment(), 
     bounds = new kakao.maps.LatLngBounds(), 
     listStr = '';
-    
-    
-    
+    console.log(places);
     // 검색 결과 목록에 추가된 항목들을 제거합니다
     removeAllChildNods(listEl);
 
@@ -876,7 +974,7 @@ function displayPagination(pagination) {
 // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
 // 인포윈도우에 장소명을 표시합니다
 function displayInfowindow(marker, title) {
-    var content = '<div style="padding:5px;z-index:1; text-align:center">' + title + '</div>';
+    var content = '<div style="padding:5px;z-index:1; width: 150px;text-align-last: center;">' + title + '</div>';
 
     infowindow.setContent(content);
     infowindow.open(map, marker);
@@ -922,8 +1020,9 @@ function clickmarker (marker, places, map) {
     '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
     '        </div>' + 
     '        <div class="body">' + 
-    '            <div class="desc">' + 
+    '            <div class="desc row">' + 
     '                <div><a href= "javascript:clickdetail()" class="link">상세보기</a></div>' + 
+    '                <div><a href= "https://map.kakao.com/link/to/'+ place_id +'" target=_blank class="link">&nbsp;&nbsp;&nbsp;길찾기</a></div>' + 
     '            </div>' + 
     '        </div>' + 
     '    </div>' +    
@@ -1030,11 +1129,13 @@ setCookie("category", "");
 setCookie("scroll_position", "");
 
 }
-
 ﻿</script>
 	
 </body>
 </html>
+
+
+
 
 
 

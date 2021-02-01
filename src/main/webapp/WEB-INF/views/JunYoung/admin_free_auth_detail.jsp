@@ -44,6 +44,13 @@
 
 
 <style>
+
+body::-webkit-scrollbar { 
+
+    display: none; 
+
+}
+
 body {
 	overflow: scroll;
 }
@@ -371,17 +378,13 @@ p.card-text {
 	<div class="d-flex flex-column">
 		<div class ="profile">
 			<img src = "resources/img/samsam2.png" class = "img-circle">
-
 			<h1 class ="text-light" style="margin-top: 14px;margin-bottom: 19px;">
-
 				<a href ="#" class = "onMember"> ADMIN  </a>
 			</h1>
 		</div>
 		<div class ="admin_inout">
-
-			<button type="button" class ="grade" onclick="location.href='home.me'" style="font:400 13.3333px Arial;">ADMIN</button>
-			<button type="button" class ="grade" onclick="location.href='logout.me'" style="font:400 13.3333px Arial;">LOGOUT</button>
-
+			<button type="button" class ="grade" onclick="location.href='home.me'" style="font:400 13.3333px Arial;padding-top: 4px;">ADMIN</button>
+			<button type="button" class ="grade" onclick="location.href='logout.me'" style="font:400 13.3333px Arial;padding-top: 4px;">LOGOUT</button>
 		</div>
 						
 		<ul>
@@ -436,8 +439,8 @@ p.card-text {
 										<br>
 										<br>
 											<div class="row">
-										<h4 class="card-title" style="font-size: 24px">품종</h4>
-										<h4 class="card-title" style="font-size: 24px;margin-left: 55px;"><%=myfree_doc_confirm_detail.getConfirm_fdoc_kindof() %></h4>
+										<p class="card-text" style="font-size: 16px">품종</p>
+										<p class="card-text" style="font-size: 16px;margin-left: 72px;"><%=myfree_doc_confirm_detail.getConfirm_fdoc_kindof() %></p>
 											</div>
 											<div class="row">
 										<p class="card-text" style="font-size:16px;">분양코드</p>
@@ -526,8 +529,8 @@ p.card-text {
 								<thead>
 									<tr>
 										<th scope="col" class="text-center" width=500>제목</th>
-										<th scope="col" class="text-center" width=150>작성일</th>
-										<th scope="col" class="text-center" width=200>상태</th>
+										<th scope="col" class="text-center" width=126>작성일</th>
+										<th scope="col" class="text-center" width=186>상태</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -582,7 +585,7 @@ p.card-text {
 								<th scope="col" class="text-center" width=500>제목</th>
 								<th scope="col" class="text-center" width=100>작성일</th>
 								<th scope="col" class="text-center" width=110>상태</th>
-								<th scope="col" class="text-center" width=85>&nbsp;</th>
+								<th scope="col" class="text-center" width=85>원문보기</th>
 							</tr>
 						</thead>
 						<tbody>

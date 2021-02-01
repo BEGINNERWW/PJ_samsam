@@ -54,6 +54,12 @@
 /* 공통으로 사용하는 CSS */
 @charset "utf-8";
 
+body::-webkit-scrollbar { 
+
+    display: none; 
+
+}
+
 * {
    margin:0;
    padding: 0;
@@ -122,8 +128,9 @@ a:hover {
     bottom: 190px;
 }
 .paging-section {
-    position: sticky;
-    bottom: 90px;
+    position: fixed;
+    bottom: 80px;
+    width: 100%;
 }
 .wirte-review-section {
     position: absolute;
@@ -173,6 +180,49 @@ input[type="text"] {
 .date {
     font-size: 12px;
     padding-top: 2px;
+}
+.tb-bottom{
+  display: flex;
+    justify-content: center;
+    position: sticky;
+    bottom: 80px;
+}
+.pagenum{
+   display : flex;
+}
+.pageA{
+   margin-top: 10px;
+    padding-top: 2px;
+    padding-right: 10px;
+    padding-left: 10px;
+    color: black;
+    display: flex;
+}
+.now{
+   width : 30px;
+   height : 30px;
+   background-color : #eeeeee;
+    border-radius : 5px;
+   color:black;
+   text-align: center;
+    padding-top: 2px;
+    margin-top: 10px;
+}
+
+/* 이전 / 다음 버튼 */
+.before-btn, .after-btn{
+   margin: 10px;
+    width:60px;
+    height : 30px;
+    background-color: #eeeeee;
+    color : black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    border-radius : 5px; 
+    border-color: #eeeeee;
+    border-width: 0px;
 }
 </style>
 
@@ -387,19 +437,14 @@ input[type="text"] {
 	
 	</div> <!-- review_section -->
 	</div><!-- content-wrap -->
-	<div class="paging-section">
+	<div class="tb-bottom">
 	
-	<br>
 	<%if (hospital_mapVO.isEmpty()) {} else { %>
 						
-					<table style="margin: 0 auto">
-						<tr align=center height="50px">
-						<td class="paging">
-						<div class="row">
 						
-							<%if(nowpage<=1){ %> <!-- 이전페이지가 존재하지 않을 때 --> [이전] <!-- 이전 버튼 비활성화 -->
-							<%}else{ %> <!-- 이전페이지가 존재할 때 --> <a
-							href="javascript:click_before()" >
+							<%if(nowpage<=1){ %> <!-- 이전페이지가 존재하지 않을 때 --> <input type="button" class="before-btn" value="이전">&nbsp;&nbsp; <!-- 이전 버튼 비활성화 -->
+							<%}else{ %> <!-- 이전페이지가 존재할 때 --> 
+							<input type="button" class="before-btn" value="이전" onclick="javascript:click_before()" >
 							<!-- 이전 버튼 누를 때 -->
 							<form action="/" name = "place_detail_before" method="post">
 							<input type="hidden" name="place_id" value="<%=place_id %>">
@@ -408,30 +453,48 @@ input[type="text"] {
 							<input type="hidden" name="place_phone" value="<%=place_phone %>">
 							<input type="hidden" name="place_url" value="<%=place_url %>">
 							<input type="hidden" name="place_email" value="<%=email %>">
-							<input type="hidden" name="nick" value="<%=nick %>">
+							<input type="hidden" name="place_nick" value="<%=nick %>">
 							<input type="hidden" name="page" value="<%=nowpage-1 %>">
 							</form>
-							[이전]
-							</a> <%} %>
-
+							&nbsp;&nbsp;<%} %>	
+							<span class="pagenum">
 							<%for(int a=startpage;a<=endpage;a++){
-							if(a==nowpage){%> [<%=a %>] <%}else{ %> <!-- 현재 페이지가 nowpage가 아닐 때 -->
-							<a href="javascript:click_now()">&nbsp;[<%=a %>]&nbsp;
+							if(a==nowpage){%> <font  class="now"><%=a %></font>&nbsp;&nbsp; <%}else{ %> <!-- 현재 페이지가 nowpage가 아닐 때 -->
+							<a href="javascript:click_now<%=a%>()" class="pageA";><%=a %>&nbsp;&nbsp;
 							<!-- 페이지 숫자 누를 때 -->
-							<form action="/" name = "place_detail_now" method="post">
+							<form action="/" name = "place_detail_now<%=a %>"  method="post">
 							<input type="hidden" name="place_id" value="<%=place_id %>">
 							<input type="hidden" name="place_name" value="<%=place_name %>">
 							<input type="hidden" name="address_name" value="<%=address_name %>">
 							<input type="hidden" name="place_phone" value="<%=place_phone %>">
 							<input type="hidden" name="place_url" value="<%=place_url %>">
 							<input type="hidden" name="place_email" value="<%=email %>">
-							<input type="hidden" name="nick" value="<%=nick %>">
+							<input type="hidden" name="place_nick" value="<%=nick %>">
 							<input type="hidden" name="page" value="<%=a %>">
 							</form>
-							</a> 
+							</a>
+							</span>
+							
+							<script>
+							function click_now<%=a%>() {
+					        	var popupWidth = 750;
+					        	var popupHeight = 800;
+					
+					        	var popupX = (window.screen.width / 2) - (popupWidth / 2);
+					        	var popupY= (window.screen.height / 2) - (popupHeight / 2);
+					        	
+					        	var popupfrm = window.open('about:blank', 'place_review', 'height=' + popupHeight + ',width=' + popupWidth + ',left=' + popupX + ',top=' + popupY );
+					        	var frm = document.place_detail_now<%=a%>;
+					        	frm.action = 'select_review.bo';
+					        	frm.target = 'place_review';
+					        	frm.method = "post";
+					        	
+					        	frm.submit();
+					        }
+							</script>	
 						
-							<%} %> <%} %> <%if(nowpage>=maxpage){ %> [다음] <%}else{ %> <a
-							href="javascript:click_next()">[다음]
+							<%} %> <%} %> <%if(nowpage>=maxpage){ %><input type="button" class="after-btn" value="다음"> <%}else{ %> 
+							<input type="button" class="after-btn" value="다음" onclick="javascript:click_next()">
 							<!-- 다음 버튼 누를 때 -->
 							<form action="/" name = "place_detail_next" method="post">
 							<input type="hidden" name="place_id" value="<%=place_id %>">
@@ -440,14 +503,10 @@ input[type="text"] {
 							<input type="hidden" name="place_phone" value="<%=place_phone %>">
 							<input type="hidden" name="place_url" value="<%=place_url %>">
 							<input type="hidden" name="place_email" value="<%=email %>">
-							<input type="hidden" name="nick" value="<%=nick %>">
+							<input type="hidden" name="place_nick" value="<%=nick %>">
 							<input type="hidden" name="page" value="<%=nowpage+1 %>">
 							</form>
-							</a> <%} %>
-							</div>
-						</td>
-					</tr>
-					</table>
+							 <%} %>
 				<%} %>
 		</div><!-- pagind-section -->
 		
@@ -464,7 +523,7 @@ input[type="text"] {
 		<input type="hidden" name="place_phone" value="<%=place_phone %>">
 		<input type="hidden" name="place_url" value="<%=place_url %>">
 		<input type="hidden" name="place_email" value="<%=email %>">
-		<input type="hidden" name="nick" value="<%=nick %>">
+		<input type="hidden" name="place_nick" value="<%=nick %>">
 		
 		
 		<div class="row">
@@ -512,25 +571,40 @@ input[type="text"] {
         	document.getElementById("star_rating").value = 5;
         })
         
-        function write_review() {
+        
+     // "", null만 NULL로 봤을 경우
+    	function nullChk(email) { 
+    		if(email == "" || email == "null") { // 함수로 사용
+    			// 맞을 경우
+    			return true;
+    		} else {
+    			// 안맞을 경우
+    			return false;
+    		}
+    	}
+        
+     	 function write_review() {
         	
         	var star_rating = $("#star_rating").val();
-        	var email = "<%=email%>"
+        	var email = "<%=email%>";
         	
-        	if (email=="" || email==null) {
+        	console.log(star_rating);
+        	console.log(email);
+        	
+        	if (nullChk(email)) {
+        		console.log("1");
         		alert("로그인이 필요합니다");
-        	}
-        	
-        	if (star_rating==0) {
+        		
+        	} else  {if (star_rating==0) {
+        			console.log("2");
 	        		alert("별점을 선택해주세요");
-	        }
-	        else {
+        	
+	        } else {
 	        		place_review_form.submit();
-	        }
-        	
-        	
-        }
-        
+	        	}
+        		
+        	}
+        } 
         
         function click_before() {
         	var popupWidth = 750;
@@ -547,21 +621,7 @@ input[type="text"] {
         	
         	frm.submit();
         }
-        function click_now() {
-        	var popupWidth = 750;
-        	var popupHeight = 800;
-
-        	var popupX = (window.screen.width / 2) - (popupWidth / 2);
-        	var popupY= (window.screen.height / 2) - (popupHeight / 2);
-        	
-        	var popupfrm = window.open('about:blank', 'place_review', 'height=' + popupHeight + ',width=' + popupWidth + ',left=' + popupX + ',top=' + popupY );
-        	var frm = document.place_detail_now;
-        	frm.action = 'select_review.bo';
-        	frm.target = 'place_review';
-        	frm.method = "post";
-        	
-        	frm.submit();
-        }
+        
         function click_next() {
         	var popupWidth = 750;
         	var popupHeight = 800;
