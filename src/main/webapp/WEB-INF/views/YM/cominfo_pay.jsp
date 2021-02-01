@@ -640,11 +640,11 @@ li.list-group-item.click > a {
 						if(key == adopt_board.getAdopt_no()){
 		%>
 			<tr class="adopt">
-				<td><%= adopt_board.getAdopt_no() %></td>
-				<td><%=adopt_board.getAdopt_title() %>  (<%=map.get(key) %>)</td>
+				<td><a class="path" href="Selladopthomeview.bo?num=<%= adopt_board.getAdopt_no()%>"><%= adopt_board.getAdopt_no() %></a></td>
+				<td><a class="path" href="Selladopthomeview.bo?num=<%= adopt_board.getAdopt_no()%>"><%=adopt_board.getAdopt_title() %>  (<%=map.get(key) %>)</a></td>
 				<fmt:formatDate var="formatDate" value="<%=adopt_board.getAdopt_date()%>" pattern="yyyy-MM-dd"/>
-    			<td>${formatDate}</td>
-				<td><%=adopt_board.getAdopt_readcount() %></td>
+    			<td><a class="path" href="Selladopthomeview.bo?num=<%= adopt_board.getAdopt_no()%>">${formatDate}</a></td>
+				<td><a class="path" href="Selladopthomeview.bo?num=<%= adopt_board.getAdopt_no()%>"><%=adopt_board.getAdopt_readcount() %></a></td>
 			</tr>
 		<% }}}} %>
 		</table>

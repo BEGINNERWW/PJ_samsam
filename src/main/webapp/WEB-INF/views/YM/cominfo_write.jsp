@@ -515,9 +515,9 @@ li.list-group-item.click > a {
   			<% for(BoardlistVO b_list : boardlist_al){	 %>
     		<tr class = "boardlist1">
     		
-    			<td><a class="path" href=""><%=b_list.getNum() %></a></td>
-    			<td><a class="path" href=""><%=b_list.getSubject() %></a></td>
-    			<td><a class="path" href=""><%=b_list.getWrite_date() %></a></td>
+    			<td><a class="path" href="Selladopthomeview.bo?num=<%= b_list.getNum()%>"><%=b_list.getNum() %></a></td>
+    			<td><a class="path" href="Selladopthomeview.bo?num=<%= b_list.getNum()%>"><%=b_list.getSubject() %></a></td>
+    			<td><a class="path" href="Selladopthomeview.bo?num=<%= b_list.getNum()%>"><%=b_list.getWrite_date() %></a></td>
     		</tr>
    			<% } %>
   			</tbody>
@@ -682,9 +682,11 @@ li.list-group-item.click > a {
     		<% for(CommentListVO c_list : commentlist_al){	
     		%>
     			<tr class = "commentlist">
+    			<a href="Selladopthomeview.bo?num=<%= c_list.getDoc_no()%>">
     				<td><%=c_list.getContent() %></td>
     				<td><%=c_list.getWrite_date() %></td>
-    				<td><button type="button" class ="origin" onclick="location.href=''">원문보기</button></td>
+    				<td><button type="button" class ="origin" onclick="location.href='Selladopthomeview.bo?num=<%= c_list.getDoc_no()%>'">원문보기</button></td>
+    			</a>
     			</tr>
     		<% } %>
   			</tbody>
