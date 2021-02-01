@@ -2040,7 +2040,7 @@ $(document).on("change","input[name='w_reason']",function(){
 			
 			<ul class="list-group list-group-flush">
 				<li class="list-group-item"><a href="doclist.bo">자유게시판</a></li>
-				<li class="list-group-item  click"><a href="auth_fdoc.bo">책임분양인증</a></li>
+				<li class="list-group-item click"><a href="auth_fdoc.bo">책임분양인증</a></li>
 				<li class="list-group-item"><a href="hospital_map.me">Map</a></li>
 			</ul>
 			</div>
@@ -2057,6 +2057,7 @@ $(document).on("change","input[name='w_reason']",function(){
 						<div class="option-info">
 							<span class="date option"><i class="far fa-clock"></i>&nbsp;<%=vo.getFadoc_date()%></span>
 							<span class="pv option"><i class="far fa-eye"></i>&nbsp;<%=vo.getFadoc_readcount()%></span>
+							<span class="cmt"><i class="far fa-comment"></i>&nbsp;<%=vo.getDoc_comment()%></span>
 							
 						</div>
 					</div>
