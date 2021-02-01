@@ -8,9 +8,28 @@ public class JJCommentVO {
 	private String doc_date;
 	private String doc_content;
 	private int doc_secret;
-	private int doc_rev;
-	private int doc_deq;
+	private int doc_ref;
+	private int doc_lev;
+	private int doc_seq;
 	 
+	public int getDoc_ref() {
+		return doc_ref;
+	}
+	public void setDoc_ref(int doc_ref) {
+		this.doc_ref = doc_ref;
+	}
+	public int getDoc_lev() {
+		return doc_lev;
+	}
+	public void setDoc_lev(int doc_lev) {
+		this.doc_lev = doc_lev;
+	}
+	public int getDoc_seq() {
+		return doc_seq;
+	}
+	public void setDoc_seq(int doc_seq) {
+		this.doc_seq = doc_seq;
+	}
 	private int co_count;
 	
 	
@@ -56,18 +75,7 @@ public class JJCommentVO {
 	public void setDoc_secret(int doc_secret) {
 		this.doc_secret = doc_secret;
 	}
-	public int getDoc_rev() {
-		return doc_rev;
-	}
-	public void setDoc_rev(int doc_rev) {
-		this.doc_rev = doc_rev;
-	}
-	public int getDoc_deq() {
-		return doc_deq;
-	}
-	public void setDoc_deq(int doc_deq) {
-		this.doc_deq = doc_deq;
-	}
+	
 	public int getCo_count() {
 		return co_count;
 	}

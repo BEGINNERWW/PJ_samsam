@@ -11,6 +11,8 @@ public class JJWarningVO {
 	private String w_reason;
 	private String w_category;
 	private String w_note;
+	private int wcount;
+	private String w_SUBcategory;
 	
 	 
 	private String w_count;
@@ -87,6 +89,15 @@ public class JJWarningVO {
 	}
 	public void setW_count(String w_count) {
 		this.w_count = w_count;
+	}
+	public void setWcount(int wcount) {
+		this.wcount = wcount;
+	}
+	public String getW_SUBcategory() {
+		return w_SUBcategory;
+	}
+	public void setW_SUBcategory(String w_SUBcategory) {
+		this.w_SUBcategory = w_SUBcategory;
 	}
 
 }
