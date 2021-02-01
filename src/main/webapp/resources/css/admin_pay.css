@@ -73,7 +73,7 @@ input {
 /* chartjs */
 .today{
 	margin-top : 23px;
-	margin-left: 20px;
+	margin-left: 10px;
 	font-size : 18px;
 	font-weight : bold;
 }
@@ -83,7 +83,7 @@ input {
 	jutify-content : space-between;
 }
 .storecount{
-	margin : 20px;
+	margin : 10px;
 	width : 150px;
 }
 .storecount > tr > td{

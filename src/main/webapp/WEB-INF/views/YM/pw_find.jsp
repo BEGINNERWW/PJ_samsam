@@ -53,7 +53,9 @@ body {
     font-weight: 300;
     font-size: .9rem;
 }
-
+body::-webkit-scrollbar { 
+    display: none; 
+   }
 
 a{
    text-decoration : none;

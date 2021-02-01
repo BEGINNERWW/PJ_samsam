@@ -604,13 +604,11 @@ li.list-group-item.click > a {
                     	%>
                     	
                     	<tr class="community">
-                    	<tr class="community">
                     		<td><a class ="detailview" href="docdetail.bo?doc_no=<%=c_list.getNum()%>"><%=c_list.getNum()%></a></td>
                     		<td><a class ="detailview" href="docdetail.bo?doc_no=<%=c_list.getNum()%>"> <%=c_list.getSubject()%></a></td>
                     		<td><a class ="detailview" href="docdetail.bo?doc_no=<%=c_list.getNum()%>"> <%=c_list.getNick() %></a></td>
                     		<fmt:formatDate var="formatDate" value="<%=c_list.getC_date()%>" pattern="yyyy-MM-dd"/>
     						<td><a class ="detailview" href="docdetail.bo?doc_no=<%=c_list.getNum()%>">${formatDate}</a></td>
-                    	</tr>
                     	</tr>
                     	
                     	<% }} %>
