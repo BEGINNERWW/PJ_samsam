@@ -5,20 +5,23 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
 
 <%
+
+String id = (String) session.getAttribute("nick");
 String email = (String) session.getAttribute("email");
 String cnick = (String) session.getAttribute("id");
+String table = "missing_reply";
+String doc_table = "community";
 %>
-
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
 <link href="${pageContext.request.contextPath}/resources/img/title.png" rel="shortcut icon" type="image/x-icon">
 <title>삼삼하개</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- 템플릿  CSS -->
-
-<!-- 폰트 -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&display=swap" rel="stylesheet">
@@ -28,35 +31,39 @@ String cnick = (String) session.getAttribute("id");
 
 <!-- 부트스트랩 4.0 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+	
 <!-- 제이쿼리 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<link href="resources/img/title.png" rel="shortcut icon" type="image/x-icon">
-<title>삼삼하개</title>
-
-<!-- 폰트 -->
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&display=swap" rel="stylesheet">
-
-<!-- 아이콘 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
-
-<!-- 부트스트랩 4.0 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-<!-- 제이쿼리 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"
+	type="text/javascript"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+<script>
+    $('.search-box').click(function(){
+      
+    });
+    $('#keyword').keypress(function(event){
+      if(event.which == 13){
+        $('.search-box btn').click();
+        return false;
+      }
+    });
+</script>
 
 <style>
-/* 공통으로 사용하는 CSS */
+
+
+
 @charset "utf-8";
 
 * {
@@ -461,20 +468,135 @@ li.list-group-item.click > a {
 	color: #666;
 }
 
-ul {
-	display: block;
-	list-style-type: disc;
-	margin-block-start: 1em;
-	margin-block-end: 1em;
-	margin-inline-start: 0px;
-	margin-inline-end: 0px;
-	padding-inline-start: 40px;
+textarea {
+	-webkit-writing-mode: horizontal-tb !important;
+	text-rendering: auto;
+	color: -internal-light-dark(black, white);
+	letter-spacing: normal;
+	word-spacing: normal;
+	text-transform: none;
+	text-indent: 0px;
+	text-shadow: none;
+	display: inline-block;
+	text-align: start;
+	appearance: textarea;
+	background-color: -internal-light-dark(rgb(255, 255, 255),
+		rgb(59, 59, 59));
+	-webkit-rtl-ordering: logical;
+	flex-direction: column;
+	resize: auto;
+	cursor: text;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+	margin: 0em;
+	font: 400 13.3333px Arial;
+	border-width: 1px;
+	border-style: solid;
+	border-color: -internal-light-dark(rgb(118, 118, 118),
+		rgb(133, 133, 133));
+	border-image: initial;
+	padding: 2px;
 }
 
-li {
-	display: list-item;
-	text-align: -webkit-match-parent;
+
+a {
+	text-decoration: none;
+	color: #9494b8;
 }
+
+.name {
+	color: #37acc9;
+	font-size: 16px;
+	margin-top: 16px;
+	line-height: 16px;
+}
+
+.agreement {
+	margin: 10px auto;
+}
+
+.option {
+	margin-right: 15px;
+}
+
+.wrap-info {
+	margin-top: 10px;
+	margin-bottom: 35px;
+}
+
+
+
+
+a {
+	text-decoration: none;
+	color: #9494b8;
+}
+
+.comment_view .list_comment>li {
+	position: relative;
+	padding: 0 45px;
+}
+
+.cont_comment .txt_date {
+	color: #959595;
+}
+
+.comment_view {
+	padding-top: 10px;
+}
+
+.comment_section .comment_info .comment_post .opt_more_g {
+	margin-top: 0;
+}
+
+.comment_section .comment_post .opt_more_g {
+	margin: 1px 4px 0 0;
+}
+
+.opt_more_g {
+	float: left;
+}
+
+.comment_section .txt_date {
+	font-size: 11px;
+}
+
+.comment_more {
+	position: absolute;
+	top: 18px;
+	right: 0;
+}
+
+.comment_view .comment_section {
+	display: table;
+	width: 100%;
+	position: relative;
+	padding: 19px 0 16px;
+	table-layout: fixed;
+	box-sizing: border-box;
+}
+
+.comment_view .list_comment>li:after {
+	position: absolute;
+	bottom: 0;
+	left: 72px;
+	right: 30px;
+	height: 1px;
+	background-color: #eee;
+	content: "";
+}
+
+.link_write:link, .link_write:visited {
+	text-decoration: none;
+	color: #666;
+}
+
+.link_write:hover {
+	text-decoration: underline;
+	color: #666;
+}
+
+
 
 .all dd, .all dl, .all dt, .all p, li, ul {
 	list-style: none;
@@ -519,15 +641,7 @@ body, button, div, input, select, table, td, textarea, th {
 	-webkit-font-smoothing: antialiased;
 }
 
-body, div, table, td, th, tr {
-	line-height: 1.6;
-}
 
-body {
-	margin: 0;
-	padding: 0;
-	font-size: 13px;
-}
 
 .comment_section .comment_info .comment_post .ico_bbs.ico_new,
 	.comment_section .comment_info .comment_post .ico_role,
@@ -743,9 +857,16 @@ textarea {
 }
 
 .btn_g.full_type1 {
-	background-color: #ff5656;
+	background-color: #ed457d;
 	color: #fff;
 	border: 0;
+}
+.btn_g.full_type2{
+	background-color: #bd4242;
+	color:white;
+	border:0;
+	height:30px;
+
 }
 
 .btn_g {
@@ -766,7 +887,7 @@ display:inline-block;
 float:right;
 margin-right:40px;
 }
-select, input, button, textarea {
+select, button, textarea {
     display: inline-block;
     font-family: "Malgun Gothic", 'MalgunGothic', '맑은고딕', sans-serif;
     font-size: 12px;
@@ -780,6 +901,7 @@ select, input, button, textarea {
 	color:#94969b;
 }
 .headsubject{
+	display:inline-block;
 	font-size: 24px;
     line-height: 32px;
     font-weight: 700;
@@ -788,28 +910,6 @@ select, input, button, textarea {
 .article-head{
 padding: 0 0 29px;
     border-bottom: 1px solid #eee;
-}
-
-
-.textarea_input {
-    display: block;
-    width: 100%;
-    min-height: 140px;
-    padding: 11px 12px 10px;
-    border: 1px solid #a9a9a9;
-    box-sizing: border-box;
-    overflow: hidden;
-    resize: none;
-    word-break: break-all;
-    font-size: 15px;
-    letter-spacing: -.23px;
-    line-height: 17px;
-    outline: none;
-}
-
-.secret {
-	background: lightcoral;
-	color : white;	
 }
 
 
@@ -836,6 +936,13 @@ span.btnReplyConfirm {
     color: white;
     margin-right: 10px;
 }
+
+.btn-area {
+	text-align: right;
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+}
 /*SJ COMMENT END*/
 </style>
 
@@ -845,11 +952,15 @@ span.btnReplyConfirm {
 <header id = "header">
 
 	<div class ="inout_gocen">
-			<a href="${pageContext.request.contextPath}/loginForm.me"><input type="button" class= "header_btn" id="login" value="로그인"></a>
-			<a href="${pageContext.request.contextPath}/logout.me"><input type="button" class= "header_btn" id="logout" value="로그아웃"></a>
-			<a href="${pageContext.request.contextPath}/joinform.me"><input type="button" class= "header_btn" id="signin" value="회원가입"></a>
-			<a href="${pageContext.request.contextPath}/mypage.me"><input type="button" class= "header_btn" id="mypage" value="마이페이지"></a>
-			<a href="${pageContext.request.contextPath}/customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
+			<%if(email != null){ %>
+			
+			<input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='/logout.me'">
+			<input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='/mypage.me'">
+			<%}else{ %>
+			<input  type="button" class= "header_btn" value="로그인" onclick="location.href='/loginForm.me'">
+			<input  type="button" class= "header_btn" value="회원가입" onclick="location.href='/joinform.me'">
+			<%} %>
+			<a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
 		</div>
 	
 	<div class="nav-menu">
@@ -861,11 +972,11 @@ span.btnReplyConfirm {
                      <li><a href="${pageContext.request.contextPath}/fdoclist.bo">책임분양</a></li>
                      <li><a href="${pageContext.request.contextPath}/selladopt_list.bo">업체분양</a></li>
 						</ul></li>
-					<li class="dropdown"><a href="${pageContext.request.contextPath}//SJ/pet_list">보호소</a>
+					<li class="dropdown"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a>
 						<ul class="dropdown-menu care">
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
-					<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
+					<li><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
+					<li><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
+					<li><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
 						</ul></li>
                <li class="dropdown"><a href="${pageContext.request.contextPath}/doclist.bo">커뮤니티</a>
                   <ul class="dropdown-menu commu">
@@ -881,11 +992,15 @@ span.btnReplyConfirm {
 		</a>
 		</div>
 	</div>
-	<div class= "search-wrapper">
-      <input class="search-box input" type="text" placeholder="Search">
-      <button class="search-box" type="button"><i class="fas fa-search"></i></button>
-	</div>
-	</div><!-- nav-menu -->
+	<form action="home_search.me" method="post" name="home_search">
+            <div class="search-wrapper">
+               <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
+               <button class="search-box" type="submit">
+                  <i class="fas fa-search"></i>
+               </button>
+            </div>
+      </form>
+      </div>
 </header>
 		
 		<div class="main-content">
@@ -893,22 +1008,15 @@ span.btnReplyConfirm {
 			
 			<!-- 왼쪽. 서브메뉴가 들어갈 부분 -->
 			<div class="sidemenu-section">
-			<ul class="list-group list-group-flush">
+				<ul class="list-group list-group-flush">
 					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
 					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
 					<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
-			</ul>
+				</ul>
 			</div>
 			
 			<!-- 오른쪽. 내용이 들어갈 부분 -->
 			<div class="content-section">
-				<div style="margin-top:20px;">
-				          <div class="col-lg-12">
-				            <div class="section-title">
-				              <span class="caption d-block small">보호소 > 실종게시판</span>
-				            </div>
-				            <div class="list_wrap">
-				            <div class="list_content">
 				<div class="contents">
 					<div class="article-head">
 						<p style="font-szie:16px;font-weight:bold;">보호소 &nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;실종 게시판</p>
@@ -919,14 +1027,13 @@ span.btnReplyConfirm {
 								<c:set var="bigname" value="${missing.doc_big_name}" />
 								<c:if test="${bigname == '개'}">
 									<i class="fas fa-dog"></i> 
-								</c:if> 
+								</c:if>
 								<c:if test="${bigname == '고양이'}">
 									<i class="fas fa-cat"></i> 
-								</c:if> 
+								</c:if>
 								<c:if test="${bigname == '기타'}">
 									<i class="fas fa-dove"></i>
-								</c:if> 
-								
+								</c:if>
 								${missing.doc_big_name}
 							</span> 
 								<span class="kind_of option">
@@ -937,33 +1044,30 @@ span.btnReplyConfirm {
 									<i class="fas fa-map-marker-alt"></i>&nbsp;
 									${missing.doc_sido}
 								</span>
-					
-					 </div> 
+						</div> 
+						
 						<div class="option-info">
-							<span class="date option"><i class="far fa-clock"></i>&nbsp;</span>
-							<span class="pv option"><i class="far fa-eye"></i>&nbsp;</span>
-							<span class="cmt"><i class="far fa-comment"></i>&nbsp;</span>
+							<fmt:formatDate var="formatDate" value="${missing.doc_date}" pattern="yyyy-MM-dd"/>
+							<span class="date option"><i class="far fa-clock"></i>&nbsp;${formatDate}</span>
+							<span class="pv option"><i class="far fa-eye"></i>&nbsp;${missing.doc_readcount}</span>
+							<span class="cmt"><i class="far fa-comment"></i>&nbsp;${missing.reply_count}</span>
 							<div class="option-wrap">
 								<span><a href="#"
-								onclick="warning_ori('${missing.doc_no}','${missing.doc_nick}','${missing.doc_subject}');">신고하기</a></span>
-								<span><a href="/SJ/missing/modify?doc_no=${missing.doc_no}">수정</a>&nbsp;&nbsp;&nbsp;</span>
-								<span><a href="/SJ/missing/remove?doc_no=${missing.doc_no}">삭제</a></span>
+								onclick="warning_ori('${missing.doc_no}','${missing.doc_nick}','${missing.doc_subject}');">신고</a>&nbsp;&nbsp;&nbsp;</span>
+								<c:if test="${nick == missing.doc_nick}">
+									<span><a href="/SJ/missing/modify?doc_no=${missing.doc_no}">수정</a>&nbsp;&nbsp;&nbsp;</span>
+									<span><a href="/SJ/missing/remove?doc_no=${missing.doc_no}">삭제</a></span>
+								</c:if>
 							</div>
 						</div>
-						</div>
 					</div>
-					
-					
+
 					<div class="article-view-content">
 						<div class="article-content">
 							${missing.doc_content}
 						</div>
 					</div>
-						
-						
-						
-					
-						
+
 					<div class="cont_comment" style="background-color: #f8f8f8;">
 						<div style="width: 100%; margin: 0;">
 							<div class="comment_view">
@@ -983,8 +1087,8 @@ span.btnReplyConfirm {
 										</div>
 										<div class="wrap_menu">
 											<div class="area_r">
-												<button id="secretcheck" class="btn_g confirm_button" data-is-hidden="">
-													<span class="">비밀글</span>
+												<button id="secretcheck" class="btn_g_ico btn_item secret_button" data-is-hidden="">
+													<span class="ico_bbs ico_lock_state">비밀글</span>
 												</button>
 												<div class="btn_group">
 													<button class="btn_g full_type1 confirm_button"
@@ -995,20 +1099,14 @@ span.btnReplyConfirm {
 										</div>
 									</div>
 								</div>
-
 							</div>
 						</div>
-
 					</div>
-					
-					<div style="text-align: right; padding: 30px;">
-						<a href="${pageContext.request.contextPath}/SJ/missing/list">목록</a>
-					</div>
-					
 				</div>
-				
-			</div>
-	
+
+				<div style="text-align: right; padding: 30px;">
+					<a href="${pageContext.request.contextPath}/SJ/missing/list">목록</a>
+				</div>
 
 
 	<!-- 카카오톡 채널 상담 -->
@@ -1025,11 +1123,7 @@ span.btnReplyConfirm {
 	</a>
 	</div>
 	
-</div><!-- 바디컨텐트 -->
-
-	
-		
-<footer id="footer">
+	<footer id="footer">
 <p>Copyright ©2021 All rights reserved | This template is made with <i class="fas fa-heart"></i> by SamSam
 
 </footer>
@@ -1043,22 +1137,6 @@ span.btnReplyConfirm {
 		
 		// 댓글 조회
 		commentList();
-		
-		
-		$('#login').on('click', function(e){
-		      $('#logout').show();
-			  $('#mypage').show();
-			  $('#login').hide();
-			  $('#signin').hide();
-		});
-		//헤더 상단 로그인 체인지
-		$('#logout').on('click', function(e){
-	       $('#logout').hide();
-		   $('#mypage').hide();
-		   $('#login').show();
-		   $('#signin').show();
-		});
-		 //헤더 상단 로그아웃 체인지
 		 
 		var form = $('#board');
 		// 수정 버튼 클릭 이벤트
@@ -1165,8 +1243,15 @@ span.btnReplyConfirm {
 
 </script>
 
-<%-- 
+
 <script>
+
+
+
+var table = '<%=table%>';
+var doc_table = '<%=doc_table%>';
+var email ='<%=email%>';
+
 
 function warning_ori(dno,cnick,content){
 	
@@ -1206,12 +1291,12 @@ function warning_ori(dno,cnick,content){
 	$('#ex7').append(a);
 	$('#ex7').modal('show');
 }
+
 function modal_close(){
 	
 	$.modal.close();
 	
 }
-
 function warning_submit(){
 	
 	var data = $('#warning_form').serialize();
@@ -1225,13 +1310,12 @@ function warning_submit(){
 		return false;
 	}
 	$.ajax({
-		url : 'doc_warning.bo',
+		url : '/fdoc_warning.bo',
 		type : 'POST',
 		data :  data,
 		success: function(data){
 			if(data ==1){
 				$.modal.close();
-				//$( 'input[name="w_reason"]' ).attr( 'checked', false );
 				$('#ex1').modal('show');
 			}
 		},
@@ -1242,16 +1326,19 @@ function warning_submit(){
 	});
 }
 
-function warning(){
-	event.preventDefault();
-	$('#ex7').modal('show');
-}
-
 $(document).ready(function() {
 	$("#doc_agree").change(function(){
 		doc_check();   
 		
 	});
+	
+    $(document).on('click','.btn_g_ico',function() {
+    	$(this).removeClass('secret');
+    	$(this).hasClass('ico_on') 
+    		? $(this).removeClass('ico_on')
+    			: $(this).addClass('ico_on');
+    });
+    
 	$(document).on("change","input[name='w_reason']",function(){
 		
 	    if($(this).attr('id') == 'reason4'){
@@ -1265,11 +1352,8 @@ $(document).ready(function() {
 	});
 });
 </script>
- --%>
+ 
 <!-- 부트스트랩 4.0 js -->
-<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 <!-- 카카오톡 채널 상담 js -->
 	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -1285,10 +1369,27 @@ $(document).ready(function() {
     }
     
   //]]>
-  
- 	
+   
 </script>
+</div>
+</div>
+</div>
+</div>
 
+
+
+	<div id="ex7" class="modal" style="overflow: visible;"></div>
+
+	<div id="ex1" class="modal" style="overflow: visible;">
+		<p>신고가 접수되었습니다. 감사합니다</p>
+		<a href="#" rel="modal:close">Close</a>
+	</div>
 </body>
 </html>			
 
+<style>
+.blocker {
+z-index:200;
+}
+
+</style>

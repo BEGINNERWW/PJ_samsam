@@ -1,18 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
 <%@ page import="java.util.*"%>
-<%@ page import="java.text.SimpleDateFormat" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
+<%
+	String email = (String) session.getAttribute("email"); 
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
 <link href="${pageContext.request.contextPath}/resources/img/title.png" rel="shortcut icon" type="image/x-icon">
 <title>삼삼하개</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <!-- 템플릿  CSS -->
 
-<!-- 폰트 -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&display=swap" rel="stylesheet">
@@ -25,19 +29,9 @@
 
 <!-- 제이쿼리 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-	
-<!-- include libraries(jQuery, bootstrap) -->
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
 
-<!-- include summernote css/js-->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
-
-<!-- ㅇㅇㅇㅇㅇ -->
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/SJ/pet.css">
+
 <style>
 
 @charset "utf-8";
@@ -373,6 +367,7 @@ li.list-group-item.click > a {
 	text-decoration : none;
 	}
 
+
     
 ul {
 	background-color: white;
@@ -388,23 +383,6 @@ ul {
 }
 
 /* header, footer 이외 css */
-
-
-
-
-table {
-
-    width: 100%;
-    border-top: 1px solid #444444;
-    border-collapse: collapse;
- 
-  }
-  
-th, td {
-    border-bottom: 1px solid #444444;
-    padding: 10px;
-  }
-  
 
 
 .a_1{
@@ -510,7 +488,7 @@ button {
     background-image:none;
     border:2px solid black;
 }
-select, input, button, textarea {
+select, button, textarea {
     display: inline-block;
     font-family: "Malgun Gothic", 'MalgunGothic', '맑은고딕', sans-serif;
     font-size: 12px;
@@ -559,7 +537,6 @@ select, input, button, textarea {
     width: 110px;
     margin-left: 10px;
 }
-/*
 .btn.btn-sm {
     min-width: 110px;
     height: 38px;
@@ -595,7 +572,6 @@ select, input, button, textarea {
     font-size: 14px;
     letter-spacing: -.7px;
 }
-*/
 .prod-category-smart-search .smart-search-result .keyword-wrap .title-box {
     width: 260px;
 }
@@ -605,7 +581,7 @@ select, input, button, textarea {
     margin: 0 auto;
     width: 18px;
     height: 15px;
-    background: url(./resources/images/m_merged.png) 0 0 no-repeat;
+    background: url(./resources/img/m_merged.png) 0 0 no-repeat;
    
 }
 .prod-category-smart-search.active .smart-search-toggle:after {
@@ -918,20 +894,7 @@ select, input, button, textarea {
     font-weight: 500;
     color: #333;
 }
-ul {
-    display: block;
-    list-style-type: disc;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    padding-inline-start: 0px;
-    
-}
-ol, ul {
-    list-style: none;
-    line-height:130%;
-}
+
 .smart-search-wrap .search-item-wrap .search-item .filter-content .brand-list li .item input {
     position: absolute;
     width: 1px;
@@ -1066,7 +1029,7 @@ ol, ul {
     height: 20px;
     margin-left: 8px;
     border: 1px solid #e5e5e5;
-    background: url(./resources/images/free-icon-x-mark-482641.png) center no-repeat;
+    background: url(./resources/img/free-icon-x-mark-482641.png) center no-repeat;
     vertical-align: top;
 }
 .btn-filter-del{
@@ -1092,11 +1055,9 @@ ol, ul {
 	
 	padding:15px 15px;
 }
-.list_wrap{
-	border:1px solid #ededed;
-}
+
 .comment_icon{
-	 background: url(./resources/images/free-icon-speech-bubble-2462719.png) center no-repeat;
+	 background: url(./resources/img/free-icon-speech-bubble-2462719.png) center no-repeat;
 
 	 display: inline-block;
     width: 16px;
@@ -1104,7 +1065,7 @@ ol, ul {
    
 }
 .recount_icon{
-	background: url(./resources/images/free-icon-eye-660022.png) center no-repeat;
+	background: url(./resources/img/free-icon-eye-660022.png) center no-repeat;
 
 	 display: inline-block;
     width: 16px;
@@ -1162,45 +1123,16 @@ ol, ul {
 }
 .post-entry-1, .post-entry-2 {
     font-size: .9rem;
-    margin-bottom: 30px;
+    margin-bottom: 18px;
+    padding-bottom:18px;
+    border-bottom: 1px solid #efefef;
 }
-
-
-/*  */
-.btn-box {
-	text-align : center;
-	padding: 20px;
-}
-
-
-/* summernote */
-.FlexableTextArea .textarea_input {
-    display: block;
-    width: 100%;
-    min-height: 40px;
-    padding: 11px 12px 10px;
-    border: 1px solid #ebecef;
-    box-sizing: border-box;
-    overflow: hidden;
-    resize: none;
-    word-break: break-all;
-    font-size: 15px;
-    letter-spacing: -.23px;
-    line-height: 17px;
-    outline: none;
-}
-
-.SmartEditor {
-    margin-top: 12px;
-    border: 1px solid #ebecef;
-    border-bottom: 0;
-    background: #fff;
-}
-
-
-.SmartEditor button {
+.tag{
 	
+	
+	color:#5c5c8a;
 }
+
 </style>
 </head>
 
@@ -1224,19 +1156,18 @@ ol, ul {
 		
 		/* 시작 */
 		sidoCode = $("#sido").val();
-		siGunGuCode = $("#sigungu").val();
+		siGunGuCode = $("#siGunGu").val();
 		getShelterInfo();
 		/* 시작 */
 		
 		// 시도 변경 시, 이벤트
 		$('#sido').on('change', function() {
 			sidoCode = $("#sido").val();
-			console.log(sidoCode);
 			
 			// 시도: 전체
 			if( sidoCode == 0 ){
-				$('#sigungu').empty();
-				$('#sigungu').append("<option value='0' selected>전체</option>")
+				$('#siGunGu').empty();
+				$('#siGunGu').append("<option value='0' selected>전체</option>")
 			} else {
 				getSiGunGu();
 			}
@@ -1246,10 +1177,7 @@ ol, ul {
 		// 조회 클릭 시, 이벤트
 		$('#btnSearch').on('click', function() {
 			sidoCode = $("#sido").val();
-			siGunGuCode = $("#sigungu").val();
-			
-			console.log(sidoCode);
-			console.log(siGunGuCode);
+			siGunGuCode = $("#siGunGu").val();
 			
 			getShelterInfo();
 		});
@@ -1258,7 +1186,6 @@ ol, ul {
 		// 축종 변경 시, 이벤트
 		$('#upKind').on('change', function() {
 			upKindCode = $("#upKind").val();
-			console.log(upKindCode);
 			
 			getKind();
 			
@@ -1275,12 +1202,10 @@ ol, ul {
 			bgnde = $('#bgnde').val();
 			endde = $('#endde').val();
 			sido = $('#sido').val();
-			siGunGu = $('#sigungu').val();
+			siGunGu = $('#siGunGu').val();
 			upKind = $('#upKind').val();
 			kind = $('#kind').val();
-			
-			console.log(bgnde + "," + endde+ "," + sido+ "," + siGunGu+ "," + upKind+ "," + kind)
-			
+		
 			getAbandonment();			
 			
 		});
@@ -1296,13 +1221,14 @@ ol, ul {
 			type: "POST"
 			, url: "/SJ/SiGunGu"
 			, data: {
-				  sidoCode: sidoCode
+				  sidoCode: sidoCode,
+				  requestType: '02'
 				}  
 			 , dataType: "html"
 			, success: function( data ){
 				console.log(data);
-				$('#sigungu-select').empty();
-				$('#sigungu-select').append(data);
+				$('#siGunGu-select').empty();
+				$('#siGunGu-select').append(data);
 				
 			}	
 			, error: function(request, status, error){
@@ -1402,12 +1328,16 @@ ol, ul {
 <div class ="body_content">
 <header id = "header">
 
-	<div class ="inout_gocen">
-			<a href="${pageContext.request.contextPath}/loginForm.me"><input type="button" class= "header_btn" id="login" value="로그인"></a>
-			<a href="${pageContext.request.contextPath}/logout.me"><input type="button" class= "header_btn" id="logout" value="로그아웃"></a>
-			<a href="${pageContext.request.contextPath}/joinform.me"><input type="button" class= "header_btn" id="signin" value="회원가입"></a>
-			<a href="${pageContext.request.contextPath}/mypage.me"><input type="button" class= "header_btn" id="mypage" value="마이페이지"></a>
-			<a href="${pageContext.request.contextPath}/customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
+		<div class ="inout_gocen">
+			<%if(email != null){ %>
+			
+			<input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='/logout.me'">
+			<input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='/mypage.me'">
+			<%}else{ %>
+			<input  type="button" class= "header_btn" value="로그인" onclick="location.href='/loginForm.me'">
+			<input  type="button" class= "header_btn" value="회원가입" onclick="location.href='/joinform.me'">
+			<%} %>
+			<a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
 		</div>
 	
 	<div class="nav-menu">
@@ -1439,10 +1369,17 @@ ol, ul {
 		</a>
 		</div>
 	</div>
-	<div class= "search-wrapper">
-      <input class="search-box input" type="text" placeholder="Search">
-      <button class="search-box" type="button"><i class="fas fa-search"></i></button>
-	</div>
+	
+	
+	<form action="home_search.me" method="post" name="home_search">
+            <div class="search-wrapper">
+               <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
+               <button class="search-box" type="submit">
+                  <i class="fas fa-search"></i>
+               </button>
+            </div>
+      </form>
+	
 	</div><!-- nav-menu -->
 </header>
 		
@@ -1468,7 +1405,8 @@ ol, ul {
 						<div class="tab-right on" onclick="window.location.href='/SJ/shelter_list';">
 							<a href="${pageContext.request.contextPath}/SJ/shelter_list" alt="보호소 찾기">보호소 찾기</a>
 						</div>
-					</div>
+						
+					
 					<div class="select-wrap">
 						<div id="sido-select" class="select-box">
 							<select name="sido" id="sido">
@@ -1479,7 +1417,7 @@ ol, ul {
 							</select>
 						</div>
 						
-						<div id="sigungu-select" class="select-box">
+						<div id="siGunGu-select" class="select-box">
 							<select name="siGunGu" id="siGunGu">
 								<option value="" selected>전 체</option>
 							</select>
@@ -1520,30 +1458,6 @@ ol, ul {
 </footer>
 </div>
 
-<script>
-	$(document).ready(function(){
-		$('#login').on('click', function(e){
-		      $('#logout').show();
-			  $('#mypage').show();
-			  $('#login').hide();
-			  $('#signin').hide();
-		  });//헤더 상단 로그인 체인지
-		
-		$('#logout').on('click', function(e){
-		       $('#logout').hide();
-			   $('#mypage').hide();
-			   $('#login').show();
-			   $('#signin').show();
-		});//헤더 상단 로그아웃 체인지
-		
-		$('#btnCancel').on('click', function(){
-			location.href = "/SJ/payang/list";
-		});
-		
-		
-	}); 
-
-</script>
 
 <!-- 부트스트랩 4.0 js -->
 <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->

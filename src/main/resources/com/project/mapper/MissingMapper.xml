@@ -131,7 +131,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * 
 		FROM missing_reply
 		WHERE doc_no = #{doc_no}
-		ORDER BY doc_cno DESC, doc_date DESC
+		ORDER BY doc_ref ASC, doc_cno DESC, doc_date DESC
 	</select>
 	
 	
@@ -147,10 +147,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="replyRemove" parameterType="int">
 		DELETE FROM missing_reply WHERE doc_cno = #{doc_cno}
 	</delete>
+	
 	<update id="replyModify" parameterType="MissingReplyVO">
 		UPDATE missing_reply
 		SET doc_content = #{doc_content}
 		WHERE doc_cno = #{doc_cno}
 	</update>
-
+	
+	 <insert id="rereplyInsert" >
+		<selectKey keyProperty="doc_cno" resultType="int" order="BEFORE"> 
+			SELECT MISSING_REPLY_SEQ.NEXTVAL FROM DUAL 
+		</selectKey>
+		INSERT INTO missing_reply (
+								 DOC_CNO
+								,DOC_NO
+								,DOC_EMAIL
+								,DOC_NICK
+								,DOC_CONTENT
+								,DOC_SECRET
+								,DOC_DATE
+								,DOC_REF
+								,DOC_LEV
+								,DOC_SEQ
+								)
+								VALUES
+								(
+									#{doc_cno}
+									,#{doc_no}
+									,#{doc_email}
+									,#{doc_nick}
+									,#{doc_content}
+									,#{doc_secret}
+									, SYSDATE
+									,#{doc_ref}
+									,(select doc_lev+1 from missing_reply WHERE doc_cno = #{doc_ref})
+									,(select nvl(max(doc_seq),0) +1 from missing_reply WHERE doc_ref = #{doc_ref})
+								)
+	</insert>
 </mapper>

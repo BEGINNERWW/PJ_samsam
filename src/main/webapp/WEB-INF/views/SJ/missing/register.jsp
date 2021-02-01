@@ -878,8 +878,8 @@ select, input, button, textarea {
 			<div class="sidemenu-section">
 			<ul class="list-group list-group-flush">
 				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
-				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
-				<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
+				<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
+				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
 			</ul>
 			</div>
 			
@@ -921,7 +921,6 @@ select, input, button, textarea {
 			   				 
 			   				 <div class="inline-block">
 							     <select name="doc_kind" class="form-control" style="width:200px; display:inline-block;" id="kind-select">
-									<option value="0">전체</option>
 				   				 </select>
 			   				 </div>
 						</div>
@@ -935,71 +934,19 @@ select, input, button, textarea {
 							<span class="option_lable">지역</span>
 							<div id="sido-select" class="inline-block">
 								<select name="doc_sido" id="sido" class="form-control">
-									<option value="" selected>모든 지역</option>
 									<c:forEach var="sido" items="${sido}" varStatus="status">
 									  <option value="${sido.sidoCode}">${sido.sidoNm}</option>
 									</c:forEach>
 								</select>
 			   				</div>
 			   				<div class="inline-block">
-				   				<select name="doc_sigungu" class="form-control" style="width:200px; display:inline-block;" id="sigungu-select">
-									<option value="0">전체</option>
-				   				</select> 
+				   				<select name="doc_sigungu" id="siGunGu-select" class="form-control" style="width:200px; display:inline-block;"></select> 
 			   				</div>
 			   				 <br>
 			   				 <input type="text" name="doc_address" class="form-control" style="width:600px; display:inline-block; margin: 10px 50px 0px;" />	
 						</div>
 					</div>
-				<%--
-					<input type="hidden" name="email" />
-					<table>
-						<tr>
-							<td>제목</td>
-							<td><input type="text" name="doc_subject"  /></td>
-						</tr>
-						<tr>
-							<td>작성자</td>
-							<td><input type="text" name="doc_nick"  /></td>
-						</tr>
-						<tr>
-							<td>정보</td>
-							<td>
-								이름 : <input type="text" name="doc_name" /> <br>
-								성별 : <input id="male" type="radio" name="doc_gender" value="남" /> <label for="male">남</label>
-									 <input id="female" type="radio" name="doc_gender" value="여" /> <label for="female">여</label>
-									 <br>
-								축종 : <select name="doc_big_name" >
-										<option value="개">개</option>
-										<option value="고양이">고양이</option>
-										<option value="기타">기타</option>
-					   				 </select>		
-								     <select name="doc_kind" >
-										<option value="개">개</option>
-										<option value="고양이">고양이</option>
-										<option value="기타">기타</option>
-					   				 </select>		
-					   				 <br>
-					   			나이 : <input type="text" name="doc_age" /> <br>
-					   			지역 : <select name="doc_sido" >
-										<option value="서울">서울</option>
-					   				 </select> 
-					   				 <select name="doc_sigungu" >
-										<option value="강남구">강남구</option>
-					   				 </select> 
-					   				 <br>
-					   				 <input type="text" name="doc_address" /> <br>	
-							</td>
-						</tr>
-						<tr>
-							<td>Content</td>
-							<td>
-								<div class="SmartEditor">
-									<textarea id="summernote" name="doc_content" rows="10" cols="150" ></textarea>
-								</div>
-							</td>
-						</tr>
-					</table>
-				 --%>
+
 					 <textarea id="summernote" name="doc_content"></textarea>
 					
 					<div class="btn-box">
@@ -1091,20 +1038,13 @@ select, input, button, textarea {
 		
 		// 시도 변경 시, 이벤트
 		$('#sido').on('change', function() {
-			sidoCode = $("#sido").val();
-			console.log(sidoCode);
-			
 			getSiGunGu();
-			
 		});
 		
 		
 		
 		// 축종 변경 시, 이벤트
 		$('#upKind').on('change', function() {
-			upKindCode = $("#upKind").val();
-			console.log(upKindCode);
-			
 			getKind();
 			
 		});
@@ -1120,18 +1060,10 @@ select, input, button, textarea {
 			
 			form.submit();
 		});
-		
-		
-		
-		
-		// 
-		upKindCode = $("#upKind").val();
-		getKind();
-		
-		
-	}); 
-	
 
+		getKind();
+		getSiGunGu();
+	}); 
 
 	function sendFile(file, el) {
 	    var form_data = new FormData();
@@ -1155,19 +1087,20 @@ select, input, button, textarea {
 	
 	// 시군구 가져오기
 	function getSiGunGu() {
-		
+		sidoCode = $("#sido").val();
+		console.log(sidoCode);
 		$.ajax({
 			type: "POST"
 			, url: "/SJ/SiGunGu"
 			, data: {
 				  sidoCode: sidoCode,
-				  requestType : '02'
+				  requestType : '03'
 				}  
 			 , dataType: "html"
 			, success: function( data ){
 				console.log(data);
-				$('#sigungu-select').empty();
-				$('#sigungu-select').append(data);
+				$('#siGunGu-select').empty();
+				$('#siGunGu-select').append(data);
 				
 			}	
 			, error: function(request, status, error){
@@ -1182,13 +1115,15 @@ select, input, button, textarea {
 	
 	// 축종 가져오기
 	function getKind() {
+		upKindCode = $("#upKind").val();
+		console.log(upKindCode);
 		
 		$.ajax({
 			type: "POST"
 			, url: "/SJ/animalKind"
 			, data: {
 					upKindCode: upKindCode,
-					requestType : '02'
+					requestType : '03'
 				}  
 			 , dataType: "html"
 			, success: function( data ){

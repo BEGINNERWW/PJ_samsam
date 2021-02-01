@@ -35,5 +35,7 @@ public interface PayangMapper {
 	public void replyRemove(Integer doc_cno) throws Exception;
 
 	public int replyModify(PayangReplyVO paramVO);
-		
+	
+	// 대댓글
+	public int rereplyInsert(PayangReplyVO vo);
 }
