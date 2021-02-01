@@ -19,6 +19,9 @@ public interface adopt_homeMapper {
 	public int isBoardWriter(HashMap<String,String>hashmap);
 	public int homeDelete(adopt_homeVO vo);
 	public int adoptupdateInsert(adopt_homeVO adopt);
+	public int FreecouponUpdate(String email);
+	public int PaycouponUpdate(String email);
+	public int getSearchCount(adopt_homeVO vo);
 	
 	//댓글
 	public int adoptreplyCount() throws Exception;
@@ -34,6 +37,9 @@ public interface adopt_homeMapper {
 	public void ReplycountService(adopt_homereplyVO homereply);
 	public void HomeDeleteComment(adopt_homeVO vo);
 	public void replycountupdate(adopt_homereplyVO adhome);
+	
+	
+	
 	
 	
 	

@@ -121,7 +121,7 @@ var doc_nick ='<%=doc_nick %>';
 	       
 	       
 	       $.ajax({
-	          url: 'comment_delete.bo',
+	          url: 'Sellcomment_delete.bo',
 	          //type: 'post',
 	          data : {'doc_cno' : cno , 'doc_lev' : lev , 'doc_no' : doc_no},
 	          dataType : 'json',
@@ -150,7 +150,7 @@ var doc_nick ='<%=doc_nick %>';
     	var writer = '<%=doc_email%>'
     	
 		$.ajax({ 	
-			url : 'adopt_replylist.bo',
+			url : 'Selladopt_replylist.bo',
 			type : 'post',
 			data : {'doc_no':doc_no},	
 			dataType : 'json',
@@ -374,7 +374,7 @@ var doc_nick ='<%=doc_nick %>';
 	    	var writer = '<%=doc_email%>'
 	    	
 			$.ajax({ 	
-				url : 'adopt_replylist.bo',
+				url : 'Selladopt_replylist.bo',
 				type : 'post',
 				data : {'doc_no':doc_no},	
 				dataType : 'json',
@@ -457,8 +457,8 @@ var doc_nick ='<%=doc_nick %>';
 					            	if(value.doc_lev ==2){//댓글일시
 							            a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 15px 39px;">';
 							            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong>';
-							            a += '<span style="margin:0px 0px 0px 850px;"><a class="link_write" href="#" onclick="warning('+value.doc_cno+','+doc_no+',\''+value.doc_nick+'\',\''+value.doc_content+'\');">신고</a></div>';
-							            a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p></span>';
+							            a += '<div style="margin:0px 0px 0px 830px;"><a class="link_write" href="#" onclick="warning('+value.doc_cno+','+doc_no+',\''+value.doc_nick+'\',\''+value.doc_content+'\');">신고</a></div>';
+							            a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p></div>';
 							   
 							            a += '</div></div>';
 						            }
@@ -598,7 +598,7 @@ var doc_nick ='<%=doc_nick %>';
 	    	}
 	    	
 			$.ajax({
-				url : 'adopt_replyinsert.bo',
+				url : 'Selladopt_replyinsert.bo',
 				type : 'post',
 				data:{'doc_content' : doc_content,'doc_secret' : updateSecret ,'doc_no' : doc_no},
 				success :function(data){
@@ -629,7 +629,7 @@ var doc_nick ='<%=doc_nick %>';
 	    	var doc_no =<%=doc_no%>
 	    	
 			$.ajax({
-				url : 'adopt_replyReinsert.bo',
+				url : 'Selladopt_replyReinsert.bo',
 				type : 'post',
 				data : {'doc_content' : updateContent, 'doc_cno' : cno , 'doc_secret' : updateSecret ,'doc_ref' : cno , 'doc_lev' : 1 ,'doc_no' : doc_no},	
 				success :function(data){
@@ -651,7 +651,7 @@ var doc_nick ='<%=doc_nick %>';
 	    	var writer = '<%=doc_email%>'
 	    	
 	    		$.ajax({ 	
-					url : 'adopt_replylist.bo',
+					url : 'Selladopt_replylist.bo',
 					type : 'post',
 					data : {'doc_no':doc_no},	
 					dataType : 'json',
@@ -897,7 +897,7 @@ var doc_nick ='<%=doc_nick %>';
 			var updateContent = $('[name=Udoc_content'+cno+']').val();
 			$.ajax({
 				
-				url : 'reply_update.bo',
+				url : 'Sellreply_update.bo',
 				//type : 'post',
 				dataType : 'json',
 				data : {'doc_content':updateContent, 'doc_cno':cno},
@@ -917,7 +917,7 @@ var doc_nick ='<%=doc_nick %>';
 		function replyDelete(cno,lev){
 
 			$.ajax({
-				url : 'homereply_delete.bo',
+				url : 'Sellhomereply_delete.bo',
 				//type : 'post',
 				data : {'doc_cno':cno,'doc_lev':lev,'doc_no':doc_no},
 				dataType : 'json',
@@ -960,6 +960,10 @@ var doc_nick ='<%=doc_nick %>';
 	            }
 	        });
 		});
+		
+		
+		
+		
 		
 </script>
 

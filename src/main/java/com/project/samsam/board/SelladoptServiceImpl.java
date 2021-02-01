@@ -13,42 +13,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import com.project.mapper.adopt_homeMapper;
+import com.project.mapper.SelladoptMapper;
 import com.project.samsam.board.adopt_homeVO;
 
 
-@Service("adoptService")
-public class AdoptServiceImpl implements AdoptService {
+@Service("SelladoptService")
+public class SelladoptServiceImpl implements SelladoptService {
 
 	 @Autowired
 	 private SqlSession sqlSession;
 	
 	@Override
-	public int getListCount() {
-		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
-	    int res = adoptMapper.getListCount();
+	public int SellgetListCount() {
+		SelladoptMapper adoptMapper =  sqlSession.getMapper(SelladoptMapper.class);
+	    int res = adoptMapper.SellgetListCount();
 		return res;
 	}
 
 	@Override
-	public List<adopt_homeVO> getHomeList(HashMap<String, Integer> hashmap) {
-		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
-		List<adopt_homeVO> homelist = adoptMapper.getHomeList(hashmap);
+	public List<adopt_homeVO> SellgetHomeList(HashMap<String, Integer> hashmap) {
+		SelladoptMapper adoptMapper =  sqlSession.getMapper(SelladoptMapper.class);
+		List<adopt_homeVO> homelist = adoptMapper.SellgetHomeList(hashmap);
 		
 		return homelist;
 	}
 
 	@Override
-	public adopt_homeVO adopt_homeinfo(int num) {
-		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
-		adoptMapper.setReadCountUpdate(num);
-		adopt_homeVO adopt = adoptMapper.adopt_homeinfo(num);
+	public adopt_homeVO Selladopt_homeinfo(int num) {
+		SelladoptMapper adoptMapper =  sqlSession.getMapper(SelladoptMapper.class);
+		adoptMapper.SellsetReadCountUpdate(num);
+		adopt_homeVO adopt = adoptMapper.Selladopt_homeinfo(num);
 		return adopt;
 	}
 
 	@Override
-	public int adoptInsert(adopt_homeVO adopt,HttpSession session) {
-		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
+	public int SelladoptInsert(adopt_homeVO adopt,HttpSession session) {
+		SelladoptMapper adoptMapper =  sqlSession.getMapper(SelladoptMapper.class);
 		Pattern pattern  =  Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
 		
 		String content = adopt.getDoc_content();
@@ -71,7 +71,7 @@ public class AdoptServiceImpl implements AdoptService {
 		adopt.setDoc_img("aa");
 		
 		
-	    int res = adoptMapper.adoptInsert(adopt);
+	    int res = adoptMapper.SelladoptInsert(adopt);
 
 	
 		
@@ -81,8 +81,8 @@ public class AdoptServiceImpl implements AdoptService {
 	}
 	
 	
-	public int adoptupdateInsert(adopt_homeVO adopt,HttpSession session) {
-		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
+	public int SelladoptupdateInsert(adopt_homeVO adopt,HttpSession session) {
+		SelladoptMapper adoptMapper =  sqlSession.getMapper(SelladoptMapper.class);
 		Pattern pattern  =  Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
 		
 		String content = adopt.getDoc_content();
@@ -103,15 +103,15 @@ public class AdoptServiceImpl implements AdoptService {
 		adopt.setDoc_email((String)session.getAttribute("email"));
 		adopt.setDoc_nick((String)session.getAttribute("nick"));
 		adopt.setDoc_img("aa");
-	    int res = adoptMapper.adoptupdateInsert(adopt);
+	    int res = adoptMapper.SelladoptupdateInsert(adopt);
 		return res;
 	     
 	   
 	}
 	
 	@Override
-	public int getSearchCount(adopt_homeVO vo) {
-		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
+	public int SellgetSearchCount(adopt_homeVO vo) {
+		SelladoptMapper adoptMapper =  sqlSession.getMapper(SelladoptMapper.class);
 		
 		if(vo.getKind_search()==null) {
 			ArrayList <String> none = new ArrayList<String>();
@@ -129,27 +129,27 @@ public class AdoptServiceImpl implements AdoptService {
 			vo.setDoc_search(none2);
 		}
 		
-		return adoptMapper.getSearchCount(vo);
+		return adoptMapper.SellgetSearchCount(vo);
 	}
 
 
 	@Override
-	public int adoptreplyCount() throws Exception {
-		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
-		return adoptMapper.adoptreplyCount();
+	public int SelladoptreplyCount() throws Exception {
+		SelladoptMapper adoptMapper =  sqlSession.getMapper(SelladoptMapper.class);
+		return adoptMapper.SelladoptreplyCount();
 	}
 
 	@Override
-	public List<adopt_homereplyVO> adoptreplyService(adopt_homereplyVO homereply) throws Exception {
-		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
-		return adoptMapper.adopthomereplyList(homereply);
+	public List<adopt_homereplyVO> SelladoptreplyService(adopt_homereplyVO homereply) throws Exception {
+		SelladoptMapper adoptMapper =  sqlSession.getMapper(SelladoptMapper.class);
+		return adoptMapper.SelladopthomereplyList(homereply);
 	}
 
 	@Override
-	public int adoptreplyInsertService(adopt_homereplyVO homereply,HttpSession session) throws Exception {
-		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
-		adoptMapper.adopthomereplyspace(homereply);
-		adoptMapper.ReplycountService(homereply);
+	public int SelladoptreplyInsertService(adopt_homereplyVO homereply,HttpSession session) throws Exception {
+		SelladoptMapper adoptMapper =  sqlSession.getMapper(SelladoptMapper.class);
+		adoptMapper.Selladopthomereplyspace(homereply);
+		adoptMapper.SellReplycountService(homereply);
 		
 		System.out.println((String)session.getAttribute("email"));
 		System.out.println(123456);
@@ -157,39 +157,39 @@ public class AdoptServiceImpl implements AdoptService {
 		homereply.setDoc_nick((String)session.getAttribute("nick"));
 		
 		homereply.setDoc_seq(homereply.getDoc_seq()+1);
-		return adoptMapper.adoptreplyInsert(homereply);
+		return adoptMapper.SelladoptreplyInsert(homereply);
 		
 	}
 
 
 	@Override
-	public int adopthomereply_re(adopt_homereplyVO adhome,HttpSession session) {
-		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
-		adoptMapper.adopthomereplyspace(adhome);
-		adoptMapper.ReplycountService(adhome);
+	public int Selladopthomereply_re(adopt_homereplyVO adhome,HttpSession session) {
+		SelladoptMapper adoptMapper =  sqlSession.getMapper(SelladoptMapper.class);
+		adoptMapper.Selladopthomereplyspace(adhome);
+		adoptMapper.SellReplycountService(adhome);
 		
 		adhome.setDoc_email((String)session.getAttribute("email"));
 		adhome.setDoc_nick((String)session.getAttribute("nick"));
 		adhome.setDoc_seq(adhome.getDoc_seq()+1);
 		adhome.setDoc_lev(adhome.getDoc_lev()+1);
-		int res = adoptMapper.adopthomereply_re(adhome);
+		int res = adoptMapper.Selladopthomereply_re(adhome);
 		
 		return res;
 	}
 
 	@Override
-	public int adopthomereplyDelete(adopt_homereplyVO adhome) {
-		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
-		adoptMapper.replycountupdate(adhome);
+	public int SelladopthomereplyDelete(adopt_homereplyVO adhome) {
+		SelladoptMapper adoptMapper =  sqlSession.getMapper(SelladoptMapper.class);
+		adoptMapper.Sellreplycountupdate(adhome);
 		System.out.println(adhome.getDoc_no());
-		return adoptMapper.replyDelete(adhome);
+		return adoptMapper.SellreplyDelete(adhome);
 	}
 
 	
 
 	@Override //필터 검색시 리스트로드
-	public List<adopt_homeVO> getSearchList(adopt_homeVO vo) {
-		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
+	public List<adopt_homeVO> SellgetSearchList(adopt_homeVO vo) {
+		SelladoptMapper adoptMapper =  sqlSession.getMapper(SelladoptMapper.class);
 		if(vo.getKind_search()==null) {
 			ArrayList <String> none = new ArrayList<String>();
 			none.add("none");
@@ -206,7 +206,7 @@ public class AdoptServiceImpl implements AdoptService {
 			vo.setDoc_search(none2);
 		}
 		
-		List<adopt_homeVO> home_list = adoptMapper.getSearchList(vo);
+		List<adopt_homeVO> home_list = adoptMapper.SellgetSearchList(vo);
 		System.out.println("5");
 		System.out.println(home_list.size());
 		System.out.println("5");
@@ -217,54 +217,54 @@ public class AdoptServiceImpl implements AdoptService {
 	}
 
 	@Override // 댓글 수정
-	public int adopthomereplyupdate(adopt_homereplyVO comment) {
-		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
+	public int Selladopthomereplyupdate(adopt_homereplyVO comment) {
+		SelladoptMapper adoptMapper =  sqlSession.getMapper(SelladoptMapper.class);
 		System.out.println(comment.getDoc_content());
 		String home_ccontent = comment.getDoc_content();
 		
 		home_ccontent = home_ccontent.replace("\r\n","<br>");
 		comment.setDoc_content(home_ccontent);
-		int res = adoptMapper.adopthomereplyupdate(comment);
+		int res = adoptMapper.Selladopthomereplyupdate(comment);
 		System.out.println(comment.getDoc_cno());
 		System.out.println(comment.getDoc_cno());
 		System.out.println(res);
-		return adoptMapper.adopthomereplyupdate(comment);
+		return adoptMapper.Selladopthomereplyupdate(comment);
 	}
 
 	@Override
-	   public int deleteCount(int doc_cno) {
-		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
-	      return adoptMapper.DeleteCount(doc_cno);
+	   public int SelldeleteCount(int doc_cno) {
+		SelladoptMapper adoptMapper =  sqlSession.getMapper(SelladoptMapper.class);
+	      return adoptMapper.SellDeleteCount(doc_cno);
 	   }
 
 	@Override
-	   public int deleteUpdate(int doc_cno) {
-		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
-	      return adoptMapper.DeleteUpdate(doc_cno);
+	   public int SelldeleteUpdate(int doc_cno) {
+		SelladoptMapper adoptMapper =  sqlSession.getMapper(SelladoptMapper.class);
+	      return adoptMapper.SellDeleteUpdate(doc_cno);
 	   }
 
 	@Override
-	public int homeDelete(adopt_homeVO vo) {
-		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
-		adoptMapper.HomeDeleteComment(vo);
-		return adoptMapper.homeDelete(vo);
+	public int SellhomeDelete(adopt_homeVO vo) {
+		SelladoptMapper adoptMapper =  sqlSession.getMapper(SelladoptMapper.class);
+		adoptMapper.SellHomeDeleteComment(vo);
+		return adoptMapper.SellhomeDelete(vo);
 	}
 
 	@Override
-	public int FreecouponUpdate(HttpSession session) {
-		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
+	public int SellFreecouponUpdate(HttpSession session) {
+		SelladoptMapper adoptMapper =  sqlSession.getMapper(SelladoptMapper.class);
 		String email = (String)session.getAttribute("email");
 		
-		return adoptMapper.FreecouponUpdate(email);
+		return adoptMapper.SellFreecouponUpdate(email);
 		
 	}
 
 	@Override
-	public int PaycouponUpdate(HttpSession session) {
-		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
+	public int SellPaycouponUpdate(HttpSession session) {
+		SelladoptMapper adoptMapper =  sqlSession.getMapper(SelladoptMapper.class);
 		String email = (String)session.getAttribute("email");
 		
-		return adoptMapper.PaycouponUpdate(email);
+		return adoptMapper.SellPaycouponUpdate(email);
 		
 	}
 

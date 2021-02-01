@@ -906,9 +906,9 @@ border-bottom: 1px solid #eee;
 		   a += '<input type="hidden" name="w_nick" value="'+id+'">';
 		   a += '<div class="warning_container" ><div class="warning_report">';
 		   a += '<div class="report_title" style="margin:10px 10px 10px 10px;">내&nbsp;&nbsp;&nbsp;용 :';
-		   a += '<span class="report_content" style="margin:0px 0px 0px 10px;">'+content+'</span></div>';
+		   a += '<span class="report_content">'+content+'</span></div>';
 		   a += '<div class="report_title" style="margin:10px 10px 10px 10px;">작성자:';
-		   a += '<span class="report_content" style="margin:0px 0px 0px 10px;">'+cnick+'</span></div></div>';
+		   a += '<span class="report_content">'+cnick+'</span></div></div>';
 		   a += '<div class="warning_reason">';
 		   a += '<div class="report_title" style="margin:10px 10px 10px 10px;"><span>사유 선택</span> : </div>';
 		   a += '<div class="report_content" style="margin:10px 10px 10px 10px;"><p class="">여러 사유에 해당되는 경우, 대표적인 사유 1개를 선택해 주세요</p>';
@@ -948,7 +948,7 @@ border-bottom: 1px solid #eee;
 		      return false;
 		   }
 		   $.ajax({
-		      url : 'home_warning.bo',
+		      url : 'adopt_warning.bo',
 		      type : 'POST',
 		      data :  data,
 		      success: function(data){
@@ -966,27 +966,27 @@ border-bottom: 1px solid #eee;
 	
 	
 	
-		function warning_ori(dno,cnick,content){
-			
+		function warning(cno,dno,cnick,content){
 			   event.preventDefault();
 			   $('#ex7').empty();
 			   var a = '';
 			   var id ='<%=id%>';
-			   var email = '<%=email%>';
+			   var email ='<%=email%>';
 			   a += '<div class="modal-header"><h1>신고하기</h1></div>';
 			   a += '<div class="modal-body">';
 			   a += '<form id= "warning_form" name="warning_form" method="post" action="warning.bo">';
 			   a += '<input type="hidden" name="w_email" value="'+email+'">';
+			   a += '<input type="hidden" name="w_co_no" value="'+cno+'">';
 			   a += '<input type="hidden" name="w_doc_no" value="'+dno+'">';
 			   a += '<input type="hidden" name="w_nick" value="'+id+'">';
-			   a += '<div class="warning_container"><div class="warning_report">';
-			   a += '<div class="report_title" style ="margin:10px 10px 10px 10px;">제&nbsp;&nbsp;&nbsp;목 :';
-			   a += '<span class="report_content" style="margin :0px 0px 0px 10px;">'+content+'</span></div>';
-			   a += '<div class="report_title" style ="margin:10px 10px 10px 10px;">작성자:';
-			   a += '<span class="report_content" style="margin :0px 0px 0px 10px;">'+cnick+'</span></div></div>';
+			   a += '<div class="warning_container" ><div class="warning_report">';
+			   a += '<div class="report_title" style="margin:10px 10px 10px 10px;">내&nbsp;&nbsp;&nbsp;용 :';
+			   a += '<span class="report_content" style="margin:0px 0px 0px 10px;">'+content+'</span></div>';
+			   a += '<div class="report_title" style="margin:10px 10px 10px 10px;">작성자:';
+			   a += '<span class="report_content" style="margin:0px 0px 0px 10px;">'+cnick+'</span></div></div>';
 			   a += '<div class="warning_reason">';
-			   a += '<div class="report_title" style ="margin:10px 10px 10px 10px;"><span>사유 선택</span> : ';
-			   a += '<div class="report_content"><p class="">여러 사유에 해당되는 경우, 대표적인 사유 1개를 선택해 주세요</p></div>';
+			   a += '<div class="report_title" style="margin:10px 10px 10px 10px;"><span>사유 선택</span> : </div>';
+			   a += '<div class="report_content" style="margin:10px 10px 10px 10px;"><p class="">여러 사유에 해당되는 경우, 대표적인 사유 1개를 선택해 주세요</p>';
 			   a += '<ul class=""><li><input type="radio" name="w_reason" id="reson1" value="부적절한 홍보 게시글">';
 			   a += '<label for="reason1">&nbsp;부적절한 홍보 게시글</label></li>';
 			   a += '<li><input type="radio" name="w_reason" id="reason2" value="음란성 또는 청소년에게 부적합한 내용">';
@@ -998,7 +998,8 @@ border-bottom: 1px solid #eee;
 			   a += '<textarea disabled name="etc_reason" id="etc_reason" cols="50" rows="5" class="" style="width:405px; height:80px; display:none;" placeholder="신고 사유를 기재해 주세요"></textarea></div>';
 			   a += '</div></form></div></div><div class="modal-footer">';
 			   a += '<button type="button" id="waring_submit" onclick="warning_submit();" class="btn btn-default">신고하기</button>';
-			   a += '<button type="button" onclick="modal_close();" class ="btn btn-default">취소하기</button>';
+			   a += '<button type="button" onclick="modal_close();" class="btn btn-default">취소하기</button>';
+			   
 			   
 			   
 			   $('#ex7').append(a);
@@ -1079,9 +1080,9 @@ border-bottom: 1px solid #eee;
 				
 			
 			<ul class="list-group list-group-flush">
-				<li class="list-group-item click"><a href="home_list.bo">가정분양</a></li>
+				<li class="list-group-item"><a href="home_list.bo">가정분양</a></li>
 				<li class="list-group-item"><a href="fdoclist.bo">책임분양</a></li>
-				<li class="list-group-item"><a href="selladopt_list.bo">업체분양</a></li>
+				<li class="list-group-item click"><a href="selladopt_list.bo">업체분양</a></li>
 			</ul>
 			</div>
 			
@@ -1131,7 +1132,7 @@ border-bottom: 1px solid #eee;
 							<%
 								} else {
 							%>
-							<span><a href="homeupdate.bo?num=<%=adoptvo.getDoc_no()%>">수정</a>&nbsp;&nbsp;&nbsp;</span><span><a href="home_delete.bo?Doc_no=<%=adoptvo.getDoc_no()%>">삭제</a></span>
+							<span><a href="Sellhomeupdate.bo?num=<%=adoptvo.getDoc_no()%>">수정</a>&nbsp;&nbsp;&nbsp;</span><span><a href="Sellhome_delete.bo?Doc_no=<%=adoptvo.getDoc_no()%>">삭제</a></span>
 							<%
 								}
 								}
@@ -1154,7 +1155,7 @@ border-bottom: 1px solid #eee;
 						
 						
 						
-							<jsp:include page = "./adopt_replyview.jsp">
+							<jsp:include page = "./Sadopt_replyview.jsp">
 								<jsp:param name = "doc_no" value="<%=adoptvo.getDoc_no()%>"/>
 								<jsp:param name = "doc_email" value="<%=adoptvo.getDoc_email()%>"/>
 							</jsp:include>

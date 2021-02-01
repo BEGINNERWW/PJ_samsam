@@ -26,70 +26,70 @@ import com.project.samsam.member.MemberVO;
 
 
 @Controller
-public class adoptController {
+public class SelladoptController {
 
 @Autowired
-private AdoptService adoptservice;
+private SelladoptService adoptservice;
 
 @Autowired
 private MemberSV memberSV;
 
 
 //작성폼을 뛰워주는 동작
- @RequestMapping("/adopt_write.bo")
+ @RequestMapping("/Selladopt_write.bo")
    public String boardInsertForm(adopt_homeVO vo,Model model) {
 	 
 	 
 	 model.addAttribute("vo",vo);
-     return "JM/adopt_write";
+     return "JM/Sadopt_write";
    }
  
  //수정폼
  
- @RequestMapping(value = "/homeupdate.bo", method = RequestMethod.GET)
+ @RequestMapping(value = "/Sellhomeupdate.bo", method = RequestMethod.GET)
 	public String home_update(@RequestParam(value="num", required=true) int num,Model model) {
-		adopt_homeVO vo = adoptservice.adopt_homeinfo(num);
+		adopt_homeVO vo = adoptservice.Selladopt_homeinfo(num);
 		
 		model.addAttribute("vo",vo);
 		
 		
-		return "JM/WriteUpdateview";
+		return "JM/Swriteupdateview";
 	}
  
  
- @RequestMapping(value = "/home_delete.bo", method = RequestMethod.GET)
+ @RequestMapping(value = "/Sellhome_delete.bo", method = RequestMethod.GET)
  public String home_delete(adopt_homeVO vo) {
-	 adoptservice.homeDelete(vo);
+	 adoptservice.SellhomeDelete(vo);
 	 
-	 return "redirect:/home_list.bo";
+	 return "redirect:/selladopt_list.bo";
 	}
 
  
  //작성값을 인서트해주는 동작
- @RequestMapping("/adoptwrite.bo")
+ @RequestMapping("/Selladoptwrite.bo")
  public String adoptInsert(adopt_homeVO adopt,HttpSession session)throws Exception{
 	 
-	 int res = adoptservice.adoptInsert(adopt,session);
+	 int res = adoptservice.SelladoptInsert(adopt,session);
 	 
 	 if(adopt.getCoupon()==0) {
-		 adoptservice.FreecouponUpdate(session);
+		 adoptservice.SellFreecouponUpdate(session);
 	 } 
 	 else{
-		 adoptservice.PaycouponUpdate(session);	 
+		 adoptservice.SellPaycouponUpdate(session);	 
 	 }
-	 return "redirect:/home_list.bo";
+	 return "redirect:/selladopt_list.bo";
  }
  
- @RequestMapping("/home_update.bo")
+ @RequestMapping("/Sellhome_update.bo")
  public String adoptupdateInsert(adopt_homeVO adopt,HttpSession session)throws Exception{
 	 
-	 int res = adoptservice.adoptupdateInsert(adopt,session);
+	 int res = adoptservice.SelladoptupdateInsert(adopt,session);
 	 
-	 return "redirect:/adopthomeview.bo?num="+adopt.getDoc_no();
+	 return "redirect:/Selladopthomeview.bo?num="+adopt.getDoc_no();
  }
  
  
- @RequestMapping("/home_list.bo") 
+ @RequestMapping("/selladopt_list.bo") 
  public String getHomeList(Model model,HttpSession session,@RequestParam(value="page",required=false,
  		defaultValue="1")int page) {
 	 
@@ -99,7 +99,7 @@ private MemberSV memberSV;
 	 
 	 int limit=10;
 	 
-	 int listcount=adoptservice.getListCount();
+	 int listcount=adoptservice.SellgetListCount();
 	 
 	 int startrow = (page-1)*10+1;
 	 int endrow = startrow+limit-1;
@@ -107,7 +107,7 @@ private MemberSV memberSV;
 	 HashMap<String,Integer>hashmap = new HashMap<String,Integer>();
 	 hashmap.put("startrow",startrow);
 	 hashmap.put("endrow",endrow);
-	 List<adopt_homeVO>homelist = adoptservice.getHomeList(hashmap);
+	 List<adopt_homeVO>homelist = adoptservice.SellgetHomeList(hashmap);
 	
 	 if(homelist.size()!=0) {
 	 System.out.println(homelist.get(0).getDoc_date());
@@ -119,20 +119,16 @@ private MemberSV memberSV;
 	 int endpage = maxpage;
 	 
 	 if(endpage>startpage+10-1)endpage = startpage+10-1;
-	 
-	 
 	 MemberVO mvo = memberSV.selectMember(email);
-	 
-	 System.out.println(mvo.getGrade());
-	if(mvo.getGrade().equals("사업자")) {
-	 if(email != null){
+	 if(mvo.getGrade().equals("사업자")) {
+		 if(email != null){
 
-		 Biz_memberVO bmvo = memberSV.selectBizMember(email);
-		 model.addAttribute("Biz_memberVO",bmvo);
-		 
-	 }
-	}
-	model.addAttribute("mvo" , mvo);
+			 Biz_memberVO bmvo = memberSV.selectBizMember(email);
+			 model.addAttribute("Biz_memberVO",bmvo);
+			 
+		 }
+		}
+	 model.addAttribute("mvo" , mvo);
 	 model.addAttribute("page",page);
 	 model.addAttribute("listcount",listcount);
 	 model.addAttribute("homelist",homelist);
@@ -140,7 +136,7 @@ private MemberSV memberSV;
 	 model.addAttribute("startpage",startpage);
 	 model.addAttribute("endpage",endpage);
 	 
-	 return "JM/adopt_homelist";
+	 return "JM/Sadopt_list";
  }
  
  
@@ -148,14 +144,14 @@ private MemberSV memberSV;
  
  
  	//리스트 생성
-	@RequestMapping(value = "/home_listAjax.bo",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
+	@RequestMapping(value = "/Sellhome_listAjax.bo",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
 	@ResponseBody 
 	public List<adopt_homeVO> getHomeListAjax(Model model,adopt_homeVO vo,HttpSession session,@RequestParam(value="page",required=false,
 		defaultValue="1")int page) {
 	 int limit=10;
 	 
 	
-	 int listcount=adoptservice.getListCount();
+	 int listcount=adoptservice.SellgetListCount();
 	 
 	 
 	
@@ -166,7 +162,7 @@ private MemberSV memberSV;
 	 HashMap<String,Integer>hashmap = new HashMap<String,Integer>();
 	 hashmap.put("startrow",startrow);
 	 hashmap.put("endrow",endrow);
-	 List<adopt_homeVO>homelist = adoptservice.getHomeList(hashmap);
+	 List<adopt_homeVO>homelist = adoptservice.SellgetHomeList(hashmap);
 	 
 	 if(homelist.size()!=0) {
 	 System.out.println(homelist.get(0).getDoc_date());
@@ -192,13 +188,13 @@ private MemberSV memberSV;
 	 return homelist;
 	}
 	
-	@RequestMapping(value = "/listcount.bo",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
+	@RequestMapping(value = "/Selllistcount.bo",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
 	@ResponseBody 
 	public HashMap<String,Integer> listcount(adopt_homeVO vo,@RequestParam(value="page",required=false,
 	defaultValue="1")int page){
 		 int limit=10;
 		 
-		 int listcount=adoptservice.getListCount();
+		 int listcount=adoptservice.SellgetListCount();
 		 
 		 int startrow = (page-1)*10+1;
 		 int endrow = startrow+limit-1;
@@ -226,13 +222,13 @@ private MemberSV memberSV;
 		
 	}
 	
-	@RequestMapping(value = "/Searchlistcount.bo",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
+	@RequestMapping(value = "/SellSearchlistcount.bo",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
 	@ResponseBody 
 	public HashMap<String,Integer> Searchlistcount(adopt_homeVO vo,@RequestParam(value="page",required=false,
 	defaultValue="1")int page){
 		 int limit=10;
 		 
-		 int listcount=adoptservice.getSearchCount(vo);
+		 int listcount=adoptservice.SellgetSearchCount(vo);
 		 
 		 int startrow = (page-1)*10+1;
 		 int endrow = startrow+limit-1;
@@ -268,14 +264,14 @@ private MemberSV memberSV;
 	
 	
 	//검색후 리스트생성
-	@RequestMapping(value = "/home_search.bo",method=RequestMethod.POST,produces="application/json;charset=UTF-8") //�������� ����Ʈ�� �ҷ����� ����
+	@RequestMapping(value = "/Sellhome_search.bo",method=RequestMethod.POST,produces="application/json;charset=UTF-8") //�������� ����Ʈ�� �ҷ����� ����
 	@ResponseBody 
 	public List<adopt_homeVO> getHomeListSearch(Model model,adopt_homeVO vo,@RequestParam(value="page",required=false,
 		defaultValue="1")int page) {
 	 int limit=10;
 	 
 	
-	 int listcount=adoptservice.getListCount();
+	 int listcount=adoptservice.SellgetListCount();
 	 
 	 int startrow = (page-1)*10+1;
 	 int endrow = startrow+limit-1;
@@ -285,7 +281,7 @@ private MemberSV memberSV;
 	 vo.setEndrow(endrow);
 	 
 	 
-	 List<adopt_homeVO>homelist = adoptservice.getSearchList(vo);
+	 List<adopt_homeVO>homelist = adoptservice.SellgetSearchList(vo);
 	 
 	 if(homelist.size()!=0) {
 	 System.out.println(homelist.get(0).getDoc_date());
@@ -314,46 +310,46 @@ private MemberSV memberSV;
 	
 	
 	
-	@RequestMapping("/adopthomeview.bo")
+	@RequestMapping("/Selladopthomeview.bo")
 	public String adopt_homeinfo(@RequestParam(value="num",required=true)int num,Model model){
-		adopt_homeVO adopt = adoptservice.adopt_homeinfo(num);
+		adopt_homeVO adopt = adoptservice.Selladopt_homeinfo(num);
 		model.addAttribute("adopt", adopt);
 		
-		return "JM/adopt_homeview";
+		return "JM/Sadoptview";
 	}
 	
-	@RequestMapping(value = "/adopt_replylist.bo",produces="application/json;charset=UTF-8")
+	@RequestMapping(value = "/Selladopt_replylist.bo",produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public List<adopt_homereplyVO> adoptviewList(adopt_homereplyVO adhome)throws Exception{
-		List<adopt_homereplyVO> replyList = adoptservice.adoptreplyService(adhome);	
+		List<adopt_homereplyVO> replyList = adoptservice.SelladoptreplyService(adhome);	
 		
 		return replyList;
 	}   
 	
-	@RequestMapping(value = "/adopt_replyinsert.bo",produces="application/json;charset=UTF-8")
+	@RequestMapping(value = "/Selladopt_replyinsert.bo",produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public int adopthomepreplyinsert(adopt_homereplyVO adhome,HttpSession session)throws Exception{
 		
 		
-		return adoptservice.adoptreplyInsertService(adhome,session);
+		return adoptservice.SelladoptreplyInsertService(adhome,session);
 	}
 	
-	@RequestMapping("/adopt_replyReinsert.bo")
+	@RequestMapping("/Selladopt_replyReinsert.bo")
 	@ResponseBody
 	public int adopthomereply_re(adopt_homereplyVO adhome,HttpSession session) throws Exception{
 		
 		
-		return adoptservice.adopthomereply_re(adhome,session);
+		return adoptservice.Selladopthomereply_re(adhome,session);
 		
 	}
 	
 	
 
-	@RequestMapping("/reply_update.bo") 
+	@RequestMapping("/Sellreply_update.bo") 
 	@ResponseBody
 	public int adopthomereplyupdate(adopt_homereplyVO adhome) throws Exception{
 		
-		return adoptservice.adopthomereplyupdate(adhome);
+		return adoptservice.Selladopthomereplyupdate(adhome);
 		
 	}
 	
@@ -361,20 +357,20 @@ private MemberSV memberSV;
 
 	
    @ResponseBody
-   @RequestMapping(value="/homereply_delete.bo",produces="application/json;charset=UTF-8")
+   @RequestMapping(value="/Sellhomereply_delete.bo",produces="application/json;charset=UTF-8")
    private int adopthomereplyDelete(adopt_homereplyVO vo) throws Exception{
       
       if(vo.getDoc_lev() != 0) {
-         return adoptservice.adopthomereplyDelete(vo);
+         return adoptservice.SelladopthomereplyDelete(vo);
       }else {
          
-         int res = adoptservice.deleteCount(vo.getDoc_cno());
+         int res = adoptservice.SelldeleteCount(vo.getDoc_cno());
          
          if(res == 1) {
-            return adoptservice.adopthomereplyDelete(vo);
+            return adoptservice.SelladopthomereplyDelete(vo);
          }else {
             
-            return adoptservice.deleteUpdate(vo.getDoc_cno());
+            return adoptservice.SelldeleteUpdate(vo.getDoc_cno());
          }
          
       }
