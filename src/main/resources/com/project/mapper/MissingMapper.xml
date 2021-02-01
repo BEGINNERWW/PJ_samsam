@@ -6,12 +6,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.project.mapper.MissingMapper">
 	
 	<select id="list" resultType="MissingVO">
-		SELECT * FROM missing ORDER BY doc_no DESC , doc_date DESC
+		SELECT  P.DOC_NO
+		        ,P.DOC_EMAIL
+		        ,P.DOC_NICK
+		        ,P.DOC_NAME
+		        ,P.DOC_GENDER
+		        ,P.DOC_BIG_NAME
+		        ,P.DOC_KIND
+		        ,P.DOC_AGE
+		        ,P.DOC_SIDO
+		        ,P.DOC_SIGUNGU
+		        ,P.DOC_ADDRESS
+		        ,P.DOC_SUBJECT
+		        ,P.DOC_CONTENT
+		        ,P.DOC_DATE
+		        ,P.DOC_UPD_DATE
+		        ,P.DOC_READCOUNT
+		      , (SELECT COUNT(R.DOC_NO) FROM MISSING_REPLY R WHERE P.DOC_NO = R.DOC_NO ) AS REPLY_COUNT
+		FROM MISSING P
+		ORDER BY P.DOC_NO DESC
+		        ,P.DOC_DATE DESC
 	</select>
 	
 	<insert id="create" parameterType="MissingVO">
 		<selectKey keyProperty="doc_no" resultType="int" order="BEFORE"> 
-			SELECT PAYANG_SEQ.NEXTVAL FROM DUAL 
+			SELECT MISSING_SEQ.NEXTVAL FROM DUAL 
 		</selectKey>
 
 		INSERT INTO missing (
@@ -81,7 +100,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="replyCreate" >
 		<selectKey keyProperty="doc_cno" resultType="int" order="BEFORE"> 
-			SELECT PAYANG_REPLY_SEQ.NEXTVAL FROM DUAL 
+			SELECT MISSING_REPLY_SEQ.NEXTVAL FROM DUAL 
 		</selectKey>
 		INSERT INTO missing_reply (
 								 DOC_CNO
@@ -112,8 +131,57 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * 
 		FROM missing_reply
 		WHERE doc_no = #{doc_no}
-		ORDERY BY doc_cno DESC, doc_date DESC
+		ORDER BY doc_ref ASC, doc_cno DESC, doc_date DESC
 	</select>
 	
+	
+	<insert id="updateReadCount">
+		<selectKey keyProperty="doc_readcount" resultType="int" order="BEFORE"> 
+			SELECT NVL(doc_readCount,0) + 1 FROM missing WHERE doc_no = #{doc_no}
+		</selectKey>
+		UPDATE missing
+		SET doc_readCount = #{doc_readcount}
+		WHERE doc_no = #{doc_no}
+	</insert>
 
+	<delete id="replyRemove" parameterType="int">
+		DELETE FROM missing_reply WHERE doc_cno = #{doc_cno}
+	</delete>
+	
+	<update id="replyModify" parameterType="MissingReplyVO">
+		UPDATE missing_reply
+		SET doc_content = #{doc_content}
+		WHERE doc_cno = #{doc_cno}
+	</update>
+	
+	 <insert id="rereplyInsert" >
+		<selectKey keyProperty="doc_cno" resultType="int" order="BEFORE"> 
+			SELECT MISSING_REPLY_SEQ.NEXTVAL FROM DUAL 
+		</selectKey>
+		INSERT INTO missing_reply (
+								 DOC_CNO
+								,DOC_NO
+								,DOC_EMAIL
+								,DOC_NICK
+								,DOC_CONTENT
+								,DOC_SECRET
+								,DOC_DATE
+								,DOC_REF
+								,DOC_LEV
+								,DOC_SEQ
+								)
+								VALUES
+								(
+									#{doc_cno}
+									,#{doc_no}
+									,#{doc_email}
+									,#{doc_nick}
+									,#{doc_content}
+									,#{doc_secret}
+									, SYSDATE
+									,#{doc_ref}
+									,(select doc_lev+1 from missing_reply WHERE doc_cno = #{doc_ref})
+									,(select nvl(max(doc_seq),0) +1 from missing_reply WHERE doc_ref = #{doc_ref})
+								)
+	</insert>
 </mapper>

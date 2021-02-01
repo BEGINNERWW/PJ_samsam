@@ -11,11 +11,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
 <link href="${pageContext.request.contextPath}/resources/img/title.png" rel="shortcut icon" type="image/x-icon">
 <title>삼삼하개</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- 폰트 -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&display=swap" rel="stylesheet">
@@ -25,7 +27,7 @@
 
 <!-- 부트스트랩 4.0 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+	
 <!-- 제이쿼리 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 
@@ -383,15 +385,6 @@ li.list-group-item.click > a {
 }
 
 
-    
-ul {
-	background-color: white;
-}
-.filter-list{
-    background-color: white;
-}
-
-
 
 .brand-list{
 	background-color: white;
@@ -520,7 +513,7 @@ button {
     background-image:none;
     border:2px solid black;
 }
-select, input, button, textarea {
+select, button, textarea {
     display: inline-block;
     font-family: "Malgun Gothic", 'MalgunGothic', '맑은고딕', sans-serif;
     font-size: 12px;
@@ -926,20 +919,7 @@ select, input, button, textarea {
     font-weight: 500;
     color: #333;
 }
-ul {
-    display: block;
-    list-style-type: disc;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    padding-inline-start: 0px;
-    
-}
-ol, ul {
-    list-style: none;
-    line-height:130%;
-}
+
 .smart-search-wrap .search-item-wrap .search-item .filter-content .brand-list li .item input {
     position: absolute;
     width: 1px;
@@ -1163,7 +1143,7 @@ ol, ul {
     font-size: .8rem;
 }
 .d-block {
-    display: inline-block!important;
+    display: block!important;
 }
 .date-read {
     color: #b4b4b4;
@@ -1180,6 +1160,7 @@ ol, ul {
 	color:#5c5c8a;
 }
 
+
 </style>
 </head>
 <body>
@@ -1187,11 +1168,15 @@ ol, ul {
 <header id = "header">
 
 	<div class ="inout_gocen">
-			<a href="${pageContext.request.contextPath}/loginForm.me"><input type="button" class= "header_btn" id="login" value="로그인"></a>
-			<a href="${pageContext.request.contextPath}/logout.me"><input type="button" class= "header_btn" id="logout" value="로그아웃"></a>
-			<a href="${pageContext.request.contextPath}/joinform.me"><input type="button" class= "header_btn" id="signin" value="회원가입"></a>
-			<a href="${pageContext.request.contextPath}/mypage.me"><input type="button" class= "header_btn" id="mypage" value="마이페이지"></a>
-			<a href="${pageContext.request.contextPath}/customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
+			<%if(email != null){ %>
+			
+			<input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='/logout.me'">
+			<input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='/mypage.me'">
+			<%}else{ %>
+			<input  type="button" class= "header_btn" value="로그인" onclick="location.href='/loginForm.me'">
+			<input  type="button" class= "header_btn" value="회원가입" onclick="location.href='/joinform.me'">
+			<%} %>
+			<a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
 		</div>
 	
 	<div class="nav-menu">
@@ -1203,11 +1188,11 @@ ol, ul {
                      <li><a href="${pageContext.request.contextPath}/fdoclist.bo">책임분양</a></li>
                      <li><a href="${pageContext.request.contextPath}/selladopt_list.bo">업체분양</a></li>
 						</ul></li>
-					<li class="dropdown"><a href="${pageContext.request.contextPath}//SJ/pet_list">보호소</a>
+					<li class="dropdown"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a>
 						<ul class="dropdown-menu care">
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
-					<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
+					<li><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
+					<li><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
+					<li><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
 						</ul></li>
                <li class="dropdown"><a href="${pageContext.request.contextPath}/doclist.bo">커뮤니티</a>
                   <ul class="dropdown-menu commu">
@@ -1223,11 +1208,15 @@ ol, ul {
 		</a>
 		</div>
 	</div>
-	<div class= "search-wrapper">
-      <input class="search-box input" type="text" placeholder="Search">
-      <button class="search-box" type="button"><i class="fas fa-search"></i></button>
-	</div>
-	</div><!-- nav-menu -->
+	<form action="home_search.me" method="post" name="home_search">
+            <div class="search-wrapper">
+               <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
+               <button class="search-box" type="submit">
+                  <i class="fas fa-search"></i>
+               </button>
+            </div>
+      </form>
+      </div>
 </header>
 		
 		<div class="main-content">
@@ -1270,9 +1259,7 @@ ol, ul {
 				                  <span class="date-read">
 				                  	<fmt:formatDate value="${board.doc_date}" pattern="yy/MM/dd"/>
 				                  </span>
-				                  <div class="detail-read"></div>&nbsp;&nbsp;&nbsp;&nbsp;
-				                  <div class="recount_icon"></div>&nbsp;&nbsp;&nbsp;${board.doc_readcount} 
-				                  <div class="comment_icon"></div>&nbsp;${board.reply_count}
+				                  <span class="detail-read">&nbsp;&nbsp;&nbsp;&nbsp;<span class="recount_icon"></span>&nbsp;${board.doc_readcount}&nbsp;&nbsp;<span class="comment_icon"></span>&nbsp;${board.reply_count}</span>
 				                </div>
 				              </div>
 				            </div>
@@ -1294,11 +1281,11 @@ ol, ul {
 
 
 	<!-- 카카오톡 채널 상담 -->
-	<span class="kakaoChat">
+	<div class="kakaoChat">
 	<a href="javascript:void plusFriendChat()">
     <img src="${pageContext.request.contextPath}/resources/img/kakaolink_btn_medium.png" width="45px" height="45px" class="kakao_btn">
 	</a>
-	</span>
+	</div>
 	
 	<!-- pageup button -->
 	<div class ="back-to-top">
@@ -1307,45 +1294,18 @@ ol, ul {
 	</a>
 	</div>
 	
-</div><!-- 바디컨텐트 -->
-</div>
-
-	
-		
-<footer id="footer">
+	<footer id="footer">
 <p>Copyright ©2021 All rights reserved | This template is made with <i class="fas fa-heart"></i> by SamSam
 
 </footer>
+</div><!-- 바디컨텐트 -->
 
-</div>
 
-
-<script>
-$(document).ready(function(){
-	$('#login').on('click', function(e){
-	      $('#logout').show();
-		  $('#mypage').show();
-		  $('#login').hide();
-		  $('#signin').hide();
-	  });
-	
-	$('#logout').on('click', function(e){
-	       $('#logout').hide();
-		   $('#mypage').hide();
-		   $('#login').show();
-		   $('#signin').show();
-	});
-	
-		
-		
-}); 
-
-</script>
 
 <!-- 부트스트랩 4.0 js -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
 
 <!-- 카카오톡 채널 상담 js -->
 	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -1361,6 +1321,7 @@ $(document).ready(function(){
     }
     
   //]]>
+  
 </script>
 
 </body>

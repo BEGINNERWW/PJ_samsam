@@ -1,6 +1,7 @@
 package com.project.samsam.payang;
 
 import java.util.Date;
+import java.util.List;
 
 public class PayangReplyVO {
 	
@@ -13,7 +14,35 @@ public class PayangReplyVO {
 	private Date doc_date;
 	private Date doc_upd_date;
 	private String doc_date_fmt;
+	private int doc_ref;
+	private int doc_lev;
+	private int doc_seq;
+	private List<PayangReplyVO> rereList;
 	
+	public List<PayangReplyVO> getRereList() {
+		return rereList;
+	}
+	public void setRereList(List<PayangReplyVO> rereList) {
+		this.rereList = rereList;
+	}
+	public int getDoc_ref() {
+		return doc_ref;
+	}
+	public void setDoc_ref(int doc_ref) {
+		this.doc_ref = doc_ref;
+	}
+	public int getDoc_lev() {
+		return doc_lev;
+	}
+	public void setDoc_lev(int doc_lev) {
+		this.doc_lev = doc_lev;
+	}
+	public int getDoc_seq() {
+		return doc_seq;
+	}
+	public void setDoc_seq(int doc_seq) {
+		this.doc_seq = doc_seq;
+	}
 	// 수정 삭제
 	private String btnModify;
 	private String btnRemove;
@@ -90,9 +119,9 @@ public class PayangReplyVO {
 	public String toString() {
 		return "PayangReplyVO [doc_cno=" + doc_cno + ", doc_no=" + doc_no + ", doc_email=" + doc_email + ", doc_nick="
 				+ doc_nick + ", doc_content=" + doc_content + ", doc_secret=" + doc_secret + ", doc_date=" + doc_date
-				+ ", doc_upd_date=" + doc_upd_date + "]";
+				+ ", doc_upd_date=" + doc_upd_date + ", doc_date_fmt=" + doc_date_fmt + ", doc_ref=" + doc_ref
+				+ ", doc_lev=" + doc_lev + ", doc_seq=" + doc_seq + ", rereList=" + rereList + ", btnModify="
+				+ btnModify + ", btnRemove=" + btnRemove + "]";
 	}
-	
-	
 	
 }
