@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.project.samsam.board.*" %>
-<%
+<%@ page import="com.project.samsam.board.adopt_homeVO"%>
 
-adopt_homeVO vo = (adopt_homeVO)request.getAttribute("vo");
+
+<%
+adopt_homeVO vo = (adopt_homeVO) request.getAttribute("vo");
 String email = (String) session.getAttribute("email");
 %>
 <html>
@@ -802,6 +803,7 @@ select,button, textarea {
    margin-right:24px;
 }
 
+
 </style>
 
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"
@@ -869,7 +871,6 @@ $(document).ready(function() {
             }
           
    });
-   
    $("div.note-editable").on('drop',function(e){
 	    for(i=0; i< e.originalEvent.dataTransfer.files.length; i++){
 	    	sendFile(e.originalEvent.dataTransfer.files[i],$("#summernote")[0]);
@@ -902,7 +903,7 @@ $(document).ready(function() {
         if($("input[name='doc_big']:checked").val() =="강아지"){
            var output ='';
            output += '<div class="option1">';
-           output += '<div><select class= "form-control" style="width:250px;" size="1" id="doc_kindof" name="doc_kindof">';
+           output += '<div><select class= "form-control" style="width:250px;" size="1" id="doc_doc_kindof" name="doc_kindof">';
            output += '<option value="hide">선택하세요</option>';
            output += '<option value="포메라니안">포메라니안</option>';
            output += '<option value="치와와">치와와</option>';
@@ -1009,6 +1010,7 @@ function setThumbnail(event) {
       }
 
 
+
 function submit_check(){
 	   
 
@@ -1046,6 +1048,7 @@ function submit_check(){
 	   
 	   return true;
 	}
+ 
 
 </script>
 
@@ -1066,8 +1069,9 @@ function submit_check(){
          <%} %>
          <a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
       </div>
-	
-			 <div class="nav-menu">
+   
+   
+   <div class="nav-menu">
             <ul class="sticky-wrapper">
                <li class="dropdown"><a href="home.me">HOME</a></li>
                <li class="dropdown"><a href="home_list.bo">분양</a>
@@ -1089,22 +1093,22 @@ function submit_check(){
                      <li><a href="hospital_map.me">Map</a></li>
                   </ul></li>
             </ul>
-	
-	<div class="header-top">
-		<div class="mainlogo">
-		<a href="home.me">
-		<img src = "resources/img/mainlogo.png" class = "img-circle">
-		</a>
-		</div>
-	</div>
-	<form action="home_search.me" method="post" name="doc_search">
-				<div class="search-wrapper">
-					<input class="search-box input" id="keyword" name="keyword" type="text" placeholder="Search">
-					<button class="search-box btn" type="submit">
-						<i class="fas fa-search"></i>
-					</button>
-				</div>
-			 </form>	
+   
+   <div class="header-top">
+      <div class="mainlogo">
+      <a href="home.me">
+      <img src = "./resources/img/mainlogo.png" class = "img-circle">
+      </a>
+      </div>
+   </div>
+    <form action="home_search.me" method="post" name="doc_search">
+            <div class="search-wrapper">
+               <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
+               <button class="search-box btn" type="submit">
+                  <i class="fas fa-search"></i>
+               </button>
+            </div>
+      </form>
          </div>
          <!-- nav-menu -->
       </header>
@@ -1115,9 +1119,9 @@ function submit_check(){
          <!-- 왼쪽. 서브메뉴가 들어갈 부분 -->
          <div class="sidemenu-section" id="left">
             <ul class="list-group list-group-flush">
-				<li class="list-group-item click"><a href="home_list.bo">가정분양</a></li>
-				<li class="list-group-item"><a href="fdoclist.bo">책임분양</a></li>
-				<li class="list-group-item"><a href="selladopt_list.bo">업체분양</a></li>
+				<li class="list-group-item"><a href="home_list.bo">가정분양</a></li>
+				<li class="list-group-item "><a href="fdoclist.bo">책임분양</a></li>
+				<li class="list-group-item click"><a href="selladopt_list.bo">업체분양</a></li>
             </ul>
          </div>
 
@@ -1128,10 +1132,9 @@ function submit_check(){
             <div class="content-form">
       
        
-   <form method="post" action="adoptwrite.bo" enctype="multipart/form-data" onsubmit="return submit_check();">
-	<input type = "hidden" name ="coupon" value="<%=vo.getCoupon()%>">
-     
-      <div><div><textarea name="doc_subject" placeholder="제목을 입력해 주세요." class="textarea_input" style="height: 40px;"></textarea></div></div>
+   <form method="post" action="Sellhome_update.bo" enctype="multipart/form-data" onsubmit="return submit_check();">
+	<input type="hidden" name="doc_no" value=<%=vo.getDoc_no() %>>
+      <div><div><textarea name="doc_subject" placeholder="제목을 입력해 주세요." class="textarea_input" style="height: 40px;"><%=vo.getDoc_subject() %></textarea></div></div>
      <div class="option_box">
      
        <div class="option1"><div style="display:inline-block;margin-right:10px;"><input type="radio" name="doc_big" value="강아지">&nbsp;&nbsp;강아지&nbsp;&nbsp;&nbsp;&nbsp;<span id="kind1"></span></div>
@@ -1140,7 +1143,7 @@ function submit_check(){
          
         
     <div>
-   <div class="option1">분양비&nbsp;:&nbsp;&nbsp;&nbsp;<input class="form-control" style="width:200px; display:inline-block;" type="text" name="doc_price" placeholder="분양비를 입력해주세요"></div> 
+   <div class="option1">분양비&nbsp;:&nbsp;&nbsp;&nbsp;<input class="form-control" style="width:200px; display:inline-block;" type="text" name="doc_price" placeholder="분양비를 입력해주세요" value=<%=vo.getDoc_price()%>></div> 
    <div class="option1">지&nbsp;&nbsp;역&nbsp;:&nbsp;&nbsp;&nbsp;<select class="form-control" style="width:200px; display:inline-block;" size="1" id="doc_loc" name="doc_loc">
             
             <option value="서울">서울</option>
@@ -1165,18 +1168,18 @@ function submit_check(){
    </div></div>
    <!--  
    <tr><td>썸네일용 이미지를 업로드해주세요</td></tr>
-   <tr><td><input type="file" name="fdoc_Image" onchange="setThumbnail(event);"></td></tr>
+   <tr><td><input type="file" name="home_Image" onchange="setThumbnail(event);"></td></tr>
    <tr><td><div id="image_container"></div></td></tr>     
      -->
       <div><div style="margin-top:20px;margin-bottom:20px;"> 
      
-      <textarea id="summernote" name="doc_content"></textarea>
+      <textarea id="summernote" name="doc_content"><%=vo.getDoc_content() %></textarea>
       </div>
-     
+      <div style="margin-bottom:20px;">
+
       
-      
-      
-      <div><input class="btn_g full_type1" type="submit" id="home_submit" value="글 작성" style="float: right;"><input class="btn_g full_type1" type="button" value="뒤로" onclick="javascript:history.go(-1)" style="float:right; margin-right:10px;"></div></div>
+      </div>
+      <div><input class="btn_g full_type1" type="submit" id="homeupdate_submit" value="수정" style="float: right;"><input class="btn_g full_type1" type="button" value="뒤로" onclick="javascript:history.go(-1)" style="float:right; margin-right:10px;"></div></div>
       
       
    </form>
@@ -1242,21 +1245,11 @@ function submit_check(){
   //]]>
 </script>
 
-   <div id="ex7" class="modal" style="overflow: visible;"></div>
-
-   <div id="ex1" class="modal" style="overflow: visible;">
-      <p>신고가 접수되었습니다. 감사합니다</p>
-      <a href="#" rel="modal:close">Close</a>
-   </div>
-
-
 
 </body>
 
-
 <style>
-.note-editor.note-frame {
+	.note-editor.note-frame {
     border: 1px solid #ebecef;
 }
-
 </style>

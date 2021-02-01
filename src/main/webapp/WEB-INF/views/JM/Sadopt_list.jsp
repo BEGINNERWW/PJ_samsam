@@ -47,6 +47,46 @@
 
 <style>
 
+.list_count{
+   display : flex;
+   justify-content: center;
+}
+.pagenum{
+   display : flex;
+}
+.pageA{
+   margin-top: 10px;
+    padding-top: 3px;
+    padding-right: 10px;
+    padding-left: 10px;
+    color:black;
+}
+.now{
+   width : 30px;
+   height : 30px;
+   background-color : #eeeeee;
+    border-radius : 5px;
+   color:black;
+   text-align: center;
+    padding-top: 2px;
+    margin-top: 10px;
+}
+
+/* 이전 / 다음 버튼 */
+.before-btn, .after-btn{
+   margin: 10px;
+    width:60px;
+    height : 30px;
+    background-color: #eeeeee;
+    color : black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    border-radius : 5px; 
+    border-color: #eeeeee;
+    border-width: 0px;
+}
 @charset "utf-8";
 
 * {
@@ -1145,48 +1185,7 @@ select, button, textarea {
 	
 	color:#5c5c8a;
 }
-
-
-.list_count{
-   display : flex;
-   justify-content: center;
-}
-.pagenum{
-   display : flex;
-}
-.pageA{
-   margin-top: 10px;
-    padding-top: 3px;
-    padding-right: 10px;
-    padding-left: 10px;
-    color:black;
-}
-.now{
-   width : 30px;
-   height : 30px;
-   background-color : #eeeeee;
-    border-radius : 5px;
-   color:black;
-   text-align: center;
-    padding-top: 2px;
-    margin-top: 10px;
-}
-
-/* 이전 / 다음 버튼 */
-.before-btn, .after-btn{
-   margin: 10px;
-    width:60px;
-    height : 30px;
-    background-color: #eeeeee;
-    color : black;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 15px;
-    border-radius : 5px; 
-    border-color: #eeeeee;
-    border-width: 0px;
-}
+	
 
 
 </style>
@@ -1238,7 +1237,7 @@ function create_list(a){
 	
 	$('.list_content').empty();
 	jQuery.ajax({
-		 url : 'home_listAjax.bo',
+		 url : 'Sellhome_listAjax.bo',
          type : 'POST',
          contentType : 'application/x-www-form-urlencoded; charset=utf-8',
          dataType : 'json',
@@ -1252,7 +1251,7 @@ function create_list(a){
                 output += '<div class="post-entry-2 d-flex">';
                 output += '<div class="thumbnail order-md-2");" style="background-image: url(/springfileupload1/upload/'+item.doc_thumbnail+')"></div>'
                 output += '<div class="contents order-md-1 pl-0">'
-                output += '<h2><a class="a_1" href="./adopthomeview.bo?num='+item.doc_no+'">'+ item.doc_subject +'</a></h2>'
+                output += '<h2><a class="a_1" href="./Selladopthomeview.bo?num='+item.doc_no+'">'+ item.doc_subject +'</a></h2>'
                 output += '<p class="mb-3 tag">#' + item.doc_big  + '#' + item.doc_loc  + '#' +  item.doc_kindof  + '#' + numbeComma(number)+'원' + '</p>'
                 output +='<div class="post-meta">'
                 output +='<span class="d-block"><a class="a_1" href="#">'+item.doc_nick+'</a></span>'
@@ -1275,7 +1274,7 @@ function create_list(a){
 	jQuery.ajax({
 		
 		
-		url : 'listcount.bo',
+		url : 'Selllistcount.bo',
 	    type : 'POST',
 	    contentType : 'application/x-www-form-urlencoded; charset=utf-8',
 	    data : {'page':a},
@@ -1290,64 +1289,64 @@ function create_list(a){
 			 var page = data.page;
 			
 			 
-			 	if(page<=1){
-				pageoutput += '<input type="button" class="before-btn" href="#" value="이전">'
-					
-			 	}
-			 	else{
-			 		if(<%=searchVO%> == null){
-			 			pageoutput += '<input type="button" class="before-btn" onclick="create_list('+(page-1)+');" href="#" value="이전">'
-			 		}
-			 		else{
-			 			pageoutput += '<input type="button" class="before-btn" onclick="search_submit'+(page-1);+'" href="#" value="이전">'
-			 		}
-			 	}
-			 	
-			 	for(var a=startpage; a<=endpage; a++){
-			 		
-			 		if(a==page){
-			 			pageoutput +='<span class="now">'+a+'</span>';
-			 			
-			 			}
-			 		else{
-			 			if(<%=searchVO%> == null){
+			 if(page<=1){
+					pageoutput += '<input type="button" class="before-btn" href="#" value="이전">'
+						
+				 	}
+				 	else{
+				 		if(<%=searchVO%> == null){
+				 			pageoutput += '<input type="button" class="before-btn" onclick="create_list('+(page-1)+');" href="#" value="이전">'
+				 		}
+				 		else{
+				 			pageoutput += '<input type="button" class="before-btn" onclick="search_submit'+(page-1);+'" href="#" value="이전">'
+				 		}
+				 	}
+				 	
+				 	for(var a=startpage; a<=endpage; a++){
+				 		
+				 		if(a==page){
+				 			pageoutput +='<span class="now">'+a+'</span>';
+				 			
+				 			}
+				 		else{
+				 			if(<%=searchVO%> == null){
 
-			 				pageoutput += '<a onclick="create_list('+a+');" href="#" class="pageA"><span class="pagenum">'+a+'</span>&nbsp;</a>'
-			 			}
-			 			else{
-			 				
-			 				pageoutput += '<a onclick="search_submit'+(a);+'" href="#" class="pageA"><span class="pagenum">'+a+'</span>&nbsp;</a>'
-			 			}
-			 		}
-			 	}
-			 	
-			 	if(page>=maxpage){
-			 		pageoutput += '<input type="button" class="before-btn" href="#" value="다음">'
-			 	}
-			 	else{
-			 		if(<%=searchVO%> == null){
-			 			pageoutput += '<input type="button" class="after-btn" onclick="create_list('+(page+1)+');" href="#" value="다음">'
-			 		}
-			 		else{
-			 			pageoutput += '<input type="button" class="after-btn" onclick="search_submit'+(page+1);+'" href="#" value="다음">'
-			 		}
-			 	}
-			 	 $('.list_count').append(pageoutput);
-	    },
-		error:function(){
-	        alert("ajax통신 실패!!!")
-	     }
-	    
-	});
+				 				pageoutput += '<a onclick="create_list('+a+');" href="#" class="pageA"><span class="pagenum">'+a+'</span>&nbsp;</a>'
+				 			}
+				 			else{
+				 				
+				 				pageoutput += '<a onclick="search_submit'+(a);+'" href="#" class="pageA"><span class="pagenum">'+a+'</span>&nbsp;</a>'
+				 			}
+				 		}
+				 	}
+				 	
+				 	if(page>=maxpage){
+				 		pageoutput += '<input type="button" class="before-btn" href="#" value="다음">'
+				 	}
+				 	else{
+				 		if(<%=searchVO%> == null){
+				 			pageoutput += '<input type="button" class="after-btn" onclick="create_list('+(page+1)+');" href="#" value="다음">'
+				 		}
+				 		else{
+				 			pageoutput += '<input type="button" class="after-btn" onclick="search_submit'+(page+1);+'" href="#" value="다음">'
+				 		}
+				 	}
+				 	 $('.list_count').append(pageoutput);
+		    },
+			error:function(){
+		        alert("ajax통신 실패!!!")
+		     }
+		    
+		});
 
-}
+	}
 
 $(document).ready(function(){
 	 $(document).on('click', '.cardview', function(event){
 		 $('.boardtable').empty();
 		 $('.content').empty();
 		 jQuery.ajax({
-			 url : 'home_listAjax.bo',
+			 url : 'Sellhome_listAjax.bo',
 	         type : 'POST',
 	         contentType : 'application/x-www-form-urlencoded; charset=utf-8',
 	         dataType : 'json',
@@ -1569,10 +1568,10 @@ function default_submit(a){
 	var searchinsert = $("#detail_form").serialize();
 	
 	jQuery.ajax({
-		 url : 'home_search.bo',
+		 url : 'Sellhome_search.bo',
         type : 'POST',
         contentType : 'application/x-www-form-urlencoded; charset=utf-8',
-        data : {'searchinsert':searchinsert,'page':a},
+        data : searchinsert,
         dataType : 'json',
         success :	function (data) {
        	 
@@ -1584,7 +1583,7 @@ function default_submit(a){
                 output += '<div class="post-entry-2 d-flex">';
                 output += '<div class="thumbnail order-md-2");" style="background-image: url(/springfileupload1/upload/'+item.doc_thumbnail+')"></div>'
                 output += '<div class="contents order-md-1 pl-0">'
-                output += '<h2><a class="a_1" href="./adopthomeview.bo?num='+item.doc_no+'">'+ item.doc_subject +'</a></h2>'
+                output += '<h2><a class="a_1" href="./Selladopthomeview.bo?num='+item.doc_no+'">'+ item.doc_subject +'</a></h2>'
                 output += '<p class="mb-3 tag">#' + item.doc_big  + '#' + item.doc_loc  + '#' +  item.doc_kindof  + '#' + numbeComma(number)+'원' + '</p>'
                 output +='<div class="post-meta">'
                 output +='<span class="d-block"><a class="a_1" href="#">'+item.doc_nick+'</a></span>'
@@ -1604,7 +1603,7 @@ function default_submit(a){
 	
 jQuery.ajax({
 		
-		url : 'Searchlistcount.bo',
+		url : 'SellSearchlistcount.bo',
 	    type : 'POST',
 	    contentType : 'application/x-www-form-urlencoded; charset=utf-8',
 	    data : {'page':a,'vo':searchinsert},
@@ -1625,10 +1624,10 @@ jQuery.ajax({
 			 	}
 			 	else{
 			 		if(<%=searchVO%> == null){
-			 			pageoutput += '<input type = "button" class="before_btn" onclick="create_list('+(page-1)+');" href="#" value="이전">'
+			 			pageoutput += '<a onclick="create_list('+(page-1)+');" href="#">이전&nbsp;</a>'
 			 		}
 			 		else{
-			 			pageoutput += '<input type = "button" class="before_btn" onclick="search_submit'+(page-1);+'" href="#" value="이전">'
+			 			pageoutput += '<a onclick="search_submit'+(page-1);+'" href="#">[이전]</a>'
 			 		}
 			 	}
 			 	
@@ -1641,11 +1640,11 @@ jQuery.ajax({
 			 		else{
 			 			if(<%=searchVO%> == null){
 
-			 				pageoutput += '<a onclick="create_list('+a+');" href="#" class="pageA"><span class="pagenum">'+a+'</sapn>&nbsp;</a>'
+			 				pageoutput += '<a onclick="create_list('+a+');" href="#">'+a+'&nbsp;</a>'
 			 			}
 			 			else{
 			 				
-			 				pageoutput += '<a onclick="search_submit'+(a);+'" href="#" class="pageA"><span class="pagenum">'+a+'</span>&nbsp;</a>'
+			 				pageoutput += '<a onclick="search_submit'+(a);+'" href="#">'+a+'&nbsp;</a>'
 			 			}
 			 		}
 			 	}
@@ -1655,10 +1654,10 @@ jQuery.ajax({
 			 	}
 			 	else{
 			 		if(<%=searchVO%> == null){
-			 			pageoutput += '<input type = "button" class="after_btn" onclick="create_list('+(page+1)+');" href="#" value="다음">'
+			 			pageoutput += '<a onclick="create_list('+(page+1)+');" href="#">다음&nbsp;</a>'
 			 		}
 			 		else{
-			 			pageoutput += '<input type = "button" class="after_btn" onclick="search_submit'+(page+1);+'" href="#" value="다음">'
+			 			pageoutput += '<a onclick="search_submit'+(page+1);+'" href="#">[다음]</a>'
 			 		}
 			 	}
 			 	 $('.list_count').append(pageoutput);
@@ -1677,7 +1676,7 @@ $(".list_content").empty();
 var searchinsert = $("#detail_form").serialize();
 	
 	jQuery.ajax({
-		 url : 'home_search.bo',
+		 url : 'Sellhome_search.bo',
          type : 'POST',
          contentType : 'application/x-www-form-urlencoded; charset=utf-8',
          data : searchinsert,
@@ -1692,7 +1691,7 @@ var searchinsert = $("#detail_form").serialize();
                  output += '<div class="post-entry-2 d-flex">';
                  output += '<div class="thumbnail order-md-2");" style="background-image: url(/springfileupload1/upload/'+item.doc_thumbnail+')"></div>'
                  output += '<div class="contents order-md-1 pl-0">'
-                 output += '<h2><a class="a_1" href="./adopthomeview.bo?num='+item.doc_no+'">'+ item.doc_subject +'</a></h2>'
+                 output += '<h2><a class="a_1" href="./Selladopthomeview.bo?num='+item.doc_no+'">'+ item.doc_subject +'</a></h2>'
                  output += '<p class="mb-3 tag">#' + item.doc_big  + '#' + item.doc_loc  + '#' +  item.doc_kindof  + '#' + numbeComma(number)+'원' + '</p>'
                  output +='<div class="post-meta">'
                  output +='<span class="d-block"><a class="a_1" href="#">'+item.doc_nick+'</a></span>'
@@ -1836,9 +1835,9 @@ function onKeyDown1()
          <!-- 왼쪽. 서브메뉴가 들어갈 부분 -->
 	         <div class="sidemenu-section">
 	         	<ul class="list-group list-group-flush">
-				<li class="list-group-item click"><a href="home_list.bo">가정분양</a></li>
+				<li class="list-group-item"><a href="home_list.bo">가정분양</a></li>
 				<li class="list-group-item "><a href="fdoclist.bo">책임분양</a></li>
-				<li class="list-group-item"><a href="selladopt_list.bo">업체분양</a></li>
+				<li class="list-group-item click"><a href="selladopt_list.bo">업체분양</a></li>
 			</ul>
 	         </div>
          
@@ -2447,7 +2446,7 @@ function onKeyDown1()
           <div class="col-lg-12">
             <div class="section-title">
               <span class="caption d-block small">Categories</span>
-              <h2>가정분양</h2>
+              <h2>업체분양</h2>
             </div>
             <div class="list_wrap">
             <div class="list_content">
@@ -2475,7 +2474,7 @@ function onKeyDown1()
  		
 
    		<%
-   		
+
    		if(email != null){
    			if(mvo.getGrade().equals("사업자")){
 		   		if(bmvo.getFree_coupon()>0){
@@ -2499,7 +2498,6 @@ function onKeyDown1()
 		
 	</div>
 	<% 
-   		
    }
  
    

@@ -1115,9 +1115,9 @@ function submit_check(){
          <!-- 왼쪽. 서브메뉴가 들어갈 부분 -->
          <div class="sidemenu-section" id="left">
             <ul class="list-group list-group-flush">
-				<li class="list-group-item click"><a href="home_list.bo">가정분양</a></li>
+				<li class="list-group-item"><a href="home_list.bo">가정분양</a></li>
 				<li class="list-group-item"><a href="fdoclist.bo">책임분양</a></li>
-				<li class="list-group-item"><a href="selladopt_list.bo">업체분양</a></li>
+				<li class="list-group-item click"><a href="selladopt_list.bo">업체분양</a></li>
             </ul>
          </div>
 
@@ -1128,7 +1128,7 @@ function submit_check(){
             <div class="content-form">
       
        
-   <form method="post" action="adoptwrite.bo" enctype="multipart/form-data" onsubmit="return submit_check();">
+   <form method="post" action="Selladoptwrite.bo" enctype="multipart/form-data" onsubmit="return submit_check();">
 	<input type = "hidden" name ="coupon" value="<%=vo.getCoupon()%>">
      
       <div><div><textarea name="doc_subject" placeholder="제목을 입력해 주세요." class="textarea_input" style="height: 40px;"></textarea></div></div>
