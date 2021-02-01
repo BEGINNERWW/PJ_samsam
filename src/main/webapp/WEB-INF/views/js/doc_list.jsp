@@ -679,6 +679,46 @@ a, button {
     font-weight: 700;
     font-family: "Roboto","Noto Sans KR",AppleSDGothicNeo-Regular,"Malgun Gothic","맑은 고딕",dotum,"돋움",sans-serif;
 }
+.tb-bottom{
+   display : flex;
+   justify-content: center;
+}
+.pagenum{
+   display : flex;
+}
+.pageA{
+   margin-top: 10px;
+    padding-top: 3px;
+    padding-right: 10px;
+    padding-left: 10px;
+    color:black;
+}
+.now{
+   width : 30px;
+   height : 30px;
+   background-color : #eeeeee;
+    border-radius : 5px;
+   color:black;
+   text-align: center;
+    padding-top: 2px;
+    margin-top: 10px;
+}
+
+/* 이전 / 다음 버튼 */
+.before-btn, .after-btn{
+   margin: 10px;
+    width:60px;
+    height : 30px;
+    background-color: #eeeeee;
+    color : black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    border-radius : 5px; 
+    border-color: #eeeeee;
+    border-width: 0px;
+}
 
 
 </style>
@@ -803,52 +843,53 @@ $('#keyword').keypress(function(event){
       	
 </div>
 </div>
-	<div style="margin-top:20px;">
+<div class=tb-bottom style="margin-top:20px;">
 	
 		
-		<div style="text-align:center;display:inline-block;margin-left:400px;">
 			<%if(nowpage<=1){ %>
-			[이전]&nbsp;
+			<input type="button" class="before-btn" value="이전" disabled>
 			<%}else{ 
-			
+		
 			%>
-			<a href="./doclist.bo?page=<%=nowpage-1 %>">[이전]</a>&nbsp;
-			<%}
-			
+			<input type="button" class="before-btn" onclick="location.href='./doclist.bo?page=<%=nowpage-1 %>'" value="이전">
+			<%
+			}
+			%>
+			<span class="pagenum">
+			<% 
 			for(int a=startpage;a<=endpage;a++){
 				if(a==nowpage){
 				//현재페이지는 링크가 필요없으므로 링크를 안검
 				
 				%>
-				[<%=a %>]
+				
+				<font class="now"><%=a %></font>
 				<%}else{ 
 				
 				%>
-				<a href="./doclist.bo?page=<%=a %>">[<%=a %>]</a>
-				&nbsp;
-				
-				<% } %>
+				<a class="pageA" href="./doclist.bo?page=<%=a %>"><%=a %></a>
+			
+				<%		
+				 } %>
 			<%} %>
+			</span>
 			
 			<%if(nowpage>=maxpage){
 				//더이상 읽을페이지가없을떄
 					%>
-			[다음]
+			<input type="button" class="after-btn" value="다음" disabled>
 			<%}else{ 
 			
 			%>
-			<a href="./doclist.bo?page=<%=nowpage+1 %>">[다음]</a>
-			<%}%>
+			<input type="button" class="after-btn" value="다음" onclick="location.href='./doclist.bo?page=<%=nowpage+1 %>'">
+			<%} %>
 			
-			
-		</div>
-	<%if(email!= null){ %>
-	<div style="display:inline-block; float:right;margin-right:125px;">
-	   		<a href="./docform.bo">[글쓰기]</a>
-	</div>
-	<%} %>
+		<%if(email!=null){ %>
+
+	   		<input style="position:relative; left:225px;" type="button" class="after-btn" value="글쓰기" onclick="location.href='./docform.bo'">
 	
-</div>
+	<%} %>	
+		</div>
 
 </div>
 </div>
