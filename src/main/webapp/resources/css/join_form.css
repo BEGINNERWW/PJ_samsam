@@ -90,6 +90,12 @@ form {
 	/* font-size: 14px; */
 	color: #4a89dc;
 }
+.group2 input:focus ~ label, .group2 input.used ~ label {
+	top: -20px;
+  transform: scale(.75); left: -7px;
+	/* font-size: 14px; */
+	color: #4a89dc;
+}
 
 .group>.local {
 	color: #fff;
@@ -154,10 +160,13 @@ input:focus ~ .bar:before, input:focus ~ .bar:after { width: 50%; }
   width: 150px;
   border-radius: 5px;
 }
+
+
 .check_email,
 .check_nick,
 .pass1,
-.pass2 {
+.pass2,
+.phonecheck{
 	color: #999;
 	font-size: 0.8em;
 }

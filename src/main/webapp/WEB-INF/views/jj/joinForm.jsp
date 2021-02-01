@@ -62,103 +62,111 @@
 </style>
 <script type="text/javascript">
  
+//이메일 체크
 
+		
+		
+		
 $(document).ready(function(){
-	// name 속성이 'email'인 input 이 focus를 잃었을때 처리한다.
-	
-		
-	//이메일 체크
-		$('#email').focusout(function(){
-			// 값을 입력안한경우는 아예 체크를 하지 않는다.
-			//$("input[name='email']").blur(function(){ 
-		var emailt = $('#email').val(); 
-		if( emailt == '' || emailt == 'undefined' || emailt == null) 
-			return false; 
-			
-			// 이메일 유효성 검사 
-		if(! email_check(emailt) ) { 
-			$(".check_email").text("잘못된 형식의 이메일입니다.");
-			$(this).focus();
-			return false;
-			}
-		else{
-			
-			
-			var data = {
-					email : $('#email').val()
-			}
-			console.log($('#email').val());
 
-			$.ajax({
-				url: '/samsam/idcheckajax.do',
-				type: 'POST',
-				data: JSON.stringify(data),
-				contentType : 'application/json;charset=utf-8',
-				dataType : 'json',
-
-				success : function(map) {
-					//$(".check_email").empty();
-					if(map.email == "ZERO"){  //이메일 중복
-					$(".check_email").text("사용가능한 이메일입니다.");
-					$(".check_email").css("color", "#999");
-					
-					}
-					else{
-						$(".check_email").text("중복된 이메일입니다. 다시 확인하세요.");
-						$(".check_email").css("color", "#999");
-						$(this).focus();
-					}
-				},//success
-				error : function(){
-					alert("통신실패");
-				}
-			});//ajax
-		}//else
-		
+	 var isEmpty = function(val) {
+		    if (val === "" || val === null || val === undefined
+		      || (val !== null && typeof val === "object" && !Object.keys(val).length)
+		    ){
+		      return true
+		    } else {
+		      return false
+		    }
+		  };
+	//// 이메일 유효성 검사 
+	$('#email').focusout(function(){
 	
-		
-	});
-	 // 이메일 체크 끝
-	
-	//닉네임 체크 시작
-	$('#nick').focusout(function(){
-		//$("input[name='email']").blur(function(){ 
-		var emailt = $('#email').val(); 
-	
-		if( emailt == '' || emailt == 'undefined' || emailt == null) {
-			return false; 
-	}else{
-		var data = {
-				nick : $('#nick').val()
-		}
-		console.log($('#nick').val());
-
-		$.ajax({
-			url: '/samsam/nickcheckajax.do',
-			type: 'POST',
-			data: JSON.stringify(data),
-			contentType : 'application/json;charset=utf-8',
-			dataType : 'json',
-
-			success : function(map) {
-				//$(".check_email").empty();
-				if(map.nick == "ZERO"){  //이메일 중복
-				$(".check_nick").text("사용가능한 닉네임입니다.");
-				$(".check_nick").css("color", "#999");
-				
-				}
-				else{
-					$(".check_nick").text("중복된 닉네임입니다.");
-					$("#nick").on(focus);
-				}
-			},//success
-			error : function(){
-				alert("통신실패");
-			}
-		});//ajax
+	if(isEmpty($('#email').val())) { 
+		$(".check_email").text("");
 	}
+	if(! email_check($('#email').val()) ) { 
+		$(".check_email").text("잘못된 형식의 이메일입니다.");
+		$(this).focus();
+	}
+	else{
 	
-	});//닉네임체크 끝
+	
+	var data = {
+			email : $('#email').val()
+	}
+	console.log($('#email').val());
+
+	$.ajax({
+		url: '/samsam/idcheckajax.do',
+		type: 'POST',
+		data: JSON.stringify(data),
+		contentType : 'application/json;charset=utf-8',
+		dataType : 'json',
+
+		success : function(map) {
+			//$(".check_email").empty();
+			if(map.email == "ZERO"){  //이메일 중복
+			$(".check_email").text("사용가능한 이메일입니다.");
+			$(".check_email").css("color", "#999");
+			
+			}
+			else{
+				$(".check_email").text("중복된 이메일입니다. 다시 확인하세요.");
+				$(".check_email").css("color", "#999");
+				$(this).focus();
+			}
+		},//success
+		error : function(){
+			alert("통신실패");
+		}
+	});//ajax
+}//else
+
+
+
+});
+// 이메일 체크 끝
+
+		//닉네임 체크 시작
+		$('#nick').focusout(function(){
+		//$("input[name='email']").blur(function(){ 
+			var emailt = $('#email').val(); 
+			
+				if(emailt == '' || emailt == 'undefined' || emailt == null) {
+					return false; 
+				}else{
+					var data = {
+							nick : $('#nick').val()
+						}
+					console.log($('#nick').val());
+				
+					$.ajax({
+						url: '/samsam/nickcheckajax.do',
+						type: 'POST',
+						data: JSON.stringify(data),
+						contentType : 'application/json;charset=utf-8',
+						dataType : 'json',
+					
+						success : function(map) {
+							//$(".check_email").empty();
+							if(map.nick == "ZERO"){  //이메일 중복
+							$(".check_nick").text("사용가능한 닉네임입니다.");
+							$(".check_nick").css("color", "#999");
+							
+							}
+							else{
+								$(".check_nick").text("중복된 닉네임입니다.");
+								$("#nick").on(focus);
+							}
+						},//success
+						error : function(){
+							alert("통신실패");
+						}
+					});//ajax
+			
+				}//else
+		});//닉네임체크 끝
+
 	
 	
 	//비밀번호
@@ -184,6 +192,14 @@ $(document).ready(function(){
 			}
 		
 		});
+	//휴대번호
+	$('.phone').keyup(function(){
+		if(isEmpty($('.phone').val())){
+			$('.phonecheck').text("");
+		}else{
+			$('.phonecheck').text("전화번호는 ' - ' 없이 숫자만 입력하세요");
+		}
+	});
 	
 	
    
@@ -320,18 +336,23 @@ function email_check(emailt) {
 <div class="pass1"></div>
 </div>
 
-<div class="group">
+<div class="group group2">
  <div class="pw">
 	<input type="password" name="pw2"id="pw2"maxlength="16"><span class="highlight"></span><span class="bar"></span>
-	<label for="pw2"class="labelpw"><span class="content-email">password 확인</span></label>
-    
+    <label for="pw2"class="labelpw"><span class="content-email">password 확인</span></label>
 </div>
 <div class="pass2"></div>
 </div>
-<div class="group">
-	<input type="number" name="phone" id="phone"maxlength="11"><span class="highlight"></span><span class="bar"></span>
-    <label>휴대폰 번호</label>
+
+
+<div class="group group2">
+<div class="phonenum">
+	<input type="number" name="phone" class="phone" maxlength="11" autocomplete="off"><span class="highlight"></span><span class="bar"></span>
+    <label for="phone"class="labelphone"><span class="content-email">휴대폰 번호</span></label>
 </div>
+<div class="phonecheck"></div>
+</div>
+	
 <div class="group">
    <div class="local-group">
 	 <span><h5>이용지역</h5></span>

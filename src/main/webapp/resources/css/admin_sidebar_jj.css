@@ -29,13 +29,15 @@ body::-webkit-scrollbar { display:none; }
 
 .main_content{
 	margin: 50px 50px 0 50px;
-	width:55%;
+	width:1000px;
+	padding: 0 20px;
 } 
 .right-container{
-	width:30%;
+	width:550px;
 	margin-top : 50px ;
     display : flex;
     flex-direction: column;
+    padding-right: 50px;
 }		
 a{
 	display : block;
@@ -47,7 +49,7 @@ span {
 }
 /* left-sidebar */
 header,#header {
-	width : 12.6%;
+	width : 259.45px;
 	height: 100%;
 	background : #040B14;
 	margin-right : auto;

@@ -130,7 +130,22 @@ $(document).ready(function(){
 									
 									var category = $('.category').val();
 									console.log("에이젝스 카테고리 : " +$('.category').val())
-									
+									if(category == "free_auth"){
+										var output = '';
+										output += '<tr class ="wc_board" style="width:100%;">';
+										output += '<td style="width:10%;">'+ item.doc_no+ '</td>';
+										output += '<a href="#" style="overflow:hidden;"><td style="width:30%;">'+ item.fadoc_subject+'</td></a>';
+										output += '<td style="width:10%;">'+ item.fadoc_nick+ '</td>';
+										output += '<td style="width:10%;">'+ item.fadoc_date+ '</td>';
+										output += '<td style="width:10%;">'+ item.fadoc_readcount+ '</td>';
+										output += '<td style="width:10%;"><button type="button" id="location_open_btn" number='+item.doc_no +' category='+category +' onclick="location_change(this);"  value="상세보기">'+item.w_status+'</button></td>';
+										output += '</tr>';
+										console.log("output:"+ output);
+										console.log("output:"+ category);
+										$('#output').append(output);
+										b_count += 1	
+									}
+									else{
 									var output = '';
 									output += '<tr class ="wc_board">';
 									output += '<td>'+ item.doc_no+ '</td>';
@@ -146,7 +161,7 @@ $(document).ready(function(){
 									$('#output').append(output);
 									
 									b_count += 1
-									
+									}
 								});
 							
 								$(".wc_board").slice(10).hide();
@@ -155,33 +170,42 @@ $(document).ready(function(){
 								var app = "<div class='tb-bottom'><input type='button' class ='before-btn' value = '이전'>" + "<span class='pagenum'></span><input type='button' class = 'after-btn' value = '다음'></div>"
 								$("#result-table").after(app);
 								var page = 0
-								var b = 0;
-								for(var i = 1; i <= b_count ; i++){
-									console.log("반복문")
-									b += i;
-									if(b%10 == 0){ //페이지
-										page += 1	
-										console.log("page수 :" + page)
-										$('.pagenum').html($('.pagenum').html()+'<a class ="pageA" href="javascript:void(0);" onclick="page_detail(this);" value = "'+ page +'">'+ page + '</a>')
-									}else if(b <= 10){
-										page += 1	
-										console.log("page값 :" + $('.pagenum').val())
 
-										$('.pagenum').html($('.pagenum').html()+'<a class ="pageA" href="javascript:void(0);" onclick="page_detail(this);" value = "'+ page +'">'+ page + '</a>')
-									}
-								}
+						          var b = 0;
+						          console.log("행 수")
+						          console.log(b_count)
+						          for(var i = 1; i <= b_count ; i++){
+						            if(b != 10 && b%10 == 0){
+						              console.log("b는 "+ b)
+						              console.log(b%10)
+						              page += 1  
+						              console.log("page수 :" + page)
+						              $('.pagenum').html($('.pagenum').html()+'<a class ="pageA" href="javascript:void(0);" onclick="page_detail(this);" value = "'+ page +'">'+ page + '</a>')
+						            }else if(b <= 10){
+						              console.log("page값 :" + page)
+						              if(page < 1){
+						               page = 1  
+						              $('.pagenum').html($('.pagenum').html()+'<a class ="pageA" href="javascript:void(0);" onclick="page_detail(this);" value = "'+ page +'">'+ page + '</a>')
+						              }
+						            }else if(b > page*10 && b%10 != 0){
+						              page += 1  
+						              console.log("page수 :" + page)
+						              $('.pagenum').html($('.pagenum').html()+'<a class ="pageA" href="javascript:void(0);" onclick="page_detail(this);" value = "'+ page +'">'+ page + '</a>')              
+						            }
+						            b += 1;
+						          }
+
 								sessionStorage.setItem("pagenum", 1);
+								sessionStorage.setItem("lastPage", page);
+								console.log("마지막:"+sessionStorage.getItem("lastPage"))
 								console.log("세션"+ sessionStorage.getItem("pagenum"))
+								
+								nowpage();
 								
 							},
 							error : function(request, error) {
-
 								alert("fail");
-
 								// error 발생 이유를 알려준다.
-
-							alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-
 							}
 
 						});
@@ -205,46 +229,78 @@ $(document).ready(function(){
 					$.each(list,function(index, item){
 							
 							var category = $('.category').val();
-							
-					
+							if(category == "free_auth"){
+								var output = '';
+								output += '<tr class ="wc_board" style="width:100%;">';
+								output += '<td style="width:10%;">'+ item.doc_no+ '</td>';
+								output += '<a href="#" style="overflow:hidden;"><td style="width:30%;">'+ item.fadoc_subject+'</td></a>';
+								output += '<td style="width:10%;">'+ item.fadoc_nick+ '</td>';
+								output += '<td style="width:10%;">'+ item.fadoc_date+ '</td>';
+								output += '<td style="width:10%;">'+ item.fadoc_readcount+ '</td>';
+								output += '<td style="width:10%;"><button type="button" id="location_open_btn" number='+item.doc_no +' category='+category +' onclick="location_change(this);"  value="상세보기">상세보기</button></td>';
+								output += '</tr>';
+								console.log("output:"+ output);
+								console.log("output:"+ category);
+								$('#output').append(output);
+								b_count += 1	
+							}
+							else{
+								
 							var output = '';
-							output += '<tr class ="wc_board">';
-							output += '<td>'+ item.doc_no+ '</td>';
-							output += '<a href="#"><td>'+ item.doc_subject+'</td></a>';
-							output += '<td>'+ item.doc_nick+ '</td>';
-							output += '<td>'+ item.doc_date+ '</td>';
-							output += '<td>'+ item.doc_readcount+ '</td>';
-							output += '<td><button type="button" id="location_open_btn" number='+item.doc_no +' category='+category +' onclick="location_change(this);"  value="상세보기">상세보기</button></td>';
+							output += '<tr class ="wc_board" style="width:100%;">';
+							output += '<td style="width:10%;">'+ item.doc_no+ '</td>';
+							output += '<a href="#" style="overflow:hidden;"><td style="width:30%;">'+ item.doc_subject+'</td></a>';
+							output += '<td style="width:10%;">'+ item.doc_nick+ '</td>';
+							output += '<td style="width:10%;">'+ item.doc_date+ '</td>';
+							output += '<td style="width:10%;">'+ item.doc_readcount+ '</td>';
+							output += '<td style="width:10%;"><button type="button" id="location_open_btn" number='+item.doc_no +' category='+category +' onclick="location_change(this);"  value="상세보기">상세보기</button></td>';
 							output += '</tr>';
 							console.log("output:"+ output);
 							console.log("output:"+ category);
 							$('#output').append(output);
 							b_count += 1
-
+							
+							}
 					});  //		each
 					$(".wc_board").slice(10).hide();
 
 					console.log("글갯수 : " + b_count)
 					var app = "<div class='tb-bottom'><input type='button' class ='before-btn' value = '이전'>" + "<span class='pagenum'></span><input type='button' class = 'after-btn' value = '다음'></div>"
 					$("#result-table").after(app);
+					
 					var page = 0
-					var b = 0;
-					for(var i = 1; i <= b_count ; i++){
-						console.log("반복문")
-						b += i;
-						if(b%10 == 0){
-							page += 1	
-							console.log("page수 :" + page)
-							$('.pagenum').html($('.pagenum').html()+'<a class ="pageA" href="javascript:void(0);" onclick="page_detail(this);" value = "'+ page +'">'+ page + '</a>')
-						}else if(b <= 10){
-							page += 1	
-							console.log("page값 :" + $('.pagenum').val())
 
-							$('.pagenum').html($('.pagenum').html()+'<a class ="pageA" href="javascript:void(0);" onclick="page_detail(this);" value = "'+ page +'">'+ page + '</a>')
-						}
-					}
+			          var b = 0;
+			          console.log("행 수")
+			          console.log(b_count)
+			          for(var i = 1; i <= b_count ; i++){
+			            if(b != 10 && b%10 == 0){
+			              console.log("b는 "+ b)
+			              console.log(b%10)
+			              page += 1  
+			              console.log("page수 :" + page)
+			              $('.pagenum').html($('.pagenum').html()+'<a class ="pageA" href="javascript:void(0);" onclick="page_detail(this);" value = "'+ page +'">'+ page + '</a>')
+			            }else if(b <= 10){
+			              console.log("page값 :" + page)
+			              if(page < 1){
+			               page = 1  
+			              $('.pagenum').html($('.pagenum').html()+'<a class ="pageA" href="javascript:void(0);" onclick="page_detail(this);" value = "'+ page +'">'+ page + '</a>')
+			              }
+			            }else if(b > page*10 && b%10 != 0){
+			              page += 1  
+			              console.log("page수 :" + page)
+			              $('.pagenum').html($('.pagenum').html()+'<a class ="pageA" href="javascript:void(0);" onclick="page_detail(this);" value = "'+ page +'">'+ page + '</a>')              
+			            }
+			            b += 1;
+			          }
+			          
+
 					sessionStorage.setItem("pagenum", 1);
+					sessionStorage.setItem("lastPage", page);
+					console.log("마지막:"+sessionStorage.getItem("lastPage"))
 					console.log("세션"+ sessionStorage.getItem("pagenum"))
+					
+					nowpage();
 				}, //성공
 					error : function(error) {
 						alert("통신실패"+ error);
@@ -254,59 +310,93 @@ $(document).ready(function(){
 
 			}//else
 			
-			
+			event.preventDefault();	
 		}); //find_data
 })	//ready
-	
-function page_detail(obj){
-	console.log("page"+sessionStorage.getItem("pagenum"));
+function nowpage(){
+	  if($('.pageA').hasClass('now')){
+	    $('.pageA').removeClass('now')
+	  }
+	  console.log("현재페이지 css")
+	  console.log($('.pageA:nth-child(n)').attr('value'))
+	  for(var i=0; i <= $('.pageA').length; i++){
+	    var nowpage = $('.pageA:nth-child('+ i +')').attr('value');
+	    console.log(nowpage)
+	    console.log(sessionStorage.getItem("pagenum"))
+	    if(nowpage == sessionStorage.getItem("pagenum")){
+	      $('.pageA:nth-child('+ i +')').addClass("now");
+	      break;
+	    }
+	  }
+	}
 
-	$(".wc_board").hide();
-	var page = $(obj).attr('value');
-	console.log(page)
-	var start = (page-1)*10;
-	var end = page*10;
-	$(".wc_board").slice(start, end).show();
-	sessionStorage.setItem("pagenum", page);
-	console.log("page"+sessionStorage.getItem("pagenum"));
-}//page event
-
+	function page_detail(obj){
+	  console.log("page버튼이벤트"+sessionStorage.getItem("pagenum"));
+	  
+	  
+	  $(".wc_board").hide();
+	  var page = $(obj).attr('value');
+	  console.log(page)
+	  var start = (page-1)*10;
+	  var end = page*10;
+	  $(".wc_board").slice(start, end).show();
+	  sessionStorage.setItem("pagenum", page);
+	  nowpage()
+	  
+	  console.log("page버튼 이벤트 후"+sessionStorage.getItem("pagenum"));
+	}//page event
 
 	$(document).on("click", ".before-btn",function(event) {
-		$(".wc_board").hide();
+	  before = sessionStorage.getItem("pagenum")
+	  sessionStorage.setItem("pagenum", Number(before)-1)
+	  var page = sessionStorage.getItem("pagenum")
+	  console.log("이전"+sessionStorage.getItem("pagenum"));
+	  nowpage()  
+	  if(Number(page) <= 0){
+	    swal("","첫 페이지 입니다.","info")
+	    sessionStorage.setItem("pagenum", 1)
+	    nowpage()
+	  }
+	  else if(Number(page) > 1){
+	  $(".wc_board").hide();
+	  var start = (page-1)*10;
+	  var end = start+10;
 
-		page = sessionStorage.getItem("pagenum")
-		console.log("page"+sessionStorage.getItem("pagenum"));
+	  $(".wc_board").slice(start, end).show();
+	  }
+	  else if(Number(page) == 1){
+	    $(".wc_board").hide();
+	    var start = (page-1)*10;
+	    var end = 1*10;
 
-		if(page <= 1){
-			swal("","첫 페이지 입니다.","info")
-		}
-		var start = (page-10)*10;
-		var end = (page-1)*10;
-
-		$(".wc_board").slice(start, end).show();
-		sessionStorage.setItem("pagenum", Number(page)-1)
+	    $(".wc_board").slice(start, end).show();
+	  }
 	});
 
 	$(document).on("click", ".after-btn",function(event) {
-		$(".wc_board").hide();
-		console.log($(".wc_board").length)
+	  var page = sessionStorage.getItem("pagenum")
+	  var last = sessionStorage.getItem("lastPage")
+	   console.log("마지마:"+sessionStorage.getItem("lastPage"))
+	  console.log("다음:"+sessionStorage.getItem("pagenum"))
+	  if(Number(page) >= Number(last)){
+	    swal("","마지막 페이지 입니다.","info")
+	  }
+	  else{
+	  $(".wc_board").hide();
+	  console.log($(".wc_board").length)
 
-		if($(".wc_board").length <= (Number(page)+1)*2){
-			swal("","마지막 페이지 입니다.","info")
-		}
-		page = sessionStorage.getItem("pagenum")
-
-		console.log("page"+sessionStorage.getItem("pagenum"));
-		var start = page*10;
-		var end = start+10;
-		
-		$(".wc_board").slice(start, end).show();
-		sessionStorage.setItem("pagenum",Number(page)+1)
-
+	  console.log("page"+sessionStorage.getItem("pagenum"));
+	  var start = page*10;
+	  var end = start+10;
+	  
+	  $(".wc_board").slice(start, end).show();
+	  sessionStorage.setItem("pagenum",Number(page)+1)
+	  console.log("다음:"+sessionStorage.getItem("pagenum"))
+	  }
+	  nowpage()
 	});
-
-//
+	
+	
 	function checkOnlyOne(element) {
 		  
 		  const checkboxes = document.getElementsByName("kind");
@@ -316,7 +406,7 @@ function page_detail(obj){
 		  })
 		  element.checked = true;
 	}
-	//분류 체크박스 선택값 radio 함수
+	//분류 체크박스 선택값 radio 함수 끝
 	
 	function location_change(obj){
 		var number = $(obj).attr('number');
@@ -324,7 +414,7 @@ function page_detail(obj){
 		console.log("함수 : " +$(obj).attr('category')+ $(obj).attr('number')	)
 		location.href="/samsam/ad_boardDetail.do?number="+ number +"&category="+ category;
 	}
-
+	//boardDateil 페이지로 변경
 
 </script>	
 
