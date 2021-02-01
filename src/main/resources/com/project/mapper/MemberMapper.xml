@@ -20,7 +20,7 @@ biz_email / biz_no / biz_com/ biz_name / biz_add / biz_img / free_coupon/ pay_co
 	</select>
 	
 	<update id="updateAuthkey" parameterType="HashMap">
-		update member_list set authkey =#{authkey} where email=#{email}
+		update member_list set authkey =#{authkey, jdbcType=VARCHAR} where email=#{email}
 	</update>
 	
 	<update id="updateAuthStatus" parameterType="HashMap">
@@ -101,12 +101,12 @@ biz_email / biz_no / biz_com/ biz_name / biz_add / biz_img / free_coupon/ pay_co
 
 <!-- 사업자회원 내가 작성한 분양글 -->
 <select id="getMyAdopt" parameterType="String" resultType="Adopt_BoardVO">
-	select doc_no, doc_subject, doc_date, doc_readcount from adopt_list where doc_email = #{adopt_email} order by doc_no desc
+	select doc_no, doc_subject, doc_date, doc_readcount from adopt_list where doc_email = #{doc_email} order by doc_no desc
 </select>
 
 <!-- 사업자회원 내가 작성한 글에 달린 댓글수 -->
-<select id="getMyAdoptReply" parameterType="int" resultType="int">
-	select count(*) from adopt_reply where doc_no = #{adopt_no}
+<select id="getMyAdoptReply" parameterType="Adopt_BoardVO" resultType="int">
+	select count(*) from adopt_reply where doc_no = #{doc_no}
 </select>
 
 <!-- 내 작성글 리스트 -->
