@@ -2221,13 +2221,15 @@ li{
 			<%}else{ %>
 			<input type="button" class="after-btn" value="다음" onclick="search_submit(<%=nowpage+1 %>);">
 			<%}} %>
-		</div>
-	<%if(email!=null){ %>
-	<div style="display:inline-block; float:right;margin-right:25px;">
-	   		<a href="./fdocform.bo">[글쓰기]</a>
-	</div>
-	<%} %>
+	
+		
+		<%if(email!=null){ %>
+
+	   		<input style="position:relative; left:290px;" type="button" class="after-btn" value="글쓰기" onclick="location.href='./fdocform.bo'">
+	
+	<%} %>	
 </div>
+	</div>
 </div></div>
 			
 			

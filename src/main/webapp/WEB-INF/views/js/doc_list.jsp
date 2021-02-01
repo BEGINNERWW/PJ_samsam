@@ -884,7 +884,11 @@ $('#keyword').keypress(function(event){
 			<input type="button" class="after-btn" value="다음" onclick="location.href='./doclist.bo?page=<%=nowpage+1 %>'">
 			<%} %>
 			
-			
+		<%if(email!=null){ %>
+
+	   		<input style="position:relative; left:225px;" type="button" class="after-btn" value="글쓰기" onclick="location.href='./docform.bo'">
+	
+	<%} %>	
 		</div>
 
 </div>
