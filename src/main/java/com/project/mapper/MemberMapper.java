@@ -70,6 +70,20 @@ public interface MemberMapper {
 	public int   update_return(String email);
 	public ArrayList<Payed_listVO> 	getPay_list();
 	
+	//chartjs
+	public int 	storecount();
+	public int 	standbycount();
+	public int 	countAdopt();
+	public int 	countHome();
+	public int 	countFree();
+	public ArrayList<TboardVO> getThreeCount();
+	public ArrayList<ChartjsVO> weeklyLocala();
+	public ArrayList<ChartjsVO> weeklyLocalh();
+	public ArrayList<ChartjsVO> weeklyLocalf();
+
+	public ArrayList<ChartjsVO> payedMonth();
+	public ArrayList<ChartjsVO> repayedMonth();
+		
 	//todolist
 	public int insert_todo(Todo_listVO todo);
 	public int update_todo(Todo_listVO todo);

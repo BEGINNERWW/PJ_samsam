@@ -2,7 +2,6 @@
 <!DOCTYPE mapper
 	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
 <!-- namespace="com.spring.mapper.MemberMapper는 MemberMapper인퍼페이스(MemberMapper.class)의 이름을 사용한다. -->
 <mapper namespace="com.project.mapper.MemberMapper">
 
@@ -36,10 +35,10 @@ biz_email / biz_no / biz_com/ biz_name / biz_add / biz_img / free_coupon/ pay_co
 	SELECT count(*) FROM member_list WHERE nick=#{check, jdbcType=VARCHAR}
 	</select>
 		
-<!-- 회원가입 --> 
+<!-- 회원가입 -->
 <insert id = "joinMember" parameterType="MemberVO">
 	insert into member_list (email, pw, name, nick,phone,local, grade, authkey,status, signdate)
-	values (#{email}, #{pw}, #{name},#{nick}, #{phone}, #{local}, #{grade}, #{authkey},#{status},sysdate)
+	values (#{email}, #{pw}, #{name}, #{nick},  #{phone}, #{local}, #{grade}, #{authkey},#{status},sysdate)
 </insert>
 
 <!-- 소셜 회원가입 -->
@@ -56,7 +55,7 @@ biz_email / biz_no / biz_com/ biz_name / biz_add / biz_img / free_coupon/ pay_co
 <select id="getMemberlist" resultType="MemberVO">
 	select * from member_list order by email
 </select>
- 
+
 <!-- 회원정보수정 -->
 <update id = "updateMember" parameterType="MemberVO">
 	update member_list set pw=#{pw},nick=#{nick},phone=#{phone},local=#{local} where email= #{email}
@@ -77,7 +76,7 @@ biz_email / biz_no / biz_com/ biz_name / biz_add / biz_img / free_coupon/ pay_co
 
 <!-- 판매허가인증 확인 -->
 <select id ="check_auth" parameterType="Biz_memberVO" resultType="Biz_memberVO">
-   select biz_name from fulldata_animal where auth_no=#{biz_no} and status_no = '01'
+ 	select biz_name from fulldata_animal where auth_no=#{biz_no} and status_no = '01'
 </select>
 
 <!-- 사업자회원 추가(상태대기) -->
@@ -128,7 +127,7 @@ select * from (
 	select doc_no as num, doc_subject as subject, doc_date as write_date from missing where doc_email = #{email}
 ) order by write_date desc
 </select>
-
+ 
 <!-- 내 댓글 리스트 -->
 <select id="getWriteComment" parameterType="String" resultType="CommentListVO">
 select * from (
@@ -147,6 +146,7 @@ select * from (
 	select doc_content as content, doc_date as write_date, doc_no from missing_reply where doc_email = #{email}
 ) order by write_date desc
 </select>
+
 
 <!-- 내 작성글 리스트 -->
 <select id="getWriteList1" parameterType="String" resultType="BoardlistVO">
@@ -226,8 +226,8 @@ select * from (
 <!-- 어드민 회원 조회 -->
 <!-- 분류 / 아이디 / 닉네임 / 지역 / 가입일 / 신고횟수   -->
 <select id="serach_member" parameterType="Search_paramsVO" resultType="MemberVO">
-  select grade, email, nick, local, signdate, wcount from member_list 
-  where 1 = 1
+	 select grade, email, nick, local, signdate, wcount from member_list 
+ 	 where 1 = 1
     <if test ="fromDate != null and fromDate != '' and toDate != null and toDate !=''">
       and signdate between TO_DATE(#{fromDate},'YYYY-MM-DD') and TO_DATE(#{toDate},'YYYY-MM-DD')+0.9999
     </if>
@@ -253,6 +253,7 @@ select * from (
 <delete id="auth_return" parameterType="String">
 	DELETE FROM biz_member WHERE biz_email = #{email}
 </delete>
+
 <update id ="update_return" parameterType="String">
   update member_list set grade = '일반' where email = #{email}
 </update>
@@ -261,6 +262,77 @@ select * from (
 <select id="getPay_list" resultType = "Payed_listVO">
 	select merchant_uid, biz_email, refund, pay_date from payed_list order by pay_date
 </select>
+
+
+<!-- 인증대기업체 숫자 | 총 분양업체 숫자 -->
+<select id="storecount" resultType = "int">
+	select count(*) from biz_member where status = '0'
+</select>
+<select id="standbycount" resultType = "int">
+	select count(*) from biz_member where status = '1'
+</select>
+
+<!-- chartjs 차트 1 ) 일간분양게시현황(업체/가정/책임) - 라인차트(툴팁 - 탑 3 작성자, 작성글갯수 요건 생각좀) -->
+<insert id="countAdopt"><!-- 업체 --> 
+	<selectKey keyProperty="count" resultType="int" order="BEFORE">
+		select count(*) from adopt_list where doc_date = TO_CHAR(SYSDATE -1 ,'yyyy-mm-dd')
+	</selectKey>
+		insert into threeboard(write_date, write_count, board) values(SYSDATE -1, #{count}, '분양')
+</insert>
+
+<insert id="countHome"><!-- 가정 -->
+	<selectKey keyProperty="count" resultType="int" order="BEFORE">
+		select count(*) from adopt_home where doc_date = TO_CHAR(SYSDATE -1 ,'yyyy-mm-dd')
+	</selectKey>
+		insert into threeboard(write_date, write_count, board) values(SYSDATE -1, #{count}, '가정')
+</insert>
+
+<insert id="countFree"><!-- 책임 -->
+	<selectKey keyProperty="count" resultType="int" order="BEFORE">
+		select count(*) from free_doc where doc_date = TO_CHAR(SYSDATE -1 ,'yyyy-mm-dd')
+	</selectKey>
+		insert into threeboard(write_date, write_count, board) values(SYSDATE -1, #{count}, '책임')
+</insert>
+
+<select id="getThreeCount" resultType = "TboardVO"><!-- 업체 -->
+	select * from threeboard where write_date >= TO_CHAR(sysdate -7, 'yyyy-mm-dd')
+</select>
+
+<!-- chartjs 차트 2 ) 최근 1주간 게시글 지역 탑 3 - 바 -->
+<select id="weeklyLocala" resultType = "ChartjsVO"><!-- 업체 -->
+	select rownum, local, alocal_count from 
+    (select m.local, count(m.local) as alocal_count from member_list m,
+	(select * from adopt_list where doc_date >= TO_CHAR(sysdate -7, 'yyyy-mm-dd')) a
+	where m.email = a.doc_email group by m.local order by alocal_count desc)
+    where rownum between 1 and 3
+</select>
+
+<select id="weeklyLocalh" resultType = "ChartjsVO"><!-- 가정 -->
+	select rownum, local, hlocal_count from 
+	(select m.local, count(m.local) as hlocal_count from member_list m,
+	(select * from adopt_home where doc_date >= TO_CHAR(sysdate -7, 'yyyy-mm-dd')) a
+	where m.email = a.doc_email group by m.local order by hlocal_count desc)
+	where rownum between 1 and 3
+</select>
+
+<select id="weeklyLocalf" resultType = "ChartjsVO"><!-- 책임 -->
+	select rownum, local, flocal_count from 
+	(select m.local, count(m.local) as flocal_count from member_list m,
+	(select * from free_doc where doc_date >= TO_CHAR(sysdate -7, 'yyyy-mm-dd')) a
+	where m.email = a.doc_email group by m.local order by flocal_count desc)
+	where rownum between 1 and 3
+</select>
+
+<!-- chartjs 차트 3 ) 최근한달 구매내역 (환불/구매) - 도넛 -->
+<select id="payedMonth" resultType = "ChartjsVO">
+	select refund, count(*) as count from payed_list where sysdate >= TO_CHAR(add_months(sysdate,-1)) group by refund
+</select>
+
+<select id="repayedMonth" resultType = "ChartjsVO"> <!-- 재구매 -->
+	select biz_email, count(biz_email) as biz_count from (select * from payed_list where refund ='payed' and sysdate >= TO_CHAR(add_months(sysdate,-1)))
+	group by biz_email having count(biz_email) >= 2 
+</select>
+
 
 <!-- 투두리스트 추가 -->
 <insert id ="insert_todo" parameterType="Todo_listVO">

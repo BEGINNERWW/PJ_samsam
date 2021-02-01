@@ -113,6 +113,7 @@
 function war_detail(obj){
 	event.preventDefault();	
 	var w_co_no = $(obj).attr('w_co_no');
+
 	var setData= {
 			"number" : $(obj).attr('ww_no'),
 	}
@@ -172,7 +173,6 @@ function war_detail(obj){
 					
 					$('.w_co_cont').hide();
 				}
-				
 			}
 			fieldsetDisable()
 	
@@ -276,6 +276,7 @@ function find_comment(w_co_no){
 								$('#ww_status').val("업데이트실패");	
 								swal("","이미 삭제된 댓글입니다.","info")
 								fieldsetDisable() 
+
 							}
 							
 							}, //success
@@ -320,6 +321,7 @@ function find_comment(w_co_no){
 						$('#ww_status').val("업데이트실패");	
 						swal("","이미 삭제된 댓글입니다.","info")
 						fieldsetDisable() 
+
 					}
 					}, //success
 			error : function() {
@@ -525,8 +527,7 @@ function find_comment(w_co_no){
 					  		</div>
 					  		 <%} %>
 					  		 
-					  	
-					  		 
+				  		 
 						</div>
 				  	</div><!-- divTable -->
 			</div>

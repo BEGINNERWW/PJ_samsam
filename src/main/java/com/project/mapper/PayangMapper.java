@@ -27,4 +27,13 @@ public interface PayangMapper {
 	
 	// 댓글 목록 조회
 	public List<PayangReplyVO> replyList(Integer doc_no) throws Exception;
+	
+	// 조회수 증가
+	public void updateReadCount(PayangVO payang) throws Exception;
+	
+	// 댓글 삭제
+	public void replyRemove(Integer doc_cno) throws Exception;
+
+	public int replyModify(PayangReplyVO paramVO);
+		
 }

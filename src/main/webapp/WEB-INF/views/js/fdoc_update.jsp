@@ -825,11 +825,8 @@ select,button, textarea {
 	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 	 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet"> 
 	 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
-
-
-<!-- include libraries(jQuery, bootstrap) -->
 <script>
-    $('.search-box btn').click(function(){
+    $('.search-box').click(function(){
       
     });
     $('#keyword').keypress(function(event){
@@ -839,6 +836,9 @@ select,button, textarea {
       }
     });
 </script>
+
+<!-- include libraries(jQuery, bootstrap) -->
+
 <script>
 
 $(document).ready(function() {
@@ -875,6 +875,12 @@ $(document).ready(function() {
           
    });
    
+   $("div.note-editable").on('drop',function(e){
+	    for(i=0; i< e.originalEvent.dataTransfer.files.length; i++){
+	    	sendFile(e.originalEvent.dataTransfer.files[i],$("#summernote")[0]);
+	    }
+	   e.preventDefault();
+	})
 
    function sendFile(file, el) {
        var form_data = new FormData();
@@ -902,7 +908,7 @@ $(document).ready(function() {
 			  var output ='';
 			  output += '<div class="option1">';
 			  output += '<div><select class= "form-control" style="width:250px;" size="1" id="doc_kindof" name="doc_kindof">';
-			  output += '<option value="hide">선택하세요</option>';
+			  output += '<option value="">선택하세요</option>';
 			  output += '<option value="포메라니안">포메라니안</option>';
 			  output += '<option value="치와와">치와와</option>';
 			  output += '<option value="미니어처 핀셔(미니핀)">미니어처 핀셔(미니핀)</option>';
@@ -937,7 +943,7 @@ $(document).ready(function() {
 			  var output ='';
 			  output += '<div class="option1">';
 			  output += '<div><select class="form-control" style="width:250px;" size="1" id="doc_kindof" name="doc_kindof">';
-			  output += '<option value="hide">선택하세요</option>';
+			  output += '<option value="">선택하세요</option>';
 			  output += '<option value="노르웨이 숲 고양이">노르웨이 숲 고양이</option>';
 			  output += '<option value="데본렉스">데본렉스</option>';
 			  output += '<option value="라가머핀">라가머핀</option>';
@@ -996,16 +1002,43 @@ $(document).ready(function() {
    });
    
 });
-function setThumbnail(event) {
+function submit_check(){
 	
-	var reader = new FileReader();
-	reader.onload = function(event) {
-		var img = document.createElement("img");
-		img.setAttribute("src", event.target.result);
-		document.querySelector("div#image_container").appendChild(img);
-		};
-		reader.readAsDataURL(event.target.files[0]); 
-		}
+
+	
+	
+	var subject = $('#doc_subject').val();
+	if(subject==''){
+		alert("제목을 입력해주세요");
+		return false;
+	}
+	if($("input:radio[name='doc_big']").is(":checked") == false){
+		alert("종류를 입력해주세요");
+		return false;
+	}
+	var kindof =  $("select[name=doc_kindof]").val();
+
+
+	if(kindof=='' ){
+		alert("품종을 입력해주세요");
+		return false;
+	}
+
+	var price = $('#doc_price').val();
+	if(price==''){
+		alert('책임분양비를 입력해주세요');
+		return false;
+	}
+
+	var content = $('#summernote').val();
+	var img_check = "img";
+	if(content.indexOf(img_check) == -1){
+		alert("이미지를 넣어주세요");
+		return false;
+	}
+	
+	return true;
+}
 
 
   
@@ -1050,6 +1083,7 @@ function setThumbnail(event) {
                   <ul class="dropdown-menu commu">
                      <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
                      <li><a href="auth_fdoc.bo">책임분양인증</a></li>
+                     <li><a href="hospital_map.me">Map</a></li>
                   </ul></li>
             </ul>
 				
@@ -1062,10 +1096,10 @@ function setThumbnail(event) {
 	</div>
 	
 	
-	 <form action="home_search.me" method="post" name="home_search">
+	<form action="home_search.me" method="post" name="home_search">
             <div class="search-wrapper">
                <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
-               <button class="search-box btn" type="submit">
+               <button class="search-box" type="submit">
                   <i class="fas fa-search"></i>
                </button>
             </div>
@@ -1094,10 +1128,10 @@ function setThumbnail(event) {
 				<div class="content-form">
 		
 		 
-   <form method="post" action="fdoc_updateinsert.bo" enctype="multipart/form-data">
+   <form method="post" action="fdoc_updateinsert.bo" enctype="multipart/form-data" onsubmit="return submit_check();">
 		<input type="hidden" name="doc_no" value=<%=vo.getDoc_no() %>>
       
-      <div><div><textarea name="doc_subject" placeholder="제목을 입력해 주세요." class="textarea_input" style="height: 40px;"><%=vo.getDoc_subject() %></textarea></div></div>
+      <div><div><textarea name="doc_subject" id="doc_subject" placeholder="제목을 입력해 주세요." class="textarea_input" style="height: 40px;"><%=vo.getDoc_subject() %></textarea></div></div>
     <div class="option_box">
      
      <div class="option1"><div style="display:inline-block;margin-right:10px;"><input type="radio" name="doc_big" value="강아지">&nbsp;&nbsp;강아지&nbsp;&nbsp;&nbsp;&nbsp;<span id="kind1"></span></div>
@@ -1205,7 +1239,24 @@ function setThumbnail(event) {
     }
     
   //]]>
- 
+    $(document).ready(function(){
+    	 console.log("<%=email%>") 
+         var session = '<%=email %>'
+        console.log(session);
+        if(session == "null" ){
+            $('#logout').hide();
+              $('#mypage').hide();
+              $('#login').show();
+              $('#signin').show();
+            
+         } //헤더 상단 로그인상태 일때
+         else{
+           $('#logout').show();
+             $('#mypage').show();
+             $('#login').hide();
+             $('#signin').hide();
+         }; //헤더 상단 로그아웃상태 일때 
+      });
 </script>
 
 	<div id="ex7" class="modal" style="overflow: visible;"></div>

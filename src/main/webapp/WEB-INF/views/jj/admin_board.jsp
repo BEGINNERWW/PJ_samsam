@@ -1,3 +1,7 @@
+admin_board
+
+
+
 <%@ page language = "java" contentType = "text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="java.util.*"%>
@@ -166,6 +170,7 @@ $(document).ready(function(){
 								var app = "<div class='tb-bottom'><input type='button' class ='before-btn' value = '이전'>" + "<span class='pagenum'></span><input type='button' class = 'after-btn' value = '다음'></div>"
 								$("#result-table").after(app);
 								var page = 0
+
 						          var b = 0;
 						          console.log("행 수")
 						          console.log(b_count)
@@ -189,6 +194,7 @@ $(document).ready(function(){
 						            }
 						            b += 1;
 						          }
+
 								sessionStorage.setItem("pagenum", 1);
 								sessionStorage.setItem("lastPage", page);
 								console.log("마지막:"+sessionStorage.getItem("lastPage"))
@@ -263,6 +269,7 @@ $(document).ready(function(){
 					$("#result-table").after(app);
 					
 					var page = 0
+
 			          var b = 0;
 			          console.log("행 수")
 			          console.log(b_count)
@@ -287,6 +294,7 @@ $(document).ready(function(){
 			            b += 1;
 			          }
 			          
+
 					sessionStorage.setItem("pagenum", 1);
 					sessionStorage.setItem("lastPage", page);
 					console.log("마지막:"+sessionStorage.getItem("lastPage"))

@@ -205,13 +205,17 @@ button, input, optgroup, select, textarea {
 	<div class="d-flex flex-column">
 		<div class ="profile">
 			<img src = "resources/img/samsam2.png" class = "img-circle">
-			<h1 class ="text-light">
+
+			<h1 class ="text-light" style="margin-top: 14px;margin-bottom: 19px;">
+
 				<a href ="#" class = "onMember"> ADMIN  </a>
 			</h1>
 		</div>
 		<div class ="admin_inout">
-			<button type="button" class ="grade" onclick="location.href='home.me'">ADMIN</button>
-			<button type="button" class ="grade" onclick="location.href='logout.me'">LOGOUT</button>
+
+			<button type="button" class ="grade" onclick="location.href='home.me'" style="font:400 13.3333px Arial;">ADMIN</button>
+			<button type="button" class ="grade" onclick="location.href='logout.me'" style="font:400 13.3333px Arial;">LOGOUT</button>
+
 		</div>
 						
 		<ul>
@@ -241,11 +245,12 @@ button, input, optgroup, select, textarea {
 			<table class="table table-lg">
 				<thead>
 					<tr>
-						<th scope="col" class="text-center" width="10%">확정번호</th>
-						<th scope="col" class="text-center" width="45%">제목</th>
-						<th scope="col" class="text-center" width="15%">피분양자</th>
-						<th scope="col" class="text-center" width="15%">작성일</th>
-						<th scope="col" class="text-center" width="15%">상태</th>
+						<th scope="col" class="text-center" width="221px">확정번호</th>
+						<th scope="col" class="text-center" width="293px">제목</th>
+						<th scope="col" class="text-center" width="182px">피분양자</th>
+						<th scope="col" class="text-center" width="134px">작성일</th>
+						<th scope="col" class="text-center" width="142px">상태</th>
+						<th scope="col" class="text-center" width="88px">&nbsp;</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -297,10 +302,16 @@ button, input, optgroup, select, textarea {
 						</td>
 						<%
 						}
-						%>
+						
+						if (auth_list.getFadoc_check().equals("인증완료")) {	%>
+						<td class="text-center" style="border-bottom:1px solid #dee2e6;">
+							<a href="./fadocdetail.bo?doc_no=<%=auth_list.getDoc_no()%>" target="_blank">원문보기</a></td>
+						<%} else { %>
+						<td class="text-center" style="border-bottom:1px solid #dee2e6;">&nbsp;</td>
 					</tr>
 					<% 
 					}
+				}
 					%>
 					<tr align=center height="50px">
 						<td colspan=5 class="paging">
@@ -317,6 +328,7 @@ button, input, optgroup, select, textarea {
 					</tr>
 				</tbody>
 			</table>
+
 
 
 

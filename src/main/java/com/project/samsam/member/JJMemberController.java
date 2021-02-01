@@ -252,14 +252,15 @@ public class JJMemberController {
 			Biz_memberVO bo = memberSV.selectBizMember(vo.getEmail());
 			if(bo != null) {
 				if(bo.getStatus() == 0) {
-					return "redirect:/cominfo_main.do";//사업자 마이페이지로 변경 필요
+					return "redirect:/home.me";//사업자 마이페이지로 변경 필요
 				}
 			}
-			return "redirect:/myinfo_check.me";//마이페이지로 변경 필요
+			return "redirect:/home.me";//마이페이지로 변경 필요
 		}
 		//일반	
 		if(res.getPw().equals(vo.getPw())) {
-			
+			if(res.getStatus().equals("1")) {
+			System.out.println("res.status" + res.getStatus());
 			session.setAttribute("id", res.getEmail());
 			session.setAttribute("email", res.getEmail());
 			session.setAttribute("nick",  res.getNick());
@@ -270,10 +271,11 @@ public class JJMemberController {
 			Biz_memberVO bo = memberSV.selectBizMember(vo.getEmail());
 			if(bo != null) {
 				if(bo.getStatus() == 0) {
-					return "redirect:/cominfo_main.do";  //사업자 마이페이지로 변경 필요
+					return "redirect:/home.me";  //사업자 마이페이지로 변경 필요
 				}
 			}
-			return "redirect:/myinfo_check.me";  
+			}
+			return "redirect:/home.me";  
 		}else {
 			return "redirect:/loginForm.me";
 		}

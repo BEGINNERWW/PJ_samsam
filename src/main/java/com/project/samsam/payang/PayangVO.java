@@ -18,7 +18,24 @@ public class PayangVO {
 	private String doc_content;
 	private Date doc_date;
 	private Date doc_upd_date;
+	private int doc_readcount;
+	// 댓글 개수
+		private int reply_count;
+		
+	public int getDoc_readcount() {
+		return doc_readcount;
+	}
+	public void setDoc_readcount(int doc_readcount) {
+		this.doc_readcount = doc_readcount;
+	}
 	
+	
+	public int getReply_count() {
+		return reply_count;
+	}
+	public void setReply_count(int reply_count) {
+		this.reply_count = reply_count;
+	}
 	private String thumbnail;
 	
 	public int getDoc_no() {
@@ -117,7 +134,8 @@ public class PayangVO {
 				+ doc_name + ", doc_gender=" + doc_gender + ", doc_big_name=" + doc_big_name + ", doc_kind=" + doc_kind
 				+ ", doc_age=" + doc_age + ", doc_sido=" + doc_sido + ", doc_sigungu=" + doc_sigungu + ", doc_address="
 				+ doc_address + ", doc_subject=" + doc_subject + ", doc_content=" + doc_content + ", doc_date="
-				+ doc_date + ", doc_upd_date=" + doc_upd_date + "]";
+				+ doc_date + ", doc_upd_date=" + doc_upd_date + ", doc_readcount=" + doc_readcount + ", reply_count="
+				+ reply_count + ", thumbnail=" + thumbnail + "]";
 	}
 	public String getThumbnail() {
 		return thumbnail;

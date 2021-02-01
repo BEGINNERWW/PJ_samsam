@@ -1,39 +1,48 @@
 package com.project.samsam.payang;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import org.imgscalr.Scalr;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.project.samsam.api.AnimalApiUtil;
+import com.project.samsam.api.Sido;
+import com.project.samsam.member.MemberSV;
+import com.project.samsam.member.MemberVO;
 import com.project.utils.UploadFileUtils;
 
 
 @Controller
+@RequestMapping("/SJ/payang")
 public class PayangController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(PayangController.class);
 	
 	@Autowired
 	private PayangService service;
+	
+	@Autowired
+	private MemberSV memberService;
 	
 	@Resource(name="uploadPath")
 	private String uploadPath;
@@ -78,8 +87,27 @@ public class PayangController {
 	
 	// 파양 글쓰기 화면
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public void registerForm(Model model) throws Exception{
+	public String registerForm(Model model, HttpSession session) throws Exception{
+		String email = (String) session.getAttribute("email");
 		
+		// 로그인 안되어 있을 때
+		if( email == null ) {
+			return "redirect:/loginForm.me";
+		} else {
+			MemberVO member = memberService.selectMember(email);
+			model.addAttribute("nick", member.getNick());
+		}
+		
+		// 시도
+		AnimalApiUtil animalUtil = new AnimalApiUtil();
+		ArrayList<Sido> sido = animalUtil.getSido();
+		for (Sido s : sido) {
+			System.out.println(s.getSidoNm());
+		}
+		
+		model.addAttribute("sido", sido);
+		
+		return "SJ/payang/register";
 		
 	}
 	
@@ -98,7 +126,10 @@ public class PayangController {
 	// 파양 글읽기 화면
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
 	public void registerForm(Model model, Integer doc_no) throws Exception{
-		model.addAttribute("payang",service.read(doc_no) );
+		PayangVO payang = service.read(doc_no);
+		model.addAttribute("payang", payang );
+		service.updateReadCount(payang);
+		
 		
 	}
 	
@@ -141,14 +172,107 @@ public class PayangController {
 		return service.replyRegister(reply); 
 	}
 	
-	// 댓글 등록
+	// 댓글 조회
 	@RequestMapping(value = "/comment_list", method = RequestMethod.GET)
-	public String replyList(Model model, Integer doc_no) throws Exception {
+	public String replyList(Model model, Integer doc_no, HttpSession session) throws Exception {
 		
-		model.addAttribute("reply", service.replyList(doc_no));
+		// 로그인 사용자 email
+		String loginEmail = (String) session.getAttribute("email");
+		// 게시글 작성자 email
+		PayangVO payang = service.read(doc_no);
+		String writerEmail = payang.getDoc_email();
+		
+		
+		
+		//
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		List<PayangReplyVO> replyList = service.replyList(doc_no);
+		
+		// 등록일자 포맷
+		for (int i = 0; i < replyList.size(); i++) {
+			String formatDate = format.format(replyList.get(i).getDoc_date());
+			replyList.get(i).setDoc_date_fmt(formatDate);
+			
+			
+			// 게시글 작성자는 댓글 삭제가능
+			if( loginEmail.equals(writerEmail) ) {
+				replyList.get(i).setBtnRemove("삭제");
+			}
+			
+			// 댓글 작성자 email
+			String replyEmail = replyList.get(i).getDoc_email();
+			// 댓글 작성자 이면 수정, 삭제 가능
+			if( loginEmail.equals(replyEmail) ) {
+				replyList.get(i).setBtnModify("수정");
+				replyList.get(i).setBtnRemove("삭제");
+				
+			}
+			
+		}
+		
+		
+		for (int i = 0; i < replyList.size(); i++) {
+			
+			// 게시글 작성자는 비밀댓글/댓글 모두 조회 가능
+			if( loginEmail.equals(writerEmail) )
+				break;
+			
+			// 비밀댓글
+			if( replyList.get(i).getDoc_secret().equals("Y") ) {
+				
+				// 댓글 작성자 eamil
+				String replyEmail = replyList.get(i).getDoc_email();
+				
+				// 비밀 댓글작성자이면 조회 가능
+				if( loginEmail.equals(replyEmail) )
+					continue;
+				else
+					replyList.remove(i);
+			}
+			
+			System.out.println(replyList.get(i));
+		}
+		
+		
+		model.addAttribute("reply", replyList);
+		model.addAttribute("doc_no", doc_no);
 		
 		
 		return "SJ/payang/reply_list";
+	}
+	
+	// 댓글 삭제
+	@RequestMapping(value = "/comment_remove", method = RequestMethod.GET)
+	public String replyRemove(Model model, Integer doc_no, Integer doc_cno, HttpSession session) throws Exception {
+		
+		
+		System.out.println("doc_no : " + doc_no);
+		System.out.println("doc_cno : " + doc_cno);
+		// 댓글 삭제
+		service.replyRemove(doc_cno);
+		
+		return "SJ/payang/reply_list";
+	}
+	
+	// 댓글 수정
+	@ResponseBody
+	@RequestMapping(value = "/comment_modify", method = RequestMethod.GET)
+	public String replyModify(Model model, @ModelAttribute PayangReplyVO paramVO, HttpSession session) throws Exception {
+		
+		
+		System.out.println("doc_no : " + paramVO.getDoc_no());
+		System.out.println("doc_cno : " + paramVO.getDoc_cno());
+		System.out.println("doc_content : " + paramVO.getDoc_content());
+		// 댓글 수정
+		int resultCnt = service.replyModify(paramVO);
+		
+		if (resultCnt > 0) {
+			// 정상 처리
+			return "00";
+		} else {
+			// 처리 에러
+			return "99";
+		}
 	}
 	
 	//썸머노트 이미지 업로드

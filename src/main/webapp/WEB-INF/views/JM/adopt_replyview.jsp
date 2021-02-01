@@ -13,6 +13,8 @@
 String doc_no = request.getParameter("doc_no");
 String doc_email = request.getParameter("doc_email");
 String doc_nick =request.getParameter("doc_nick");
+String email = (String) session.getAttribute("email");
+
 
 
 
@@ -26,7 +28,7 @@ String doc_nick =request.getParameter("doc_nick");
 	
 	<div>
 		<div style="width: 100%; margin: 0;">
-			<div class="comment_view">
+			<div class="comment_view" style ="background-color:#f8f8f8">
 				<ul class="adopt_replydiv"></ul>
 			</div>
 		</div>
@@ -34,7 +36,7 @@ String doc_nick =request.getParameter("doc_nick");
 		
 		<div style="margin: 0; width: 100%; background-color: #F8F8F8;">
 			<%
-				if (doc_email != null) {
+				if (email != null) {
 			%>
 			<div id="fdoc_refly"></div>
 			<%
@@ -44,7 +46,7 @@ String doc_nick =request.getParameter("doc_nick");
 	</div>
 	
 	<%
-	if(doc_email == null){
+	if(email == null){
 	%>
 	
 	<div id="fdoc_refly"></div>
@@ -140,83 +142,11 @@ var doc_nick ='<%=doc_nick %>';
 	
 	//신고
 	
-	function warning(cno,dno,cnick,content){
-	event.preventDefault();
-	$('#ex7').empty();
-	var a = '';
-	var email ='<%=doc_email %>';
-	a += '<div class="modal-header"><h1>신고하기</h1></div>';
-	a += '<div class="modal-body">';
-	a += '<form id= "warning_form" name="warning_form" method="post" action="warning.bo">';
-	a += '<input type="hidden" name="w_fdoc_cno" value="'+cno+'">';
-	a += '<input type="hidden" name="w_fdoc_dno" value="'+dno+'">';
-	a += '<input type="hidden" name="w_fdoc_id" value="'+email+'">';
-	a += '<div class="warning_container"><div class="warning_report">';
-	a += '<div class="report_title">내&nbsp;&nbsp;&nbsp;용 :</div>';
-	a += '<div class="report_content">'+content+'</div>';
-	a += '<div class="report_title">작성자:</div>';
-	a += '<div class="report_content">'+cnick+'</div></div>';
-	a += '<div class="warning_reason">';
-	a += '<div class="report_title"><span>사유 선택</span> : </div>';
-	a += '<div class="report_content"><p class="">여러 사유에 해당되는 경우, 대표적인 사유 1개를 선택해 주세요</p>';
-	a += '<ul class=""><li><input type="radio" name="w_reason" id="reson1" value="부적절한 홍보 게시글">';
-	a += '<label for="reason1">&nbsp;부적절한 홍보 게시글</label></li>';
-	a += '<li><input type="radio" name="w_reason" id="reason2" value="음란성 또는 청소년에게 부적합한 내용">';
-	a += '<label for="reason2">&nbsp;음란성 또는 청소년에게 부적합한 내용</label></li>';
-	a += '<li><input type="radio" name="w_reason" id="reason3" value="명예훼손/사생활 침해 및 저작권침해등">';
-	a += '<label for="reason3">&nbsp;명예훼손/사생활 침해 및 저작권침해등</label></li>';
-	a += '<li><input type="radio" name="w_reason" id="reason4">';
-	a += '<label for="reason4">&nbsp;기타</label></li></ul>';
-	a += '<textarea disabled name="etc_reason" id="etc_reason" cols="50" rows="5" class="" style="width:405px; height:80px; display:none;" placeholder="신고 사유를 기재해 주세요"></textarea></div>';
-	a += '</div></form></div></div><div class="modal-footer">';
-	a += '<button type="button" id="waring_submit" onclick="warning_submit();" class="btn btn-default">신고하기</button>';
-	a += '<button type="button" onclick="modal_close();" class="btn btn-default">취소하기</button>';
 	
-	
-	
-	$('#ex7').append(a);
-	$('#ex7').modal('show');
-}
-
-	function modal_close(){
-		
-		$.modal.close();
-		
-	}
-	
-	function warning_submit(){
-		
-		var data = $('#warning_form').serialize();
-		if($('input:radio[name="w_reason"]').is(':checked') ==false){
-			alert('신고 사유를 체크해주세요');
-			return false;
-		}
-
-		if($('input[name="w_reason"]:checked').attr('id')=="reason4" && $('#etc_reason').val() == ''){
-			alert('신고 사유를 입력해주세요');
-			return false;
-		}
-		
-		$.ajax({
-			url : 'fdoc_warning.bo',
-			type : 'POST',
-			data :  data,
-			success: function(data){
-				if(data ==1){
-					$.modal.close();
-					$('#ex1').modal('show');
-				}
-			},
-			error:function(){
-				alert("ajax 통신 실패 (insert!!!!)");
-				
-			}
-		});
-	}
  	
 	function reply_reTextarea(cno) {//답글버튼 클릭시
 		var doc_no =<%=doc_no%>
-    	var email = '<%=doc_email %>'
+    	var email = '<%=email %>'
     	var writer = '<%=doc_email%>'
     	
 		$.ajax({ 	
@@ -287,7 +217,7 @@ var doc_nick ='<%=doc_nick %>';
 			            		}
 			            	}
 			            }
-			            else if(id != value.doc_nick && id != 'null'){//작성자가 아닐시
+			            else if(email != value.doc_nick && email != 'null'){//작성자가 아닐시
 			            	if(value.doc_secret == 0){//비밀글이 아닐시
 				            	if(value.doc_lev !=0){ //답글일때
 						            a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 15px 39px;">';
@@ -387,7 +317,7 @@ var doc_nick ='<%=doc_nick %>';
 			
 			
 			var doc_no =<%=doc_no%>
-	    	var email = '<%=doc_email %>'
+	    	var email = '<%=email%>'
 	    	var writer = '<%=doc_email%>'
 	    	
 			$.ajax({ 	
@@ -475,8 +405,8 @@ var doc_nick ='<%=doc_nick %>';
 					            	else{
 					            		a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
 								        a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong>';
-								        a += '<span class="btn_box>"<a class="link_write" href="#" onclick="warning('+value.doc_cno+','+doc_no+',\''+value.doc_nick+'\',\''+value.doc_content+'\');">신고</a>';
-								        a += '<a href="#" onclick="reply_reTextarea('+value.doc_cno+');">&nbsp;&nbsp;답글</a><span></div>'
+								        a += '<span class="btn_box"><a class="link_write" href="#" onclick="warning('+value.doc_cno+','+doc_no+',\''+value.doc_nick+'\',\''+value.doc_content+'\');">신고</a>';
+								        a += '<a href="#" onclick="reply_reTextarea('+value.doc_cno+');">&nbsp;&nbsp;답글</a></span></div>'
 								        a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 								        
 								        a += '</div></div>';
@@ -605,7 +535,7 @@ var doc_nick ='<%=doc_nick %>';
 			$.ajax({
 				url : 'adopt_replyReinsert.bo',
 				type : 'post',
-				data : {'doc_content' : updateContent, 'doc_cno' : cno , 'doc_secret' : updateSecret ,'home_ref' : cno , 'doc_lev' : 1 ,'doc_no' : doc_no},	
+				data : {'doc_content' : updateContent, 'doc_cno' : cno , 'doc_secret' : updateSecret ,'doc_ref' : cno , 'doc_lev' : 1 ,'doc_no' : doc_no},	
 				success :function(data){
 					if(data == 1){
 						adoptreplyList(); //댓글 작성후 댓글 목록 reload
@@ -621,7 +551,7 @@ var doc_nick ='<%=doc_nick %>';
 		//댓글 수정 - 댓글 내용 출력을 input 폼으로 변경
 		function commentUpdateForm(cno,content){
 			var doc_no =<%=doc_no%>
-	    	var email = '<%=doc_email %>'
+	    	var email = '<%=email %>'
 	    	var writer = '<%=doc_email%>'
 	    	
 	    		$.ajax({ 	
@@ -631,9 +561,11 @@ var doc_nick ='<%=doc_nick %>';
 					dataType : 'json',
 					contentType : 'application/x-www-form-urlencoded;charset=utf-8',
 					success :function(data){
+						
 						var a= '';
 						
 				            $.each(data, function(key, value){
+				            	var date = new Date(value.doc_date);
 				            	if(email==writer && email != value.doc_email && email!='null'){//원글 작성자일때
 				            		if(value.doc_lev !=0){	 //원글이 아닐시
 				            			a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 0px 39px;" >';
@@ -665,7 +597,7 @@ var doc_nick ='<%=doc_nick %>';
 					            		}
 					            	}
 				            	}
-				            	else if(id==value.doc_nick && id!='null'){//작성자일 경우
+				            	else if(email==value.doc_email && email!='null'){//작성자일 경우
 					            	if(value.doc_cno == cno){
 					            		if(value.doc_lev ==0){//댓글 수정시
 					            			 a += '<div class="commentArea" style="border-bottom:1px solid #eee; background-color:#EFF3F7; padding:0px 45px 0px 39px;">';
@@ -815,7 +747,7 @@ var doc_nick ='<%=doc_nick %>';
 			var updateContent = $('[name=Udoc_content'+cno+']').val();
 			$.ajax({
 				
-				url : 'comment_update.bo',
+				url : 'reply_update.bo',
 				//type : 'post',
 				dataType : 'json',
 				data : {'doc_content':updateContent, 'doc_cno':cno},
@@ -884,3 +816,10 @@ var doc_nick ='<%=doc_nick %>';
 		
 		
 </script>
+
+<style>
+.blocker {
+z-index:200;
+}
+
+</style>
