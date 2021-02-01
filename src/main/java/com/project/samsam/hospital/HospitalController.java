@@ -69,7 +69,6 @@ public class HospitalController {
 		int endpage = (int)((double)listcount/limit+0.95);
 		
 		
-		
 		model.addAttribute("hospital_mapVO", review_list);
 		
 		model.addAttribute("page", page);
