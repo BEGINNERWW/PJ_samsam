@@ -57,6 +57,7 @@
 <script>
 $(document).ready(function() {
 	
+	
 	if(sessionStorage.getItem("default_option")!=null){
 		var default_option = sessionStorage.getItem("default_option");
 		 $(".filter-list").append(default_option);
@@ -248,9 +249,6 @@ function onKeyDown1()
 }
 
 
-
-
-
 </script>
 <style>
 
@@ -304,7 +302,9 @@ body {
      height:100vh;
     display : flex;
     flex-direction : column;
+    
 }
+
 
 #header {
     width: 100%;
@@ -609,6 +609,14 @@ ul {
   text-decoration:none;
   color:black;
   
+}
+
+.a_2{
+  text-decoration:none;
+  color:black;
+  
+}
+.prod-
 }
 .prod-category-smart-search .smart-search-result {
     padding: 24px 19px 24px 29px;
@@ -1352,6 +1360,96 @@ select, button, textarea {
 	
 	color:#5c5c8a;
 }
+.a-1 {
+	cursor: pointer;
+}
+
+.popupLayer {
+
+	display: none;
+	background-color: #ffffff;
+	border: solid 2px #d0d0d0;
+    position: absolute;
+    width: 113px;
+    z-index: 1000;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    text-align: left;
+    box-shadow: 2px 2px 5px 0 rgb(0 0 0 / 20%);
+}
+    
+}
+.popupLayer div {
+	position: sticky;
+	top: 5px;
+	right: 5px
+}
+li{
+	list-style:none;
+}
+.popupLayer li {
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    font-size: 13px;
+    line-height: 15px;
+}
+.popupLayer a {
+    display: block;
+    padding: 10px 15px;
+    color: #333 !important;
+}
+
+.popupLayer li :hover{
+	background-color:#f2f2f2;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    font-size: 13px;
+    line-height: 15px;
+}
+
+.tb-bottom{
+   display : flex;
+   justify-content: center;
+}
+.pagenum{
+   display : flex;
+}
+.pageA{
+   margin-top: 10px;
+    padding-top: 3px;
+    padding-right: 10px;
+    padding-left: 10px;
+    color:black;
+}
+.now{
+   width : 30px;
+   height : 30px;
+   background-color : #eeeeee;
+    border-radius : 5px;
+   color:black;
+   text-align: center;
+    padding-top: 2px;
+    margin-top: 10px;
+}
+
+/* 이전 / 다음 버튼 */
+.before-btn, .after-btn{
+   margin: 10px;
+    width:60px;
+    height : 30px;
+    background-color: #eeeeee;
+    color : black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    border-radius : 5px; 
+    border-color: #eeeeee;
+    border-width: 0px;
+}
+
 
 
 </style>
@@ -2058,58 +2156,70 @@ select, button, textarea {
                 <a class="a_1" href="./fdocdetail.bo?doc_no=<%=vo.getDoc_no()%>&page=<%=nowpage%>"><%=vo.getDoc_subject() %></a></h2>
                 <p class="mb-3 tag">#<%=vo.getDoc_big() %> #<%=vo.getDoc_loc() %> #<%=vo.getDoc_kindof() %> #<%=vo.getDoc_expiry() %>개월 #책임비 <%=form.format(vo.getDoc_price()) %>원</p>
                 <div class="post-meta">
-                  <span class="d-block"><a class="a_1" href="#"><%=vo.getDoc_nick() %></a></span>
+                  <span class="d-block"><a class="a_1" href="#"><%=vo.getDoc_nick() %>
+                  </a></span>
                   <span class="date-read"><%=date.format(vo.getDoc_date()) %></span><span class="detail-read">&nbsp;&nbsp;&nbsp;&nbsp;<span class="recount_icon"></span>&nbsp;<%=vo.getDoc_readcount() %>&nbsp;&nbsp;<span class="comment_icon"></span>&nbsp;<%=vo.getDoc_comment() %></span>
                 </div>
               </div>
+            
+                
+         
+              
+              
             </div>
             <%num3--;} %>
             </div>
           </div>
        </div>
         </div>
-
-		<div style="margin-top:20px;">
+<div>
+		<div class=tb-bottom style="margin-top:20px;">
 	
-		<div style="text-align:center;display:inline-block;margin-left:400px;">
+		
 			<%if(nowpage<=1){ %>
-			[이전]&nbsp;
+			<input type="button" class="before-btn" value="이전" disabled>
 			<%}else{ 
 			if(searchVO ==null){
 			%>
-			<a href="./fdoclist.bo?page=<%=nowpage-1 %>">[이전]</a>&nbsp;
+			<input type="button" class="before-btn" onclick="location.href='./fdoclist.bo?page=<%=nowpage-1 %>'" value="이전">
 			<%}else{ %>
-			<a onclick="search_submit(<%=nowpage-1 %>);" href="#">[이전]</a>
-			<%}}
+			<input type="button" class="before-btn" onclick="search_submit(<%=nowpage-1 %>);" value="이전">
 			
+			<%}
+			}
+			%>
+			<span class="pagenum">
+			<% 
 			for(int a=startpage;a<=endpage;a++){
 				if(a==nowpage){
 				//현재페이지는 링크가 필요없으므로 링크를 안검
 				
 				%>
-				[<%=a %>]
+				
+				<font class="now"><%=a %></font>
 				<%}else{ 
 				if(searchVO == null){
 				%>
-				<a href="./fdoclist.bo?page=<%=a %>">[<%=a %>]</a>
-				&nbsp;
+				<a class="pageA" href="./fdoclist.bo?page=<%=a %>"><%=a %></a>
+			
 				<%}else{ %>
 					
-				<a onclick="search_submit(<%=a %>);" href="#">[<%=a %>]</a>
-				&nbsp;
+				<a class="pageA" onclick="search_submit(<%=a %>);" href="#"><%=a %></a>
+			
 				<% }} %>
 			<%} %>
+			</span>
 			
 			<%if(nowpage>=maxpage){
 				//더이상 읽을페이지가없을떄
 					%>
-			[다음]
+			<input type="button" class="after-btn" value="다음" disabled>
 			<%}else{ 
 			if(searchVO == null){
 			%>
-			<a href="./fdoclist.bo?page=<%=nowpage+1 %>">[다음]</a>
+			<input type="button" class="after-btn" value="다음" onclick="location.href='./fdoclist.bo?page=<%=nowpage+1 %>'">
 			<%}else{ %>
-			<a onclick="search_submit(<%=nowpage+1 %>);" href="#">[다음]</a>
+			<input type="button" class="after-btn" value="다음" onclick="search_submit(<%=nowpage+1 %>);">
 			<%}} %>
 		</div>
 	<%if(email!=null){ %>
@@ -2148,8 +2258,7 @@ select, button, textarea {
 </footer>
 </div><!-- 바디컨텐트 -->
 	</div>
-		
-
+	
 
 
 <!-- 제이쿼리 -->
