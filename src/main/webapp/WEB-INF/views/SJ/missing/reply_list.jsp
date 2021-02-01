@@ -189,7 +189,7 @@
 		var doc_no = $("#doc_no").val();
 		
 		$.ajax({
-		    url:'comment_modify', //request 보낼 서버의 경로
+		    url:'${pageContext.request.contextPath}/SJ/missing/comment_modify', //request 보낼 서버의 경로
 		    type : 'get',
     		data :  {	
     					'doc_no' : doc_no,
@@ -216,7 +216,7 @@
 		var doc_no = $("#doc_no").val();
 		
 		$.ajax({
-		    url:'comment_remove', //request 보낼 서버의 경로
+		    url:'${pageContext.request.contextPath}/SJ/missing/comment_remove', //request 보낼 서버의 경로
 		    type : 'get',
     		data :  {	
     					'doc_no' : doc_no,
@@ -248,7 +248,7 @@
 		
 		
 		$.ajax({
-			url : 'recomment_insert',
+			url : '${pageContext.request.contextPath}/SJ/missing/recomment_insert',
 			type : 'POST',
 			data : {
 				'doc_no' : doc_no,
@@ -277,7 +277,7 @@
 		var doc_no = $("#doc_no").val();
 		
 		$.ajax({
-		    url:'comment_remove', //request 보낼 서버의 경로
+		    url:'${pageContext.request.contextPath}/SJ/missing/comment_remove', //request 보낼 서버의 경로
 		    type : 'get',
     		data :  {	
     					'doc_no' : doc_no,
@@ -341,7 +341,7 @@
     	
     	
     	$.ajax({
-    		url: '/SJ/missing/comment_refly.bo',
+    		url: '${pageContext.request.contextPath}/SJ/missing/comment_refly.bo',
     		//type: 'post',
     		dataType : 'json',
     		data:{'doc_content' : updateContent, 'doc_cno' : cno , 'doc_secret' : updateSecret ,'doc_ref' : cno , 'doc_lev' : 1 ,'doc_no' : doc_no , 'table' : table , 'doc_table' : doc_table },

@@ -228,4 +228,5 @@ th, td {
 .tab {
 	width: 100%;
 	display: inline-block;
+	margin-top: 1px;
 }

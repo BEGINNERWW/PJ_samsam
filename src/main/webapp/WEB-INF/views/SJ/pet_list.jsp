@@ -1175,7 +1175,7 @@ select, button, textarea {
 		
 		/* 시작 */
 		sidoCode = $("#sido").val();
-		siGunGuCode = $("#siGunGu").val();
+		siGunGuCode = $("#siGunGu-select").val();
 		getAnimalInfo(1);
 		
 		// 시도 변경 시, 이벤트
@@ -1208,7 +1208,7 @@ select, button, textarea {
 			bgnde = $('#bgnde').val();
 			endde = $('#endde').val();
 			sido = $('#sido').val();
-			siGunGu = $('#siGunGu').val();
+			siGunGu = $('#siGunGu-select').val();
 			upKind = $('#upKind').val();
 			kind = $('#kind-select').val();
 			
@@ -1265,7 +1265,7 @@ select, button, textarea {
 			kindCd = kindCd.replace("[", "");
 			kindCd = kindCd.replace("]", "");
 			
-			location.href = "/SJ/pet_detail?"
+			location.href = "${pageContext.request.contextPath}/SJ/pet_detail?"
 					+ "kindCd=" + kindCd
 					+ "&happenPlace=" + happenPlace
 					+ "&sexCd=" + sexCd
@@ -1295,10 +1295,10 @@ select, button, textarea {
 		
 		$.ajax({
 			type: "POST"
-			, url: "/SJ/SiGunGu"
+			, url: "${pageContext.request.contextPath}/SJ/SiGunGu"
 			, data: {
 				  sidoCode: sidoCode,
-				  requestType : '01'
+				  requestType : '04'
 				}  
 			 , dataType: "html"
 			, success: function( data ){
@@ -1319,7 +1319,7 @@ select, button, textarea {
 		
 		$.ajax({
 			type: "POST"
-			, url: "/SJ/animalKind"
+			, url: "${pageContext.request.contextPath}/SJ/animalKind"
 			, data: {
 					upKindCode: upKindCode,
 					requestType : '01'
@@ -1344,7 +1344,7 @@ select, button, textarea {
 		
 		$.ajax({
 			type: "POST"
-			, url: "/SJ/animalInfoList"
+			, url: "${pageContext.request.contextPath}/SJ/animalInfoList"
 			, data: {
 				bgnde : bgnde,
 				endde : endde,
@@ -1381,7 +1381,7 @@ select, button, textarea {
 		
 		$.ajax({
 			type: "GET"
-			, url: "/SJ/petList"
+			, url: "${pageContext.request.contextPath}/SJ/petList"
 			, data: {
 					bgnde: bgnde,
 					endde: endde,
@@ -1416,13 +1416,13 @@ select, button, textarea {
 	<div class ="inout_gocen">
 			<%if(email != null){ %>
 			
-			<input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='/logout.me'">
-			<input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='/mypage.me'">
+			<input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='${pageContext.request.contextPath}/logout.me'">
+			<input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='${pageContext.request.contextPath}/mypage.me'">
 			<%}else{ %>
-			<input  type="button" class= "header_btn" value="로그인" onclick="location.href='/loginForm.me'">
-			<input  type="button" class= "header_btn" value="회원가입" onclick="location.href='/joinform.me'">
+			<input  type="button" class= "header_btn" value="로그인" onclick="location.href='${pageContext.request.contextPath}/loginForm.me'">
+			<input  type="button" class= "header_btn" value="회원가입" onclick="location.href='${pageContext.request.contextPath}/joinform.me'">
 			<%} %>
-			<a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
+			<a href="${pageContext.request.contextPath}/customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
 		</div>
 	
 	<div class="nav-menu">
@@ -1456,7 +1456,7 @@ select, button, textarea {
 	</div>
 	
 	
-	 <form action="home_search.me" method="post" name="home_search">
+	 <form action="${pageContext.request.contextPath}/home_search.me" method="post" name="home_search">
             <div class="search-wrapper">
                <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
                <button class="search-box" type="submit">
@@ -1487,10 +1487,10 @@ select, button, textarea {
 					
 					<!-- 검색 카테고리 탭 -->
 					<div class="tab">
-						<div class="tab-left on" onclick="window.location.href='/SJ/pet_list';">
+						<div class="tab-left on" onclick="window.location.href='${pageContext.request.contextPath}/SJ/pet_list';">
 							<a href="${pageContext.request.contextPath}/SJ/pet_list" alt="보호 동물">보호 동물</a>
 						</div>
-						<div class="tab-right" onclick="window.location.href='/SJ/shelter_list';">
+						<div class="tab-right" onclick="window.location.href='${pageContext.request.contextPath}/SJ/shelter_list';">
 							<a href="${pageContext.request.contextPath}/SJ/shelter_list" alt="보호소 찾기">보호소 찾기</a>
 						</div>
 						
@@ -1528,7 +1528,7 @@ select, button, textarea {
 												</select>
 											</div>
 											<div  class="inline-block">
-												<select name="siGunGu" class="pet-select" id="sigungu-select">
+												<select name="sigungu" class="pet-select" id="siGunGu-select">
 													<option value="" selected>전 체</option>
 												</select>
 											</div>

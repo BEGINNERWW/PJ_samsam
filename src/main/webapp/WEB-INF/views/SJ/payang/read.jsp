@@ -954,13 +954,13 @@ span.btnReplyConfirm {
 	<div class ="inout_gocen">
 			<%if(email != null){ %>
 			
-			<input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='/logout.me'">
-			<input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='/mypage.me'">
+			<input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='${pageContext.request.contextPath}/logout.me'">
+			<input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='${pageContext.request.contextPath}/mypage.me'">
 			<%}else{ %>
-			<input  type="button" class= "header_btn" value="로그인" onclick="location.href='/loginForm.me'">
-			<input  type="button" class= "header_btn" value="회원가입" onclick="location.href='/joinform.me'">
+			<input  type="button" class= "header_btn" value="로그인" onclick="location.href='${pageContext.request.contextPath}/loginForm.me'">
+			<input  type="button" class= "header_btn" value="회원가입" onclick="location.href='${pageContext.request.contextPath}/joinform.me'">
 			<%} %>
-			<a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
+			<a href="${pageContext.request.contextPath}/customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
 		</div>
 	
 	<div class="nav-menu">
@@ -992,7 +992,7 @@ span.btnReplyConfirm {
 		</a>
 		</div>
 	</div>
-	<form action="home_search.me" method="post" name="home_search">
+	<form action="${pageContext.request.contextPath}/home_search.me" method="post" name="home_search">
             <div class="search-wrapper">
                <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
                <button class="search-box" type="submit">
@@ -1055,8 +1055,8 @@ span.btnReplyConfirm {
 								<span><a href="#"
 								onclick="warning_ori('${payang.doc_no}','${payang.doc_nick}','${payang.doc_subject}');">신고</a>&nbsp;&nbsp;&nbsp;</span>
 								<c:if test="${nick == payang.doc_nick}">
-									<span><a href="/SJ/payang/modify?doc_no=${payang.doc_no}">수정</a>&nbsp;&nbsp;&nbsp;</span>
-									<span><a href="/SJ/payang/remove?doc_no=${payang.doc_no}">삭제</a></span>
+									<span><a href="${pageContext.request.contextPath}/SJ/payang/modify?doc_no=${payang.doc_no}">수정</a>&nbsp;&nbsp;&nbsp;</span>
+									<span><a href="${pageContext.request.contextPath}/SJ/payang/remove?doc_no=${payang.doc_no}">삭제</a></span>
 								</c:if>
 							</div>
 						</div>
@@ -1142,19 +1142,19 @@ span.btnReplyConfirm {
 		// 수정 버튼 클릭 이벤트
 		$('#btnModify').on('click',function() {
 			var doc_no = $('#doc_no').val();
-			location.href = "/SJ/payang/modify?doc_no=" + doc_no;
+			location.href = "${pageContext.request.contextPath}/SJ/payang/modify?doc_no=" + doc_no;
 		});
 		 
 		// 삭제 버튼 클릭 이벤트
 		$('#btnRemove').on('click',function() {
-			form.attr("action", "/SJ/payang/remove");
+			form.attr("action", "${pageContext.request.contextPath}/SJ/payang/remove");
 			form.attr("method", "post");
 			form.submit();
 		}); 
 		 
 		// 목록 버튼 클릭 이벤트
 		$('#btnList').on('click',function() {
-			location.href = "/SJ/payang/list";
+			location.href = "${pageContext.request.contextPath}/SJ/payang/list";
 		}); 
 		
 		
@@ -1192,7 +1192,7 @@ span.btnReplyConfirm {
 		console.log(doc_secret);
 		
 		$.ajax({
-		    url:'comment_insert', //request 보낼 서버의 경로
+		    url:'${pageContext.request.contextPath}/SJ/payang/comment_insert', //request 보낼 서버의 경로
 		    type : 'POST',
     		data :  {	'doc_no' : doc_no,
     					'doc_content' : doc_content , 
@@ -1219,7 +1219,7 @@ span.btnReplyConfirm {
 		var doc_no = "${payang.doc_no}";
 		
 		$.ajax({
-		    url:'comment_list', //request 보낼 서버의 경로
+		    url:'${pageContext.request.contextPath}/SJ/payang/comment_list', //request 보낼 서버의 경로
 		    type : 'GET',
     		data :  {	
     					'doc_no' : doc_no
@@ -1262,7 +1262,7 @@ function warning_ori(dno,cnick,content){
 	var email = '<%=email%>';
 	a += '<div class="modal-header"><h1>신고하기</h1></div>';
 	a += '<div class="modal-body">';
-	a += '<form id= "warning_form" name="warning_form" method="post" action="warning.bo">';
+	a += '<form id= "warning_form" name="warning_form" method="post" action="${pageContext.request.contextPath}/warning.bo">';
 	a += '<input type="hidden" name="w_email" value="'+email+'">';
 	a += '<input type="hidden" name="w_doc_no" value="'+dno+'">';
 	a += '<input type="hidden" name="w_nick" value="'+id+'">';
@@ -1310,7 +1310,7 @@ function warning_submit(){
 		return false;
 	}
 	$.ajax({
-		url : '/fdoc_warning.bo',
+		url : '${pageContext.request.contextPath}/fdoc_warning.bo',
 		type : 'POST',
 		data :  data,
 		success: function(data){

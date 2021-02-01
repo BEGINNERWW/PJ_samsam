@@ -1593,13 +1593,13 @@ select, input, button, textarea {
 	<div class ="inout_gocen">
 			<%if(email != null){ %>
 			
-			<input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='/logout.me'">
-			<input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='/mypage.me'">
+			<input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='${pageContext.request.contextPath}/logout.me'">
+			<input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='${pageContext.request.contextPath}/mypage.me'">
 			<%}else{ %>
-			<input  type="button" class= "header_btn" value="로그인" onclick="location.href='/loginForm.me'">
-			<input  type="button" class= "header_btn" value="회원가입" onclick="location.href='/joinform.me'">
+			<input  type="button" class= "header_btn" value="로그인" onclick="location.href='${pageContext.request.contextPath}/loginForm.me'">
+			<input  type="button" class= "header_btn" value="회원가입" onclick="location.href='${pageContext.request.contextPath}/joinform.me'">
 			<%} %>
-			<a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
+			<a href="${pageContext.request.contextPath}/customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
 		</div>
 	
 	<div class="nav-menu">
@@ -1631,7 +1631,7 @@ select, input, button, textarea {
 		</a>
 		</div>
 	</div>
-	<form action="home_search.me" method="post" name="home_search">
+	<form action="${pageContext.request.contextPath}/home_search.me" method="post" name="home_search">
             <div class="search-wrapper">
                <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
                <button class="search-box" type="submit">
@@ -1663,7 +1663,7 @@ select, input, button, textarea {
 				            </div>
 				            <div class="list_wrap">
 				            <div class="list_content">
-				<form id="board" action="register"  method="POST">
+				<form id="board" action="${pageContext.request.contextPath}/SJ/missing/register"  method="POST">
 					<input type="hidden" name="doc_nick" value="${nick}" />
 					<input type="hidden" name="doc_email" value="${email }" />
 <%-- 					<input type="text" name="doc_email" value="<%=email %>" /> --%>
@@ -1817,7 +1817,7 @@ select, input, button, textarea {
 	       $.ajax({
 	         data: form_data,
 	         type: "post",
-	         url: 'image.bo',
+	         url: '${pageContext.request.contextPath}/image.bo',
 	         cache: false,
 	         contentType: false,
 	         enctype: 'multipart/form-data',
