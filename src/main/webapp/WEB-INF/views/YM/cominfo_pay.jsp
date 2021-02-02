@@ -194,6 +194,7 @@ $(document).on("click", ".after-btn",function(event) {
     padding-top: 3px;
     padding-right: 10px;
     padding-left: 10px;
+    color : black;
 }
 .now{
 	width : 30px;
@@ -202,6 +203,9 @@ $(document).on("click", ".after-btn",function(event) {
  	border-radius : 5px;
 }
 /* 페이징 처리 끝 */
+.pay > tbody > tr > td > a {
+    color : black;
+}
 * {
    margin:0;
    padding: 0;
