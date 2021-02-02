@@ -281,9 +281,10 @@ li.dropdown > a {
 }
 .search-box.input:focus {outline:none;}
 
-.search-box.btn1 {
+.search-box.btn {
   color : #9494b8;
   text-align : left; 
+  font-size: 1rem;
 }
 
 /* search-wrqpper */
@@ -799,7 +800,7 @@ td.paging > a {
 			
 				<!-- 오른쪽. 내용이 들어갈 부분 -->
 			<div class="content-section">
-				<h5>책임분양 관리</h5>
+				<h5>책임분양 관리 > </h5>
 				<%if (myfree_doc_confirmVO.isEmpty()) { %>
 			<br><br><br>
 			<center>
@@ -848,8 +849,8 @@ td.paging > a {
 										<br>
 										<br>
 											<div class="row">
-										<p class="card-text" style="font-size:16px;margin-left: 17px;">분양코드</p>  
-										<p class="card-text" style="font-size:16px;margin-left: 5px;"><%=confirm_list.getConfirm_fdoc_kindof() %></p>
+										<p class="card-text" style="font-size:16px;margin-left: 17px;">품종</p>  
+										<p class="card-text" style="font-size:16px;margin-left: 33px;"><%=confirm_list.getConfirm_fdoc_kindof() %></p>
 											</div>
 											<div class="row">
 										<p class="card-text" style="font-size:16px;margin-left: 17px;">분양코드</p>
