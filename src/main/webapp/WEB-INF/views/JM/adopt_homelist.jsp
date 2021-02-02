@@ -47,6 +47,15 @@
 
 <style>
 
+body::-webkit-scrollbar { 
+    display: none; 
+}
+
+#w_btn{
+	position: relative;
+    top: -43px;
+}
+
 @charset "utf-8";
 
 * {
@@ -248,6 +257,7 @@ li.dropdown > a {
   padding: 0;
   border: none;
   background: #fff;
+  color : #9494b8;
 }
 .search-box.input {
   width : 80%;
@@ -256,11 +266,11 @@ li.dropdown > a {
 }
 .search-box.input:focus {outline:none;}
 
-.search-box.btn1 {
+.search-box {
   color : #9494b8;
   text-align : left; 
+  font-size: 1rem;
 }
-
 /* search-wrqpper */
 
 .main-content{
@@ -1619,57 +1629,58 @@ jQuery.ajax({
 			 var page = data.page;
 			
 			 
-			 	if(page<=1){
-				pageoutput += '[이전]&nbsp;'
-					
-			 	}
-			 	else{
-			 		if(<%=searchVO%> == null){
-			 			pageoutput += '<input type = "button" class="before_btn" onclick="create_list('+(page-1)+');" href="#" value="이전">'
-			 		}
-			 		else{
-			 			pageoutput += '<input type = "button" class="before_btn" onclick="search_submit'+(page-1);+'" href="#" value="이전">'
-			 		}
-			 	}
-			 	
-			 	for(var a=startpage; a<=endpage; a++){
-			 		
-			 		if(a==page){
-			 			pageoutput += a;
-			 			
-			 			}
-			 		else{
-			 			if(<%=searchVO%> == null){
+			 if(page<=1){
+					pageoutput += '<input type="button" class="before-btn" href="#" value="이전">'
+						
+				 	}
+				 	else{
+				 		if(<%=searchVO%> == null){
+				 			pageoutput += '<input type="button" class="before-btn" onclick="create_list('+(page-1)+');" href="#" value="이전">'
+				 		}
+				 		else{
+				 			pageoutput += '<input type="button" class="before-btn" onclick="search_submit'+(page-1);+'" href="#" value="이전">'
+				 		}
+				 	}
+				 	
+				 	for(var a=startpage; a<=endpage; a++){
+				 		
+				 		if(a==page){
+				 			pageoutput +='<span class="now">'+a+'</span>';
+				 			
+				 			}
+				 		else{
+				 			if(<%=searchVO%> == null){
 
-			 				pageoutput += '<a onclick="create_list('+a+');" href="#" class="pageA"><span class="pagenum">'+a+'</sapn>&nbsp;</a>'
-			 			}
-			 			else{
-			 				
-			 				pageoutput += '<a onclick="search_submit'+(a);+'" href="#" class="pageA"><span class="pagenum">'+a+'</span>&nbsp;</a>'
-			 			}
-			 		}
-			 	}
-			 	
-			 	if(page>=maxpage){
-			 		pageoutput += '다음'
-			 	}
-			 	else{
-			 		if(<%=searchVO%> == null){
-			 			pageoutput += '<input type = "button" class="after_btn" onclick="create_list('+(page+1)+');" href="#" value="다음">'
-			 		}
-			 		else{
-			 			pageoutput += '<input type = "button" class="after_btn" onclick="search_submit'+(page+1);+'" href="#" value="다음">'
-			 		}
-			 	}
-			 	 $('.list_count').append(pageoutput);
-	    },
-		error:function(){
-	        alert("ajax통신 실패!!!")
-	     }
-	    
-	});
+				 				pageoutput += '<a onclick="create_list('+a+');" href="#" class="pageA"><span class="pagenum">'+a+'</span>&nbsp;</a>'
+				 			}
+				 			else{
+				 				
+				 				pageoutput += '<a onclick="search_submit'+(a);+'" href="#" class="pageA"><span class="pagenum">'+a+'</span>&nbsp;</a>'
+				 			}
+				 		}
+				 	}
+				 	
+				 	if(page>=maxpage){
+				 		pageoutput += '<input type="button" class="before-btn" href="#" value="다음">'
+				 	}
+				 	else{
+				 		if(<%=searchVO%> == null){
+				 			pageoutput += '<input type="button" class="after-btn" onclick="create_list('+(page+1)+');" href="#" value="다음">'
+				 		}
+				 		else{
+				 			pageoutput += '<input type="button" class="after-btn" onclick="search_submit'+(page+1);+'" href="#" value="다음">'
+				 		}
+				 	}
+				 	 $('.list_count').append(pageoutput);
+		    },
+			error:function(){
+		        alert("ajax통신 실패!!!")
+		     }
+		    
+		});
 
-}
+	}
+
 
 
 function detail_submit(){
@@ -2456,7 +2467,7 @@ function onKeyDown1()
             
             
             </div>
-            <div class="list_count"></div>
+            
           </div>
        </div>
         </div>
@@ -2465,12 +2476,12 @@ function onKeyDown1()
    
 	     
 	   
-
+	<span class="list_count"></span>
    <%
    if(email != null){
 
    %>
-   <div style="display:inline-block; float:right;margin-right:25px;">
+   <span style="display:inline-block; float:right;margin-right:25px;">
  		
  		
 
@@ -2478,26 +2489,26 @@ function onKeyDown1()
    		
    		if(email != null){
    			if(mvo.getGrade().equals("사업자")){
-		   		if(bmvo.getFree_coupon()>0){
-		   		%>
-		   		<a href="./adopt_write.bo?coupon=0">[글쓰기]</a>
-		   		<%			
-		   		}
-		   		else if(bmvo.getPay_coupon()>0) {
-		   		%>
-		   		<a href="./adopt_write.bo?coupon=1">[글쓰기]</a>	
-		   		<%
-		   		}
-		   		else{
-		   		%>
-		   		 <a href="#" onclick="exhaustion()">[글쓰기]</a>	
-		   		<%
-		   		}
+   				if(bmvo.getFree_coupon()>0){
+			   		%>
+			   		<input type ="button" class="after-btn" id="w_btn" onclick="location.href='./adopt_write.bo?coupon=0'" value ="글쓰기">
+			   		<%			
+			   		}
+			   		else if(bmvo.getPay_coupon()>0) {
+			   		%>
+			   		<input type ="button" class="after-btn" id="w_btn" onclick="location.href='./adopt_write.bo?coupon=1'" value ="글쓰기">
+			   		<%
+			   		}
+			   		else{
+			   		%>
+			   		 <input type ="button" class="after-btn" id="w_btn" onclick="exhaustion()" value ="글쓰기">
+			   		<%
+			   	}
 	   		}
    		}
    		%>
 		
-	</div>
+	</span>
 	<% 
    		
    }

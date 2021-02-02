@@ -892,7 +892,7 @@ select, input, button, textarea {
 				            </div>
 				            <div class="list_wrap">
 				            <div class="list_content">
-				<form id="board" action="register"  method="POST">
+				<form id="board" action="${pageContext.request.contextPath}/SJ/payang/register"  method="POST">
 					<input type="hidden" name="doc_nick" value="<%=nick %>" />
 					<input type="hidden" name="doc_email" value="<%=email %>" />
 					
@@ -999,7 +999,7 @@ select, input, button, textarea {
 		});//헤더 상단 로그아웃 체인지
 		
 		$('#btnCancel').on('click', function(){
-			location.href = "/SJ/payang/list";
+			location.href = "${pageContext.request.contextPath}/SJ/payang/list";
 		});
 		
 		
@@ -1091,7 +1091,7 @@ select, input, button, textarea {
 		console.log(sidoCode);
 		$.ajax({
 			type: "POST"
-			, url: "/SJ/SiGunGu"
+			, url: "${pageContext.request.contextPath}/SJ/SiGunGu"
 			, data: {
 				  sidoCode: sidoCode,
 				  requestType : '03'
@@ -1120,7 +1120,7 @@ select, input, button, textarea {
 		
 		$.ajax({
 			type: "POST"
-			, url: "/SJ/animalKind"
+			, url: "${pageContext.request.contextPath}/SJ/animalKind"
 			, data: {
 					upKindCode: upKindCode,
 					requestType : '03'

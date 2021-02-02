@@ -28,6 +28,9 @@ String id = (String) session.getAttribute("nick");
 
 <style>
 	
+body::-webkit-scrollbar { 
+    display: none; 
+}
 
 .btn_box{
  float:right;
@@ -242,9 +245,10 @@ li.dropdown > a {
 }
 .search-box.input:focus {outline:none;}
 
-.search-box.btn1 {
+.search-box {
   color : #9494b8;
   text-align : left; 
+  font-size: 1rem;
 }
 
 /* search-wrqpper */

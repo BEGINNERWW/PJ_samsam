@@ -30,3 +30,12 @@
 		</c:forEach>
 	</c:if>
 </c:if>
+
+<c:if test="${requestType == '04'}">
+  	<option value="">전체</option>
+	<c:if test="${fn:length(sigungu) > 0}">
+		<c:forEach var="sigungu" items="${sigungu}" varStatus="status">
+		  <option value="${sigungu.sigunguCode}">${sigungu.sigunguNm}</option>
+		</c:forEach>
+	</c:if>
+</c:if>

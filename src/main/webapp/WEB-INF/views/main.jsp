@@ -260,9 +260,10 @@ li.dropdown > a {
 }
 .search-box.input:focus {outline:none;}
 
-.search-box.btn1 {
+.search-box.btn {
   color : #9494b8;
   text-align : left; 
+  font-size: 1rem;
 }
 
 /* search-wrqpper */
@@ -370,7 +371,9 @@ li.dropdown > a {
 .carousel-indicators .active {
     background-color: darkblue;
 }
-
+.carousel-item {
+	transition: transform .6s ease,-webkit-transform .6s ease;
+}
 
 </style>
 

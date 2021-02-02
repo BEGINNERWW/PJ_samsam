@@ -383,7 +383,7 @@ p.card-text {
 			</h1>
 		</div>
 		<div class ="admin_inout">
-			<button type="button" class ="grade" onclick="location.href='home.me'" style="font:400 13.3333px Arial;padding-top: 4px;">ADMIN</button>
+			<button type="button" class ="grade" onclick="location.href='home.me'" style="font:400 13.3333px Arial;padding-top: 4px;">HOME</button>
 			<button type="button" class ="grade" onclick="location.href='logout.me'" style="font:400 13.3333px Arial;padding-top: 4px;">LOGOUT</button>
 		</div>
 						
@@ -408,7 +408,7 @@ p.card-text {
 <!-- 메인컨텐트 -->
 <div class = "content">
 	
-		<h3>책임분양 현황</h3>
+		<h3>책임분양 인증글 > 책임분양 현황</h3>
 			<table>
 				<tr height="300px">
 					<td width="770px">

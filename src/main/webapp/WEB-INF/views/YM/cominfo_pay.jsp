@@ -195,7 +195,7 @@ $(document).on("click", ".after-btn",function(event) {
     padding-right: 10px;
     padding-left: 10px;
     color : black;
-}
+ }
 .now{
 	width : 30px;
 	height : 30px;
@@ -206,6 +206,7 @@ $(document).on("click", ".after-btn",function(event) {
 .pay > tbody > tr > td > a {
     color : black;
 }
+
 * {
    margin:0;
    padding: 0;
@@ -641,7 +642,8 @@ li.list-group-item.click > a {
 			if(adopt_list != null){
 				for(Adopt_BoardVO adopt_board : adopt_list){
 					for ( Integer key : map.keySet() ) {
-						if(key == adopt_board.getAdopt_no()){
+
+						if(key == adopt_board.getDoc_no()){
 		%>
 			<tr class="adopt">
 				<td><a class="path" href="Selladopthomeview.bo?num=<%= adopt_board.getDoc_no()%>"><%= adopt_board.getDoc_no() %></a></td>
