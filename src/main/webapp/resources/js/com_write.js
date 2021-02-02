@@ -33,7 +33,7 @@ $(document).ready(function(){
 		$(".boardlist3").slice(0,start).show();
    	
 		if($(".boardlist3").length <= start){
-			$(".error113").html("더이상 표시할 내용이 없습니다.");
+			$(".error13").html("더이상 표시할 내용이 없습니다.");
     	};
 	});
 	$("#check14").click(function(e){
