@@ -263,7 +263,7 @@ button, input, optgroup, select, textarea {
 			</h1>
 		</div>
 		<div class ="admin_inout">
-			<button type="button" class ="grade" onclick="location.href='home.me'" style="font:400 13.3333px Arial;padding-top: 4px;">ADMIN</button>
+			<button type="button" class ="grade" onclick="location.href='home.me'" style="font:400 13.3333px Arial;padding-top: 4px;">HOME</button>
 			<button type="button" class ="grade" onclick="location.href='logout.me'" style="font:400 13.3333px Arial;padding-top: 4px;">LOGOUT</button>
 		</div>
 						
@@ -289,7 +289,7 @@ button, input, optgroup, select, textarea {
 <div class = "content">
 
 			
-			<h3>책임분양 인증글</h3>
+			<h3>책임분양 인증글 > </h3>
 			<br>
 			<table class="table table-lg">
 				<thead>

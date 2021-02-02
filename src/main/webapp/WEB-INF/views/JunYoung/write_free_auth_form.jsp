@@ -266,9 +266,10 @@ li.dropdown > a {
 }
 .search-box.input:focus {outline:none;}
 
-.search-box.btn1 {
+.search-box.btn {
   color : #9494b8;
   text-align : left; 
+  font-size: 1rem;
 }
 
 /* search-wrqpper */
@@ -617,7 +618,7 @@ form.input-account {
 			
 			<!-- 오른쪽. 내용이 들어갈 부분 -->
 			<div class="content-section">
-				<h2>책임인증글 작성</h2>
+				<h5>책임분양 관리 > 책임인증글 작성</h5>
 				<br>
 <form action="./write_auth.me#write" method="post" name="write_free_auth_form" enctype="multipart/form-data">
 <input type="hidden" name="fadoc_r_email" value="<%=myfree_doc_confirm_write.getConfirm_fdoc_r_email() %>">
