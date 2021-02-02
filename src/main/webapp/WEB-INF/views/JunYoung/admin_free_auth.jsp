@@ -48,6 +48,17 @@
 
 
 <style>
+
+body::-webkit-scrollbar { 
+
+    display: none; 
+
+}
+
+body {
+	overflow:auto;
+}
+
 ul {
     list-style-type: none;
 }
@@ -82,6 +93,8 @@ tr {
 .table td, .table th {
     padding: .75rem;
     border-top: 1px solid #dee2e6;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 tbody {
     display: table-row-group;
@@ -194,7 +207,47 @@ button, input, optgroup, select, textarea {
     background-color: #e66b00;
     border-color: #e66b00;
 }
+.tb-bottom{
+   display : flex;
+   justify-content: center;
+}
+.pagenum{
+   display : flex;
+}
+.pageA{
+   margin-top: 10px;
+    padding-top: 2px;
+    padding-right: 10px;
+    padding-left: 10px;
+    color: black;
+    display: flex;
+}
+.now{
+   width : 30px;
+   height : 30px;
+   background-color : #eeeeee;
+    border-radius : 5px;
+   color:black;
+   text-align: center;
+    padding-top: 2px;
+    margin-top: 10px;
+}
 
+/* 이전 / 다음 버튼 */
+.before-btn, .after-btn{
+   margin: 10px;
+    width:60px;
+    height : 30px;
+    background-color: #eeeeee;
+    color : black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    border-radius : 5px; 
+    border-color: #eeeeee;
+    border-width: 0px;
+}
 
 </style>
 </head>
@@ -205,17 +258,13 @@ button, input, optgroup, select, textarea {
 	<div class="d-flex flex-column">
 		<div class ="profile">
 			<img src = "resources/img/samsam2.png" class = "img-circle">
-
 			<h1 class ="text-light" style="margin-top: 14px;margin-bottom: 19px;">
-
 				<a href ="#" class = "onMember"> ADMIN  </a>
 			</h1>
 		</div>
 		<div class ="admin_inout">
-
-			<button type="button" class ="grade" onclick="location.href='home.me'" style="font:400 13.3333px Arial;">ADMIN</button>
-			<button type="button" class ="grade" onclick="location.href='logout.me'" style="font:400 13.3333px Arial;">LOGOUT</button>
-
+			<button type="button" class ="grade" onclick="location.href='home.me'" style="font:400 13.3333px Arial;padding-top: 4px;">ADMIN</button>
+			<button type="button" class ="grade" onclick="location.href='logout.me'" style="font:400 13.3333px Arial;padding-top: 4px;">LOGOUT</button>
 		</div>
 						
 		<ul>
@@ -313,21 +362,25 @@ button, input, optgroup, select, textarea {
 					}
 				}
 					%>
-					<tr align=center height="50px">
-						<td colspan=5 class="paging">
-							<%if(nowpage<=1){ %> <!-- 이전페이지가 존재하지 않을 때 --> [이전]&nbsp; <!-- 이전 버튼 비활성화 -->
-							<%}else{ %> <!-- 이전페이지가 존재할 때 --> <a
-							href="./adminfree_auth.me?page=<%=nowpage-1 %>" >[이전]&nbsp;</a> <%} %>
-
-							<%for(int a=startpage;a<=endpage;a++){
-							if(a==nowpage){%> [<%=a %>] <%}else{ %> <!-- 현재 페이지가 nowpage가 아닐 때 -->
-							<a href="./adminfree_auth.me?page=<%=a %>">[<%=a %>]
-						</a> <%} %> <%} %> <%if(nowpage>=maxpage){ %> &nbsp;[다음] <%}else{ %> <a
-							href="./adminfree_auth.me?page=<%=nowpage+1 %>">&nbsp;[다음]</a> <%} %>
-						</td>
-					</tr>
 				</tbody>
 			</table>
+							<div class="tb-bottom">
+							<%if(nowpage<=1){ %> <!-- 이전페이지가 존재하지 않을 때 --> <input type="button" class="before-btn" value="이전">&nbsp;&nbsp; <!-- 이전 버튼 비활성화 -->
+							<%}else{ %> <!-- 이전페이지가 존재할 때 --> 
+							<input type="button" class="before-btn" value="이전" onclick="location.href='./adminfree_auth.me?page=<%=nowpage-1 %>'">&nbsp;&nbsp; <%} %>
+
+							<span class="pagenum">
+							<%for(int a=startpage;a<=endpage;a++){
+							if(a==nowpage){%> <font class="now"><%=a %></font>&nbsp;&nbsp; <%}else{ %> <!-- 현재 페이지가 nowpage가 아닐 때 -->
+							<a href="./adminfree_auth.me?page=<%=a %>" class="pageA"><%=a %>&nbsp;&nbsp;</a>
+							</span>
+							
+							
+						 <%} %> <%} %> <%if(nowpage>=maxpage){ %> 
+						<input type="button" class="after-btn" value="다음"> 
+						<%}else{ %> 
+						<input type="button" class="after-btn" value="다음" onclick="location.href='./adminfree_auth.me?page=<%=nowpage+1 %>'"> <%} %>
+							</div>
 
 
 

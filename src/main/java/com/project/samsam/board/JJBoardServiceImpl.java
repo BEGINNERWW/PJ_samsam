@@ -1,6 +1,7 @@
 package com.project.samsam.board;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -88,6 +89,13 @@ public class JJBoardServiceImpl implements JJBoardService {
 		return newlist;
 	}
 	@Override
+	public List<JJABoardVOto> findList_auth(JJABoardVO abvo){
+		JJAdminBoardMapper adminMapper =sqlSession.getMapper(JJAdminBoardMapper.class);
+		List<JJABoardVOto> list = adminMapper.findList_auth(abvo);
+		
+		return list;
+	}
+	@Override
     public List<BoardDetailVO> find_w_List(JJABoardVO abvo){
 		JJAdminBoardMapper adminMapper =sqlSession.getMapper(JJAdminBoardMapper.class);
 		List<BoardDetailVO> Wlist =adminMapper.find_w_List(abvo); 
@@ -96,6 +104,13 @@ public class JJBoardServiceImpl implements JJBoardService {
 		}
 		return Wlist;
     }
+	@Override
+	public List<BoardDetailVO> find_w_List_auth(JJABoardVO abvo){
+		JJAdminBoardMapper adminMapper =sqlSession.getMapper(JJAdminBoardMapper.class);
+		List<BoardDetailVO> Wlist =adminMapper.find_w_List_auth(abvo); 
+		
+		return Wlist;
+	}
 	//어드민 게시글 관리 
 	
 	public MemberVO ad_member (JJADModalVO movo){
@@ -153,23 +168,72 @@ public class JJBoardServiceImpl implements JJBoardService {
      //어드민 게시글 뷰 MODAL
      
       
-     public String getCategory(int w_no) {
+     public JJWarningVO getCategory(int w_no) {
     	 JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
-    	 String category=adminMapper.getCategory(w_no);
+    	 JJWarningVO category=adminMapper.getCategory(w_no);
     	 return category; 
      }
-     public int update_hide(JJWarningVO wvo) {
+     public int update_auth(JJWarningVO wvo) {
     	 System.out.println("wVO hide : " + wvo.getW_no());
     	 System.out.println("status : " + wvo.getW_status() + "w_no : " + wvo.getW_no());
     	 JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
-    	 int res = adminMapper.update_hide(wvo);
+    	 int res = adminMapper.update_auth(wvo);
     	 System.out.println("res : " + res);
     	 return res;
      }
-     public int update_keep(JJWarningVO wvo) {
+     public int update_wcount(JJWarningVO wvo) {
+    	 System.out.println("wVO hide : " + wvo.getW_no());
+    	 System.out.println("status : " + wvo.getW_status() + "w_no : " + wvo.getW_no());
+    	 JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
+    	 int res = adminMapper.update_wcount(wvo);
+    	 System.out.println("res : " + res);
+    	 return res;
+     }
+     public int update_wcountfa(JJWarningVO wvo) {
+    	 System.out.println("wVO hide : " + wvo.getW_no());
+    	 System.out.println("status : " + wvo.getW_status() + "w_no : " + wvo.getW_no());
+    	 JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
+    	 int res = adminMapper.update_wcountfa(wvo);
+    	 System.out.println("res : " + res);
+    	 return res;
+     }
+     public int update_cocount(JJWarningVO wvo) {
+    	 JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
+    	 int res = adminMapper.update_cocount(wvo);
+    	 System.out.println("cocount res : " + res);
+    	 return res;
+     }
+     public int DeleteUpdate(JJWarningVO wvo) {
+    	 JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
+    	 int res = adminMapper.DeleteUpdate(wvo);
+    	 System.out.println("cocount res : " + res);
+    	 return res;
+     }
+     public int DeleteCount(JJWarningVO wvo) {
+    	 JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
+    	 int res = adminMapper.DeleteCount(wvo);
+    	 System.out.println("cocount res : " + res);
+    	 return res;
+     }
+
+     public int update_blur(JJWarningVO wvo) {
     	 System.out.println("wVO keep: " + wvo.getW_no());
     	 JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
-    	 int res = adminMapper.update_keep(wvo);
+    	 int res = adminMapper.update_blur(wvo);
+    	 System.out.println("res : " + res);
+    	 return res;
+     }
+     public int status_b_delete(JJWarningVO wvo) {
+    	 System.out.println("wVO status_delete: " + wvo.getW_no());
+    	 JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
+    	 int res = adminMapper.status_b_delete(wvo);
+    	 System.out.println("res : " + res);
+    	 return res;
+     }
+     public int status_c_delete(JJWarningVO wvo) {
+    	 System.out.println("wVO status_delete: " + wvo.getW_no());
+    	 JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
+    	 int res = adminMapper.status_c_delete(wvo);
     	 System.out.println("res : " + res);
     	 return res;
      }
@@ -187,4 +251,16 @@ public class JJBoardServiceImpl implements JJBoardService {
 		   	 List<JJCommentVO> c_list = boardMapper.my_commenList(email);
 		   	 return c_list;
 	  	}
+	  	
+	  	//수정중////
+	  	public int getListCount ( JJABoardVO abvo) {
+	  		JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
+	  		int res = adminMapper.getListCount(abvo);
+	  		return res;
+	  	}
+    	public List<JJABoardVOto> getdocList (HashMap<String, Object> hashmap){
+    		JJAdminBoardMapper adminMapper = sqlSession.getMapper(JJAdminBoardMapper.class);
+	  		List<JJABoardVOto> list = adminMapper.getdocList(hashmap);
+	  		return list;
+    	}
 }

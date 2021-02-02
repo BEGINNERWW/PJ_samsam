@@ -53,6 +53,12 @@
 /* 공통으로 사용하는 CSS */
 @charset "utf-8";
 
+body::-webkit-scrollbar { 
+
+    display: none; 
+
+}
+
 * {
    margin:0;
    padding: 0;

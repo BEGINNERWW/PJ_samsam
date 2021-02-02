@@ -43,6 +43,11 @@ function closePopup() {
 
 </script>
 <style>
+body::-webkit-scrollbar { 
+
+    display: none; 
+
+}
 hr {
     margin-top: 1rem;
     margin-bottom: 1rem;

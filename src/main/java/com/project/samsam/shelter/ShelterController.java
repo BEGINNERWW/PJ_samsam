@@ -59,6 +59,7 @@ public class ShelterController {
 		return "SJ/pet_list";
 	}
 	
+	
 	@RequestMapping(value = "/pet_detail", method = RequestMethod.GET)
 	public String petDetail(Model model, AnimalInfo animalInfo) throws Exception {
 		
@@ -68,6 +69,15 @@ public class ShelterController {
 		model.addAttribute("animalInfo", animalInfo);
 		
 		return "SJ/pet_detail";
+	}
+	
+	// 팝업 
+	@RequestMapping(value = "/popup", method = RequestMethod.GET)
+	public String popup(Model model, String src) throws Exception {
+		
+		model.addAttribute("url", src);
+		
+		return "SJ/popup";
 	}
 	
 	
@@ -119,6 +129,7 @@ public class ShelterController {
 		}
 		model.addAttribute("animalkind", animalKindList);
 		model.addAttribute("requestType", requestType);
+		model.addAttribute("upKindCode", upKindCode);
 		
 		return animalKindList;
 	}

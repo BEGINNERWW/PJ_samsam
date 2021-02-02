@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page session="false" %>
+    <% String email =(String) request.getAttribute("email"); %>
     
 <!DOCTYPE html>
 <html>
@@ -148,8 +148,13 @@ document.addEventListener("DOMContentLoaded", function(){
 </div>
 <form name="loginform" action = "login.me" method="post" class="loginform" >
 <div class="group">
+<%if( email != null){ %>
+<input type="text"name="email" value="<%=email%>">
+<%}else{ %>
 	<input type="text"name="email"><span class="highlight"></span><span class="bar"></span>
+<%} %>
     <label for="email" class="label-email"><span class="content-email">Email</span></label>
+   
 </div>
 <div class="group">
 	<input type="password" name="pw"><span class="highlight"></span><span class="bar"></span>

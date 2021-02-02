@@ -49,7 +49,15 @@ public class PayangServiceImpl implements PayangService {
 	}
 	@Override
 	public List<PayangReplyVO> replyList(Integer doc_no) throws Exception {
-		return mapper.replyList(doc_no);
+		List<PayangReplyVO> replyList = mapper.replyList(doc_no);
+		
+		
+		for (int i=0; i<replyList.size(); i++) {
+			int replyNo = replyList.get(i).getDoc_no();
+//			List<PayangReplyVO> rereply = mapper.
+		}
+		
+		return replyList;
 	}
 	@Override
 	public void updateReadCount(PayangVO payang) throws Exception {
@@ -63,6 +71,10 @@ public class PayangServiceImpl implements PayangService {
 	public int replyModify(PayangReplyVO paramVO) {
 		return mapper.replyModify(paramVO);
 	}
-	
+	@Override
+	public int rereplyRegister(PayangReplyVO vo) throws Exception {
+		System.out.println(vo);
+		return mapper.rereplyInsert(vo);
+	}
 
 }

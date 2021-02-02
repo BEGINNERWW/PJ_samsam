@@ -61,7 +61,17 @@
 
 <style>
 /* 공통으로 사용하는 CSS */
+
+
 @charset "utf-8";
+
+body::-webkit-scrollbar { 
+
+    display: none; 
+
+}
+
+
 
 * {
    margin:0;
@@ -71,7 +81,8 @@ html{
    margin:0 auto;
    width : 100%;
    height: 100%;
-    overflow: auto;
+   overflow: auto;
+  
 }
 
 
@@ -667,6 +678,46 @@ td.paging > a {
 	color : black;
 	text-decoration: none;
 }
+.tb-bottom{
+   display : flex;
+   justify-content: center;
+}
+.pagenum{
+   display : flex;
+}
+.pageA{
+   margin-top: 10px;
+    padding-top: 3px;
+    padding-right: 10px;
+    padding-left: 10px;
+    color:black;
+}
+.now{
+   width : 30px;
+   height : 30px;
+   background-color : #eeeeee;
+    border-radius : 5px;
+   color:black;
+   text-align: center;
+    padding-top: 2px;
+    margin-top: 10px;
+}
+
+/* 이전 / 다음 버튼 */
+.before-btn, .after-btn{
+   margin: 10px;
+    width:60px;
+    height : 30px;
+    background-color: #eeeeee;
+    color : black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    border-radius : 5px; 
+    border-color: #eeeeee;
+    border-width: 0px;
+}
 
 
 </style>
@@ -796,7 +847,10 @@ td.paging > a {
 									<div class="card-body">
 										<br>
 										<br>
-										<h4 class="card-title">품종&nbsp;&nbsp;  <%=confirm_list.getConfirm_fdoc_kindof() %></h4>
+											<div class="row">
+										<p class="card-text" style="font-size:16px;margin-left: 17px;">분양코드</p>  
+										<p class="card-text" style="font-size:16px;margin-left: 5px;"><%=confirm_list.getConfirm_fdoc_kindof() %></p>
+											</div>
 											<div class="row">
 										<p class="card-text" style="font-size:16px;margin-left: 17px;">분양코드</p>
 										<p class="card-text" style="font-size:16px;margin-left: 5px;"><%=confirm_list.getConfirm_fdoc_code() %></p>
@@ -907,7 +961,7 @@ td.paging > a {
 							<p class= mb-0 >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;환급계좌정보 : <%=confirm_list.getConfirm_account() %>
 							<button type="button" class="btn btn-danger btn-sm" style="width:45px; height:28px;">
 							<a href="deleteAccount.me?confirm_no=<%=confirm_list.getConfirm_no() %>" 
-								style="color:white;">삭제</a></button>
+								style="color:white;">수정</a></button>
 							</p>
 							
 							<% } %>
@@ -932,7 +986,7 @@ td.paging > a {
 									<th scope="col" class="text-center">제목</th>
 									<th scope="col" class="text-center">작성일</th>
 									<th scope="col" class="text-center">상태</th>
-									<th scope="col" class="text-center">&nbsp;</th>
+									<th scope="col" class="text-center">원문보기</th>
 								</tr>
 							</thead>
 							<%
@@ -973,21 +1027,23 @@ td.paging > a {
 						%>
 						<%if (myfree_doc_confirmVO.isEmpty()) {} else { %>
 						
-					<table>
-						<tr align=center height="50px">
-						<td colspan=5 class="paging">
-							<%if(nowpage<=1){ %> <!-- 이전페이지가 존재하지 않을 때 --> [이전]&nbsp; <!-- 이전 버튼 비활성화 -->
-							<%}else{ %> <!-- 이전페이지가 존재할 때 --> <a
-							href="./myfree_auth.me?page=<%=nowpage-1 %>" >[이전]&nbsp;</a> <%} %>
-
+							<div class="tb-bottom">
+							<%if(nowpage<=1){ %> <!-- 이전페이지가 존재하지 않을 때 --> <input type="button" class="before-btn" value="이전">&nbsp;&nbsp; <!-- 이전 버튼 비활성화 -->
+							<%}else{ %> <!-- 이전페이지가 존재할 때 --> 
+							<input type="button" class="before-btn" value="이전" onclick="location.href='./myfree_auth.me?page=<%=nowpage-1 %>'">&nbsp;&nbsp; <%} %>
+							
+							<span class="pagenum">
 							<%for(int a=startpage;a<=endpage;a++){
-							if(a==nowpage){%> [<%=a %>] <%}else{ %> <!-- 현재 페이지가 nowpage가 아닐 때 -->
-							<a href="./myfree_auth.me?page=<%=a %>">[<%=a %>]
-						</a> <%} %> <%} %> <%if(nowpage>=maxpage){ %> &nbsp;[다음] <%}else{ %> <a
-							href="./myfree_auth.me?page=<%=nowpage+1 %>">&nbsp;[다음]</a> <%} %>
-						</td>
-					</tr>
-					</table>
+							if(a==nowpage){%> <font class="now"><%=a %></font>&nbsp;&nbsp; <%}else{ %> <!-- 현재 페이지가 nowpage가 아닐 때 -->
+							<a href="./myfree_auth.me?page=<%=a %>" class="pageA"><%=a %>&nbsp;&nbsp;
+							 </a> 
+							 </span>
+							 
+						<%} %> <%} %> <%if(nowpage>=maxpage){ %> 
+						<input type="button" class="after-btn" value="다음">
+						 <%}else{ %> 
+						 <input type="button" class="after-btn" value="다음" onclick="location.href='./myfree_auth.me?page=<%=nowpage+1 %>'"><%} %>
+							</div>
 				<%} %>
 			<br>
 			<h5>작성한 책임분양글</h5>
@@ -998,10 +1054,9 @@ td.paging > a {
 						<table class="table table-sm">
 							<thead>
 								<tr>
-									<th scope="col" class="text-center">글번호</th>
-									<th scope="col" class="text-center">제목</th>
-									<th scope="col" class="text-center">작성일</th>
-									<th scope="col" class="text-center">분양코드</th>
+									<th width="500px" scope="col" class="text-center">제목</th>
+									<th width="180px" scope="col" class="text-center">작성일</th>
+									<th width="112px" scope="col" class="text-center">분양코드</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -1011,10 +1066,9 @@ td.paging > a {
 								
 								%>
 								<tr>
-									<td width="84px" class="text-center" scope="row"><%=doc_list.getDoc_no() %></td>
-									<td width="416px"><a href="./fdocdetail.bo?doc_no=<%=doc_list.getDoc_no()%>"><%=doc_list.getDoc_subject() %></a></td>
-									<td width="188px" class="text-center"><%=doc_list.getDoc_date() %></td>
-									<td width="143px" class="text-center"><%=doc_list.getDoc_code() %></td>
+									<td ><a href="./fdocdetail.bo?doc_no=<%=doc_list.getDoc_no()%>"><%=doc_list.getDoc_subject() %></a></td>
+									<td class="text-center"><%=doc_list.getDoc_date() %></td>
+									<td class="text-center"><%=doc_list.getDoc_code() %></td>
 								</tr>
 								<%
 								}
@@ -1027,21 +1081,22 @@ td.paging > a {
 			<br><br>
 				<%if (myfree_docVO.isEmpty()) {} else { %>
 						
-					<table>
-						<tr align=center height="50px">
-						<td colspan=5 class="paging">
-							<%if(nowpage_doc<=1){ %> <!-- 이전페이지가 존재하지 않을 때 --> [이전]&nbsp; <!-- 이전 버튼 비활성화 -->
-							<%}else{ %> <!-- 이전페이지가 존재할 때 --> <a
-							href="./myfree_auth.me?page_doc=<%=nowpage_doc-1 %>" >[이전]&nbsp;</a> <%} %>
-
+						<div class="tb-bottom">
+							<%if(nowpage_doc<=1){ %> <!-- 이전페이지가 존재하지 않을 때 --><input type="button" class="before-btn" value="이전">&nbsp;&nbsp; <!-- 이전 버튼 비활성화 -->
+							<%}else{ %> <!-- 이전페이지가 존재할 때 --> 
+							<input type="button" class="before-btn" value="이전" onclick="location.href='./myfree_auth.me?page_doc=<%=nowpage_doc-1 %>'">&nbsp;&nbsp;</a> <%} %>
+						<span class="pagenum">
 							<%for(int a=startpage_doc;a<=endpage_doc;a++){
-							if(a==nowpage_doc){%> [<%=a %>] <%}else{ %> <!-- 현재 페이지가 nowpage가 아닐 때 -->
-							<a href="./myfree_auth.me?page_doc=<%=a %>">[<%=a %>]
-						</a> <%} %> <%} %> <%if(nowpage_doc>=maxpage_doc){ %> &nbsp;[다음] <%}else{ %> <a
-							href="./myfree_auth.me?page_doc=<%=nowpage_doc+1 %>">&nbsp;[다음]</a> <%} %>
-						</td>
-					</tr>
-					</table>
+							if(a==nowpage_doc){%> <font class="now"><%=a %></font>&nbsp;&nbsp; <%}else{ %> <!-- 현재 페이지가 nowpage가 아닐 때 -->
+							<a href="./myfree_auth.me?page_doc=<%=a %>" class="pageA"><%=a %>&nbsp;&nbsp;
+						</a> 
+						</span>
+						
+						<%} %> <%} %> <%if(nowpage_doc>=maxpage_doc){ %> 
+						<input type="button" class="after-btn" value="다음">
+						 <%}else{ %> 
+						<input type="button" class="after-btn" value="다음" onclick="location.href='./myfree_auth.me?page=<%=nowpage_doc+1 %>'"></a> <%} %>
+						</div>
 				<%} %>
 			
 		

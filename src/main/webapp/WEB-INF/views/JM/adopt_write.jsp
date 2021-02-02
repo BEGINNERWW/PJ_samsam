@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.project.samsam.board.*" %>
 <%
+
+adopt_homeVO vo = (adopt_homeVO)request.getAttribute("vo");
 String email = (String) session.getAttribute("email");
 %>
 <html>
@@ -1126,7 +1129,7 @@ function submit_check(){
       
        
    <form method="post" action="adoptwrite.bo" enctype="multipart/form-data" onsubmit="return submit_check();">
-
+	<input type = "hidden" name ="coupon" value="<%=vo.getCoupon()%>">
      
       <div><div><textarea name="doc_subject" placeholder="제목을 입력해 주세요." class="textarea_input" style="height: 40px;"></textarea></div></div>
      <div class="option_box">

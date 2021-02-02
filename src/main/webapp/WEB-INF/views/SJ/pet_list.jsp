@@ -1,14 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
 <%@ page import="java.util.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+	String email = (String) session.getAttribute("email"); 
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
 <link href="${pageContext.request.contextPath}/resources/img/title.png" rel="shortcut icon" type="image/x-icon">
 <title>삼삼하개</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- 폰트 -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&display=swap" rel="stylesheet">
@@ -22,8 +28,6 @@
 <!-- 제이쿼리 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 
-<!-- ㅇㅇㅇㅇㅇ -->
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/SJ/pet.css">
 
 <style>
@@ -361,25 +365,6 @@ li.list-group-item.click > a {
 	text-decoration : none;
 	}
 
-/* 각각의 페이지에서 사용할 CSS */
-.list-group-item {
-    position: relative;
-    display: block;
-    padding: .75rem 1.25rem;
-    margin-bottom: -1px;
-    background-color: white;
-    border: 1px solid rgba(0,0,0,.125);
-}
-/* 현재 페이지의 서브메뉴 */
-li.list-group-item.click > a {
-    font-weight: bold;
-    color: #5c5c8a;
-}
-
-.list-group-item > a {
-	text-decoration : none;
-	}
-
 
     
 ul {
@@ -396,23 +381,6 @@ ul {
 }
 
 /* header, footer 이외 css */
-
-
-
-
-table {
-
-    width: 100%;
-    border-top: 1px solid #444444;
-    border-collapse: collapse;
- 
-  }
-  
-th, td {
-    border-bottom: 1px solid #444444;
-    padding: 10px;
-  }
-  
 
 
 .a_1{
@@ -518,7 +486,7 @@ button {
     background-image:none;
     border:2px solid black;
 }
-select, input, button, textarea {
+select, button, textarea {
     display: inline-block;
     font-family: "Malgun Gothic", 'MalgunGothic', '맑은고딕', sans-serif;
     font-size: 12px;
@@ -567,7 +535,6 @@ select, input, button, textarea {
     width: 110px;
     margin-left: 10px;
 }
-/*
 .btn.btn-sm {
     min-width: 110px;
     height: 38px;
@@ -603,7 +570,6 @@ select, input, button, textarea {
     font-size: 14px;
     letter-spacing: -.7px;
 }
-*/
 .prod-category-smart-search .smart-search-result .keyword-wrap .title-box {
     width: 260px;
 }
@@ -613,7 +579,7 @@ select, input, button, textarea {
     margin: 0 auto;
     width: 18px;
     height: 15px;
-    background: url(./resources/images/m_merged.png) 0 0 no-repeat;
+    background: url(./resources/img/m_merged.png) 0 0 no-repeat;
    
 }
 .prod-category-smart-search.active .smart-search-toggle:after {
@@ -926,20 +892,7 @@ select, input, button, textarea {
     font-weight: 500;
     color: #333;
 }
-ul {
-    display: block;
-    list-style-type: disc;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    padding-inline-start: 0px;
-    
-}
-ol, ul {
-    list-style: none;
-    line-height:130%;
-}
+
 .smart-search-wrap .search-item-wrap .search-item .filter-content .brand-list li .item input {
     position: absolute;
     width: 1px;
@@ -1074,7 +1027,7 @@ ol, ul {
     height: 20px;
     margin-left: 8px;
     border: 1px solid #e5e5e5;
-    background: url(./resources/images/free-icon-x-mark-482641.png) center no-repeat;
+    background: url(./resources/img/free-icon-x-mark-482641.png) center no-repeat;
     vertical-align: top;
 }
 .btn-filter-del{
@@ -1100,11 +1053,9 @@ ol, ul {
 	
 	padding:15px 15px;
 }
-.list_wrap{
-	border:1px solid #ededed;
-}
+
 .comment_icon{
-	 background: url(./resources/images/free-icon-speech-bubble-2462719.png) center no-repeat;
+	 background: url(./resources/img/free-icon-speech-bubble-2462719.png) center no-repeat;
 
 	 display: inline-block;
     width: 16px;
@@ -1112,7 +1063,7 @@ ol, ul {
    
 }
 .recount_icon{
-	background: url(./resources/images/free-icon-eye-660022.png) center no-repeat;
+	background: url(./resources/img/free-icon-eye-660022.png) center no-repeat;
 
 	 display: inline-block;
     width: 16px;
@@ -1170,49 +1121,16 @@ ol, ul {
 }
 .post-entry-1, .post-entry-2 {
     font-size: .9rem;
-    margin-bottom: 30px;
+    margin-bottom: 18px;
+    padding-bottom:18px;
+    border-bottom: 1px solid #efefef;
+}
+.tag{
+	
+	
+	color:#5c5c8a;
 }
 
-
-/*  */
-.btn-box {
-	text-align : center;
-	padding: 20px;
-}
-
-
-/* summernote */
-.FlexableTextArea .textarea_input {
-    display: block;
-    width: 100%;
-    min-height: 40px;
-    padding: 11px 12px 10px;
-    border: 1px solid #ebecef;
-    box-sizing: border-box;
-    overflow: hidden;
-    resize: none;
-    word-break: break-all;
-    font-size: 15px;
-    letter-spacing: -.23px;
-    line-height: 17px;
-    outline: none;
-}
-
-.SmartEditor {
-    margin-top: 12px;
-    border: 1px solid #ebecef;
-    border-bottom: 0;
-    background: #fff;
-}
-
-	.condition-btn {
-		background: #2F9D27;
-	    text-align: center;
-	    padding: 20px;
-	    font-size: 20px;
-	    color: white;
-	    cursor: pointer;
-    }
 
 </style>
 </head>
@@ -1257,7 +1175,7 @@ ol, ul {
 		
 		/* 시작 */
 		sidoCode = $("#sido").val();
-		siGunGuCode = $("#sigungu").val();
+		siGunGuCode = $("#siGunGu").val();
 		getAnimalInfo(1);
 		
 		// 시도 변경 시, 이벤트
@@ -1290,7 +1208,7 @@ ol, ul {
 			bgnde = $('#bgnde').val();
 			endde = $('#endde').val();
 			sido = $('#sido').val();
-			siGunGu = $('#sigungu').val();
+			siGunGu = $('#siGunGu').val();
 			upKind = $('#upKind').val();
 			kind = $('#kind-select').val();
 			
@@ -1298,6 +1216,18 @@ ol, ul {
 			
 			getAbandonment();			
 			
+		});
+		
+		// 초기화 클릭 이벤트
+		$('#refresh-btn').on('click', function() {
+			$('#sido').children().eq(0).prop('selected',true);
+			$('#sido').trigger('change');
+			$('#siGunGu-select').children().eq(0).prop('selected',true);
+			
+			$('#upKind').children().eq(0).prop('selected',true);
+			$('#upKind').trigger('change');
+			
+			$('#kind-select').children().eq(0).prop('selected',true);
 		});
 		
 		
@@ -1312,9 +1242,8 @@ ol, ul {
 			kindCd = content.children(".animal-kindCd").text() ;
 			sexCd = content.children(".animal-sexCd").text() ;
 			happenDt = content.children(".animal-happenDt").text() ;
-			orgNm = content.children(".animal-orgNm").text() ;
+			orgNm = content.children(".animal-orgNm").children("span").text() ;
 			happenPlace = content.children(".animal-happenPlace").text() ;
-			
 			
 			age = hidden.children(".animal-age").text() ;
 			careAddr = hidden.children(".animal-careAddr").text() ;
@@ -1373,8 +1302,8 @@ ol, ul {
 				}  
 			 , dataType: "html"
 			, success: function( data ){
-				$('#sigungu-select').empty();
-				$('#sigungu-select').append(data);
+				$('#siGunGu-select').empty();
+				$('#siGunGu-select').append(data);
 				
 			}	
 			, error: function(request, status, error){
@@ -1485,11 +1414,15 @@ ol, ul {
 <header id = "header">
 
 	<div class ="inout_gocen">
-			<a href="${pageContext.request.contextPath}/loginForm.me"><input type="button" class= "header_btn" id="login" value="로그인"></a>
-			<a href="${pageContext.request.contextPath}/logout.me"><input type="button" class= "header_btn" id="logout" value="로그아웃"></a>
-			<a href="${pageContext.request.contextPath}/joinform.me"><input type="button" class= "header_btn" id="signin" value="회원가입"></a>
-			<a href="${pageContext.request.contextPath}/mypage.me"><input type="button" class= "header_btn" id="mypage" value="마이페이지"></a>
-			<a href="${pageContext.request.contextPath}/customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
+			<%if(email != null){ %>
+			
+			<input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='/logout.me'">
+			<input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='/mypage.me'">
+			<%}else{ %>
+			<input  type="button" class= "header_btn" value="로그인" onclick="location.href='/loginForm.me'">
+			<input  type="button" class= "header_btn" value="회원가입" onclick="location.href='/joinform.me'">
+			<%} %>
+			<a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
 		</div>
 	
 	<div class="nav-menu">
@@ -1501,11 +1434,11 @@ ol, ul {
                      <li><a href="${pageContext.request.contextPath}/fdoclist.bo">책임분양</a></li>
                      <li><a href="${pageContext.request.contextPath}/selladopt_list.bo">업체분양</a></li>
 						</ul></li>
-					<li class="dropdown"><a href="${pageContext.request.contextPath}//SJ/pet_list">보호소</a>
+					<li class="dropdown"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a>
 						<ul class="dropdown-menu care">
-					<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
-					<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
+					<li><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
+					<li><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
+					<li><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
 						</ul></li>
                <li class="dropdown"><a href="${pageContext.request.contextPath}/doclist.bo">커뮤니티</a>
                   <ul class="dropdown-menu commu">
@@ -1521,16 +1454,22 @@ ol, ul {
 		</a>
 		</div>
 	</div>
-	<div class= "search-wrapper">
-      <input class="search-box input" type="text" placeholder="Search">
-      <button class="search-box" type="button"><i class="fas fa-search"></i></button>
-	</div>
+	
+	
+	 <form action="home_search.me" method="post" name="home_search">
+            <div class="search-wrapper">
+               <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
+               <button class="search-box" type="submit">
+                  <i class="fas fa-search"></i>
+               </button>
+            </div>
+      </form>
+	
 	</div><!-- nav-menu -->
 </header>
 		
 		<div class="main-content">
 			<div class="content-wrap">
-			
 			
 			<!-- 왼쪽. 서브메뉴가 들어갈 부분 -->
 			<div class="sidemenu-section">
@@ -1554,86 +1493,90 @@ ol, ul {
 						<div class="tab-right" onclick="window.location.href='/SJ/shelter_list';">
 							<a href="${pageContext.request.contextPath}/SJ/shelter_list" alt="보호소 찾기">보호소 찾기</a>
 						</div>
+						
+						
+						<!-- 디자인 보류 -->
+						<div class="pet-search-option">
+							<div class="">
+								<div class="inline-block" style="padding-right: 60px;">
+								
+								<div class="inline-block" >
+								<table>
+									<tr>
+										<td>
+											<span>기간 </span>
+										</td>
+										<td align="left">
+											<div>
+												<span><input id="bgnde" type="date" name="bgnde" value="${formatFirstDate}"></input></span>
+												<span>~</span>
+												<span><input id="endde" type="date" name="endde" value="${formatLastDate}"></input></span>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+									      	<span>지역 </span>
+										</td>
+										<td align="left">
+											<div id="sido-select" class="inline-block">
+												<select name="sido" class="pet-select" id="sido">
+													<option value="" selected>모든 지역</option>
+													<c:forEach var="sido" items="${sido}" varStatus="status">
+													  <option value="${sido.sidoCode}">${sido.sidoNm}</option>
+													</c:forEach>
+												</select>
+											</div>
+											<div  class="inline-block">
+												<select name="siGunGu" class="pet-select" id="sigungu-select">
+													<option value="" selected>전 체</option>
+												</select>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+									      	<span>축종 </span>
+										</td>
+										<td align="left">
+											<div class="inline-block">
+												<select name="upKind" class="pet-select" id="upKind" id="upkind-select">
+													<option value="" selected>모든 동물</option>
+													<option value="417000">개</option>
+													<option value="422400">고양이</option>
+													<option value="429900">기타</option>
+												</select>
+											</div>
+											
+											<div class="inline-block">
+												<select name="kind" class="pet-select" id="kind-select">
+													<option value="" selected>전체</option>
+												</select>
+											</div>
+										</td>
+									</tr>
+								</table>
+	      						</div>
+						    	</div>
+							</div>
+
+							<div class="btn-wrap" style="padding-right: 17px;">
+								<button id="refresh-btn" class="btn pet-btn type02">초기화</button>
+				      			<button id="condition-btn" class="btn pet-btn">검색하기</button>
+							</div>
+						</div>
 					</div>
 					
 					
 					<!-- 보호 동물 검색 조건 팝업 -->
-					<!-- 디자인 보류 -->
-					<div class="pet-search-option">
-						<div class="">
-							<div class="inline-block">
-							
-							<div class="inline-block">
-							<table>
-								<tr>
-									<td>
-										<span>기간 :</span>
-									</td>
-									<td align="left">
-										<div>
-											<span><input id="bgnde" type="date" name="bgnde" value="${formatFirstDate}"></input></span>
-											<span>~</span>
-											<span><input id="endde" type="date" name="endde" value="${formatLastDate}"></input></span>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-								      	<span>지역 :</span>
-									</td>
-									<td align="left">
-										<div id="sido-select" class="inline-block">
-											<select name="sido" id="sido">
-												<option value="" selected>모든 지역</option>
-												<c:forEach var="sido" items="${sido}" varStatus="status">
-												  <option value="${sido.sidoCode}">${sido.sidoNm}</option>
-												</c:forEach>
-											</select>
-										</div>
-										<div  class="inline-block">
-											<select name="siGunGu" id="sigungu-select">
-												<option value="" selected>전 체</option>
-											</select>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-								      	<span>축종 :</span>
-									</td>
-									<td align="left">
-										<div class="inline-block">
-											<select name="upKind" id="upKind" id="upkind-select">
-												<option value="" selected>모든 동물</option>
-												<option value="417000">개</option>
-												<option value="422400">고양이</option>
-												<option value="429900">기타</option>
-											</select>
-										</div>
-										
-										<div class="inline-block">
-											<select name="kind" id="kind-select">
-												<option value="" selected>전체</option>
-											</select>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td colspan="2">
-							      		<button id="condition-btn" class="btn pet-btn">검색하기</button>
-									</td>
-								</tr>
-							</table>
-      						</div>
-					    	</div>
-						</div>
-					</div>
+					
 					
 					<!-- 동물 리스트 -->			
 					<div class="pet-list-wrap"></div>
 				</div>				
 			</div>
 	</div>
+
 
 	<!-- 카카오톡 채널 상담 -->
 	<div class="kakaoChat">
@@ -1649,34 +1592,13 @@ ol, ul {
 	</a>
 	</div>
 	
+	<footer id="footer">
+<p>Copyright ©2021 All rights reserved | This template is made with <i class="fas fa-heart"></i> by SamSam
+
+</footer>
 </div><!-- 바디컨텐트 -->
 
-<script>
-	$(document).ready(function(){
-		$('#login').on('click', function(e){
-		      $('#logout').show();
-			  $('#mypage').show();
-			  $('#login').hide();
-			  $('#signin').hide();
-		  });//헤더 상단 로그인 체인지
-		
-		$('#logout').on('click', function(e){
-		       $('#logout').hide();
-			   $('#mypage').hide();
-			   $('#login').show();
-			   $('#signin').show();
-		});//헤더 상단 로그아웃 체인지
-		
-		$('#btnCancel').on('click', function(){
-			location.href = "/SJ/payang/list";
-		});
-		
-		
-		
-	}); 
-	
 
-</script>
 
 <!-- 부트스트랩 4.0 js -->
 <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
@@ -1684,7 +1606,7 @@ ol, ul {
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
 
 <!-- 카카오톡 채널 상담 js -->
-<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type='text/javascript'>
   //<![CDATA[
     // 사용할 앱의 JavaScript 키를 설정해 주세요.
@@ -1697,6 +1619,7 @@ ol, ul {
     }
     
   //]]>
+  
 </script>
 
 </body>

@@ -1,17 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
 <%@ page import="java.util.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+	String email = (String) session.getAttribute("email"); 
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>보호소</title>
+<link href="${pageContext.request.contextPath}/resources/img/title.png" rel="shortcut icon" type="image/x-icon">
+<title>삼삼하개</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- 템플릿  CSS -->
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css">
-
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&display=swap" rel="stylesheet">
@@ -20,21 +23,12 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
 
 <!-- 부트스트랩 4.0 CSS -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	
-<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>  -->
+<!-- 제이쿼리 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 
-<!-- include libraries(jQuery, bootstrap) -->
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-
-<!-- include summernote css/js-->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
-
-<!-- modal -->
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/SJ/pet.css">
 
 <style>
 
@@ -92,7 +86,7 @@ body {
 
 #header {
     width: 100%;
-    height: 190px;
+    height: 189px;
     box-sizing: content-box;
     display: flex;
     flex-direction: column;
@@ -100,7 +94,7 @@ body {
     padding-bottom: 18px;
     background-color : #fff;
     position : fixed;
-    z-index : 10000;
+    z-index : 100;
     top : 0;
     left : 0;
     right : 0;
@@ -247,7 +241,7 @@ li.dropdown > a {
 }
 .search-box.input:focus {outline:none;}
 
-.search-box.btn {
+.search-box.btn1 {
   color : #9494b8;
   text-align : left; 
 }
@@ -261,9 +255,14 @@ li.dropdown > a {
 }
 
 
-p{
-   text-align : center;
+/* footer */
+#footer {
+    margin: 0 auto;
+    width: fit-content;
+    bottom: 20px;
+    position: relative;
 }
+
 .fa-heart{
    color : red;
 }
@@ -344,15 +343,9 @@ p{
     min-height: 940px;
     padding-top: 200px;
 }
-
-#footer {
-    margin: 0 auto;
-    width: fit-content;
-    bottom: 20px;
-    position: relative;
+.list-group {
+	border-bottom: 1px solid rgba(0,0,0,.125);
 }
-
-/* 각각의 페이지에서 사용할 CSS */
 .list-group-item {
     position: relative;
     display: block;
@@ -366,6 +359,7 @@ li.list-group-item.click > a {
     font-weight: bold;
     color: #5c5c8a;
 }
+
 
 .list-group-item > a {
 	text-decoration : none;
@@ -387,23 +381,6 @@ ul {
 }
 
 /* header, footer 이외 css */
-
-
-
-
-table {
-
-    width: 100%;
-    border-top: 1px solid #444444;
-    border-collapse: collapse;
- 
-  }
-  
-th, td {
-    border-bottom: 1px solid #444444;
-    padding: 10px;
-  }
-  
 
 
 .a_1{
@@ -509,7 +486,7 @@ button {
     background-image:none;
     border:2px solid black;
 }
-select, input, button, textarea {
+select, button, textarea {
     display: inline-block;
     font-family: "Malgun Gothic", 'MalgunGothic', '맑은고딕', sans-serif;
     font-size: 12px;
@@ -558,7 +535,6 @@ select, input, button, textarea {
     width: 110px;
     margin-left: 10px;
 }
-/*
 .btn.btn-sm {
     min-width: 110px;
     height: 38px;
@@ -594,7 +570,6 @@ select, input, button, textarea {
     font-size: 14px;
     letter-spacing: -.7px;
 }
-*/
 .prod-category-smart-search .smart-search-result .keyword-wrap .title-box {
     width: 260px;
 }
@@ -604,7 +579,7 @@ select, input, button, textarea {
     margin: 0 auto;
     width: 18px;
     height: 15px;
-    background: url(./resources/images/m_merged.png) 0 0 no-repeat;
+    background: url(./resources/img/m_merged.png) 0 0 no-repeat;
    
 }
 .prod-category-smart-search.active .smart-search-toggle:after {
@@ -917,20 +892,7 @@ select, input, button, textarea {
     font-weight: 500;
     color: #333;
 }
-ul {
-    display: block;
-    list-style-type: disc;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    padding-inline-start: 0px;
-    
-}
-ol, ul {
-    list-style: none;
-    line-height:130%;
-}
+
 .smart-search-wrap .search-item-wrap .search-item .filter-content .brand-list li .item input {
     position: absolute;
     width: 1px;
@@ -1065,7 +1027,7 @@ ol, ul {
     height: 20px;
     margin-left: 8px;
     border: 1px solid #e5e5e5;
-    background: url(./resources/images/free-icon-x-mark-482641.png) center no-repeat;
+    background: url(./resources/img/free-icon-x-mark-482641.png) center no-repeat;
     vertical-align: top;
 }
 .btn-filter-del{
@@ -1091,11 +1053,9 @@ ol, ul {
 	
 	padding:15px 15px;
 }
-.list_wrap{
-	border:1px solid #ededed;
-}
+
 .comment_icon{
-	 background: url(./resources/images/free-icon-speech-bubble-2462719.png) center no-repeat;
+	 background: url(./resources/img/free-icon-speech-bubble-2462719.png) center no-repeat;
 
 	 display: inline-block;
     width: 16px;
@@ -1103,7 +1063,7 @@ ol, ul {
    
 }
 .recount_icon{
-	background: url(./resources/images/free-icon-eye-660022.png) center no-repeat;
+	background: url(./resources/img/free-icon-eye-660022.png) center no-repeat;
 
 	 display: inline-block;
     width: 16px;
@@ -1161,44 +1121,14 @@ ol, ul {
 }
 .post-entry-1, .post-entry-2 {
     font-size: .9rem;
-    margin-bottom: 30px;
+    margin-bottom: 18px;
+    padding-bottom:18px;
+    border-bottom: 1px solid #efefef;
 }
-
-
-/*  */
-.btn-box {
-	text-align : center;
-	padding: 20px;
-}
-
-
-/* summernote */
-.FlexableTextArea .textarea_input {
-    display: block;
-    width: 100%;
-    min-height: 40px;
-    padding: 11px 12px 10px;
-    border: 1px solid #ebecef;
-    box-sizing: border-box;
-    overflow: hidden;
-    resize: none;
-    word-break: break-all;
-    font-size: 15px;
-    letter-spacing: -.23px;
-    line-height: 17px;
-    outline: none;
-}
-
-.SmartEditor {
-    margin-top: 12px;
-    border: 1px solid #ebecef;
-    border-bottom: 0;
-    background: #fff;
-}
-
-
-.SmartEditor button {
+.tag{
 	
+	
+	color:#5c5c8a;
 }
 	.tab-left, .tab-right {
 		display: inline-block;
@@ -1337,7 +1267,7 @@ ol, ul {
 	<!-- 유기동물 상세정보 -->
 	.animal-box {
 		width: 100%;
-	    height: 400px;
+	    height: 490px;
 	    padding: 20px;
 	    border: 1px solid black;
 	}
@@ -1445,7 +1375,7 @@ ol, ul {
 			bgnde = $('#bgnde').val();
 			endde = $('#endde').val();
 			sido = $('#sido').val();
-			siGunGu = $('#sigungu').val();
+			siGunGu = $('#siGunGu').val();
 			upKind = $('#upKind').val();
 			kind = $('#kind').val();
 			
@@ -1527,8 +1457,8 @@ ol, ul {
 			 , dataType: "html"
 			, success: function( data ){
 				console.log(data);
-				$('#sigungu-select').empty();
-				$('#sigungu-select').append(data);
+				$('#siGunGu-select').empty();
+				$('#siGunGu-select').append(data);
 				
 			}	
 			, error: function(request, status, error){
@@ -1623,9 +1553,9 @@ ol, ul {
 						</ul></li>
 					<li class="dropdown"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a>
 						<ul class="dropdown-menu">
-				<li class="list-group-item click"><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
-				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
-				<li class="list-group-item"><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
+				<li><a href="${pageContext.request.contextPath}/SJ/pet_list">보호소</a></li>
+				<li><a href="${pageContext.request.contextPath}/SJ/payang/list">파양</a></li>
+				<li><a href="${pageContext.request.contextPath}/SJ/missing/list">실종</a></li>
 						</ul></li>
 					<li class="dropdown"><a href="${pageContext.request.contextPath}/doclist.bo">커뮤니티</a>
 						<ul class="dropdown-menu">
@@ -1637,7 +1567,7 @@ ol, ul {
 	<div class="header-top">
 		<div class="mainlogo">
 		<a href="#">
-		<img src = "${pageContext.request.contextPath}/resources/img/mainlogo.png" class = "img-circle">
+		<img src = "${pageContext.request.contextPath}/resources/img/mainlogo.png" class = "img-circle" >
 		</a>
 		</div>
 	</div>
@@ -1649,8 +1579,8 @@ ol, ul {
 </header>
 		
 		<div class="main-content">
+		
 			<div class="content-wrap">
-			
 			
 			<!-- 왼쪽. 서브메뉴가 들어갈 부분 -->
 			<div class="sidemenu-section">
@@ -1665,58 +1595,80 @@ ol, ul {
 				<!-- 오른쪽. 내용이 들어갈 부분 -->
 				<div class="content-section">
 					
-					<div class="animal-box" style="width: 100%;    height: 400px;    padding: 20px;    border: 1px solid black;">
+					<div class="animal-box" style="width: 100%;    height: 490px;    padding: 20px; ">
 						<div class="box-left">
-							<img src="${animalInfo.popfile}" alt=""  />
-						</div>
-						<div class="box-right">
-							<div class="animal-box-title">
+							<img src="${animalInfo.popfile}" alt="" style="cursor: pointer;" />
+							<div class="animal-box-title" style="font-weight: bold;">
 								${animalInfo.kindCd}
 							</div>
 							<div class="animal-box-subtitle">
-								성별/${animalInfo.sexCd}
+								<c:set var="sexCd" value="${animalInfo.sexCd}" />
+								<c:if test="${sexCd == '성별M' }">
+									수컷
+								</c:if>
+								<c:if test="${sexCd == '성별F' }">
+									암컷
+								</c:if>
 								중성화여부/${animalInfo.neuterYn}
 								색/${animalInfo.colorCd}
 								체중/${animalInfo.weight}
 							</div>
+						</div>
+						<div class="box-right">
 							<div>
-								<table>
+								<table style="border-top: none;">
 									<tr>
-										<th>공고번호 : </th>
+										<th style="background: #fafafa;">공고번호  </th>
 										<td>
 											${animalInfo.noticeNo}
 										</td>
 									</tr>
 									<tr>
-										<th>공고기간 : </th>
+										<th style="background: #fafafa;">공고기간  </th>
 										<td>
 											${animalInfo.noticeSdt} ~
 											${animalInfo.noticeEdt}
 										</td>
 									</tr>
 									<tr>
-										<th>발견장소 : </th>
+										<th style="background: #fafafa;">발견장소  </th>
 										<td>
 											${animalInfo.happenPlace}
 										</td>
 									</tr>
 									<tr>
-										<th>특이사항 : </th>
+										<th style="background: #fafafa;">특이사항  </th>
 										<td>
 											${animalInfo.specialMark}
 										</td>
 									</tr>
 									<tr>
-										<th>보호센터 : </th>
+										<th style="background: #fafafa;">보호센터  </th>
 										<td>
 											${animalInfo.careNm}
 										</td>
 									</tr>
 									<tr>
-										<th>담당부서 : </th>
+										<th style="background: #fafafa;">담당부서  </th>
 										<td>
 											${animalInfo.orgNm}
 										</td>
+									</tr>
+									<tr>
+										<th style="background: #fafafa;">담당자</th>
+										<td>${animalInfo.chargeNm}</td>
+									</tr>
+									<tr>
+										<th style="background: #fafafa;">공고 상태</th>
+										<td>${animalInfo.processState}</td>
+									</tr>
+									<tr>
+										<th style="background: #fafafa;">담당자 전화번호</th>
+										<td>${animalInfo.officetel}</td>
+									</tr>
+									<tr>
+										<th style="background: #fafafa;">보호센터 전화번호</th>
+										<td>${animalInfo.careTel}</td>
 									</tr>
 	
 								</table>
@@ -1724,37 +1676,10 @@ ol, ul {
 								
 						</div>
 					</div>
-					<div class="shelter-box" style="width: 100%;    height: 400px;    padding: 20px;">
-					<table>
-									<tr>
-										<th>보호센터 전화번호 : </th>
-										<td>
-											${animalInfo.careTel}
-										</td>
-									</tr>
-									<tr>
-										<th>담당자 이름 : </th>
-										<td>
-											${animalInfo.chargeNm}
-										</td>
-									</tr>
-									<tr>
-										<th>담당자 전화번호 : </th>
-										<td>
-											${animalInfo.officetel}
-										</td>
-									</tr>
-									<tr>
-										<th>공고 상태 : </th>
-										<td>
-											${animalInfo.processState}
-										</td>
-										
-										
-									</tr>
-					 </table>
-					</div>
 					
+					<div style="text-align: center; padding: 50px;" >
+						<button id="list-btn" class="btn pet-btn">목록</button>
+					</div>
 				
 				</div>				
 			</div>
@@ -1802,8 +1727,17 @@ ol, ul {
 			   $('#signin').show();
 		});//헤더 상단 로그아웃 체인지
 		
-		$('#btnCancel').on('click', function(){
-			location.href = "/SJ/payang/list";
+		$('#list-btn').on('click', function(){
+			location.href = "/SJ/pet_list";
+		});
+		
+		
+		$('img').on('click', function() {
+			
+			var url = $(this).attr('src');
+			// alert(url);
+ 			window.open("popup?src=" + url, "팝업 이미지", "width=800, height=1000, left=600, top=50");
+		    
 		});
 		
 		

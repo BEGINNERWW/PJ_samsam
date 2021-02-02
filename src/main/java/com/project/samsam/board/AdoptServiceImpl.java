@@ -12,7 +12,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.project.mapper.adopt_homeMapper;
+import com.project.samsam.board.adopt_homeVO;
 
 
 @Service("adoptService")
@@ -32,6 +34,7 @@ public class AdoptServiceImpl implements AdoptService {
 	public List<adopt_homeVO> getHomeList(HashMap<String, Integer> hashmap) {
 		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
 		List<adopt_homeVO> homelist = adoptMapper.getHomeList(hashmap);
+		
 		return homelist;
 	}
 
@@ -59,16 +62,19 @@ public class AdoptServiceImpl implements AdoptService {
 		int index1 =imgTag.lastIndexOf("/");
 		imgTag = imgTag.substring(index1+1);
 		int index2 = imgTag.lastIndexOf(".");
-		imgTag = imgTag.substring(0, index2+3);
+		imgTag = imgTag.substring(0, index2+4);
 		
 		
 		adopt.setDoc_email((String)session.getAttribute("email"));
 		adopt.setDoc_nick((String)session.getAttribute("nick"));
 		adopt.setDoc_thumbnail(imgTag);
-	
 		adopt.setDoc_img("aa");
 		
+		
 	    int res = adoptMapper.adoptInsert(adopt);
+
+	
+		
 		return res;
 	     
 	   
@@ -90,7 +96,7 @@ public class AdoptServiceImpl implements AdoptService {
 		int index1 =imgTag.lastIndexOf("/");
 		imgTag = imgTag.substring(index1+1);
 		int index2 = imgTag.lastIndexOf(".");
-		imgTag = imgTag.substring(0, index2);
+		imgTag = imgTag.substring(0, index2+4);
 		
 		
 		adopt.setDoc_thumbnail(imgTag);
@@ -102,8 +108,29 @@ public class AdoptServiceImpl implements AdoptService {
 	     
 	   
 	}
-
-
+	
+	@Override
+	public int getSearchCount(adopt_homeVO vo) {
+		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
+		
+		if(vo.getKind_search()==null) {
+			ArrayList <String> none = new ArrayList<String>();
+			none.add("none");
+			vo.setKind_search(none);
+		}
+		if(vo.getKind_loc()==null) {
+			ArrayList <String> none1 = new ArrayList<String>();
+			none1.add("none");
+			vo.setKind_loc(none1);
+		}
+		if(vo.getDoc_search()==null) {
+			ArrayList <String> none2 = new ArrayList<String>();
+			none2.add("none");
+			vo.setDoc_search(none2);
+		}
+		
+		return adoptMapper.getSearchCount(vo);
+	}
 
 
 	@Override
@@ -221,6 +248,24 @@ public class AdoptServiceImpl implements AdoptService {
 		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
 		adoptMapper.HomeDeleteComment(vo);
 		return adoptMapper.homeDelete(vo);
+	}
+
+	@Override
+	public int FreecouponUpdate(HttpSession session) {
+		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
+		String email = (String)session.getAttribute("email");
+		
+		return adoptMapper.FreecouponUpdate(email);
+		
+	}
+
+	@Override
+	public int PaycouponUpdate(HttpSession session) {
+		adopt_homeMapper adoptMapper =  sqlSession.getMapper(adopt_homeMapper.class);
+		String email = (String)session.getAttribute("email");
+		
+		return adoptMapper.PaycouponUpdate(email);
+		
 	}
 
 	
