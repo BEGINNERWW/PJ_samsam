@@ -637,7 +637,7 @@ li.list-group-item.click > a {
 			if(adopt_list != null){
 				for(Adopt_BoardVO adopt_board : adopt_list){
 					for ( Integer key : map.keySet() ) {
-						if(key == adopt_board.getAdopt_no()){
+						if(key == adopt_board.getDoc_no()){
 		%>
 			<tr class="adopt">
 				<td><a class="path" href="Selladopthomeview.bo?num=<%= adopt_board.getDoc_no()%>"><%= adopt_board.getDoc_no() %></a></td>
