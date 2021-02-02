@@ -25,6 +25,10 @@
 <!-- 스윗얼럿 -->
 <script src = "https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
+body::-webkit-scrollbar { 
+    display: none; 
+}
+
 /* pageup button */
 .back-to-top{
    width : 40px;
@@ -53,7 +57,7 @@
     text-align: right;
     position: fixed;
     margin-right: 28px;
-    bottom: 90px;
+    bottom: 86px;
     right: 0;
 }
 .kakao_btn {

@@ -93,6 +93,10 @@
             background: orange;
             color: black;
         }
+        body::-webkit-scrollbar { 
+    display: none; 
+}
+        
     </style>
 <script >
 	function fieldsetDisable()  {

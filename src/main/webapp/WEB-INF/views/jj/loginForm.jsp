@@ -16,6 +16,10 @@
 	<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script> <!-- 카카오톡 자바스크립트 라이브러리 -->
 	<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script> <!-- 네이버 js 라이브러리 -->
 <style>
+body::-webkit-scrollbar { 
+    display: none; 
+}
+
 /* pageup button */
 .back-to-top{
    width : 40px;
@@ -43,7 +47,7 @@
     text-align: right;
     position: fixed;
     margin-right: 28px;
-    bottom: 90px;
+    bottom: 86px;
     right: 0;
 }
 .kakao_button {

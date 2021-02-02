@@ -58,6 +58,18 @@
 		color: blue;
 		
 	}
+body::-webkit-scrollbar { 
+    display: none; 
+}
+
+
+.search-box.btn {
+  color : #9494b8;
+  text-align : left; 
+  font-size: 1rem;
+}
+	
+	
 </style>
     <c:if test="${fn:length(animalList) == 0}">
     	<div>
@@ -66,7 +78,7 @@
     </c:if>
 	<c:forEach var="animal" items="${animalList}" varStatus="status">
 		<div class="pet-box">
-			<div class="pet-img" style="background-image:url(${animal.filename })">
+			<div class="pet-img" style="background-image:url(${animal.popfile })">
 			 <%--  <img src="${animal.filename }" alt="img" /> --%>
 			</div>
 			<div class="pet-content">

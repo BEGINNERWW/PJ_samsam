@@ -44,6 +44,10 @@
     }); 
 </script>
 <style>
+body::-webkit-scrollbar { 
+    display: none; 
+}
+
 .modal{
 max-width: 700px;
 }

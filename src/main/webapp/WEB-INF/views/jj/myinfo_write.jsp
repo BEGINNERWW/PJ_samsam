@@ -70,6 +70,9 @@
 <style>
 /* 공통으로 사용하는 CSS */
 @charset "utf-8";
+body::-webkit-scrollbar { 
+    display: none; 
+}
 
 * {
    margin:0;
@@ -288,7 +291,9 @@ li.dropdown > a {
 .search-box.btn {
   color : #9494b8;
   text-align : left; 
+  font-size: 1rem;
 }
+
 
 /* search-wrqpper */
 

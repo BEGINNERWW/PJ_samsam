@@ -13,6 +13,10 @@
     %>
 <head>
 <style>
+body::-webkit-scrollbar { 
+    display: none; 
+}
+
 .dropdown-menu {
     display: none;
     justify-content: flex-start;

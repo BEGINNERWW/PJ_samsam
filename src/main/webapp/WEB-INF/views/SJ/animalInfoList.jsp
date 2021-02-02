@@ -6,6 +6,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 
 <script>
+    $('.search-box btn').click(function(){
+      
+    });
+    $('#keyword').keypress(function(event){
+      if(event.which == 13){
+        $('.search-box btn').click();
+        return false;
+      }
+    });
+</script>
+
+<script>
+
 	$(document).ready(function(){
 		var maxNo = "<c:out value='${pageInfo.maxNo}' />";
 		
@@ -40,7 +53,7 @@
 			getAnimalInfo(pageNo);
 		});
 	});
-	
+	console.log(AnimalInfo);
 </script> 
  
 <style>
@@ -59,6 +72,15 @@
 		color: blue;
 		
 	}
+	body::-webkit-scrollbar { 
+    display: none; 
+}
+.search-box{
+  color : #9494b8;
+  text-align : left; 
+  font-size: 1rem;
+}
+	
 </style>
  
  
@@ -71,9 +93,9 @@
 <c:forEach var="animal" items="${animalList}" varStatus="status">
 	
 	<div class="pet-box">
-		<div class="pet-img">
-		  <img src="${animal.filename }" alt="img" />
-		</div>
+		  <div class="pet-img" style="background-image:url(${animal.popfile })">
+			 <%--  <img src="${animal.filename }" alt="img" /> --%>
+			</div>
 		<div class="pet-content">
 			<div class="animal-kindCd">
 				<label class="animal-info">품종</label>

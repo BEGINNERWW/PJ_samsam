@@ -40,6 +40,10 @@
 <!-- 스윗얼럿 -->
 <script src = "https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
+body::-webkit-scrollbar { 
+    display: none; 
+}
+
 ul{
   list-style: none;
 }

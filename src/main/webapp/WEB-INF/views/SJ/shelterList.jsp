@@ -5,6 +5,18 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 
 <script>
+    $('.search-box btn').click(function(){
+      
+    });
+    $('#keyword').keypress(function(event){
+      if(event.which == 13){
+        $('.search-box btn').click();
+        return false;
+      }
+    });
+</script>
+
+<script>
 	$(document).ready(function(){
 		var maxNo = "<c:out value='${pageInfo.maxNo}' />";
 		
@@ -59,6 +71,15 @@
 		color: blue;
 		
 	}
+	body::-webkit-scrollbar { 
+    display: none; 
+}
+
+.search-box{
+  color : #9494b8;
+  text-align : left; 
+  font-size: 1rem;
+}
 </style>
     
 <table border="1">
