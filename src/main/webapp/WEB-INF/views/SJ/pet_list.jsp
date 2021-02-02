@@ -30,6 +30,17 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/SJ/pet.css">
 
+<script>
+    $('.search-box btn').click(function(){
+      
+    });
+    $('#keyword').keypress(function(event){
+      if(event.which == 13){
+        $('.search-box btn').click();
+        return false;
+      }
+    });
+</script>
 <style>
 
 @charset "utf-8";
@@ -199,7 +210,7 @@ li.dropdown {
 	padding-left: 46px;
 }
 .care {
-	padding-left: 30px;
+	padding-left: 50px;
 }
 .commu {
 	padding-left: 35px;
@@ -241,10 +252,7 @@ li.dropdown > a {
 }
 .search-box.input:focus {outline:none;}
 
-.search-box.btn1 {
-  color : #9494b8;
-  text-align : left; 
-}
+
 
 /* search-wrqpper */
 
@@ -1130,6 +1138,16 @@ select, button, textarea {
 	
 	color:#5c5c8a;
 }
+body::-webkit-scrollbar { 
+    display: none; 
+}
+
+
+.search-box{
+  color : #9494b8;
+  text-align : left; 
+  font-size: 1rem;
+}
 
 
 </style>
@@ -1429,7 +1447,7 @@ select, button, textarea {
 				<ul class="sticky-wrapper">
                <li class="dropdown"><a href="${pageContext.request.contextPath}/home.me">HOME</a></li>
                <li class="dropdown"><a href="${pageContext.request.contextPath}/home_list.bo">분양</a>
-						<ul class="dropdown-menu">
+						<ul class="dropdown-menu board">
                      <li><a href="${pageContext.request.contextPath}/home_list.bo">&nbsp;&nbsp;가정분양</a></li>
                      <li><a href="${pageContext.request.contextPath}/fdoclist.bo">책임분양</a></li>
                      <li><a href="${pageContext.request.contextPath}/selladopt_list.bo">업체분양</a></li>
@@ -1454,7 +1472,6 @@ select, button, textarea {
 		</a>
 		</div>
 	</div>
-	
 	
 	 <form action="${pageContext.request.contextPath}/home_search.me" method="post" name="home_search">
             <div class="search-wrapper">

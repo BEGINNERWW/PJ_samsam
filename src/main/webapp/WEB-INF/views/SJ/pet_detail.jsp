@@ -57,6 +57,16 @@ body {
     font-weight: 300;
     font-size: .9rem;
 }
+body::-webkit-scrollbar { 
+    display: none; 
+}
+
+
+.search-box {
+  color : #9494b8;
+  text-align : left; 
+  font-size: 1rem;
+}
 
 
 a{
@@ -241,10 +251,7 @@ li.dropdown > a {
 }
 .search-box.input:focus {outline:none;}
 
-.search-box.btn1 {
-  color : #9494b8;
-  text-align : left; 
-}
+
 
 /* search-wrqpper */
 
@@ -1571,10 +1578,16 @@ select, button, textarea {
 		</a>
 		</div>
 	</div>
-	<div class= "search-wrapper">
-      <input class="search-box input" type="text" placeholder="Search">
-      <button class="search-box" type="button"><i class="fas fa-search"></i></button>
-	</div>
+	
+		 <form action="${pageContext.request.contextPath}/home_search.me" method="post" name="home_search">
+            <div class="search-wrapper">
+               <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
+               <button class="search-box" type="submit">
+                  <i class="fas fa-search"></i>
+               </button>
+            </div>
+      </form>
+	
 	</div><!-- nav-menu -->
 </header>
 		

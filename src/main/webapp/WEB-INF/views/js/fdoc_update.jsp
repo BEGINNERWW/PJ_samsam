@@ -280,10 +280,15 @@ li.dropdown > a {
 }
 .search-box.input:focus {outline:none;}
 
-.search-box.btn1 {
+body::-webkit-scrollbar { 
+    display: none; 
+}
+.search-box {
   color : #9494b8;
   text-align : left; 
+  font-size: 1rem;
 }
+
 
 /* search-wrqpper */
 

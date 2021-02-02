@@ -32,6 +32,18 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/SJ/pet.css">
 
+<script>
+    $('.search-box btn').click(function(){
+      
+    });
+    $('#keyword').keypress(function(event){
+      if(event.which == 13){
+        $('.search-box btn').click();
+        return false;
+      }
+    });
+</script>
+
 <style>
 
 @charset "utf-8";
@@ -243,10 +255,16 @@ li.dropdown > a {
 }
 .search-box.input:focus {outline:none;}
 
-.search-box.btn1 {
+body::-webkit-scrollbar { 
+    display: none; 
+}
+
+.search-box{
   color : #9494b8;
   text-align : left; 
+  font-size: 1rem;
 }
+
 
 /* search-wrqpper */
 
@@ -1371,7 +1389,7 @@ select, button, textarea {
 	</div>
 	
 	
-	<form action="${pageContext.request.contextPath}/home_search.me" method="post" name="home_search">
+	 <form action="${pageContext.request.contextPath}/home_search.me" method="post" name="home_search">
             <div class="search-wrapper">
                <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
                <button class="search-box" type="submit">
@@ -1379,6 +1397,7 @@ select, button, textarea {
                </button>
             </div>
       </form>
+	
 	
 	</div><!-- nav-menu -->
 </header>
