@@ -550,7 +550,7 @@ $(document).on("click", ".after-btn",function(event) {
 			</h1>
 		</div>
 		<div class ="admin_inout">
-			<button type="button" class ="grade" onclick="location.href='home.me'">ADMIN</button>
+			<button type="button" class ="grade" onclick="location.href='home.me'">HOME</button>
 			<button type="button" class ="grade" onclick="location.href='logout.me'">LOGOUT</button>
 		</div>
 						

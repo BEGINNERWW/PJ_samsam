@@ -44,7 +44,9 @@ html{
    height: 100%;
     overflow: auto;
 }
-
+body::-webkit-scrollbar { 
+    display: none; 
+   }
 
 body {
    margin: 0;

@@ -1,7 +1,3 @@
-admin_board
-
-
-
 <%@ page language = "java" contentType = "text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="java.util.*"%>
@@ -432,7 +428,7 @@ function nowpage(){
 			</h1>
 		</div>
 		<div class ="admin_inout">
-			<button type="button" class ="grade" onclick="location.href='home.me'">ADMIN</button>
+			<button type="button" class ="grade" onclick="location.href='home.me'">HOME</button>
 			<button type="button" class ="grade" onclick="location.href='logout.me'">LOGOUT</button>
 		</div>
 						

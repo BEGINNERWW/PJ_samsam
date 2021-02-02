@@ -226,11 +226,12 @@ public class JJMemberController {
 
 		//어드민
 		if(vo.getEmail().equals("admin")) {
-			if(res.getPw().equals(vo.getPw()))
+			if(res.getPw().equals(vo.getPw())){
 			session.setAttribute("id", vo.getEmail());
 			session.setAttribute("email", vo.getEmail());
 			
 			return "redirect:/home.me";  //어드민 페이지로 변경 필요
+			}
 		}
 		//카카오
 		if(res.getAuthkey().equals("kkoAuth")) {

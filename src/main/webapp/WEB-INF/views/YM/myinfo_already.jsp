@@ -81,7 +81,9 @@ a:hover {
     color: #0056b3;
     text-decoration: none;
 }
-
+body::-webkit-scrollbar { 
+    display: none; 
+   }
 body {
    text-align: -webkit-center;
    display : flex;
