@@ -14,7 +14,8 @@ public interface AdoptService {
 	public adopt_homeVO adopt_homeinfo(int Doc_no);
 	public int homeDelete(adopt_homeVO vo);
 	public int adoptupdateInsert(adopt_homeVO adopt,HttpSession session);
-	
+	public int FreecouponUpdate(HttpSession session);
+	public int PaycouponUpdate(HttpSession session);
 	
 
 	public int adoptreplyCount() throws Exception;
@@ -25,7 +26,10 @@ public interface AdoptService {
 	public List<adopt_homeVO> getSearchList(adopt_homeVO vo);
 	public int adopthomereplyupdate(adopt_homereplyVO adhome);
 	public int deleteCount(int Doc_cno);
-	public int deleteUpdate(int Doc_cno);
+	public int deleteUpdate(int doc_cno);
+	public int getSearchCount(adopt_homeVO vo);
+	
+	
 	
 	
 	

@@ -160,7 +160,7 @@ var doc_nick ='<%=doc_nick %>';
 					
 		            $.each(data, function(key, value){
 		            	if(email==writer && email != value.doc_email && email!='null'){//원글 작성자일때
-		            		if(value.doc_lev !=0){	 //원글이 아닐시
+		            		if(value.doc_lev ==2){	 //원글이 아닐시
 		            			a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 0px 39px;" >';
 					            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong>' + '&nbsp;&nbsp;';
 					            a += '<a href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\' );">수정</a>';
@@ -168,6 +168,15 @@ var doc_nick ='<%=doc_nick %>';
 					            a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 					            a += '</div></div>';
 				            }
+		            	
+		            		else if(value.doc_lev == 3){
+			                    
+				                   a+= '<li style="background-color:#F8F8F8; " id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+				                   a+= '<div class="comment_post"><div class="box_post"><p class="desc_info" style="margin:0px 0px 15px 39px;">';
+				                   a+= '&nbsp;&nbsp;&nbsp;삭제된 댓글입니다.';
+				                   a+= '</p></div></div></div></div></li>';
+				                    
+				                 }
 			            	else{
 			            		 a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
 						         a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong>' + '&nbsp;&nbsp;';
@@ -189,7 +198,7 @@ var doc_nick ='<%=doc_nick %>';
 			            	}
 		            	}
 		           	 	else if(email == value.doc_email && email != 'null'){ //댓글 작성자일시
-			            	if(value.doc_lev !=0){	 //원글이 아닐시
+			            	if(value.doc_lev ==2){	 //원글이 아닐시
 		            			a += '<div style="border-bottom:1px solid #eee; padding:0px 45px 0px 84px; background-color:#EFF3F7;" >';
 					            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong>' + '&nbsp;&nbsp;';
 					            a += '<span class="btn_box"><a href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\');">수정</a>';
@@ -197,6 +206,15 @@ var doc_nick ='<%=doc_nick %>';
 					            a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 					            a += '</div></div>';
 				            }
+		           	 	
+			            	else if(value.doc_lev == 3){
+			                    
+				                   a+= '<li style="background-color:#F8F8F8; " id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+				                   a+= '<div class="comment_post"><div class="box_post"><p class="desc_info" style="margin:0px 0px 15px 39px;">';
+				                   a+= '&nbsp;&nbsp;&nbsp;삭제된 댓글입니다.';
+				                   a+= '</p></div></div></div></div></li>';
+				                    
+				                 }
 			            	else{
 			            		 a += '<div class="commentArea" style="border-bottom:1px solid #eee; padding:0px 45px 0px 45px; background-color:#EFF3F7;"">';
 						         a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong>' + '&nbsp;&nbsp;';
@@ -219,12 +237,21 @@ var doc_nick ='<%=doc_nick %>';
 			            }
 			            else if(email != value.doc_nick && email != 'null'){//작성자가 아닐시
 			            	if(value.doc_secret == 0){//비밀글이 아닐시
-				            	if(value.doc_lev !=0){ //답글일때
+				            	if(value.doc_lev ==2){ //답글일때
 						            a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 15px 39px;">';
 						            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong></div>';         
 						            a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';	           
 						            a += '</div></div>';
 					            }
+			            	
+				            	else if(value.doc_lev == 3){
+				                    
+					                   a+= '<li style="background-color:#F8F8F8; " id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+					                   a+= '<div class="comment_post"><div class="box_post"><p class="desc_info" style="margin:0px 0px 15px 39px;">';
+					                   a+= '&nbsp;&nbsp;&nbsp;삭제된 댓글입니다.';
+					                   a+= '</p></div></div></div></div></li>';
+					                    
+					                 }
 				            	else{
 				            		a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
 							        a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong></div>';   
@@ -243,13 +270,21 @@ var doc_nick ='<%=doc_nick %>';
 				            	}
 			            	}
 			            	else{//비밀글이 맞을시
-			            		if(value.doc_lev !=0){
+			            		if(value.doc_lev ==2){
 						            a += '<div style="border-bottom:1px solid #eee; margin-bottom:15px;">';
 						            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong></div>';
 						            
 						            a += '<div class="commentContent' +value.doc_cno+'"> <p>해당 댓글은 작성자와 운영자만 볼 수 있습니다</p>';         
 						            a += '</div></div>';
 					            }
+			            		else if(value.doc_lev == 3){
+				                    
+					                   a+= '<li style="background-color:#F8F8F8; " id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+					                   a+= '<div class="comment_post"><div class="box_post"><p class="desc_info" style="margin:0px 0px 15px 39px;">';
+					                   a+= '&nbsp;&nbsp;&nbsp;삭제된 댓글입니다.';
+					                   a+= '</p></div></div></div></div></li>';
+					                    
+					                 }
 				            	else{
 				            		a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
 							        a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong></div>';
@@ -261,13 +296,22 @@ var doc_nick ='<%=doc_nick %>';
 			            }
 			            else{//비로그인시
 			            	if(value.doc_secret == 0){//비밀글이 아닐시
-				            	if(value.doc_lev !=0){
+				            	if(value.doc_lev ==2){
 						            a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 15px 39px;">';
 						            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong></div>';         
 						            a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';      
 						            a += '</div></div>';
 						            
 					            }
+			            	
+				            	else if(value.doc_lev == 3){
+				                    
+					                   a+= '<li style="background-color:#F8F8F8; " id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+					                   a+= '<div class="comment_post"><div class="box_post"><p class="desc_info" style="margin:0px 0px 15px 39px;">';
+					                   a+= '&nbsp;&nbsp;&nbsp;삭제된 댓글입니다.';
+					                   a+= '</p></div></div></div></div></li>';
+					                    
+					                 }
 				            	else{
 				            		a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
 							        a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong></div>';   
@@ -277,13 +321,22 @@ var doc_nick ='<%=doc_nick %>';
 			      
 			            	}
 			            	else{//비밀글이 맞을시
-			            		if(value.doc_lev !=0){
+			            		if(value.doc_lev ==2){
 						            a += '<div style="border-bottom:1px solid #eee; margin-bottom:15px;">';
 						            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong></div>';
 						            
 						            a += '<div class="commentContent' +value.doc_cno+'"> <p>해당 댓글은 작성자와 운영자만 볼 수 있습니다</p>';
 						            a += '</div></div>';
 					            }
+			            	
+			            		else if(value.doc_lev == 3){
+				                    
+					                   a+= '<li style="background-color:#F8F8F8; " id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+					                   a+= '<div class="comment_post"><div class="box_post"><p class="desc_info" style="margin:0px 0px 15px 39px;">';
+					                   a+= '&nbsp;&nbsp;&nbsp;삭제된 댓글입니다.';
+					                   a+= '</p></div></div></div></div></li>';
+					                    
+					                 }
 				            	else{
 				            		a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
 							        a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong></div>';
@@ -342,8 +395,8 @@ var doc_nick ='<%=doc_nick %>';
 					            }
 				            	else if(value.doc_lev == 3){
 				                    
-				                   a+= '<li style="background-color:#F8F8F8;" id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
-				                   a+= '<div class="comment_post"><div class="box_post"><p class="desc_info">';
+				                   a+= '<li style="background-color:#F8F8F8; " id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+				                   a+= '<div class="comment_post"><div class="box_post"><p class="desc_info" style="margin:0px 0px 15px 39px;">';
 				                   a+= '&nbsp;&nbsp;&nbsp;삭제된 댓글입니다.';
 				                   a+= '</p></div></div></div></div></li>';
 				                    
@@ -370,7 +423,7 @@ var doc_nick ='<%=doc_nick %>';
 				            	}
 			            	}
 			            	else if(email==value.doc_email && email!='null'){//작성자일 경우
-				            	if(value.doc_lev !=0){//댓글일시
+				            	if(value.doc_lev ==2){//댓글일시
 				            		 a += '<div class="replyspace" style="border-bottom:1px solid #eee; background-color:#EFF3F7; padding:0px 45px 0px 84px;">';
 							         a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong>';
 							         a += '<span class ="btn_box"><a href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\');">수정</a>';
@@ -380,7 +433,14 @@ var doc_nick ='<%=doc_nick %>';
 							         a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 							        
 							         a += '</div></div>';
-					            }	
+					            }
+				            	else if(value.doc_lev == 3){
+				            		 
+					                   a+= '<li style="background-color:#F8F8F8;" id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+					                   a+= '<div class="comment_post"><div class="box_post"><p class="desc_info" style="margin:0px 0px 15px 39px;">';
+					                   a+= '&nbsp;&nbsp;&nbsp;삭제된 댓글입니다.';
+					                   a+= '</p></div></div></div></div></li>';
+				            	}
 				            	else{
 				            		 a += '<div class="commentArea" style="border-bottom:1px solid #eee; background-color:#EFF3F7;">';
 							         a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong>';
@@ -394,14 +454,23 @@ var doc_nick ='<%=doc_nick %>';
 				            }
 				            else if(email!=value.doc_email && email!='null'){//작성자가 아닐시
 				            	if(value.doc_secret == 0){ //비밀글이 아닐시
-					            	if(value.doc_lev !=0){//댓글일시
+					            	if(value.doc_lev ==2){//댓글일시
 							            a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 15px 39px;">';
 							            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong>';
-							            a += '<span class= "btn_box>"<a class="link_write" href="#" onclick="warning('+value.doc_cno+','+doc_no+',\''+value.doc_nick+'\',\''+value.doc_content+'\');">신고</a></div>';
+							            a += '<span style="margin:0px 0px 0px 850px;"><a class="link_write" href="#" onclick="warning('+value.doc_cno+','+doc_no+',\''+value.doc_nick+'\',\''+value.doc_content+'\');">신고</a></div>';
 							            a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p></span>';
 							   
 							            a += '</div></div>';
 						            }
+				            	
+					            	else if(value.doc_lev == 3){
+					                    
+						                   a+= '<li style="background-color:#F8F8F8; " id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+						                   a+= '<div class="comment_post"><div class="box_post"><p class="desc_info" style="margin:0px 0px 15px 39px;">';
+						                   a+= '&nbsp;&nbsp;&nbsp;삭제된 댓글입니다.';
+						                   a+= '</p></div></div></div></div></li>';
+						                    
+						                 }
 					            	else{
 					            		a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
 								        a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong>';
@@ -414,13 +483,22 @@ var doc_nick ='<%=doc_nick %>';
 				            	}
 				            	else{
 			            		//비밀글이 맞을시
-				            		if(value.doc_lev !=0){
+				            		if(value.doc_lev ==2){
 							            a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 15px 39px;">';
 							            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong></div>';	      
 							            a += '<div class="commentContent' +value.doc_cno+'"> <p> 해당 댓글은 작성자와 운영자만 볼 수 있습니다 </p>';
 							          
 							            a += '</div></div>';
 						            }
+			            		
+				            		else if(value.doc_lev == 3){
+					                    
+						                   a+= '<li style="background-color:#F8F8F8; " id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+						                   a+= '<div class="comment_post"><div class="box_post"><p class="desc_info" style="margin:0px 0px 15px 39px;">';
+						                   a+= '&nbsp;&nbsp;&nbsp;삭제된 댓글입니다.';
+						                   a+= '</p></div></div></div></div></li>';
+						                    
+						                 }
 					            	else{
 					            		a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
 								        a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong>';
@@ -433,7 +511,7 @@ var doc_nick ='<%=doc_nick %>';
 				            }
 				            else{//비로그인일시
 				            	if(value.doc_secret == 0){ //비밀글이 아닐시
-					            	if(value.doc_lev !=0){
+					            	if(value.doc_lev ==2){
 							            a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 15px 39px;">';
 							            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong></div>';	      
 							            a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
@@ -441,6 +519,15 @@ var doc_nick ='<%=doc_nick %>';
 							            a += '</div></div></div>';
 							            $('#aa').empty();
 						            }
+				            	
+					            	else if(value.doc_lev == 3){
+					                    
+						                   a+= '<li style="background-color:#F8F8F8; " id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+						                   a+= '<div class="comment_post"><div class="box_post"><p class="desc_info" style="margin:0px 0px 15px 39px;">';
+						                   a+= '&nbsp;&nbsp;&nbsp;삭제된 댓글입니다.';
+						                   a+= '</p></div></div></div></div></li>';
+						                    
+						                 }
 					            	else{
 					            		a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
 								        a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'</strong>';
@@ -452,13 +539,22 @@ var doc_nick ='<%=doc_nick %>';
 				            	}
 				            	else{
 			            		//비밀글이 맞을시
-				            		if(value.doc_lev !=0){
+				            		if(value.doc_lev ==2){
 							            a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 15px 39px;">';
 							            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong></div>';	      
 							            a += '<div class="commentContent' +value.doc_cno+'"> <p> 해당 댓글은 작성자와 운영자만 볼 수 있습니다 </p>';
 							            a += '<div class="cdate' +value.doc_cno+'"> <p style = "color:#a497a4"><small> '+getFormatDate(date) +'</small></p>';
 							            a += '</div></div></div>';
 						            }
+			            		
+				            		else if(value.doc_lev == 3){
+					                    
+						                   a+= '<li style="background-color:#F8F8F8; " id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+						                   a+= '<div class="comment_post"><div class="box_post"><p class="desc_info" style="margin:0px 0px 15px 39px;">';
+						                   a+= '&nbsp;&nbsp;&nbsp;삭제된 댓글입니다.';
+						                   a+= '</p></div></div></div></div></li>';
+						                    
+						                 }
 					            	else{
 					            		a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
 								        a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +'&nbsp;&nbsp;&nbsp;'+ getFormatDate(date)+'</strong>';
@@ -567,7 +663,7 @@ var doc_nick ='<%=doc_nick %>';
 				            $.each(data, function(key, value){
 				            	var date = new Date(value.doc_date);
 				            	if(email==writer && email != value.doc_email && email!='null'){//원글 작성자일때
-				            		if(value.doc_lev !=0){	 //원글이 아닐시
+				            		if(value.doc_lev ==2){	 //원글이 아닐시
 				            			a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 0px 39px;" >';
 							            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong>' + '&nbsp;&nbsp;';
 							            a += '<span class="btn_box"><a href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\');">수정</a>';
@@ -576,6 +672,15 @@ var doc_nick ='<%=doc_nick %>';
 							           
 							            a += '</div></div>';
 						            }
+				            	
+				            		else if(value.doc_lev == 3){
+					                    
+						                   a+= '<li style="background-color:#F8F8F8; " id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+						                   a+= '<div class="comment_post"><div class="box_post"><p class="desc_info" style="margin:0px 0px 15px 39px;">';
+						                   a+= '&nbsp;&nbsp;&nbsp;삭제된 댓글입니다.';
+						                   a+= '</p></div></div></div></div></li>';
+						                    
+						                 }
 					            	else{
 					            		 a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
 								         a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong>' + '&nbsp;&nbsp;';
@@ -634,7 +739,7 @@ var doc_nick ='<%=doc_nick %>';
 					            	}
 					            	else{
 					            	
-						            	if(value.doc_lev !=0){//댓글일시
+						            	if(value.doc_lev ==2){//댓글일시
 						            		 a += '<div class="replyspace" style="border-bottom:1px solid #eee; padding:0px 45px 0px 84px; background-color:#EFF3F7;">';
 									         a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick + '</strong>';
 									         a += '<span class="btn_box"><a href="#" onclick="commentUpdateForm('+value.doc_cno+',\''+value.doc_content+'\');">수정</a>';
@@ -643,7 +748,16 @@ var doc_nick ='<%=doc_nick %>';
 									         a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 									         
 									         a += '</div></div>';
-							            }	
+							            }
+						            	
+						            	else if(value.doc_lev == 3){
+						                    
+							                   a+= '<li style="background-color:#F8F8F8; " id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+							                   a+= '<div class="comment_post"><div class="box_post"><p class="desc_info" style="margin:0px 0px 15px 39px;">';
+							                   a+= '&nbsp;&nbsp;&nbsp;삭제된 댓글입니다.';
+							                   a+= '</p></div></div></div></div></li>';
+							                    
+							                 }
 						            	else{
 						            		 a += '<div class="commentArea" style="border-bottom:1px solid #eee; padding:0px 45px 0px 39px; background-color:#EFF3F7;">';
 									         a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong>';
@@ -658,13 +772,22 @@ var doc_nick ='<%=doc_nick %>';
 					            }
 					            else if(email!=value.doc_email && email!='null'){//작성자가 아닐시
 					            	if(value.doc_secret == 0){ //비밀글이 아닐시
-						            	if(value.doc_lev !=0){
+						            	if(value.doc_lev ==2){
 								            a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 15px 39px;">';
 								            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong></div>';	      
 								            a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 								           
 								            a += '</div></div>';
 							            }
+					            	
+						            	else if(value.doc_lev == 3){
+						                    
+							                   a+= '<li style="background-color:#F8F8F8; " id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+							                   a+= '<div class="comment_post"><div class="box_post"><p class="desc_info" style="margin:0px 0px 15px 39px;">';
+							                   a+= '&nbsp;&nbsp;&nbsp;삭제된 댓글입니다.';
+							                   a+= '</p></div></div></div></div></li>';
+							                    
+							                 }
 						            	else{
 						            		a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
 									        a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong>';
@@ -677,13 +800,22 @@ var doc_nick ='<%=doc_nick %>';
 					            	}
 					            	else{
 				            		//비밀글이 맞을시
-					            		if(value.doc_lev !=0){
+					            		if(value.doc_lev ==2){
 								            a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 15px 39px;">';
 								            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong></div>';	      
 								            a += '<div class="commentContent' +value.doc_cno+'"> <p> 해당 댓글은 작성자와 운영자만 볼 수 있습니다 </p>';
 								            
 								            a += '</div></div>';
 							            }
+				            		
+					            		else if(value.doc_lev == 3){
+						                    
+							                   a+= '<li style="background-color:#F8F8F8; " id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+							                   a+= '<div class="comment_post"><div class="box_post"><p class="desc_info" style="margin:0px 0px 15px 39px;">';
+							                   a+= '&nbsp;&nbsp;&nbsp;삭제된 댓글입니다.';
+							                   a+= '</p></div></div></div></div></li>';
+							                    
+							                 }
 						            	else{
 						            		a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
 									        a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong>';
@@ -696,13 +828,22 @@ var doc_nick ='<%=doc_nick %>';
 					            }
 					            else{//비로그인일시
 					            	if(value.doc_secret == 0){ //비밀글이 아닐시
-						            	if(value.doc_lev !=0){
+						            	if(value.doc_lev ==2){
 								            a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 15px 39px;">';
 								            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick + '&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong></div>';	      
 								            a += '<div class="commentContent' +value.doc_cno+'"> <p> '+value.doc_content +'</p>';
 								            
 								            a += '</div></div>';
 							            }
+					            	
+						            	else if(value.doc_lev == 3){
+						                    
+							                   a+= '<li style="background-color:#F8F8F8; " id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+							                   a+= '<div class="comment_post"><div class="box_post"><p class="desc_info" style="margin:0px 0px 15px 39px;">';
+							                   a+= '&nbsp;&nbsp;&nbsp;삭제된 댓글입니다.';
+							                   a+= '</p></div></div></div></div></li>';
+							                    
+							                 }
 						            	else{
 						            		a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
 									        a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +	'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+	'</strong>';
@@ -714,13 +855,22 @@ var doc_nick ='<%=doc_nick %>';
 					            	}
 					            	else{
 				            		//비밀글이 맞을시
-					            		if(value.doc_lev !=0){
+					            		if(value.doc_lev ==2){
 								            a += '<div style="border-bottom:1px solid #eee; margin:0px 0px 15px 39px;">';
 								            a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong></div>';	      
 								            a += '<div class="commentContent' +value.doc_cno+'"> <p> 해당 댓글은 작성자와 운영자만 볼 수 있습니다 </p>';
 								            
 								            a += '</div></div>';
 							            }
+				            		
+					            		else if(value.doc_lev == 3){
+						                    
+							                   a+= '<li style="background-color:#F8F8F8; " id="refly"'+value.doc_cno+'"><div class="comment_section"><div class="comment_info">';
+							                   a+= '<div class="comment_post"><div class="box_post"><p class="desc_info" style="margin:0px 0px 15px 39px;">';
+							                   a+= '&nbsp;&nbsp;&nbsp;삭제된 댓글입니다.';
+							                   a+= '</p></div></div></div></div></li>';
+							                    
+							                 }
 						            	else{
 						            		a += '<div class="commentArea" style="border-bottom:1px solid #eee; margin-bottom:15px;">';
 									        a += '<div class="commentInfo' +value.doc_cno+'"><strong>'  +value.doc_nick +'&nbsp;&nbsp;&nbsp; '+ getFormatDate(date)+'</strong>';
@@ -810,10 +960,6 @@ var doc_nick ='<%=doc_nick %>';
 	            }
 	        });
 		});
-		
-		
-		
-		
 		
 </script>
 

@@ -39,7 +39,7 @@
 		<![CDATA[
 		SELECT * FROM (SELECT rownum rnum, doc_no, doc_email, doc_nick, doc_subject, doc_content, doc_date, doc_readcount, doc_expiry, doc_code,
 		doc_price, doc_big, doc_kindof, doc_thumbnail, doc_loc, doc_comment 
-			from (SELECT * FROM free_doc where doc_email=#{email}))
+			from (SELECT * FROM free_doc where doc_email=#{email} order by doc_date desc))
 			WHERE rnum>=#{startrow_doc} and rnum<=#{endrow_doc} 
 		]]>
 	</select>

@@ -5,41 +5,76 @@
 	<mapper namespace="com.project.mapper.JJAdminBoardMapper">
 	
 		<select id="findList" parameterType = "JJABoardVO" resultType="JJABoardVOto">
-			select doc_no,doc_email,doc_nick, doc_subject, doc_content, doc_date,doc_readcount
-		from ${category} 
-		<where>
-		<if test ='keyword != null and keyword != ""'>
-		AND doc_subject like '%' || #{keyword}|| '%' OR doc_content like '%' || #{keyword} || '%'
-		</if>
-		<if test ='startDate != null and startDate != ""'>
-		 AND doc_date between TO_DATE(#{startDate},'YYYY-MM-DD') AND TO_DATE(#{endDate},'YYYY-MM-DD')
-		</if>
-		</where>
-		 order by doc_date desc
+						select doc_no,doc_email,doc_nick, doc_subject, doc_content, doc_date,doc_readcount
+					from ${category} 
+					<where>
+					<if test ='keyword != null and keyword != ""'>
+					AND doc_subject like '%' || #{keyword}|| '%' OR doc_content like '%' || #{keyword} || '%'
+					</if>
+					<if test ='startDate != null and startDate != ""'>
+					 AND doc_date between TO_DATE(#{startDate},'YYYY-MM-DD') AND TO_DATE(#{endDate},'YYYY-MM-DD')
+					</if>
+					</where>
+					 order by doc_date desc
 		</select>
-		<!-- 어드민 게시글 리스트 -->
-		 
-			<select id="find_w_List" parameterType = "JJABoardVO" resultType="BoardDetailVO">
-			select c.doc_no,c.doc_email,c.doc_nick, c.doc_subject, c.doc_content,c.doc_date,c.doc_readcount,w.w_status
+		<select id="findList_auth" parameterType = "JJABoardVO" resultType="JJABoardVOto">
+						select *
+					from ${category} 
+					<where>
+					<if test ='keyword != null and keyword != ""'>
+					AND fadoc_subject like '%' || #{keyword}|| '%' OR fadoc_content like '%' || #{keyword} || '%'
+					</if>
+					<if test ='startDate != null and startDate != ""'>
+					 AND fadoc_date between TO_DATE(#{startDate},'YYYY-MM-DD') AND TO_DATE(#{endDate},'YYYY-MM-DD')
+					</if>
+					</where>
+					 order by fadoc_date desc
+		</select>
+		
+		<!-- 어드민 게시글 리스트  & 인증리스트-->
+		 <select id="find_w_List" parameterType = "JJABoardVO" resultType="BoardDetailVO">
+			select c.doc_no, c.doc_email, c.doc_nick, c.doc_subject, c.doc_content, c.doc_date,  w_date, w.w_status 
 			from ${category} c, ${kind} w
-			where c.doc_no =w.w_doc_no
+			where c.doc_no = w.w_doc_no
 			<if test ="keyword != null and keyword != ''">
 			and c.doc_subject like '%' || #{keyword}|| '%' or c.doc_content like '%' || #{keyword}|| '%'
 			</if>
 			<if test ="startDate != null and startDate != '' and endDate != null and endDate !=''">
-			and (w.w_date between #{startDate} and #{endDate} )
+			and (w.w_date between #{startDate} and #{endDate})
 			</if>
-			 order by w.w_status asc,w.w_date desc
+			 order by w.w_status asc, w.w_date desc
 		</select>
+		 <select id="find_w_List_auth" parameterType = "JJABoardVO" resultType="BoardDetailVO">
+			select c.doc_no, c.fadoc_s_email, c.fadoc_nick, c.fadoc_subject, c.fadoc_content, c.fadoc_date,  w_date, w.w_status 
+			from ${category} c, ${kind} w
+			where c.doc_no = w.w_doc_no
+			<if test ="keyword != null and keyword != ''">
+			and c.fadoc_subject like '%' || #{keyword}|| '%' or c.fadoc_content like '%' || #{keyword}|| '%'
+			</if>
+			<if test ="startDate != null and startDate != '' and endDate != null and endDate !=''">
+			and (w.w_date between #{startDate} and #{endDate})
+			</if>
+			 order by w.w_status asc, w.w_date desc
+		</select>
+			
 		<!-- 어드민 게시글신고 리스트 -->
 		
 		
-		<!-- boardDetail page number:글번호-->  
+		<!-- boardDetail page (number=글번호)-->  
 		<select id="ad_member" parameterType="JJADModalVO"
 		    resultType="MemberVO">
-		    select m.email, m.nick, m.local, m.grade from member_list m
-		    where m.email
+		    select m.email, m.nick, m.local, m.grade
+		    from member_list m
+		    <where>
+		    <if test="category != 'free_auth'">
+		    m.email
 		    in (select o.doc_email from ${category} o where o.doc_no= #{number})
+		    </if>
+		    <if test="category == 'free_auth'">
+		    m.email
+		    in (select o.fadoc_s_email from ${category} o where o.doc_no= #{number})
+		    </if>
+		    </where>
 		  </select>
 		  <select id="ad_board" parameterType="JJADModalVO"
 		    resultType="JJABoardVOto">
@@ -52,23 +87,28 @@
 		    select *
 		    from ${co_category} 
 		    where doc_no =#{number}
+		    order by doc_date desc
 		  </select>
+		  
 		  <select id="ad_cccount" parameterType="JJADModalVO"
 		    resultType="JJCommentVO">
 		    select count(doc_cno) as co_count from ${co_category} where doc_no
 		    in(select doc_no from ${co_category} where doc_no= #{number})
 		  </select>
 			
-			
+			<!-- right_side -->
 		  <select id="w_coList" parameterType="JJADModalVO"
 		    resultType="JJWarningVO">
 		    select * 
 		    from warning where w_doc_no =#{number} and not w_co_no='0'
+		     order by w_date desc , w_status asc
 		  </select>
 		  <select id="w_docList" parameterType="JJADModalVO"
 		    resultType="JJWarningVO">
 		    select w_no,w_email,w_co_no, w_doc_no,w_date,w_status,w_reason
-		    from warning where w_doc_no=#{number} and w_co_no='0'
+		    from warning 
+		    where w_doc_no=#{number} and w_co_no='0'
+		     order by w_date desc, w_status asc
 		  </select>
 		  <select id="ad_wcount" parameterType="JJADModalVO"
 		    resultType="JJWarningVO">
@@ -89,27 +129,92 @@
 	</select>
 	<!-- 어드민 게시글 디테일 뷰  MODAL 끝 -->
 	
-	<select id="getCategory" parameterType="int" resultType="String">
-		select w_category from warning where w_no=#{w_no}
+	
+	<!--  어드민 게시글 디테일 뷰  MODAL 상태처리 시작 -->
+	<select id="getCategory" parameterType="int" resultType="JJWarningVO">
+		select w_category , w_co_no from warning where w_no=#{w_no}
 	</select>
-	<update id="update_hide" parameterType="JJWarningVO" >
-		update warning 
-		set w_status = #{w_status}
-			<where>
-				<if test="w_co_no=='0'">
-				w_co_no =='0' AND w_doc_no in ( select w_doc_no from warning where w_no = #{w_no}) 
-				</if>
-				<if test="w_co_no !='0'">
-				w_no = #{w_no}</if>
-			</where>
+	
+	<!-- 1.  -->
+	<update id="update_auth" parameterType="JJWarningVO" >
+		update warning
+		<set >
+		<if test="w_status == '숨김'"> w_status =#{w_status}</if>
+		<if test="w_status == '유지'"> w_status =#{w_status}</if>
+		</set>
+		where w_no = #{w_no}
 	</update>
-	<update id="update_keep" parameterType="JJWarningVO" >
-		update warning 
-		set w_status =#{w_status}
-		where w_no=#{w_no}
+	<!-- 1-2. 숨김 - 글or댓글작성자 wcount 처리 -->
+	<update id="update_wcount" parameterType="JJWarningVO" >
+		update member_list
+		set wcount = wcount+1 
+		<where>
+			<if test="w_co_no == 0"><!-- 원글 -->
+			 email in ( select doc_email from ${w_category} where doc_no in(select w_doc_no from warning where w_no =#{w_no}))
+			</if>
+			<if test="w_co_no != 0">
+			 email in ( select doc_email from ${w_category} where doc_no in(select w_doc_no from warning where w_no =#{w_no})
+																AND doc_cno in(select doc_cno from warning where w_no=#{w_no}))
+			</if>
+		</where>
 	</update>
+	
+		<update id="update_wcountfa" parameterType="JJWarningVO" >
+		update member_list
+		set wcount = wcount+1 
+		<where>
+			<if test="w_co_no == 0"><!-- 원글 -->
+			 email in ( select fadoc_r_email from free_auth where doc_no in(select w_doc_no from warning where w_no =#{w_no}))
+			</if>
+			<if test="w_co_no != 0">
+			 email in ( select doc_email from free_auth_reply where doc_no in(select w_doc_no from warning where w_no =#{w_no})
+																AND doc_cno in(select doc_cno from warning where w_no=#{w_no}))
+			</if>
+		</where>
+	</update>
+	<!-- 1-3. co_no:0 원글숨김의한 가림처리 -->
+	<update id="update_blur" parameterType="JJWarningVO" >
+		update warning
+		set w_status ='일괄가림' 
+		<where>
+		<if test="w_status='숨김'">
+		w_status not in w_status='숨김' 
+		And w_doc_no in ( select w_doc_no from warning where w_no = #{w_no})
+		</if>
+		<if test="w_status='유지'">
+		 w_status not in w_status='유지' 
+		And w_doc_no in ( select w_doc_no from warning where w_no = #{w_no})
+		</if>
+		</where>
+		
+	</update>
+	<!-- 1-4. co_no:0 숨김->삭제??신고테이블 댓글 게시글???? -->
+	<delete id="status_b_delete" parameterType="JJWarningVO" > 
+		delete from ${w_category} where 
+		 doc_no in(select w_doc_no from warning where w_no= #{w_no})
+	</delete>
+	<delete id="status_c_delete" parameterType="JJWarningVO" > 
+		delete from ${w_category} where 
+		 doc_no in(select w_doc_no from warning where w_no= #{w_no})
+		AND  doc_cno in(select w_co_no from warning where w_no =#{w_no})
+	</delete>
+	
+	<update id = "update_cocount" parameterType="JJWarningVO" > 
+		update ${w_category} set doc_comment = doc_comment-1
+		where doc_no in(select w_doc_no from warning where w_no= #{w_no})
+	</update>
+	
+	<update id="DeleteUpdate" parameterType="JJWarningVO">
+	 	update ${w_category} set doc_lev=2 where doc_cno =#{w_co_no}
+    </update>
+	  
+     <select id="DeleteCount" parameterType="JJWarningVO" resultType="int">
+		 select count(*) from ${w_category} where doc_ref =#{w_co_no}
+	 </select> 
+	
+	
 	<!--  어드민 게시글 디테일 뷰  MODAL 상태처리 끝
 	 -->
-		
+	
 	
 	</mapper>	

@@ -35,6 +35,12 @@
 /* 공통으로 사용하는 CSS */
 @charset "utf-8";
 
+body::-webkit-scrollbar { 
+
+    display: none; 
+
+}
+
 * {
    margin:0;
    padding: 0;
@@ -409,7 +415,7 @@ li.list-group-item.click > a {
                   <ul class="dropdown-menu commu">
                      <li><a href="doclist.bo">&nbsp;자유게시판</a></li>
                      <li><a href="auth_fdoc.bo">책임분양인증</a></li>
-                     <li><a href="hospital_map.me">동물병원</a></li>
+                     <li><a href="hospital_map.me">Map</a></li>
                   </ul></li>
             </ul>
 				

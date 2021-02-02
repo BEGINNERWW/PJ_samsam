@@ -24,6 +24,14 @@ public class adopt_homeVO {
 	private List<String>kind_loc;
 	private int startrow;
 	private int endrow;
+	private int coupon;
+	private int startpage;
+	private int nowpage;
+	private int maxpage;
+	private int endpage;
+	String table;
+	
+	
 	
 	
 	public int getDoc_no() {
@@ -145,6 +153,42 @@ public class adopt_homeVO {
 	}
 	public void setEndrow(int endrow) {
 		this.endrow = endrow;
+	}
+	public int getCoupon() {
+		return coupon;
+	}
+	public void setCoupon(int coupon) {
+		this.coupon = coupon;
+	}
+	public int getStartpage() {
+		return startpage;
+	}
+	public void setStartpage(int startpage) {
+		this.startpage = startpage;
+	}
+	public int getNowpage() {
+		return nowpage;
+	}
+	public void setNowpage(int nowpage) {
+		this.nowpage = nowpage;
+	}
+	public int getMaxpage() {
+		return maxpage;
+	}
+	public void setMaxpage(int maxpage) {
+		this.maxpage = maxpage;
+	}
+	public int getEndpage() {
+		return endpage;
+	}
+	public void setEndpage(int endpage) {
+		this.endpage = endpage;
+	}
+	public String getTable() {
+		return table;
+	}
+	public void setTable(String table) {
+		this.table = table;
 	}
 
 	

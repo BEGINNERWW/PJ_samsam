@@ -3,7 +3,7 @@
 
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="com.project.samsam.board.*" %>
-
+<%@ page import="com.project.samsam.member.*" %>
 <%
 
 	List<adopt_homeVO> homelist=(List<adopt_homeVO>)request.getAttribute("homelist");
@@ -14,7 +14,8 @@
 	int endpage=((Integer)request.getAttribute("endpage")).intValue();
 	adopt_homeVO searchVO = (adopt_homeVO)request.getAttribute("vo");
 	String email = (String) session.getAttribute("email"); 
-	
+	Biz_memberVO bmvo = (Biz_memberVO) request.getAttribute("Biz_memberVO");
+	MemberVO mvo = (MemberVO) request.getAttribute("mvo");
 	
 %>
 
@@ -1144,12 +1145,55 @@ select, button, textarea {
 	
 	color:#5c5c8a;
 }
-	
+
+
+.list_count{
+   display : flex;
+   justify-content: center;
+}
+.pagenum{
+   display : flex;
+}
+.pageA{
+   margin-top: 10px;
+    padding-top: 3px;
+    padding-right: 10px;
+    padding-left: 10px;
+    color:black;
+}
+.now{
+   width : 30px;
+   height : 30px;
+   background-color : #eeeeee;
+    border-radius : 5px;
+   color:black;
+   text-align: center;
+    padding-top: 2px;
+    margin-top: 10px;
+}
+
+/* 이전 / 다음 버튼 */
+.before-btn, .after-btn{
+   margin: 10px;
+    width:60px;
+    height : 30px;
+    background-color: #eeeeee;
+    color : black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    border-radius : 5px; 
+    border-color: #eeeeee;
+    border-width: 0px;
+}
 
 
 </style>
 <script type ="text/javascript" src = "https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
+
+
     $('.search-box').click(function(){
       
     });
@@ -1190,8 +1234,7 @@ function numbeComma(number) {
 
 
 
-function create_list(){
-	
+function create_list(a){
 	
 	$('.list_content').empty();
 	jQuery.ajax({
@@ -1199,6 +1242,7 @@ function create_list(){
          type : 'POST',
          contentType : 'application/x-www-form-urlencoded; charset=utf-8',
          dataType : 'json',
+         data : {'page' : a },
          success : function (data) {
         	 $.each(data, function(index, item){
         		var date = new Date(item.doc_date);
@@ -1215,16 +1259,87 @@ function create_list(){
                 output +='<span class="date-read">'+getFormatDate(date)+'</span><span class="detail-read">&nbsp;&nbsp;&nbsp;&nbsp;<span class="recount_icon"></span>&nbsp;'+item.doc_readcount+'&nbsp;&nbsp;<span class="comment_icon"></span>'+item.doc_comment+'&nbsp;&nbsp;&nbsp;&nbsp;</span>'
                 output += '<div>'
                 output += '</div>'
-                output += '</div>';
-                
+                output += '</div>'
+               
+                	
                 $('.list_content').append(output);
+                
         	 });
+			
          },
          error:function(){
              alert("ajax통신 실패!!!");
           }
 	});
-	
+
+	jQuery.ajax({
+		
+		
+		url : 'listcount.bo',
+	    type : 'POST',
+	    contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+	    data : {'page':a},
+	    dataType : 'json',
+	    success : function (data) {
+			pageoutput = '';
+			$('.list_count').empty();
+			
+			 var startpage = data.startpage;
+			 var endpage = data.endpage;
+			 var maxpage = data.maxpage;
+			 var page = data.page;
+			
+			 
+			 	if(page<=1){
+				pageoutput += '<input type="button" class="before-btn" href="#" value="이전">'
+					
+			 	}
+			 	else{
+			 		if(<%=searchVO%> == null){
+			 			pageoutput += '<input type="button" class="before-btn" onclick="create_list('+(page-1)+');" href="#" value="이전">'
+			 		}
+			 		else{
+			 			pageoutput += '<input type="button" class="before-btn" onclick="search_submit'+(page-1);+'" href="#" value="이전">'
+			 		}
+			 	}
+			 	
+			 	for(var a=startpage; a<=endpage; a++){
+			 		
+			 		if(a==page){
+			 			pageoutput +='<span class="now">'+a+'</span>';
+			 			
+			 			}
+			 		else{
+			 			if(<%=searchVO%> == null){
+
+			 				pageoutput += '<a onclick="create_list('+a+');" href="#" class="pageA"><span class="pagenum">'+a+'</span>&nbsp;</a>'
+			 			}
+			 			else{
+			 				
+			 				pageoutput += '<a onclick="search_submit'+(a);+'" href="#" class="pageA"><span class="pagenum">'+a+'</span>&nbsp;</a>'
+			 			}
+			 		}
+			 	}
+			 	
+			 	if(page>=maxpage){
+			 		pageoutput += '<input type="button" class="before-btn" href="#" value="다음">'
+			 	}
+			 	else{
+			 		if(<%=searchVO%> == null){
+			 			pageoutput += '<input type="button" class="after-btn" onclick="create_list('+(page+1)+');" href="#" value="다음">'
+			 		}
+			 		else{
+			 			pageoutput += '<input type="button" class="after-btn" onclick="search_submit'+(page+1);+'" href="#" value="다음">'
+			 		}
+			 	}
+			 	 $('.list_count').append(pageoutput);
+	    },
+		error:function(){
+	        alert("ajax통신 실패!!!")
+	     }
+	    
+	});
+
 }
 
 $(document).ready(function(){
@@ -1448,7 +1563,7 @@ function search(){
 	
 }
 
-function default_submit(){
+function default_submit(a){
 	$(".list_content").empty();
 	
 	var searchinsert = $("#detail_form").serialize();
@@ -1457,7 +1572,7 @@ function default_submit(){
 		 url : 'home_search.bo',
         type : 'POST',
         contentType : 'application/x-www-form-urlencoded; charset=utf-8',
-        data : searchinsert,
+        data : {'searchinsert':searchinsert,'page':a},
         dataType : 'json',
         success :	function (data) {
        	 
@@ -1467,7 +1582,7 @@ function default_submit(){
         		var output = '';
         		
                 output += '<div class="post-entry-2 d-flex">';
-                output += '<div class="thumbnail order-md-2");" style="background-image: url(/springfileupload1/upload/'+item.doc_thumbnail+'.jpg)"></div>'
+                output += '<div class="thumbnail order-md-2");" style="background-image: url(/springfileupload1/upload/'+item.doc_thumbnail+')"></div>'
                 output += '<div class="contents order-md-1 pl-0">'
                 output += '<h2><a class="a_1" href="./adopthomeview.bo?num='+item.doc_no+'">'+ item.doc_subject +'</a></h2>'
                 output += '<p class="mb-3 tag">#' + item.doc_big  + '#' + item.doc_loc  + '#' +  item.doc_kindof  + '#' + numbeComma(number)+'원' + '</p>'
@@ -1486,13 +1601,76 @@ function default_submit(){
          }
 		
 	});
-	/*
-	sessionStorage.removeItem("default_option");
-	sessionStorage.removeItem("detail_option");
-	var default_option = $('#default_option').html();
-	sessionStorage.setItem('default_option',default_option);
-	*/
+	
+jQuery.ajax({
+		
+		url : 'Searchlistcount.bo',
+	    type : 'POST',
+	    contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+	    data : {'page':a,'vo':searchinsert},
+	    dataType : 'json',
+	    success : function (data) {
+			pageoutput = '';
+			$('.list_count').empty();
+			
+			 var startpage = data.startpage;
+			 var endpage = data.endpage;
+			 var maxpage = data.maxpage;
+			 var page = data.page;
+			
+			 
+			 	if(page<=1){
+				pageoutput += '[이전]&nbsp;'
+					
+			 	}
+			 	else{
+			 		if(<%=searchVO%> == null){
+			 			pageoutput += '<input type = "button" class="before_btn" onclick="create_list('+(page-1)+');" href="#" value="이전">'
+			 		}
+			 		else{
+			 			pageoutput += '<input type = "button" class="before_btn" onclick="search_submit'+(page-1);+'" href="#" value="이전">'
+			 		}
+			 	}
+			 	
+			 	for(var a=startpage; a<=endpage; a++){
+			 		
+			 		if(a==page){
+			 			pageoutput += a;
+			 			
+			 			}
+			 		else{
+			 			if(<%=searchVO%> == null){
+
+			 				pageoutput += '<a onclick="create_list('+a+');" href="#" class="pageA"><span class="pagenum">'+a+'</sapn>&nbsp;</a>'
+			 			}
+			 			else{
+			 				
+			 				pageoutput += '<a onclick="search_submit'+(a);+'" href="#" class="pageA"><span class="pagenum">'+a+'</span>&nbsp;</a>'
+			 			}
+			 		}
+			 	}
+			 	
+			 	if(page>=maxpage){
+			 		pageoutput += '다음'
+			 	}
+			 	else{
+			 		if(<%=searchVO%> == null){
+			 			pageoutput += '<input type = "button" class="after_btn" onclick="create_list('+(page+1)+');" href="#" value="다음">'
+			 		}
+			 		else{
+			 			pageoutput += '<input type = "button" class="after_btn" onclick="search_submit'+(page+1);+'" href="#" value="다음">'
+			 		}
+			 	}
+			 	 $('.list_count').append(pageoutput);
+	    },
+		error:function(){
+	        alert("ajax통신 실패!!!")
+	     }
+	    
+	});
+
 }
+
 
 function detail_submit(){
 $(".list_content").empty();
@@ -1512,7 +1690,7 @@ var searchinsert = $("#detail_form").serialize();
          		var output = '';
          		
                  output += '<div class="post-entry-2 d-flex">';
-                 output += '<div class="thumbnail order-md-2");" style="background-image: url(/springfileupload1/upload/'+item.doc_thumbnail+'.jpg)"></div>'
+                 output += '<div class="thumbnail order-md-2");" style="background-image: url(/springfileupload1/upload/'+item.doc_thumbnail+')"></div>'
                  output += '<div class="contents order-md-1 pl-0">'
                  output += '<h2><a class="a_1" href="./adopthomeview.bo?num='+item.doc_no+'">'+ item.doc_subject +'</a></h2>'
                  output += '<p class="mb-3 tag">#' + item.doc_big  + '#' + item.doc_loc  + '#' +  item.doc_kindof  + '#' + numbeComma(number)+'원' + '</p>'
@@ -1524,6 +1702,7 @@ var searchinsert = $("#detail_form").serialize();
                  output += '</div>';
                  
                  $('.list_content').append(output);
+                 
         	 });
          },
          error:function(){
@@ -1545,6 +1724,50 @@ function search_submit(a){
 	var default_option = $('#default_option').html();
 	sessionStorage.setItem('default_option',default_option);
 }
+
+function exhaustion(){
+	alert('쿠폰을 전부 사용하셨습니다');
+}
+
+
+function onKeyDown()
+{
+     if(event.keyCode == 13)
+     {
+        var doc_search =$('#default_search').val();
+       if(doc_search != ''){
+       var a = '';
+          a += '<li id="li_'+doc_search+'" class="smart-search-selected-condition-item option-type-brand">';
+          a += '<span class="filter-item"><span class="filter-title">'+doc_search+'</span>';
+          a += '<button class="btn-filter-del smart-search-selected-condition-delete-btn option-type-brand"></button>';
+          a += '<input type="hidden" name="doc_search" value="'+doc_search+'"></span></li>';
+          
+          $(".filter-list").append(a);
+          $('#default_search').val('');
+       }
+       event.preventDefault();
+     }
+}
+
+function onKeyDown1()
+{
+     if(event.keyCode == 13)
+     {
+        var doc_search =$('#detail_search').val();
+       if(doc_search != ''){
+       var a = '';
+         a += '<li id="li_'+doc_search+'" class="smart-search-selected-condition-item option-type-brand">';
+         a += '<span class="filter-item"><span class="filter-title">'+doc_search+'</span>';
+         a += '<button class="btn-filter-del smart-search-selected-condition-delete-btn option-type-brand"></button>';
+         a += '<input type="hidden" name="doc_search" value="'+doc_search+'"></span></li>';
+         
+         $(".filter-list").append(a);
+         $('#detail_search').val('');
+       }
+       event.preventDefault();
+     }
+}
+
 </script>
 </head>
 <body>
@@ -1624,14 +1847,14 @@ function search_submit(a){
          <div><div class="content-inner prod-category">
 <div class="prod-category-smart-search smart-search-filter include-type" id="option">
 <div id="search" class="smart-search-result bare-smart-filter">
-<form id="default_form" method="post" action="fdoc_search.bo">
+<form id="default_form" method="post" action="home_search.bo" onsubmit="return false;">
       <div class="keyword-wrap">
          <div class="title-box">
             <span class="title">검색어 추가</span>
             <span class="title-desc">함께 찾고 싶은 검색어를 입력해주세요.</span>
          </div>
          <div class="keyword-input-box input-wrap">
-            <input id="default_search" type="text" class="ui-input filter-search-word" placeholder="검색어를 입력해주세요" title="검색어 입력" onsubmit="return false;">
+            <input id="default_search" type="text" class="ui-input filter-search-word" placeholder="검색어를 입력해주세요" title="검색어 입력" onsubmit="return false;" onKeyDown="onKeyDown()">
             <button id="default_button" type="button" class="btn btn-sm add-filter-search-word-btn">추가</button>
          </div>
       </div>
@@ -2199,11 +2422,11 @@ function search_submit(a){
                <span class="title-desc">함께 찾고 싶은 검색어를 입력해주세요.</span>
             </div>
             <div class="keyword-input-box input-wrap">
-               <input id="detail_search" type="text" class="ui-input filter-search-word" placeholder="검색어를 입력해주세요" title="검색어 입력">
+               <input id="detail_search" type="text" class="ui-input filter-search-word" placeholder="검색어를 입력해주세요" title="검색어 입력" onKeyDown="onKeyDown1()">
                <button id="detail_button" type="button" class="btn btn-sm add-filter-search-word-btn">추가</button>
             </div>
          </div>
-         <form id="detail_form" method="post" action="fdoc_search.bo">
+         <form id="detail_form" method="post" action="home_search.bo">
             
             <div class="filter-wrap">
                <div class="title-box"><span class="title">선택한 조건</span></div>
@@ -2233,64 +2456,50 @@ function search_submit(a){
             
             
             </div>
+            <div class="list_count"></div>
           </div>
        </div>
         </div>
 
       <div style="margin-top:20px;">
    
-	     <div style="text-align:center;display:inline-block;margin-left:400px;">
-				<%if(nowpage<=1){ %>
-				[이전]&nbsp;
-				<%}else{ 
-				if(searchVO ==null){
-				%>
-				<a href="./home_list.bo?page=<%=nowpage-1 %>">[이전]</a>&nbsp;
-				<%}else{ %>
-				<a onclick="search_submit(<%=nowpage-1 %>);" href="#">[이전]</a>
-				<%}}
-				
-				for(int a=startpage;a<=endpage;a++){
-					if(a==nowpage){
-					//현재페이지는 링크가 필요없으므로 링크를 안검
-					
-					%>
-					[<%=a %>]
-					<%}else{ 
-					if(searchVO == null){
-					%>
-					<a onclick ="create_list(<%=a %>);" href ="#">[<%=a %>]</a>
-					&nbsp;
-					<%}else{ %>
-						
-					<a onclick="search_submit(<%=a %>);" href="#">[<%=a %>]</a>
-					&nbsp;
-					<% }} %>
-				<%} %>
-				
-				<%if(nowpage>=maxpage){
-					//더이상 읽을페이지가없을떄
-						%>
-				[다음]
-				<%}else{ 
-				if(searchVO == null){
-				%>
-				<a href="./home_list.bo?page=<%=nowpage+1 %>">[다음]</a>
-				<%}else{ %>
-				<a onclick="search_submit(<%=nowpage+1 %>);" href="#">[다음]</a>
-				<%}} %>
-			</div>
+	     
 	   
 
    <%
    if(email != null){
+
    %>
    <div style="display:inline-block; float:right;margin-right:25px;">
+ 		
+ 		
+
+   		<%
    		
-		<a href="./adopt_write.bo">[글쓰기]</a>
+   		if(email != null){
+   			if(mvo.getGrade().equals("사업자")){
+		   		if(bmvo.getFree_coupon()>0){
+		   		%>
+		   		<a href="./adopt_write.bo?coupon=0">[글쓰기]</a>
+		   		<%			
+		   		}
+		   		else if(bmvo.getPay_coupon()>0) {
+		   		%>
+		   		<a href="./adopt_write.bo?coupon=1">[글쓰기]</a>	
+		   		<%
+		   		}
+		   		else{
+		   		%>
+		   		 <a href="#" onclick="exhaustion()">[글쓰기]</a>	
+		   		<%
+		   		}
+	   		}
+   		}
+   		%>
 		
 	</div>
 	<% 
+   		
    }
  
    

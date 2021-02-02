@@ -99,6 +99,40 @@
 	 order by doc_no desc)) where rnum>=#{startrow} <![CDATA[and rnum<=#{endrow}]]>
 	
 	 </select>
+	 
+	 
+	 <select id="getSearchCount" parameterType="adopt_homeVO" resultType="int">
+	 select count(*) from adopt_home where doc_kindof in
+	 <foreach collection="kind_search" item="kind_search" open="(" close=")" separator=",">
+	 #{kind_search}
+	 </foreach>
+	 or doc_loc in
+	 <foreach collection="kind_loc" item="kind_loc" open="(" close=")" separator=",">
+	 #{kind_loc}
+	 </foreach>
+	 or doc_big in
+	 <foreach collection="doc_search" item="doc_search" open="(" close=")" separator=",">
+	 #{doc_search}
+	 </foreach>
+	 or doc_kindof in
+	<foreach collection="doc_search" item="doc_search" open="(" close=")" separator=",">
+	#{doc_search}
+	</foreach>
+	or doc_loc in
+	<foreach collection="doc_search" item="doc_search" open="(" close=")" separator=",">
+	#{doc_search}
+	</foreach>
+	 </select>
+	 
+	 
+<update id="FreecouponUpdate" parameterType="String">
+	update biz_member  set free_coupon=free_coupon-1 where biz_email= #{email}
+</update>
+
+<update id="PaycouponUpdate" parameterType="String">
+	update biz_member  set pay_coupon=pay_coupon-1 where biz_email = #{email}
+</update>
+ 
  
  <!-- 대댓글 -->
  <update id ="adopthomereplyspace" parameterType = "adopt_homereplyVO">
@@ -138,6 +172,7 @@
  <update id="replycountupdate" parameterType="adopt_homereplyVO">
 	 update adopt_home set doc_comment=doc_comment-1 where doc_no = #{doc_no}
 </update>
+
 
  
 </mapper>
