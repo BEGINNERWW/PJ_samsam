@@ -1170,13 +1170,13 @@ select, button, textarea {
 	<div class ="inout_gocen">
 			<%if(email != null){ %>
 			
-			<input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='/logout.me'">
-			<input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='/mypage.me'">
+			<input  type="button" class= "header_btn"  value="로그아웃" onclick="location.href='${pageContext.request.contextPath}/logout.me'">
+			<input  type="button" class= "header_btn"  value="마이페이지" onclick="location.href='${pageContext.request.contextPath}/mypage.me'">
 			<%}else{ %>
-			<input  type="button" class= "header_btn" value="로그인" onclick="location.href='/loginForm.me'">
-			<input  type="button" class= "header_btn" value="회원가입" onclick="location.href='/joinform.me'">
+			<input  type="button" class= "header_btn" value="로그인" onclick="location.href='${pageContext.request.contextPath}/loginForm.me'">
+			<input  type="button" class= "header_btn" value="회원가입" onclick="location.href='${pageContext.request.contextPath}/joinform.me'">
 			<%} %>
-			<a href="customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
+			<a href="${pageContext.request.contextPath}/customer_service.me"><input type="button" class= "header_btn" id="gocen" value="고객센터"></a>
 		</div>
 	
 	<div class="nav-menu">
@@ -1208,7 +1208,7 @@ select, button, textarea {
 		</a>
 		</div>
 	</div>
-	<form action="home_search.me" method="post" name="home_search">
+	<form action="${pageContext.request.contextPath}/home_search.me" method="post" name="home_search">
             <div class="search-wrapper">
                <input class="search-box input"  id="keyword" name="keyword" type="text" placeholder="Search">
                <button class="search-box" type="submit">
@@ -1236,7 +1236,8 @@ select, button, textarea {
 					 <div style="margin-top:20px;">
 				          <div class="col-lg-12">
 				            <div class="section-title">
-				              <span class="caption d-block small">보호소 > 파양게시판</span>
+				              <span class="caption d-block small">Categories</span>
+				              <h2>파양게시판</h2>
 				            </div>
 				            <div class="list_wrap">
 				            <div class="list_content">
@@ -1252,7 +1253,7 @@ select, button, textarea {
 				              <div class="thumbnail order-md-2" style="background-image: url('${board.thumbnail}');"></div>
 				              <div class="contents order-md-1 pl-0">
 				               
-				                <h2><a class="a_1" href="/SJ/payang/read?doc_no=${board.doc_no}">${board.doc_subject}</a></h2>
+				                <h2><a class="a_1" href="${pageContext.request.contextPath}/SJ/payang/read?doc_no=${board.doc_no}">${board.doc_subject}</a></h2>
 				                <p class="mb-3 tag">#${board.doc_big_name} #${board.doc_kind} #${board.doc_sido} </p>
 				                <div class="post-meta">
 				                  <span class="d-block"><a class="a_1" href="#">${board.doc_nick}</a></span>

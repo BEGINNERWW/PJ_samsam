@@ -1417,7 +1417,7 @@ select, button, textarea {
 			specialMark = hidden.children(".animal-specialMark").text() ;
 			weight = hidden.children(".animal-weight").text() ;
 			
-			location.href = "/SJ/pet_detail?"
+			location.href = "${pageContext.request.contextPath}/SJ/pet_detail?"
 					+ "kindCd=" + kindCd
 					+ "&sexCd=" + sexCd
 					+ "&happenDt=" + happenDt
@@ -1449,7 +1449,7 @@ select, button, textarea {
 		
 		$.ajax({
 			type: "POST"
-			, url: "/SJ/SiGunGu"
+			, url: "${pageContext.request.contextPath}/SJ/SiGunGu"
 			, data: {
 				  sidoCode: sidoCode,
 				  requestType : '01'
@@ -1474,7 +1474,7 @@ select, button, textarea {
 		
 		$.ajax({
 			type: "POST"
-			, url: "/SJ/animalKind"
+			, url: "${pageContext.request.contextPath}/SJ/animalKind"
 			, data: {
 					upKindCode: upKindCode
 				}  
@@ -1497,7 +1497,7 @@ select, button, textarea {
 		
 		$.ajax({
 			type: "POST"
-			, url: "/SJ/animalInfoList"
+			, url: "${pageContext.request.contextPath}/SJ/animalInfoList"
 			, data: {
 				bgnde : bgnde,
 				endde : endde,
@@ -1728,7 +1728,7 @@ select, button, textarea {
 		});//헤더 상단 로그아웃 체인지
 		
 		$('#list-btn').on('click', function(){
-			location.href = "/SJ/pet_list";
+			location.href = "${pageContext.request.contextPath}/SJ/pet_list";
 		});
 		
 		
@@ -1784,7 +1784,7 @@ select, button, textarea {
 	       $.ajax({
 	         data: form_data,
 	         type: "post",
-	         url: 'image.bo',
+	         url: '${pageContext.request.contextPath}/image.bo',
 	         cache: false,
 	         contentType: false,
 	         enctype: 'multipart/form-data',
