@@ -27,7 +27,10 @@ String id = (String) session.getAttribute("nick");
    crossorigin="anonymous">
 
 <style>
-	
+
+body::-webkit-scrollbar { 
+    display: none; 
+}
 
 .btn_box{
  float:right;
@@ -242,9 +245,10 @@ li.dropdown > a {
 }
 .search-box.input:focus {outline:none;}
 
-.search-box.btn1 {
+.search-box {
   color : #9494b8;
   text-align : left; 
+  font-size: 1rem;
 }
 
 /* search-wrqpper */
@@ -1091,7 +1095,7 @@ border-bottom: 1px solid #eee;
 				<!-- 수정시작 -->
 				<div class="contents">
 					<div class="article-head">
-						<p style="font-szie:16px;font-weight:bold;">분양 &nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;가정분양 게시판</p>
+						<p style="font-szie:16px;font-weight:bold;">분양 &nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;업체분양 게시판</p>
 						
 						<h2 class="headsubject"><%=adoptvo.getDoc_subject()%></h2>
 						<p class="name"><%=adoptvo.getDoc_nick()%></p>

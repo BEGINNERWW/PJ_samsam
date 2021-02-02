@@ -119,16 +119,19 @@ private MemberSV memberSV;
 	 int endpage = maxpage;
 	 
 	 if(endpage>startpage+10-1)endpage = startpage+10-1;
-	 MemberVO mvo = memberSV.selectMember(email);
-	 if(mvo.getGrade().equals("사업자")) {
-		 if(email != null){
-
-			 Biz_memberVO bmvo = memberSV.selectBizMember(email);
-			 model.addAttribute("Biz_memberVO",bmvo);
-			 
-		 }
-		}
-	 model.addAttribute("mvo" , mvo);
+	 
+	 
+	 if(email != null){
+		MemberVO mvo = memberSV.selectMember(email);
+		if(mvo.getGrade().equals("사업자")){
+		 Biz_memberVO bmvo = memberSV.selectBizMember(email);
+		 model.addAttribute("Biz_memberVO",bmvo);
+		
+	 }
+		 model.addAttribute("mvo" , mvo);
+	}
+	 
+	
 	 model.addAttribute("page",page);
 	 model.addAttribute("listcount",listcount);
 	 model.addAttribute("homelist",homelist);
